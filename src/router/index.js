@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Page1 from '@/views/page1'
+import OrderIndex from '@/views/OrderIndex'
+import Order from '@/views/Order'
 
 Vue.use(Router);
 
@@ -10,26 +11,29 @@ export default new Router({
     {
       path: '/',
       redirect: {
-        name: 'helloWorld'
+        name: 'orderIndex'
       }
     }, {
-      path: '/page1',
-      name: 'page1',
-      component: Page1,
+      path: '/order',
+      name: 'order',
+      component: Order,
       meta: {
-        title: '订购会管理'
+        title: '订购会'
       },
       children: [
         {
-          path: 'helloWorld',
-          name: 'helloWorld',
-          component: HelloWorld
+          path: 'orderIndex',
+          name: 'orderIndex',
+          component: OrderIndex,
+          meta: {
+            title: '首页-订购会'
+          },
         }
       ]
     }, {
       path: '/page2',
       name: 'page2',
-      component: Page1,
+      component: Order,
       meta: {
         title: '基础数据维护'
       }
