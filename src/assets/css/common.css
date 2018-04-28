@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 644783 */
+  src: url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.eot');
+  src: url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: 'iconfont';
+  font-size: 14px;
+  font-style: normal;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'PingFang SC', 'STHeiti', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-size: 12px;
+}
+
+.fn-left {
+  float: left;
+}
+
+.fn-right {
+  float: right;
+}
+
+.fn-clear:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+
