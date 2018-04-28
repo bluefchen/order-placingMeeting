@@ -18,15 +18,11 @@
     <!-- 头部切换 -->
     <div class="header fn-clear">
       <img src="@/assets/images/vivo-logo.png" class="fn-left">
-      <el-menu :default-active="activeIndex" class="sub-menu fn-right" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">
-          <router-link :to="{path: '/order/orderIndex'}">首页</router-link>
-        </el-menu-item>
-        <el-submenu index="2">
+      <el-menu :default-active="activeIndex" class="sub-menu fn-right" mode="horizontal" router>
+        <el-menu-item index="/order/orderIndex">首页</el-menu-item>
+        <el-submenu index="/order/orderModel">
           <template slot="title">机型管理</template>
-          <el-menu-item index="2-1">
-            <router-link :to="{path: '/order/orderIndex'}">机型维护</router-link>
-          </el-menu-item>
+          <el-menu-item index="2-1">机型维护</el-menu-item>
           <el-menu-item index="2-2">特种机型分配量维护</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
@@ -71,11 +67,6 @@
       return {
         activeIndex: '1',
       };
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
     }
   }
 </script>
@@ -138,6 +129,14 @@
     border-bottom: none;
     .el-menu-item.is-active, .el-submenu.is-active .el-submenu__title {
       border-bottom: 2px solid #ff0404;
+    }
+  }
+
+  .el-menu--horizontal .el-menu .el-menu-item {
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+      background-color: #f13939;
     }
   }
 </style>
