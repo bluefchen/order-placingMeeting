@@ -21,8 +21,8 @@
       <el-menu :default-active="activeIndex" class="sub-menu fn-right" mode="horizontal" router>
         <el-menu-item index="/order/orderIndex">首页</el-menu-item>
         <el-submenu index="/order/orderModel">
+          <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
           <template slot="title">机型管理</template>
-          <el-menu-item index="2-1">机型维护</el-menu-item>
           <el-menu-item index="/order/specialModelAssignment">特种机型分配量维护</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
@@ -65,13 +65,13 @@
     },
     data() {
       return {
-        activeIndex: '1',
+        activeIndex: '/order/orderIndex',
       };
     }
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   /*顶部*/
   .toper {
     width: 100%;
@@ -127,9 +127,6 @@
   .sub-menu {
     margin-top: 10px;
     border-bottom: none;
-    .el-menu-item.is-active, .el-submenu.is-active .el-submenu__title {
-      border-bottom: 2px solid #ff0404;
-    }
   }
 
   .el-menu--horizontal .el-menu .el-menu-item {
