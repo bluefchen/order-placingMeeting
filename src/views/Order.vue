@@ -18,7 +18,7 @@
     <!-- 头部切换 -->
     <div class="header fn-clear">
       <img src="@/assets/images/vivo-logo.png" class="fn-left">
-      <el-menu :default-active="activeIndex" class="sub-menu fn-right" mode="horizontal" router>
+      <el-menu :default-active="$route.path" class="sub-menu fn-right" mode="horizontal" router>
         <el-menu-item index="/order/orderIndex">首页</el-menu-item>
         <el-submenu index="/order/orderModel">
           <template slot="title">机型管理</template>
@@ -65,7 +65,7 @@
     },
     data() {
       return {
-        activeIndex: '/order/orderIndex',
+
       };
     }
   }
