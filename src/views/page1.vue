@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <el-button type="primary">主要按钮</el-button>
+    <router-view/>
   </div>
 </template>
 
@@ -26,6 +25,6 @@
 
 <style scoped lang="less">
   .hello {
-    background-color: #eee;
+    background-color: #ff0;
   }
 </style>
