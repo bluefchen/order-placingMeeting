@@ -4,7 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Order from '@/views/Order'
 import OrderIndex from '@/views/OrderIndex'
 import OrderModel from '@/views/OrderModel'
-import specialModelAssignment from '@/views/specialModelAssignment'
+import SpecialModel from '@/views/SpecialModel'
 
 Vue.use(Router);
 
@@ -38,9 +38,9 @@ export default new Router({
             title: '机型管理-订购会'
           },
         },{
-          path: 'specialModelAssignment',
-          name: 'specialModelAssignment',
-          component: specialModelAssignment,
+          path: 'specialModel',
+          name: 'specialModel',
+          component: SpecialModel,
           meta: {
             title: '特种机型分配量维护'
           },
