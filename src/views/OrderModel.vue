@@ -10,196 +10,194 @@
         </div>
       </div>
     </div>
-    <!-- 中间背景图片 -->
 
-    <div class="content">
-      <!-- 我的位置 -->
-      <div class="my-location">
-        <div class="location">
-          <label>我的位置： </label>
-          <p class="location-p">机型管理 > <span class="red">机型维护</span></p>
-        </div>
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <label>我的位置：</label>
+        <p class="location-p">机型管理 > <span class="red">机型维护</span></p>
       </div>
+    </div>
 
-      <!-- 搜索 -->
-      <div class="box-1200 search-cnt fn-clear">
-        <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" size="small">
-          <el-select v-model="select" slot="prepend" placeholder="请选择">
-            <el-option label="集采" value="1"></el-option>
-            <el-option label="社采" value="2"></el-option>
-          </el-select>
-          <el-button slot="append">搜 索</el-button>
-        </el-input>
-      </div>
-      <!-- 更多筛选 -->
-      <div class="queries-list">
-        <p class="queries-title">所有分类 > <span class="checked-query">类别：手机<i class="iconfont">&#xe633;</i></span><span
-          class="checked-query">品牌：中兴<i class="iconfont">&#xe633;</i></span><a href="javascript:;"
-                                                                               class="category-more fn-right">更多筛选 <i
-          class="iconfont">&#xe608;</i></a></p>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端状态：</span>
-          <div class="category-list fn-left">
-            <span class="category-item">上架</span>
-            <span class="category-item">下架</span>
-          </div>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">是否特种机型：</span>
-          <div class="category-list fn-left">
-            <span class="category-item">是</span>
-            <span class="category-item">否</span>
-          </div>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端品牌：</span>
-          <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
-            <span class="category-item hover">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-            <span class="category-item">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-            <span class="category-item">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-          </div>
-          <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端型号：</span>
-          <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldModel}">
-            <span class="category-item">Iphone 5s</span>
-            <span class="category-item">Iphone 6</span>
-            <span class="category-item">Iphone 6s</span>
-            <span class="category-item">Iphone 6plus</span>
-            <span class="category-item">Iphone 7s</span>
-          </div>
-          <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+    <!-- 搜索 -->
+    <div class="box-1200 search">
+      <el-input placeholder="输入终端名称搜索" v-model="input5" class="input-with-select" size="small">
+        <el-select v-model="select" slot="prepend" placeholder="请选择">
+          <el-option label="集采" value="1"></el-option>
+          <el-option label="社采" value="2"></el-option>
+        </el-select>
+        <el-button slot="append">搜 索</el-button>
+      </el-input>
+    </div>
+
+    <!-- 更多筛选 -->
+    <div class="box-1200 queries-list">
+      <p class="queries-title">所有分类 > <span class="checked-query">类别：手机<i class="iconfont">&#xe633;</i></span><span
+        class="checked-query">品牌：中兴<i class="iconfont">&#xe633;</i></span><a href="javascript:;"
+                                                                             class="category-more fn-right">更多筛选 <i
+        class="iconfont">&#xe608;</i></a></p>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端状态：</span>
+        <div class="category-list fn-left">
+          <span class="category-item">上架</span>
+          <span class="category-item">下架</span>
         </div>
       </div>
-      <div class="tabs-list">
-        <div class="order-titl fn-clear">
-          <div class="tel-model fn-left">订货会机型</div>
-          <div class="buttons fn-right">
-            <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入新增</button>
-            <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除</button>
-            <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
-            <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
-          </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">是否特种机型：</span>
+        <div class="category-list fn-left">
+          <span class="category-item">是</span>
+          <span class="category-item">否</span>
         </div>
-        <table width="100%" cellspacing="0" cellpadding="0" class="table">
-          <thead>
-          <tr>
-            <th width="5%"><input type="checkbox"></th>
-            <th width="19%">终端名称</th>
-            <th width="10%">终端品牌</th>
-            <th width="10%">终端型号</th>
-            <th width="9%">产品类型</th>
-            <th width="9%">终端价格</th>
-            <th width="10%">是否特种机型</th>
-            <th width="8%">上架数量</th>
-            <th width="8%">状态</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone2.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn green">上架</button>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone3.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone4.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
-            </td>
-          </tr>
-          </tbody>
-        </table>
       </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端品牌：</span>
+        <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
+          <span class="category-item hover">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+          <span class="category-item">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+          <span class="category-item">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+        </div>
+        <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端型号：</span>
+        <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldModel}">
+          <span class="category-item">Iphone 5s</span>
+          <span class="category-item">Iphone 6</span>
+          <span class="category-item">Iphone 6s</span>
+          <span class="category-item">Iphone 6plus</span>
+          <span class="category-item">Iphone 7s</span>
+        </div>
+        <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+      </div>
+    </div>
+    <div class="tabs-list">
+      <div class="order-titl fn-clear">
+        <div class="tel-model fn-left">订货会机型</div>
+        <div class="buttons fn-right">
+          <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入新增</button>
+          <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除</button>
+          <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
+          <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
+        </div>
+      </div>
+      <table width="100%" cellspacing="0" cellpadding="0" class="table">
+        <thead>
+        <tr>
+          <th width="5%"><input type="checkbox"></th>
+          <th width="19%">终端名称</th>
+          <th width="10%">终端品牌</th>
+          <th width="10%">终端型号</th>
+          <th width="9%">产品类型</th>
+          <th width="9%">终端价格</th>
+          <th width="10%">是否特种机型</th>
+          <th width="8%">上架数量</th>
+          <th width="8%">状态</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td>上架</td>
+          <td>
+            <button class="updown-btn red">下架</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone2.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td>上架</td>
+          <td>
+            <button class="updown-btn green">上架</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone3.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td>上架</td>
+          <td>
+            <button class="updown-btn red">下架</button>
+          </td>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone4.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td>上架</td>
+          <td>
+            <button class="updown-btn red">下架</button>
+          </td>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -260,11 +258,6 @@
     background-color: #f6f6f6;
   }
 
-  .location {
-    width: 1160px;
-    margin: 0 auto;
-  }
-
   .my-location label {
     color: #aaa;
   }
@@ -281,19 +274,47 @@
     color: #46b02e;
   }
 
-  .search-cnt {
+  .search {
     margin: 10px auto;
+
+    .input-with-select {
+      width: 480px;
+    }
+
+    .el-select .el-input {
+      width: 90px;
+    }
+
+    .el-input-group__append, .el-input-group__prepend {
+      border-radius: 0;
+    }
+
+    .input-with-select .el-input-group__prepend {
+      background-color: #f8f8f8;
+    }
+
+    .input-with-select .el-input-group__append {
+      background-color: #f82134;
+      border-color: #f82134;
+      color: #fff;
+    }
+
+    .el-input.is-active .el-input__inner, .el-input__inner:focus {
+      border-color: #ff7a7a;
+    }
   }
 
-  .el-select .el-input {
-    width: 130px;
+  .el-select-dropdown {
+    border: none;
   }
-  .input-with-select .el-input-group__prepend {
-    background-color: #fff;
+
+  .el-select-dropdown__item.selected {
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
 
   .queries-list {
-    width: 1160px;
     margin: 10px auto;
     border: 1px solid #dfdfdf;
   }
