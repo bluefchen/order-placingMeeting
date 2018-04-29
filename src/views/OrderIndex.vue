@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="stores">
-        <TabWithTable />
+        <TabWithTable :active-name="activeName" :tabs-list="tabsList" />
       </div>
     </div>
   </div>
@@ -37,6 +37,129 @@
     name: 'OrderIndex',
     data() {
       return {
+        activeName: '参会供货商',
+        tabsList: [{
+          tabLabel: '参会供货商',
+          tableTitle: [{
+            label: '省份',
+            prop: 'province'
+          }, {
+            label: '地市',
+            prop: 'city'
+          }, {
+            label: '供应商名称',
+            prop: 'supplierName'
+          }, {
+            label: '供应商类型',
+            prop: 'supplierType'
+          }, {
+            label: '联系人',
+            prop: 'contact'
+          }, {
+            label: '联系电话',
+            prop: 'TEL'
+          }, {
+            label: '公司电话',
+            prop: 'companyTel'
+          }, {
+            label: '公司传真',
+            prop: 'fax'
+          }],
+          tableData: [{
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }, {
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }, {
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }],
+          pageChanged: function () {
+            console.log('1');
+          }
+        }, {
+          tabLabel: '参会零售商',
+          tableTitle: [{
+            label: '省份',
+            prop: 'province'
+          }, {
+            label: '地市',
+            prop: 'city'
+          }, {
+            label: '零售商名称',
+            prop: 'supplierName'
+          }, {
+            label: '零售商类型',
+            prop: 'supplierType'
+          }, {
+            label: '联系人',
+            prop: 'contact'
+          }, {
+            label: '联系电话',
+            prop: 'TEL'
+          }, {
+            label: '公司电话',
+            prop: 'companyTel'
+          }, {
+            label: '公司传真',
+            prop: 'fax'
+          }],
+          tableData: [{
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }, {
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }, {
+            province: '江苏省',
+            city: '南京市',
+            supplierName: '供货商AAAAA',
+            supplierType: '省代',
+            contact: '王小明',
+            TEL: '180123456789  ',
+            companyTel: '025-5800000000',
+            fax: '025-5800000000'
+          }],
+          pageChanged: function () {
+            console.log('2');
+          }
+        }]
+      }
+    },
+    methods: {
+      pageChanged1(currentPage) {
+        console.log('当前页：', currentPage);
       }
     },
     components: {

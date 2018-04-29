@@ -4,7 +4,7 @@
       <el-option label="集采" value="1"></el-option>
       <el-option label="社采" value="2"></el-option>
     </el-select>
-    <el-button slot="append" @click="toSearch()">搜 索</el-button>
+    <el-button slot="append" @click="handleSearch()">搜 索</el-button>
   </el-input>
 </template>
 
@@ -24,7 +24,7 @@
       }
     },
     methods: {
-      toSearch() {
+      handleSearch() {
         this.search({
           value: this.input,
           type: this.select

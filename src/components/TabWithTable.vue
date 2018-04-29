@@ -1,72 +1,52 @@
 <template>
-  <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-    <el-tab-pane label="参会供货商" name="first">
-      <el-table :data="tableData" stripe border size="small">
-        <el-table-column prop="province" label="省份"></el-table-column>
-        <el-table-column prop="city" label="地市"></el-table-column>
-        <el-table-column prop="supplierName" label="供应商名称"></el-table-column>
-        <el-table-column prop="supplierType" label="供应商类型"></el-table-column>
-        <el-table-column prop="contact" label="联系人"></el-table-column>
-        <el-table-column prop="TEL" label="联系电话"></el-table-column>
-        <el-table-column prop="companyTel" label="公司电话"></el-table-column>
-        <el-table-column prop="fax" label="公司传真"></el-table-column>
+  <el-tabs v-model="activeNameUpdate" type="card">
+    <el-tab-pane v-for="(tab, index) in tabsListUpdate" :key="index" :label="tab.tabLabel" :name="tab.tabLabel">
+      <el-table :data="tab.tableData" stripe border size="small">
+        <el-table-column v-for="(title, index) in tab.tableTitle" :key="index" :prop="title.prop"
+                         :label="title.label"></el-table-column>
       </el-table>
-    </el-tab-pane>
-    <el-tab-pane label="参会零售商" name="second">
-      <el-table :data="tableData" stripe border size="small">
-        <el-table-column prop="province" label="省份"></el-table-column>
-        <el-table-column prop="city" label="地市"></el-table-column>
-        <el-table-column prop="supplierName" label="零售商名称"></el-table-column>
-        <el-table-column prop="supplierType" label="零售商类型"></el-table-column>
-        <el-table-column prop="contact" label="联系人"></el-table-column>
-        <el-table-column prop="TEL" label="联系电话"></el-table-column>
-        <el-table-column prop="companyTel" label="公司电话"></el-table-column>
-        <el-table-column prop="fax" label="公司传真"></el-table-column>
-      </el-table>
+      <Pagination :page-changed="tab.pageChanged"/>
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
+  import Pagination from '@/components/Pagination';
+
   export default {
     name: 'TabWithTable',
+    props: {
+      activeName: {
+        type: String,
+        require: true
+      },
+      tabsList: {
+        type: Array,
+        require: true
+      }
+    },
     data() {
-      return {
-        activeName: 'first',
-        tableData: [{
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }, {
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }, {
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }]
+      return {}
+    },
+    computed: {
+      activeNameUpdate: {
+        get: function () {
+          return this.activeName
+        },
+        set: function () {
+        }
+      },
+      tabsListUpdate: {
+        get: function () {
+          return this.tabsList
+        },
+        set: function () {
+        }
       }
     },
-    methods: {
-      handleClick(tab, event) {
-      }
-    },
+    components: {
+      Pagination
+    }
   }
 </script>
 
