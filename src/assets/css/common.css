@@ -19,11 +19,16 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
   font-size: 12px;
+}
+
+.box-1200 {
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .fn-left {
