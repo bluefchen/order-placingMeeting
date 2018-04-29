@@ -34,7 +34,6 @@
 
 <style scoped lang="less">
   .device-wrap {
-    min-width: 320px;
     text-align: left;
     .device-pic {
       width: 80px;
@@ -47,7 +46,9 @@
       }
     }
     .device-info {
-      margin-left: 15px;
+      box-sizing: border-box;
+      width: calc(100% - 82px);
+      padding-left: 15px;
       .name {
         height: 26px;
         line-height: 26px;
@@ -89,7 +90,7 @@
           &.spec {
             border: 1px solid #ff982d;
             background-color: #ff982d;
-            border-radius: 2px;
+            border-radius: 3px;
             color: #fff;
             font-weight: 800;
           }

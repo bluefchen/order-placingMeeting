@@ -96,7 +96,7 @@
           <thead>
           <tr>
             <th width="5%"><input type="checkbox"></th>
-            <th width="19%">终端名称</th>
+            <th width="25%">终端名称</th>
             <th width="10%">终端品牌</th>
             <th width="10%">终端型号</th>
             <th width="9%">产品类型</th>
