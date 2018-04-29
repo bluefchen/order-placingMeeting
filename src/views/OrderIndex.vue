@@ -24,155 +24,28 @@
         </div>
       </div>
       <div class="stores">
-        <template>
-          <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-            <el-tab-pane label="参会供货商" name="first">
-              <div class="stores-tab">
-                <el-table :data="tableData" stripe style="width: 100%">
-                  <el-table-column prop="province" label="省份"></el-table-column>
-                  <el-table-column prop="city" label="地市"></el-table-column>
-                  <el-table-column prop="supplierName" label="供应商名称"></el-table-column>
-                  <el-table-column prop="supplierType" label="供应商类型"></el-table-column>
-                  <el-table-column prop="contact" label="联系人"></el-table-column>
-                  <el-table-column prop="TEL" label="联系电话"></el-table-column>
-                  <el-table-column prop="companyTel" label="公司电话"></el-table-column>
-                  <el-table-column prop="fax" label="公司传真"></el-table-column>
-                </el-table>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="参会零售商" name="second">
-              <div class="stores-tab">
-                <el-table :data="tableData" stripe style="width: 100%">
-                  <el-table-column prop="province" label="省份"></el-table-column>
-                  <el-table-column prop="city" label="地市"></el-table-column>
-                  <el-table-column prop="supplierName" label="零售商名称"></el-table-column>
-                  <el-table-column prop="supplierType" label="零售商类型"></el-table-column>
-                  <el-table-column prop="contact" label="联系人"></el-table-column>
-                  <el-table-column prop="TEL" label="联系电话"></el-table-column>
-                  <el-table-column prop="companyTel" label="公司电话"></el-table-column>
-                  <el-table-column prop="fax" label="公司传真"></el-table-column>
-                </el-table>
-              </div>
-            </el-tab-pane>
-          </el-tabs>
-        </template>
+        <TabWithTable />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import TabWithTable from '@/components/TabWithTable'
+
   export default {
     name: 'OrderIndex',
-    created() {
-
-    },
     data() {
       return {
-        activeName: 'first',
-        tableData: [{
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }, {
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }, {
-          province: '江苏省',
-          city: '南京市',
-          supplierName: '供货商AAAAA',
-          supplierType: '省代',
-          contact: '王小明',
-          TEL: '180123456789  ',
-          companyTel: '025-5800000000',
-          fax: '025-5800000000'
-        }]
       }
     },
-    methods: {
-      handleClick(tab, event) {
-      }
+    components: {
+      TabWithTable
     }
   }
 </script>
 
-<style lang="less">
-
-  .el-tabs__header{
-    padding: 0;
-    position: relative;
-    margin: 0;
-  }
-  .el-table{
-    font-size: 12px;
-  }
-  .el-table td, .el-table th{
-    padding: 0;
-  }
-  .el-tabs--card>.el-tabs__header{
-    width: 432px;
-    margin: 0 auto;
-    border: none;
-  }
-  .el-tabs--card>.el-tabs__header .el-tabs__nav{
-    width: 100%;
-    border: none;
-    border-radius: 0;
-  }
-  .el-tabs--card>.el-tabs__header .el-tabs__item{
-    width: 50%;
-    height: 42px;
-    background-color: #dadcdf;
-    line-height: 42px;
-    font-size: 16px;
-    text-align: center;
-    border: none;
-    font-weight: normal;
-  }
-  .el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
-    background: #f5f5f5;
-  }
-
-  .el-table--enable-row-hover .el-table__body tr:hover>td{
-    background-color: #f5f5f5;
-  }
-
-  .el-tabs__item.is-active{
-    position: relative;
-    background-color: #f5f5f5;
-    color: #ff0404;
-  }
-  .el-tabs__item.is-active:after {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #ff0404;
-  }
-  .el-tabs__item:hover {
-    color: #ff0404;
-    cursor: pointer;
-  }
-  .el-table__body, .el-table__footer, .el-table__header{
-    table-layout: inherit;
-  }
-  .el-table, .el-table__expanded-cell {
-    background-color: #f5f5f5;
-  }
-
+<style scoped lang="less">
   /*中间背景图片*/
   .img-bg {
     width: 100%;
@@ -255,78 +128,6 @@
   }
 
   .stores {
-    width: 100%;
-    min-width: 1200px;
     margin-top: 42px;
-  }
-
-  .stores-ui {
-    width: 432px;
-    margin: 0 auto;
-  }
-
-  .stores-ui li {
-    float: left;
-    width: 50%;
-    height: 42px;
-    background-color: #dadcdf;
-    line-height: 42px;
-    font-size: 16px;
-    text-align: center;
-  }
-
-  .stores-ui li.on {
-    position: relative;
-    background-color: #f5f5f5;
-    color: #ff0404;
-  }
-
-  .stores-ui li.on:after {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #ff0404;
-  }
-
-  .stores-tab {
-    width: 100%;
-    padding: 30px 0;
-    background-color: #f5f5f5;
-  }
-
-  .stores-tab table {
-    max-width: 1200px;
-    margin: 0 auto;
-    border: 1px solid #e3e3e3;
-    border-bottom: 0;
-    border-right: 0;
-    background-color: #fff;
-  }
-
-  .stores-tab table tr {
-    height: 34px;
-  }
-
-  .stores-tab table tr th {
-    background-color: #efefef;
-    color: #000;
-  }
-
-  .stores-tab table tr th, .stores-tab table tr td {
-    border: 1px solid #e3e3e3;
-    border-top: 0;
-    border-left: 0;
-    text-align: center;
-  }
-
-  .stores-tab table tr td {
-    color: #151515;
-  }
-
-  .stores-tab table tr:nth-of-type(2n) {
-    background-color: #fcfcfc;
   }
 </style>
