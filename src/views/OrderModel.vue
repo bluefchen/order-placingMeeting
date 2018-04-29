@@ -110,12 +110,8 @@
           <tbody>
           <tr>
             <td><input type="checkbox"></td>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-              </p>
+            <td>
+              <DeviceInfo />
             </td>
             <td>VIVO</td>
             <td>VIVO-X20</td>
@@ -199,6 +195,7 @@
 
 <script>
   import InputWithSelect from '@/components/InputWithSelect';
+  import DeviceInfo from '@/components/DeviceInfo';
 
   export default {
     name: 'OrderModel',
@@ -213,7 +210,8 @@
       }
     },
     components: {
-      InputWithSelect
+      InputWithSelect,
+      DeviceInfo
     }
   }
 </script>
