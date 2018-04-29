@@ -23,7 +23,7 @@
         <el-submenu index="/order/orderModel">
           <template slot="title">机型管理</template>
           <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
-          <el-menu-item index="2-2">特种机型分配量维护</el-menu-item>
+          <el-menu-item index="/order/specialModel">特种机型分配量维护</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">订单管理</template>
