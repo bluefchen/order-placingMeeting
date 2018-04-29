@@ -22,19 +22,14 @@
       </div>
 
       <!-- 搜索 -->
-      <div class="search-cnt fn-clear">
-        <div class="search fn-left">
-          <div class="selections">
-            <span class="wrds">集采</span>
-            <i class="iconfont">&#xe608;</i>
-            <ul class="select-list">
-              <li>集采</li>
-              <li>社采</li>
-            </ul>
-          </div>
-          <input type="text" class="search-input" placeholder="输入终端名称搜索">
-        </div>
-        <button class="search-btn fn-left">搜 索</button>
+      <div class="box-1200 search-cnt fn-clear">
+        <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" size="small">
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-option label="集采" value="1"></el-option>
+            <el-option label="社采" value="2"></el-option>
+          </el-select>
+          <el-button slot="append">搜 索</el-button>
+        </el-input>
       </div>
       <!-- 更多筛选 -->
       <div class="queries-list">
@@ -217,13 +212,16 @@
     },
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        input3: '',
+        input4: '',
+        input5: '',
+        select: ''
       }
     }
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   /*中间背景图片*/
   .img-bg {
     width: 100%;
@@ -284,89 +282,14 @@
   }
 
   .search-cnt {
-    width: 1160px;
-    margin: 18px auto;
+    margin: 10px auto;
   }
 
-  .search {
-    display: flex;
-    width: 416px;
-    height: 34px;
-    line-height: 34px;
-    border: 1px solid #d5d5d5;
-    border-right: 0;
+  .el-select .el-input {
+    width: 130px;
   }
-
-  .search:hover {
-    border: 1px solid #f13939;
-    border-right: 0;
-  }
-
-  .selections {
-    position: relative;
-    width: 77px;
-    height: 34px;
-    border-right: 1px solid #d5d5d5;
-    background-color: #f8f8f8;
-    font-size: 14px;
-    color: #595959;
-    cursor: pointer;
-  }
-
-  .selections .wrds {
-    padding-left: 13px;
-  }
-
-  .selections i {
-    position: absolute;
-    top: 0;
-    right: 10px;
-  }
-
-  .selections:hover .select-list {
-    display: block;
-  }
-
-  .select-list {
-    position: absolute;
-    display: none;
-    left: -1px;
-    top: 35px;
-    width: 100%;
-    border: 1px solid #d9d9d9;
-    border-bottom: 0;
-    background: #fff;
-    box-shadow: 0 5px 5px #bcbcbc;
-  }
-
-  .select-list li {
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .select-list li:hover {
-    color: #fff;
-    background-color: #f13939;
-  }
-
-  .search-input {
-    flex: 1;
-    padding: 0 16px;
-    height: 34px;
-    line-height: 34px;
-  }
-
-  .search-btn {
-    width: 62px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    background-color: #f13939;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
+  .input-with-select .el-input-group__prepend {
+    background-color: #fff;
   }
 
   .queries-list {

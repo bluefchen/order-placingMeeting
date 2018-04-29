@@ -2,7 +2,7 @@
   <div>
     <!-- 顶部 -->
     <div class="toper">
-      <div class="top-header fn-clear">
+      <div class="box-1200 top-header fn-clear">
         <img src="@/assets/images/small-logo.png" class="fn-left">
         <ul class="iterms fn-left">
           <li>订货会管理</li>
@@ -79,9 +79,7 @@
   }
 
   .top-header {
-    width: 1180px;
     height: 36px;
-    margin: 0 auto;
     line-height: 36px;
   }
 
