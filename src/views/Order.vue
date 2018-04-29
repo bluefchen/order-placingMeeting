@@ -18,12 +18,12 @@
     <!-- 头部切换 -->
     <div class="header fn-clear">
       <img src="@/assets/images/vivo-logo.png" class="fn-left">
-      <el-menu :default-active="$route.path" class="sub-menu fn-right" mode="horizontal" router>
+      <el-menu :default-active="$route.path" class="fn-right" mode="horizontal" router>
         <el-menu-item index="/order/orderIndex">首页</el-menu-item>
         <el-submenu index="/order/orderModel">
-          <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
           <template slot="title">机型管理</template>
-          <el-menu-item index="/order/specialModelAssignment">特种机型分配量维护</el-menu-item>
+          <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
+          <el-menu-item index="2-2">特种机型分配量维护</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">订单管理</template>
@@ -71,7 +71,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   /*顶部*/
   .toper {
     width: 100%;
@@ -124,9 +124,35 @@
     margin-top: 10px;
   }
 
-  .sub-menu {
+  .el-menu--horizontal {
     margin-top: 10px;
     border-bottom: none;
+  }
+
+  .el-menu--horizontal>.el-menu-item {
+    color: #000;
+  }
+
+  .el-menu--horizontal>.el-submenu .el-submenu__title {
+    color: #000;
+  }
+
+  .el-menu--horizontal>.el-menu-item.is-active {
+    border-bottom: 3px solid #ff0404;
+    color: #fe0202;
+  }
+
+  .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+    border-bottom: 3px solid #ff0404;
+    color: #fe0202;
+  }
+
+  .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+    color: #fe0202;
+  }
+
+  .el-menu--horizontal>.el-submenu:focus .el-submenu__title, .el-menu--horizontal>.el-submenu:hover .el-submenu__title {
+    color: #fe0202;
   }
 
   .el-menu--horizontal .el-menu .el-menu-item {
@@ -135,5 +161,10 @@
       color: #fff;
       background-color: #f13939;
     }
+  }
+
+  .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu__title.is-active {
+    color: #fff;
+    background-color: #f13939;
   }
 </style>
