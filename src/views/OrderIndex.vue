@@ -27,7 +27,7 @@
         <template>
           <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="参会供货商" name="first">
-              <div class="box-1200 stores-tab">
+              <div class="stores-tab">
                 <el-table :data="tableData" stripe style="width: 100%">
                   <el-table-column prop="province" label="省份"></el-table-column>
                   <el-table-column prop="city" label="地市"></el-table-column>
@@ -41,7 +41,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="参会零售商" name="second">
-              <div class="box-1200 stores-tab">
+              <div class="stores-tab">
                 <el-table :data="tableData" stripe style="width: 100%">
                   <el-table-column prop="province" label="省份"></el-table-column>
                   <el-table-column prop="city" label="地市"></el-table-column>
@@ -144,6 +144,10 @@
     background: #f5f5f5;
   }
 
+  .el-table--enable-row-hover .el-table__body tr:hover>td{
+    background-color: #f5f5f5;
+  }
+
   .el-tabs__item.is-active{
     position: relative;
     background-color: #f5f5f5;
@@ -161,6 +165,12 @@
   .el-tabs__item:hover {
     color: #ff0404;
     cursor: pointer;
+  }
+  .el-table__body, .el-table__footer, .el-table__header{
+    table-layout: inherit;
+  }
+  .el-table, .el-table__expanded-cell {
+    background-color: #f5f5f5;
   }
 
   /*中间背景图片*/
@@ -246,6 +256,7 @@
 
   .stores {
     width: 100%;
+    min-width: 1200px;
     margin-top: 42px;
   }
 
@@ -287,7 +298,7 @@
   }
 
   .stores-tab table {
-    width: 1028px;
+    max-width: 1200px;
     margin: 0 auto;
     border: 1px solid #e3e3e3;
     border-bottom: 0;
