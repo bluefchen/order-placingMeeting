@@ -5,7 +5,7 @@
         <el-table-column v-for="(title, index) in tab.tableTitle" :key="index" :prop="title.prop"
                          :label="title.label"></el-table-column>
       </el-table>
-      <Pagination :page-changed="tab.pageChanged"/>
+      <Pagination :page-changed="tab.pageChanged" />
     </el-tab-pane>
   </el-tabs>
 </template>

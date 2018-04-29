@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="stores">
-        <TabWithTable :active-name="activeName" :tabs-list="tabsList" />
+        <TabWithTable :active-name="activeName" :tabs-list="tabsList"/>
       </div>
     </div>
   </div>
@@ -93,9 +93,7 @@
             companyTel: '025-5800000000',
             fax: '025-5800000000'
           }],
-          pageChanged: function () {
-            console.log('1');
-          }
+          pageChanged: this.pageChanged
         }, {
           tabLabel: '参会零售商',
           tableTitle: [{
@@ -151,14 +149,12 @@
             companyTel: '025-5800000000',
             fax: '025-5800000000'
           }],
-          pageChanged: function () {
-            console.log('2');
-          }
+          pageChanged: this.pageChanged
         }]
       }
     },
     methods: {
-      pageChanged1(currentPage) {
+      pageChanged(currentPage) {
         console.log('当前页：', currentPage);
       }
     },
