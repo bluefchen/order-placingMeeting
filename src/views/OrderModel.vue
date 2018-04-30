@@ -14,8 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <label>我的位置：</label>
-          <p class="location-p">机型管理 > <span class="red">机型维护</span></p>
+          <Breadcrumb :list="['首页', '机型管理', '机型维护']"/>
         </div>
       </div>
 
@@ -82,7 +81,7 @@
           <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
         </div>
       </div>
-      <div class="tabs-list">
+      <div class="box-1200">
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">订货会机型</div>
           <div class="buttons fn-right">
@@ -112,7 +111,7 @@
           <tr>
             <td><input type="checkbox"></td>
             <td>
-              <DeviceInfo />
+              <DeviceInfo/>
             </td>
             <td>VIVO</td>
             <td>VIVO-X20</td>
@@ -185,7 +184,6 @@
             <td>
               <button class="updown-btn red">下架</button>
             </td>
-            </td>
           </tr>
           </tbody>
         </table>
@@ -202,6 +200,7 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import Tabulation from '@/components/Tabulation';
+  import Breadcrumb from '@/components/Breadcrumb';
 
   export default {
     name: 'OrderModel',
@@ -299,7 +298,8 @@
     components: {
       InputWithSelect,
       DeviceInfo,
-      Tabulation
+      Tabulation,
+      Breadcrumb
     }
   }
 </script>
@@ -487,11 +487,6 @@
 
   .category-more .iconfont {
     font-size: 12px;
-  }
-
-  .tabs-list {
-    width: 1160px;
-    margin: 0 auto;
   }
 
   .order-titl {
