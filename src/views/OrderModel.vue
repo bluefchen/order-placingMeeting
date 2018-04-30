@@ -189,8 +189,19 @@
         </table>
 
         <br/>
-        <Table :is-selection="isSelection" :table-title="tableTitle" :table-data="tableData"/>
+        <!-- <Table :is-selection="isSelection" :table-title="tableTitle" :table-data="tableData"/> -->
 
+        <br/>
+        <el-table :data="tableData" stripe border size="small">
+          <el-table-column type="selection" width="55"></el-table-column>
+          <el-table-column v-for="(title, index) in tableTitle" :key="index" :prop="title.prop"
+                           :label="title.label" :formatter="title.formatter">
+            <!-- <template scope="scope">
+              <el-button size="small" type="danger" 
+                @click="operate.func">{{operate.label}}</el-button>
+            </template> -->
+         </el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
@@ -223,7 +234,18 @@
           prop: 'terminalPrice'
         }, {
           label: '是否特种机型',
-          prop: 'isSpecial'
+          prop: 'isSpecial',
+          formatter: function(row, value){
+            switch(row.isSpecial){
+              case 'N':
+                console.log(row, value)
+                return "非特种机型";
+                break;
+              case 'Y':
+                return '特种机型';
+                break;
+            }
+          }
         }, {
           label: '上架数量',
           prop: 'count'
