@@ -189,7 +189,7 @@
         </table>
 
         <br/>
-        <Tabulation :is-selection="isSelection" :tabs-list="tabsList" />
+        <Table :is-selection="isSelection" :table-title="tableTitle" :table-data="tableData"/>
 
       </div>
     </div>
@@ -199,7 +199,7 @@
 <script>
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
-  import Tabulation from '@/components/Tabulation';
+  import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
 
   export default {
@@ -209,85 +209,83 @@
     data() {
       return {
         isSelection: true,
-        tabsList: {
-          tableTitle: [{
-            label: '终端品牌',
-            prop: 'terminalBrand'
-          }, {
-            label: '终端型号',
-            prop: 'terminalModel'
-          }, {
-            label: '产品类型',
-            prop: 'prodType'
-          }, {
-            label: '终端价格',
-            prop: 'terminalPrice'
-          }, {
-            label: '是否特种机型',
-            prop: 'isSpecial'
-          }, {
-            label: '上架数量',
-            prop: 'count'
-          }, {
-            label: '状态',
-            prop: 'type'
-          }],
-          tableData: [{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'Y',
-            count: 300,
-            type: '上架'
-          },{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'N',
-            count: 300,
-            type: '下架',
-          },{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'Y',
-            count: 300,
-            type: '上架',
-          },{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'N',
-            count: 300,
-            type: '下架',
-          },{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'Y',
-            count: 300,
-            type: '上架',
-          },{
-            terminalName: '手机',
-            terminalBrand: 'VIVO',
-            terminalModel: 'VIVO-X20',
-            prodType: '集采',
-            terminalPrice: 1890,
-            isSpecial: 'N',
-            count: 300,
-            type: '下架',
-          }],
-        }
+        tableTitle: [{
+          label: '终端品牌',
+          prop: 'terminalBrand'
+        }, {
+          label: '终端型号',
+          prop: 'terminalModel'
+        }, {
+          label: '产品类型',
+          prop: 'prodType'
+        }, {
+          label: '终端价格',
+          prop: 'terminalPrice'
+        }, {
+          label: '是否特种机型',
+          prop: 'isSpecial'
+        }, {
+          label: '上架数量',
+          prop: 'count'
+        }, {
+          label: '状态',
+          prop: 'type'
+        }],
+        tableData: [{
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'Y',
+          count: 300,
+          type: '上架'
+        }, {
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'N',
+          count: 300,
+          type: '下架',
+        }, {
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'Y',
+          count: 300,
+          type: '上架',
+        }, {
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'N',
+          count: 300,
+          type: '下架',
+        }, {
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'Y',
+          count: 300,
+          type: '上架',
+        }, {
+          terminalName: '手机',
+          terminalBrand: 'VIVO',
+          terminalModel: 'VIVO-X20',
+          prodType: '集采',
+          terminalPrice: 1890,
+          isSpecial: 'N',
+          count: 300,
+          type: '下架',
+        }],
       }
     },
     methods: {
@@ -298,7 +296,7 @@
     components: {
       InputWithSelect,
       DeviceInfo,
-      Tabulation,
+      Table,
       Breadcrumb
     }
   }

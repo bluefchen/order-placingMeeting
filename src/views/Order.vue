@@ -64,9 +64,7 @@
       })
     },
     data() {
-      return {
-
-      };
+      return {};
     }
   }
 </script>
@@ -116,53 +114,52 @@
     width: 1200px;
     height: 80px;
     margin: 0 auto;
-  }
+    img {
+      margin-top: 10px;
+    }
 
-  .header img {
-    margin-top: 10px;
-  }
+    .el-menu--horizontal {
+      margin-top: 10px;
+      border-bottom: none;
+    }
 
-  .el-menu--horizontal {
-    margin-top: 10px;
-    border-bottom: none;
-  }
+    .el-menu--horizontal > .el-menu-item {
+      color: #000;
+    }
 
-  .el-menu--horizontal>.el-menu-item {
-    color: #000;
-  }
+    .el-menu--horizontal > .el-submenu .el-submenu__title {
+      color: #000;
+    }
 
-  .el-menu--horizontal>.el-submenu .el-submenu__title {
-    color: #000;
-  }
+    .el-menu--horizontal > .el-menu-item.is-active {
+      border-bottom: 3px solid #ff0404;
+      color: #fe0202;
+    }
 
-  .el-menu--horizontal>.el-menu-item.is-active {
-    border-bottom: 3px solid #ff0404;
-    color: #fe0202;
-  }
+    .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+      border-bottom: 3px solid #ff0404;
+      color: #fe0202;
+    }
 
-  .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
-    border-bottom: 3px solid #ff0404;
-    color: #fe0202;
-  }
+    .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+      color: #fe0202;
+    }
 
-  .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-    color: #fe0202;
-  }
+    .el-menu--horizontal > .el-submenu:focus .el-submenu__title, .el-menu--horizontal > .el-submenu:hover .el-submenu__title {
+      color: #fe0202;
+    }
 
-  .el-menu--horizontal>.el-submenu:focus .el-submenu__title, .el-menu--horizontal>.el-submenu:hover .el-submenu__title {
-    color: #fe0202;
-  }
+    .el-menu--horizontal .el-menu .el-menu-item {
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+        background-color: #f13939;
+      }
+    }
 
-  .el-menu--horizontal .el-menu .el-menu-item {
-    cursor: pointer;
-    &:hover {
+    .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu__title.is-active {
       color: #fff;
       background-color: #f13939;
     }
-  }
-
-  .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu__title.is-active {
-    color: #fff;
-    background-color: #f13939;
   }
 </style>
