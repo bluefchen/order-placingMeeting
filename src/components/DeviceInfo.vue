@@ -33,6 +33,8 @@
 </script>
 
 <style scoped lang="less">
+  @import "../assets/css/mixin";
+
   .device-wrap {
     text-align: left;
     .device-pic {
@@ -54,9 +56,7 @@
         line-height: 26px;
         color: #050505;
         font-size: 14px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        .truncate();
         &:hover {
           color: #ed0000;
           text-decoration: underline;

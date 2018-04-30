@@ -82,7 +82,7 @@
           <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
         </div>
       </div>
-      <div class="tabs-list">
+      <div class="box-1200">
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">订货会机型</div>
           <div class="buttons fn-right">
@@ -399,11 +399,6 @@
 
   .category-more .iconfont {
     font-size: 12px;
-  }
-
-  .tabs-list {
-    width: 1160px;
-    margin: 0 auto;
   }
 
   .order-titl {
