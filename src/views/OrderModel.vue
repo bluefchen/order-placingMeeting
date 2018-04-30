@@ -14,8 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <label>我的位置：</label>
-          <p class="location-p">机型管理 > <span class="red">机型维护</span></p>
+          <Breadcrumb :list="['首页', '机型管理', '机型维护']"/>
         </div>
       </div>
 
@@ -111,7 +110,7 @@
           <tr>
             <td><input type="checkbox"></td>
             <td>
-              <DeviceInfo />
+              <DeviceInfo/>
             </td>
             <td>VIVO</td>
             <td>VIVO-X20</td>
@@ -184,7 +183,6 @@
             <td>
               <button class="updown-btn red">下架</button>
             </td>
-            </td>
           </tr>
           </tbody>
         </table>
@@ -196,6 +194,7 @@
 <script>
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
+  import Breadcrumb from '@/components/Breadcrumb';
 
   export default {
     name: 'OrderModel',
@@ -211,7 +210,8 @@
     },
     components: {
       InputWithSelect,
-      DeviceInfo
+      DeviceInfo,
+      Breadcrumb
     }
   }
 </script>
