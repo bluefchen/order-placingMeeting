@@ -14,19 +14,13 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['首页', '机型管理', '机型维护']"/>
+          <Breadcrumb :list="['首页', '机型管理', '导入新增']"/>
         </div>
       </div>
+
       <!-- 文件导入 -->
-      <div class="search-cnt fn-clear">
-        <span class="wrds">上传文件：</span>
-        <p class="dao-ru">
-          <span class="fn-left">XXXXX机型 . XLSX</span>
-          <label class="fn-left">浏览</label>
-          <input type="file" class="file">
-        </p>
-        <button class="leading-btn">导入</button>
-        <button class="leading-btn load fn-right"><i class="iconfont">&#xe794;</i> 模板下载</button>
+      <div class="box-1200">
+        <Import/>
       </div>
 
       <div class="tabs-list">
@@ -90,6 +84,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
+  import Import from '@/components/Import';
 
   export default {
     name: 'InportModel',
@@ -105,6 +100,7 @@
     },
     components: {
       Breadcrumb,
+      Import
     }
   }
 </script>
@@ -148,93 +144,12 @@
     background-color: #f6f6f6;
   }
 
-  .my-location label {
-    color: #aaa;
-  }
-
-  .location-p {
-    display: inline-block;
-  }
-
-  .red {
-    color: #f82134;
-  }
-
-  .green {
-    color: #46b02e;
-  }
-
-  .search-cnt {
-    width: 1154px;
-    height: 70px;
-    margin: 20px auto;
-    line-height: 70px;
+  .v_import {
+    /*height: 70px;*/
+    /*margin: 20px auto;*/
     background-color: #fcfcfc;
-    font-size: 14px;
-    color: #595959;
     border: 1px solid #e8e8e8;
-  }
-
-  .search-cnt .wrds {
-    display: inline-block;
-    margin-left: 8px;
-    vertical-align: top;
-  }
-
-  .dao-ru {
-    position: relative;
-    display: inline-block;
-    width: 416px;
-    height: 35px;
-    margin-top: 15px;
-    border: 1px solid #d5d5d5;
-    background-color: #fff;
-  }
-
-  .dao-ru span {
-    width: 331px;
-    padding: 0 13px;
-    line-height: 35px;
-  }
-
-  .dao-ru label {
-    width: 58px;
-    height: 35px;
-    line-height: 35px;
-    border-left: 1px solid #d5d5d5;
-    background-color: #f8f8f8;
-    text-align: center;
-  }
-
-  .file {
-    position: absolute;
-    width: 58px;
-    height: 35px;
-    top: 0;
-    right: 0;
-    opacity: 0;
-  }
-
-  .leading-btn {
-    display: inline-block;
-    height: 36px;
-    padding: 0 35px;
-    margin: 16px 0 0 10px;
-    border: 0;
-    background-color: #f82134;
-    color: #fff;
-    font-size: 14px;
-    vertical-align: top;
-  }
-
-  .leading-btn i.iconfont {
-    font-size: 18px;
-    vertical-align: middle;
-  }
-
-  .leading-btn.load {
-    padding: 0 15px;
-    margin-right: 20px;
+    /*line-height: 70px;*/
   }
 
   .tabs-list {

@@ -86,6 +86,7 @@
           <div class="tel-model fn-left">订货会机型</div>
           <div class="buttons fn-right">
             <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入新增</button>
+            <router-link class="btns" to="/order/importModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
             <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除</button>
             <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
             <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
@@ -504,6 +505,7 @@
   }
 
   .buttons .btns {
+    display: inline-block;
     padding: 0 12px;
     margin-left: 2px;
     border: 0;
@@ -512,6 +514,7 @@
     font-size: 12px;
     border-radius: 3px;
     line-height: 28px;
+    text-decoration: none;
   }
 
   .buttons .btns:hover {
