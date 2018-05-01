@@ -113,17 +113,18 @@
         }, {
           label: '零售商类型',
           prop: 'tag',
-          render: function (h, param) {
+          render: (h, params) => {
             // return h({
             //   template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
             //   methods: {
-            //     handleClick: function() {
-            //       console.log('clicked!', param);
+            //     handleClick: () => {
+            //       this.handleEdit(params.index, params.row);
             //     }
             //   }
             // });
             return h(TitlePlate, {
-              props: {title: param.row.name}
+              props: {title: params.row.name},
+              on: { update: this.handleEdit }
             });
           }
         }],
@@ -151,11 +152,11 @@
       }
     },
     methods: {
-      handleEdit(index, row) {
-        console.log(index, row);
+      handleEdit(uuid) {
+        debugger
       },
-      handleDelete(index, row) {
-        console.log(index, row);
+      handleDelete(uuid) {
+        debugger
       }
     },
     components: {
