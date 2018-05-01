@@ -109,22 +109,24 @@
           prop: 'name'
         }, {
           label: '零售商名称',
-          prop: 'address'
+          prop: 'address',
+          render: (h, params) => {
+            return h({
+              template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
+              methods: {
+                handleClick: () => {
+                  this.handleEdit(params.index, params.row);
+                }
+              }
+            });
+          }
         }, {
           label: '零售商类型',
           prop: 'tag',
           render: (h, params) => {
-            // return h({
-            //   template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
-            //   methods: {
-            //     handleClick: () => {
-            //       this.handleEdit(params.index, params.row);
-            //     }
-            //   }
-            // });
             return h(TitlePlate, {
               props: {title: params.row.name},
-              on: { update: this.handleEdit }
+              on: { update: this.handleDelete }
             });
           }
         }],
