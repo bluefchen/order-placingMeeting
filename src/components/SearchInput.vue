@@ -2,7 +2,7 @@
   <!-- 搜索 -->
   <div class="search-cnt box-1200 fn-clear">
     <div class="search fn-left">
-      <input type="text" class="search-input" v-model="input" placeholder="输入终端名称、编码名称搜索">
+      <input type="text" class="search-input" v-model="input" placeholder="输入条件搜索">
     </div>
     <button class="search-btn fn-left" @click="handleSearch()">搜 索</button>
   </div>

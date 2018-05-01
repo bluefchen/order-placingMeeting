@@ -48,8 +48,8 @@
       
       <div class="tabs-list box-1200">
         <div class="result-header">
-          <TitlePlate title="配置定金的订单列表"/>         
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入</button>         
+          <TitlePlate title="定金补录结果列表"/>         
+          <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>         
         </div>
         <table width="100%" cellspacing="0" cellpadding="0" class="table">
           <thead>  
