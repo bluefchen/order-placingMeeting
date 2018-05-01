@@ -1,7 +1,7 @@
 <template>
   <div class="v_table">
     <el-table :data="tableData" stripe border @selection-change="handleSelectionChange" size="small">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
       <el-table-column v-for="(title, index) in tableTitle" :key="index" :prop="title.prop"
                        :label="title.label"></el-table-column>
     </el-table>

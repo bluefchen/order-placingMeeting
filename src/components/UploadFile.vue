@@ -82,7 +82,6 @@
         right: -1px;
 
         .el-button {
-          width: 58px;
           background-color: #f8f8f8;
           &:focus, &:hover {
             background-color: #efebeb;
