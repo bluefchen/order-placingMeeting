@@ -32,7 +32,7 @@
       <tbody>
       <tr>
         <td>11020300001</td>
-        <td><p class="overflow-handle">VIVO-X20全面屏 美颜拍照手机</p></td>
+        <td><p class="name">VIVO-X20全面屏 美颜拍照手机</p></td>
         <td>VIVO</td>
         <td>VIVO-X20</td>
         <td>集采</td>
@@ -44,7 +44,7 @@
       </tr>
       <tr>
         <td>11020300001</td>
-        <td><p class="overflow-handle">VIVO-X20全面屏 美颜拍照手机</p></td>
+        <td><p class="name">VIVO-X20全面屏 美颜拍照手机</p></td>
         <td>VIVO</td>
         <td>VIVO-X20</td>
         <td>集采</td>

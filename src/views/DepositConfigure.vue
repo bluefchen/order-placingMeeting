@@ -19,13 +19,13 @@
       </div>
       
       <!-- 修改 -->
-      <div class="provin box-1200">
-        <p class="pro-left fn-left">当前省份： 江苏省</p>
-        <p class="pro-mid fn-left">定金模式：----</p>
-        <button class="edit-btn fn-left"><i class="iconfont">&#xe738;</i> 修改</button>
+      <div class="provin box-1200" v-show="editshow">
+        <p class="pro-left fn-left">当前省份： <span>江苏省</span></p>
+        <p class="pro-mid fn-left">定金模式：<span>----</span></p>
+        <button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</button>
       </div>
       
-      <div class="provin-edit">
+      <div class="provin-edit" v-show="!editshow">
         <el-steps :active="active" finish-status="success" align-center>
           <el-step title="选择定金模式"></el-step>
           <el-step title="配置定金"></el-step>
@@ -52,9 +52,11 @@
             <p class="fn-right">选择定金模式：<span class="red">定金</span></p>
           </div>
           <div class="tabs-list">
-            <div class="order-titl fn-clear">
-              <div class="tel-model fn-left">配置定金的订单列表</div>
-              <div class="result-wrds fn-right"> <span class="red">校验结果：</span>Excel中共有<b class="red">100</b>条数据，其中<b class="red">98</b>条校验通过有效，<b class="red">2</b>条校验不通过无效，点击提交可以导入正确信息。</div>
+            <div class="result-header">
+              <TitlePlate title="配置定金的订单列表"/>
+              <div class="result-info"><span class="red">校验结果：</span>Excel中共有<b class="red">100</b>条数据，其中<b
+                class="red">98</b>条校验通过有效，<b class="red">2</b>条校验不通过无效，点击提交可以导入正确信息。
+              </div>
             </div>
             <table width="100%" cellspacing="0" cellpadding="0" class="table">
               <thead>  
@@ -74,16 +76,17 @@
               </thead>
               <tbody>
                 <tr>            
-                  <td><a href="" class="red">11020300001</a></td>
-                  <td>11020300001</td>
-                  <td>11020300001</td>
-                  <td><p class="overflow-handle">VIVO-X20全面屏 美颜拍照手机</p></td>
-                  <td>VIVO</td>
-                  <td>VIVO-X20</td>
-                  <td>集采</td>
-                  <td>￥1890</td>
-                  <td><p class="overflow-handle">美颜拍照手机</p></td>
-                  <td>1890</td>
+                  <!-- <td><a href="" class="red">11020300001</a></td> -->
+                  <td><router-link to="orderFormDetail" class="red">11020300001</router-link></td>
+                  <td><p>美颜拍照手机</p></td>
+                  <td><p>美颜拍照</p></td>
+                  <td><p class="overflow">VIVO-X20全面屏 美颜拍照手机美颜拍照手机</p></td>
+                  <td><p>VIVO</p></td>
+                  <td><p>VIVO-X20</p></td>
+                  <td><p>集采</p></td>
+                  <td><p>￥1890</p></td>
+                  <td><p class="overflow">美颜拍照手机美颜拍照手机美颜拍照手机</p></td>
+                  <td><p>1890</p></td>
                   <td><p><input type="text" value="1%"></p></td>
                 </tr>
               </tbody>
@@ -91,7 +94,7 @@
           </div>
           <div class="bottom-btns">
             <button class="confirm-btn" @click="next">确定</button>
-            <button class="reset-btn">重置</button>
+            <button class="reset-btn" @click="reset()">重置</button>
           </div>
         </div>
 
@@ -108,19 +111,13 @@
         </div>
       </div>
 
-     <!--  <el-steps :active="active" finish-status="success">
-        <el-step title="步骤 1"></el-step>
-        <el-step title="步骤 2"></el-step>
-        <el-step title="步骤 3"></el-step>
-      </el-steps> -->
-
     </div>
   </div>
 </template>
 
 <script>
 import Breadcrumb from '@/components/Breadcrumb';
-import Import from '@/components/Import';
+import TitlePlate from '@/components/TitlePlate';
 
 export default {
   name: 'DepositConfigure',
@@ -128,25 +125,30 @@ export default {
   },
   data() {
     return {
-      active: 1
+      active: 1,
+      editshow: true
     }
   },
   methods: {
-    search(obj) {
-      console.log('参数：', obj);
-    },
     next() {
       if (this.active++ > 2) this.active = 1;
+    },
+    edit() {
+      this.editshow = !this.editshow;
+    },
+    reset(){
+      this.active = 1;
     }
   },
   components: {
     Breadcrumb,
-    Import
+    TitlePlate
   }
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+@import "../assets/css/mixin";
 /*中间背景图片*/
 .img-bg {
   width: 100%;
@@ -182,13 +184,12 @@ export default {
 }
 
 .v_import {
-  /*height: 70px;*/
-  /*margin: 20px auto;*/
   background-color: #fcfcfc;
   border: 1px solid #e8e8e8;
-  /*line-height: 70px;*/
 }
-
+.red{
+  color: #e52941;
+}
 .provin{
   height: 70px;
   margin: 50px auto;
@@ -237,10 +238,28 @@ export default {
       color: #e52941;
     }
   }
-}
-
-.red{
-  color: #e52941;
+  .el-step__head{
+    &.is-success{
+      .el-step__line{
+          background-color: #e52941;
+      }
+    }
+  }
+  .el-step__icon{
+    border: 1px solid;
+  }
+  .el-step__head.is-success{
+    color:#e52941;
+    border-color: #e52941;
+  }
+  .el-step__title.is-process{
+    font-weight: normal;
+    color: #c0c4cc;
+  }
+  .el-step__head.is-process{
+    font-weight: normal;
+    color: #c0c4cc;
+  }
 }
 
 .selections{
@@ -303,22 +322,25 @@ export default {
     padding: 12px 18px 20px;
     border: 1px solid #e8e8e8;
     border-top:0;
-    .order-titl{
+    .result-header {
+      position: relative;
       height: 28px;
       margin: 0 0 8px;
       line-height: 28px;
-      .tel-model{
-        min-width: 5px;
-        min-height: 20px;
-        background: url('../assets/images/red-line.png') no-repeat 0 center;
-        padding-left: 10px;
-        font-size: 18px;
-        color: #000;
-        font-weight: 800;
-      }
-      .result-wrds b{
-        font-size: 14px;
-        margin: 0 3px;
+      .result-info {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        > span {
+          color: #f82134;
+        }
+
+        > b {
+          margin: 0 3px;
+          color: #f82134;
+          font-size: 14px;
+        }
       }
     }
   }
@@ -326,6 +348,8 @@ export default {
 
 .table{
   border: 1px solid #e3e3e3;
+  table-layout:fixed;
+  word-break:break-all;
 }
 .table thead tr{
   height: 32px;
@@ -344,6 +368,10 @@ export default {
 .table tbody tr td{
   text-align: center;
   border-right: 1px solid #e3e3e3;
+  .overflow{
+    margin: 0 auto;
+    .truncate(90%);
+  }
 }
 .table tbody tr:nth-of-type(2n){
   background-color: #fcfcfc;
