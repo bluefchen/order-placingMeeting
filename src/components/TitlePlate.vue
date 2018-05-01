@@ -13,7 +13,7 @@
     },
     methods: {
       handleClick() {
-        this.$emit('update', '数据');
+        this.$emit('update', this.title);
       }
     },
     data() {
