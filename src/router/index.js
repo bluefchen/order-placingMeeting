@@ -6,6 +6,7 @@ const OrderIndex = () => import('@/views/OrderIndex');
 const OrderModel = () => import('@/views/OrderModel');
 const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModel = () => import('@/views/ImportModel');
+const DataCueepositConfigure = () => import('@/views/DataCueepositConfigure');
 
 Vue.use(Router);
 
@@ -51,6 +52,13 @@ export default new Router({
           component: ImportModel,
           meta: {
             title: '机型导入'
+          },
+        }, {
+          path: 'depositConfigure',
+          name: 'depositConfigure',
+          component: DataCueepositConfigure,
+          meta: {
+            title: '定金配置'
           },
         }
       ]
