@@ -19,8 +19,8 @@
       </div>
 
       <!-- 文件导入 -->
-      <div class="box-1200">
-        <Import/>
+      <div class="box-1200 file-import">
+        <UploadFile />
       </div>
 
       <div class="tabs-list">
@@ -84,7 +84,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
-  import Import from '@/components/Import';
+  import UploadFile from '@/components/UploadFile';
 
   export default {
     name: 'InportModel',
@@ -100,7 +100,7 @@
     },
     components: {
       Breadcrumb,
-      Import
+      UploadFile
     }
   }
 </script>
@@ -144,12 +144,11 @@
     background-color: #f6f6f6;
   }
 
-  .v_import {
-    /*height: 70px;*/
-    /*margin: 20px auto;*/
+  .file-import {
+    margin-top: 20px;
+    padding: 20px;
     background-color: #fcfcfc;
     border: 1px solid #e8e8e8;
-    /*line-height: 70px;*/
   }
 
   .tabs-list {
