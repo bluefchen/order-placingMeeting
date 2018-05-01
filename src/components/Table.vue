@@ -2,13 +2,21 @@
   <div class="v_table">
     <el-table :data="tableData" stripe border @selection-change="handleSelectionChange" size="small">
       <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
-      <el-table-column v-for="(title, index) in tableTitle" :key="index" :prop="title.prop"
-                       :label="title.label"></el-table-column>
+      <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label">
+        <template slot-scope="scope">
+          <table-row v-if="column.render" :index="index" :row="scope.row" :render="column.render"></table-row>
+          <span v-else>
+            {{scope.row[column.prop]}}
+          </span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+  import TableRow from '@/components/TableRow';
+
   export default {
     name: 'Table',
     props: {
@@ -32,6 +40,9 @@
       handleSelectionChange(val) {
         console.log('表格选择项：', val);
       }
+    },
+    components: {
+      TableRow
     }
   }
 </script>
