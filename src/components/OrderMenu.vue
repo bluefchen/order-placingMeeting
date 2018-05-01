@@ -15,7 +15,7 @@
       </el-submenu>
       <el-submenu index="4">
         <template slot="title">定金管理</template>
-        <el-menu-item index="4-1">定金配置</el-menu-item>
+        <el-menu-item index="/order/DepositConfigure">定金配置</el-menu-item>
         <el-menu-item index="4-2">定金补录</el-menu-item>
       </el-submenu>
       <el-submenu index="5">

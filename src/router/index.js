@@ -8,6 +8,8 @@ const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModel = () => import('@/views/ImportModel');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
+const DepositAddRecord = () => import('@/views/DepositAddRecord');
+
 
 Vue.use(Router);
 
@@ -66,7 +68,14 @@ export default new Router({
           name: 'orderFormDetail',
           component: OrderFormDetail,
           meta: {
-            title: ''
+            title: '订单详情'
+          },
+        }, {
+          path: 'depositAddRecord',
+          name: 'depositAddRecord',
+          component: DepositAddRecord,
+          meta: {
+            title: '定金补录'
           },
         }
       ]
