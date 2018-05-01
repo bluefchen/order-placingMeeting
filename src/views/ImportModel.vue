@@ -36,7 +36,7 @@
   import Import from '@/components/Import';
 
   export default {
-    name: 'InportModel',
+    name: 'ImportModel',
     created() {
     },
     data() {

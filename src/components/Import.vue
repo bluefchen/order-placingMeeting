@@ -87,6 +87,7 @@
     <!--</table>-->
 
     <Table :table-title="tableTitle" :table-data="tableData"/>
+
   </div>
 </template>
 
@@ -113,18 +114,17 @@
           label: '零售商类型',
           prop: 'tag',
           render: function (h, param) {
-            return h({
-              template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
-              methods: {
-                handleClick: function() {
-                  console.log('clicked!', param);
-                }
-              }
-            });
-            // return h(TitlePlate, {
-            //   on: {update: this.handleEdit},
-            //   props: {title: param.row.name}
+            // return h({
+            //   template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
+            //   methods: {
+            //     handleClick: function() {
+            //       console.log('clicked!', param);
+            //     }
+            //   }
             // });
+            return h(TitlePlate, {
+              props: {title: param.row.name}
+            });
           }
         }],
         tableData: [{

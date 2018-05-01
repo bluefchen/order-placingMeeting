@@ -6,7 +6,8 @@ const OrderIndex = () => import('@/views/OrderIndex');
 const OrderModel = () => import('@/views/OrderModel');
 const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModel = () => import('@/views/ImportModel');
-const DataCueepositConfigure = () => import('@/views/DataCueepositConfigure');
+const DepositConfigure = () => import('@/views/DepositConfigure');
+const OrderFormDetail = () => import('@/views/OrderFormDetail');
 
 Vue.use(Router);
 
@@ -56,9 +57,16 @@ export default new Router({
         }, {
           path: 'depositConfigure',
           name: 'depositConfigure',
-          component: DataCueepositConfigure,
+          component: DepositConfigure,
           meta: {
             title: '定金配置'
+          },
+        }, {
+          path: 'orderFormDetail',
+          name: 'orderFormDetail',
+          component: OrderFormDetail,
+          meta: {
+            title: ''
           },
         }
       ]

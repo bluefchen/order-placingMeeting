@@ -1,12 +1,11 @@
 @font-face {
   font-family: 'iconfont';  /* project id 644783 */
-  src: url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.eot');
-  src: url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.eot?#iefix') format('embedded-opentype'),
-  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.woff') format('woff'),
-  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.ttf') format('truetype'),
-  url('http://at.alicdn.com/t/font_644783_4403cf6dg8zuayvi.svg#iconfont') format('svg');
+  src: url('http://at.alicdn.com/t/font_644783_1g41zj6ymsra4i.eot');
+  src: url('http://at.alicdn.com/t/font_644783_1g41zj6ymsra4i.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_644783_1g41zj6ymsra4i.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_644783_1g41zj6ymsra4i.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_644783_1g41zj6ymsra4i.svg#iconfont') format('svg');
 }
-
 .iconfont {
   font-family: 'iconfont';
   font-size: 14px;
