@@ -1,5 +1,5 @@
 <template>
-  <div class="title">{{title}}</div>
+  <div class="title" @click="handleClick">{{title}}</div>
 </template>
 
 <script>
@@ -9,6 +9,11 @@
       title: {
         type: String,
         required: true
+      }
+    },
+    methods: {
+      handleClick() {
+        this.$emit('update', '数据');
       }
     },
     data() {
