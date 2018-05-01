@@ -1,19 +1,22 @@
 <template>
   <div class="v_upload-file">
     <label>上传文件：</label>
-    <!--<span class="file-name">{{fileList[0].name}}</span>-->
-    <el-upload
-      class="file-upload"
-      ref="upload"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :file-list="fileList"
-      :multiple="false"
-      :on-change="handleChange"
-      :auto-upload="false">
-      <el-button slot="trigger" size="small">选取文件</el-button>
-    </el-upload>
-    <el-button size="small" type="success" @click="submitUpload">导入</el-button>
-    <el-button size="small" type="success">模板下载</el-button>
+    <div class="file-upload">
+      <p class="file-name">{{uploadFileName}}</p>
+      <el-upload
+        class="file-check"
+        ref="upload"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :file-list="fileList"
+        :show-file-list="false"
+        :multiple="false"
+        :on-change="handleChange"
+        :auto-upload="false">
+        <el-button slot="trigger" size="small">浏览</el-button>
+      </el-upload>
+    </div>
+    <el-button class="btn-upload" size="small" type="success" @click="submitUpload">导入</el-button>
+    <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 模板下载</el-button>
   </div>
 </template>
 
@@ -24,10 +27,15 @@
     data() {
       return {
         fileList: [{
-          name: 'food.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+          name: '',
+          url: ''
         }]
       };
+    },
+    computed: {
+      uploadFileName() {
+        return this.fileList[0].name;
+      }
     },
     methods: {
       handleChange(file, fileList) {
@@ -46,46 +54,55 @@
 
   .v_upload-file {
     >label {
-      padding-left: 10px;
       color: #595959;
       font-size: 14px;
     }
 
-    .el-upload-list {
-      float: left;
-    }
-
-    .el-upload-list__item {
-      width: 300px;
-      height: 32px;
-      line-height: 32px;
-      &:first-child {
-        margin-top: 0;
-        /*border: 1px solid #d5d5d5;*/
-        /*border-radius: 0;*/
-      }
-    }
-
-    .el-upload-list__item .el-icon-close, .el-upload-list__item .el-icon-close-tip {
-      top: 10px;
-    }
-
-    .file-name {
+    .file-upload {
+      position: relative;
       display: inline-block;
       width: 400px;
       height: 30px;
       padding: 0 10px;
       border: 1px solid #d5d5d5;
       background-color: #fff;
-      line-height: 32px;
-      color: #000;
-      font-size: 14px;
+      line-height: 30px;
       vertical-align: top;
-      .truncate();
+
+      .file-name {
+        color: #000;
+        font-size: 14px;
+        vertical-align: top;
+        .truncate();
+      }
+
+      .file-check {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+
+        .el-button {
+          background-color: #f8f8f8;
+          &:focus, &:hover {
+            background-color: #efebeb;
+            color: #606266;
+          }
+        }
+      }
     }
-    .file-upload {
-      display: inline-block;
-      font-size: 14px;
+
+    .btn-upload {
+      margin-left: 15px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+    .btn-download {
+      padding-left: 25px;
+      padding-right: 25px;
+      .iconfont {
+        font-size: 12px;
+      }
     }
   }
 </style>
