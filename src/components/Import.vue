@@ -86,7 +86,7 @@
     <!--</tbody>-->
     <!--</table>-->
 
-    <Table :table-title="columns" :table-data="tableData"/>
+    <Table :table-title="tableTitle" :table-data="tableData"/>
   </div>
 </template>
 
@@ -105,49 +105,28 @@
           prop: 'date'
         }, {
           label: '地市',
-          prop: 'name',
-          render: function (h, param) {
-            let html = "";
-            if (param.row.date == "2016-05-02") {
-              html = "原创";
-            } else {
-              html = "非原创";
-            }
-            return html;
-          }
+          prop: 'name'
         }, {
           label: '零售商名称',
           prop: 'address'
         }, {
           label: '零售商类型',
           prop: 'tag',
-          // render: function () {
-          //   return '<button @click="handleEdit(scope.$index, scope.row)">编辑</button>'
-          // }
-        }],
-        columns: [
-          {prop: "date", label: "栏目"},
-          {prop: "name", label: "创建时间"},
-          {prop: "address", label: "权重"},
-          {
-            prop: "tag",
-            label: "原创",
-            render: function (h, param) {
-              return h({
-                template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
-                methods: {
-                  handleClick: function() {
-                    console.log('clicked!', param);
-                  }
+          render: function (h, param) {
+            return h({
+              template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
+              methods: {
+                handleClick: function() {
+                  console.log('clicked!', param);
                 }
-              });
-              // return h(TitlePlate, {
-              //   on: {update: this.handleEdit},
-              //   props: {title: param.row.name}
-              // });
-            }
+              }
+            });
+            // return h(TitlePlate, {
+            //   on: {update: this.handleEdit},
+            //   props: {title: param.row.name}
+            // });
           }
-        ],
+        }],
         tableData: [{
           date: '2016-05-02',
           name: '王小虎',
