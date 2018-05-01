@@ -48,7 +48,7 @@
             <li class="info-list-li">       
               <p class="p-tit">订单信息：</p>
               <div class="info-detail">                                                     
-                    <p class="detail-p wid24"><span>订单编号：</span>1000000010</p>
+                <p class="detail-p wid24"><span>订单编号：</span>1000000010</p>
                 <p class="detail-p wid24"><span>创建时间：</span>2018-04-06 15:02:46</p>
                 <p class="detail-p wid24"><span>付款时间：</span></p>
                 <p class="detail-p wid24"><span>提货时间：</span></p>        

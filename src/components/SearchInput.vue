@@ -1,6 +1,6 @@
 <template>
   <!-- 搜索 -->
-  <div class="search-cnt fn-clear">
+  <div class="search-cnt box-1200 fn-clear">
     <div class="search fn-left">
       <input type="text" class="search-input" v-model="input" placeholder="输入终端名称、编码名称搜索">
     </div>
@@ -34,8 +34,7 @@
 
 <style scoped lang="less">
   .search-cnt{
-    width: 1160px;
-    margin: 18px auto;
+    margin: 18px auto 12px;
     .search{
       display: flex;
       width: 416px;
