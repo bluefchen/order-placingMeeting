@@ -2,8 +2,8 @@
   <div class="v_input-with-select">
     <el-input placeholder="输入终端名称搜索" v-model="input" class="input-with-select" size="small">
       <el-select v-model="select" slot="prepend" placeholder="请选择">
-        <el-option label="集采" value="1"></el-option>
-        <el-option label="社采" value="2"></el-option>
+        <el-option label="集采" value="Y"></el-option>
+        <el-option label="社采" value="N"></el-option>
       </el-select>
       <el-button slot="append" @click="handleSearch()">搜 索</el-button>
     </el-input>
