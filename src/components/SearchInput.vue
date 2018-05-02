@@ -4,7 +4,7 @@
     <div class="search fn-left">
       <input type="text" class="search-input" v-model="input" placeholder="输入条件搜索">
     </div>
-    <button class="search-btn fn-left" @click="handleSearch()">搜 索</button>
+    <el-button class="search-btn fn-left" type="success" @click="handleSearch">搜 索</el-button>
   </div>
 </template>
 
