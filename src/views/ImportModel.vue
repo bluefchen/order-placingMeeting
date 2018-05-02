@@ -57,7 +57,7 @@
             })
           }
         });
-        this.$post('/orderPlacingMeetingService/batchInsertOpmOffer', {
+        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
           tableDataIsSueccess
         }).then(rsp => {
           console.log('19、批量导入新增机型接口：', rsp);

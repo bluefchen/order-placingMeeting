@@ -17,7 +17,7 @@ Mock.mock(new RegExp('/api/data'), {
 });
 
 //10、查询终端品牌接口
-Mock.mock(new RegExp('/orderPlacingMeetingService/queryOfferBrandList'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferBrandList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -30,7 +30,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/queryOfferBrandList'), {
 });
 
 //11、查询终端型号接口
-Mock.mock(new RegExp('/orderPlacingMeetingService/queryOfferModelList'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferModelList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -43,7 +43,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/queryOfferModelList'), {
 });
 
 //17、查询订货会机型接口
-Mock.mock(new RegExp('/orderPlacingMeetingService/queryOpMeetingOfferList'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -77,7 +77,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/queryOpMeetingOfferList'), {
 });
 
 //18、批量导入新增机型数据解析接口
-Mock.mock(new RegExp('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferList'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -106,7 +106,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferLis
 });
 
 //19、批量导入新增机型接口
-Mock.mock(new RegExp('/orderPlacingMeetingService/batchInsertOpmOffer'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOffer'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
