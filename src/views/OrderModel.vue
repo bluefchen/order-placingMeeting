@@ -143,11 +143,11 @@
           categoryName: null,
           categoryCode: null
         }, {
-          name: '终端品牌',
+          name: '品牌',
           categoryName: null,
           categoryCode: null
         }, {
-          name: '终端型号',
+          name: '型号',
           categoryName: null,
           categoryCode: null
         }],
@@ -210,10 +210,10 @@
         if (this.checkedBrandIndex !== index) {
           this.checkedBrandIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if (item.name === '终端品牌') {
+            if (item.name === '品牌') {
               item.categoryName = val.brandName;
               item.categoryCode = val.brandCode;
-              this.delCategoryItem('终端型号');
+              this.delCategoryItem('型号');
             }
           });
           this.$axios.post('/orderPlacingMeetingController/queryOfferModelList', {
@@ -227,14 +227,14 @@
           this.categoryItem.offerModelId = '';
           this.qryOpMeetingOfferList();
         } else {
-          this.delCategoryItem('终端品牌');
+          this.delCategoryItem('品牌');
         }
       },
       checkedModel(val, index) {
         if (this.checkedModelIndex !== index) {
           this.checkedModelIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if (item.name === '终端型号') {
+            if (item.name === '型号') {
               item.categoryName = val.offerModelName;
               item.categoryCode = val.offerModelId;
             }
@@ -242,7 +242,7 @@
           this.categoryItem.offerModelId = val.offerModelId;
           this.qryOpMeetingOfferList();
         } else {
-          this.delCategoryItem('终端型号');
+          this.delCategoryItem('型号');
         }
       },
       addCategoryItem(val, index) {
@@ -252,19 +252,19 @@
         if (val === '是否特种机型') {
           this.checkedSpecialIndex = null;
           this.categoryItem.isSpecial = '';
-        } else if (val === '终端品牌') {
+        } else if (val === '品牌') {
           this.checkedBrandIndex = null;
           this.checkedModelIndex = null;
           this.modelList = [];
           this.checkedCategoryList.map((item, index) => {
-            if (item.name === '终端型号') {
+            if (item.name === '型号') {
               item.categoryName = null;
               item.categoryCode = null;
             }
           });
           this.categoryItem.brandCd = '';
           this.categoryItem.offerModelId = '';
-        } else if (val === '终端型号') {
+        } else if (val === '型号') {
           this.checkedModelIndex = null;
           this.categoryItem.offerModelId = '';
         }
@@ -288,6 +288,9 @@
           })
         });
       },
+      pageChanged(currentPage) {
+        console.log('当前页：', currentPage);
+      }
     },
     components: {
       InputWithSelect,
