@@ -20,7 +20,7 @@
       </el-submenu>
       <el-submenu index="5">
         <template slot="title">政策管理</template>
-        <el-menu-item index="5-1">政策投入</el-menu-item>
+        <el-menu-item index="/order/PolicyManage">政策投入</el-menu-item>
         <el-menu-item index="5-2">政策列表</el-menu-item>
       </el-submenu>
       <el-submenu index="6">

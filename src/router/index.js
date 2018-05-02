@@ -9,6 +9,7 @@ const ImportModel = () => import('@/views/ImportModel');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
+const PolicyManage = () => import('@/views/PolicyManage');
 
 Vue.use(Router);
 
@@ -75,6 +76,13 @@ export default new Router({
           component: DepositAddRecord,
           meta: {
             title: '定金补录'
+          },
+        }, {
+          path: 'policyManage',
+          name: 'policyManage',
+          component: PolicyManage,
+          meta: {
+            title: '政策投入'
           },
         }
       ]
