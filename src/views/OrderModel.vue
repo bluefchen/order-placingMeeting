@@ -10,71 +10,72 @@
         </div>
       </div>
     </div>
-    <div class="content">
-      <!-- 我的位置 -->
-      <div class="my-location">
-        <div class="box-1200">
-          <Breadcrumb :list="['首页', '机型管理', '机型维护']"/>
-        </div>
+
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['首页', '机型管理', '机型维护']"/>
       </div>
+    </div>
 
-      <!-- 搜索 -->
-      <div class="box-1200 search">
-        <InputWithSelect :search="search"/>
-      </div>
+    <!-- 搜索 -->
+    <div class="box-1200 search">
+      <InputWithSelect :search="search"/>
+    </div>
 
-      <!-- 更多筛选 -->
-      <div class="box-1200 queries-list" :class="{'fold-screen': isFoldScreen}">
-        <p class="queries-title">所有分类 >
-          <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList"
-                :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
+    <!-- 更多筛选 -->
+    <div class="box-1200 queries-list" :class="{'fold-screen': isFoldScreen}">
+      <p class="queries-title">所有分类 >
+        <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList"
+              :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
 
-          <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i
-            class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen"
-                                                class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i
-            class="iconfont">&#xe607;</i></a></p>
+        <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i
+          class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen"
+                                              class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i
+          class="iconfont">&#xe607;</i></a></p>
 
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">是否特种机型：</span>
-          <div class="category-list fn-left">
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">是否特种机型：</span>
+        <div class="category-list fn-left">
             <span class="category-item" :class="{'hover': checkedSpecialIndex===index}"
                   v-for="(opt, index) in isSpecialList" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.isSpecialName}}</span>
-          </div>
         </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端品牌：</span>
-          <div class="category-list fn-left" :class="{fold:isFoldBrand}">
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端品牌：</span>
+        <div class="category-list fn-left" :class="{fold:isFoldBrand}">
             <span class="category-item" :class="{'hover': checkedBrandIndex===index}"
                   v-for="(item, index) in brandList" :key="index"
                   @click="checkedBrand(item, index)">{{item.brandName}}</span>
-          </div>
-          <a href="javascript:;" @click="changeFoldBrand" v-show="isFoldBrand" class="category-more fn-right">更多 <i
-            class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" @click="changeFoldBrand" v-show="!isFoldBrand" class="category-pick-up fn-right">收起 <i
-            class="iconfont">&#xe607;</i></a>
         </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端型号：</span>
-          <div class="category-list fn-left" :class="{fold: isFoldModel}">
+        <a href="javascript:;" @click="changeFoldBrand" v-show="isFoldBrand" class="category-more fn-right">更多 <i
+          class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" @click="changeFoldBrand" v-show="!isFoldBrand" class="category-pick-up fn-right">收起 <i
+          class="iconfont">&#xe607;</i></a>
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端型号：</span>
+        <div class="category-list fn-left" :class="{fold: isFoldModel}">
             <span class="category-item" :class="{'hover': checkedModelIndex===index}"
                   v-for="(item, index) in modelList" :key="index" @click="checkedModel(item, index)">{{item.offerModelName}}</span>
-          </div>
-          <a href="javascript:;" @click="changeFoldModel" v-show="isFoldModel" class="category-more fn-right">更多 <i
-            class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i
-            class="iconfont">&#xe607;</i></a>
+        </div>
+        <a href="javascript:;" @click="changeFoldModel" v-show="isFoldModel" class="category-more fn-right">更多 <i
+          class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i
+          class="iconfont">&#xe607;</i></a>
+      </div>
+    </div>
+
+    <div class="box-1200">
+      <div class="order-titl fn-clear">
+        <!-- <div class="tel-model fn-left">订货会机型列表</div> -->
+        <TitlePlate class="fn-left" title="订货会机型列表"/>
+        <div class="buttons fn-right">
+          <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
+          <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
         </div>
       </div>
-      <div class="box-1200">
-        <div class="order-titl fn-clear">
-          <div class="tel-model fn-left">订货会机型列表</div>
-          <div class="buttons fn-right">
-            <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
-            <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
-          </div>
-        </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
-      </div>
+      <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
     </div>
   </div>
 </template>
@@ -84,6 +85,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
+  import TitlePlate from '@/components/TitlePlate';
 
   export default {
     name: 'OrderModel',
@@ -289,7 +291,8 @@
       InputWithSelect,
       DeviceInfo,
       Table,
-      Breadcrumb
+      Breadcrumb,
+      TitlePlate
     }
   }
 </script>

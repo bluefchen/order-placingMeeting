@@ -153,3 +153,46 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchDeleteOpmOffer'), {
   error: null,
   data: null
 });
+
+//24、批量导入新增机型数据解析
+Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalCnt|1-100': 100, //总记录条数
+    'successCnt|1-100': 100, //成功条数
+    'failCnt|1-100': 1, //失败条数
+    'rows|10': [{
+      'offerId': '@id', //商品ID
+      'offerCode': '@id', //商品编码
+      'offerName': '@cword()', //商品名称
+      'brandCd': '@cword()', //商品品牌
+      'brandName': '@cword()', //商品品牌名称
+      'offerModelId': '@id', //商品型号
+      'offerModelName': '@cword()', //商品型号名称
+      'isCentman|1': ['Y', 'N'], //产品类型，Y-集采，N社采
+      'salePrice|100-1000': 100, //终端价格
+      'offerQty|100-1000': 100, //上架数量
+      'commonReginId': '@id', //省份地区ID
+      'commonRegionName': '@province()', //省份地区名称
+      'supplierId': '@id', //供货商ID
+      'supplierName': '@cword()', //供货商名称
+      'assignQty|100-1000': 100, //分配量
+      'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
+      'resultMsg': '@cword()' //校验信息
+    }]
+  }
+});
+
+//25、批量导入新增机型
+Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOffer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
