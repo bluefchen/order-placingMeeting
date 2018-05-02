@@ -5,7 +5,8 @@ const Order = () => import('@/views/Order');
 const OrderIndex = () => import('@/views/OrderIndex');
 const OrderModel = () => import('@/views/OrderModel');
 const SpecialModel = () => import('@/views/SpecialModel');
-const ImportModel = () => import('@/views/ImportModel');
+const ImportModelAdd = () => import('@/views/ImportModelAdd');
+const ImportModelDel = () => import('@/views/ImportModelDel');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
@@ -49,11 +50,18 @@ export default new Router({
             title: '特种机型分配量维护'
           },
         }, {
-          path: 'importModel',
-          name: 'importModel',
-          component: ImportModel,
+          path: 'importModelAdd',
+          name: 'importModelAdd',
+          component: ImportModelAdd,
           meta: {
-            title: '机型导入'
+            title: '机型导入新增'
+          },
+        }, {
+          path: 'importModelDel',
+          name: 'importModelDel',
+          component: ImportModelDel,
+          meta: {
+            title: '机型导入新增'
           },
         }, {
           path: 'depositConfigure',

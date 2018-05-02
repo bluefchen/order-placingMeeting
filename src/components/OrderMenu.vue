@@ -5,7 +5,8 @@
       <el-submenu index="/order/orderModel">
         <template slot="title">机型管理</template>
         <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
-        <el-menu-item index="/order/importModel" style="display: none;">机型维护</el-menu-item>
+        <el-menu-item index="/order/importModelAdd" style="display: none;">机型导入新增</el-menu-item>
+        <el-menu-item index="/order/importModelDel" style="display: none;">机型导入删除</el-menu-item>
         <el-menu-item index="/order/specialModel">特种机型分配量维护</el-menu-item>
       </el-submenu>
       <el-submenu index="3">

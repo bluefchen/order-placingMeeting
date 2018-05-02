@@ -11,7 +11,7 @@
         :multiple="false"
         :on-change="handleChange"
         :auto-upload="false">
-        <el-button slot="trigger" size="small">浏览</el-button>
+        <el-button slot="trigger" size="small">选择</el-button>
       </el-upload>
     </div>
     <el-button class="btn-upload" size="small" type="success" :disabled="!fileList[0].raw" @click="upload">导入
@@ -26,6 +26,10 @@
   export default {
     name: 'UploadFile',
     props: {
+      url: {
+        type: String,
+        require: true
+      },
       callback: {
         type: Function
       }
@@ -55,13 +59,13 @@
         }
         let formdata = new FormData();
         formdata.append('file', this.fileList[0].raw);
-        this.$axios.post('/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList', formdata, {
+        this.$axios.post(this.url, formdata, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }).then(rsp => {
           this.$emit('callback' , rsp.data || []);
-          console.log('18、批量导入新增机型数据解析接口：', rsp.data);
+          console.log('导入URL：', this.url, '导入数据：', rsp.data);
         })
       },
       download() {

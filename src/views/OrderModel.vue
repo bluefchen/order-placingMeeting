@@ -25,46 +25,59 @@
 
       <!-- 更多筛选 -->
       <div class="box-1200 queries-list" :class="{'fold-screen': isFoldScreen}">
-        <p class="queries-title">所有分类 > 
-          <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList" :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
+        <p class="queries-title">所有分类 >
+          <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList"
+                :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
 
-          <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen" class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i class="iconfont">&#xe607;</i></a></p>
+          <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i
+            class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen"
+                                                class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i
+            class="iconfont">&#xe607;</i></a></p>
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">终端状态：</span>
           <div class="category-list fn-left">
-            <span class="category-item" :class="{'hover': checkedStateIndex == index}" v-for="(value, index) in terminalStateList" :key="index" @click="checkedState(value, index)">{{value.stateName}}</span>
+            <span class="category-item" :class="{'hover': checkedStateIndex == index}"
+                  v-for="(value, index) in terminalStateList" :key="index" @click="checkedState(value, index)">{{value.stateName}}</span>
           </div>
         </div>
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">是否特种机型：</span>
           <div class="category-list fn-left">
-            <span class="category-item" :class="{'hover': checkedSpecialIndex == index}" v-for="(opt, index) in specialModelsOptions" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.optName}}</span>
+            <span class="category-item" :class="{'hover': checkedSpecialIndex == index}"
+                  v-for="(opt, index) in specialModelsOptions" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.optName}}</span>
           </div>
         </div>
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">终端品牌：</span>
           <div class="category-list fn-left" :class="{fold:isFoldBrand}">
-            <span class="category-item" :class="{'hover': checkedBrandIndex == index}" v-for="(item, index) in brandList" :key="index" @click="checkedBrand(item, index)">{{item.brandName}}</span>
+            <span class="category-item" :class="{'hover': checkedBrandIndex == index}"
+                  v-for="(item, index) in brandList" :key="index"
+                  @click="checkedBrand(item, index)">{{item.brandName}}</span>
           </div>
-          <a href="javascript:;" @click="changeFoldBrand" v-show="isFoldBrand" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" @click="changeFoldBrand" v-show="!isFoldBrand" class="category-pick-up fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+          <a href="javascript:;" @click="changeFoldBrand" v-show="isFoldBrand" class="category-more fn-right">更多 <i
+            class="iconfont">&#xe608;</i></a>
+          <a href="javascript:;" @click="changeFoldBrand" v-show="!isFoldBrand" class="category-pick-up fn-right">收起 <i
+            class="iconfont">&#xe607;</i></a>
         </div>
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">终端型号：</span>
           <div class="category-list fn-left" :class="{fold: isFoldModel}">
-            <span class="category-item" :class="{'hover': checkedModelIndex == index}" v-for="(item, index) in modelList" :key="index" @click="checkedModel(item, index)">{{item.modelName}}</span>
+            <span class="category-item" :class="{'hover': checkedModelIndex == index}"
+                  v-for="(item, index) in modelList" :key="index"
+                  @click="checkedModel(item, index)">{{item.modelName}}</span>
           </div>
-          <a href="javascript:;" @click="changeFoldModel" v-show="isFoldModel" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+          <a href="javascript:;" @click="changeFoldModel" v-show="isFoldModel" class="category-more fn-right">更多 <i
+            class="iconfont">&#xe608;</i></a>
+          <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i
+            class="iconfont">&#xe607;</i></a>
         </div>
       </div>
       <div class="box-1200">
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">订货会机型</div>
           <div class="buttons fn-right">
-            <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入新增</button>
-            <router-link class="btns" to="/order/importModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
-            <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除</button>
+            <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
+            <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
             <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
             <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
           </div>
@@ -199,8 +212,8 @@
         }, {
           label: '是否特种机型',
           prop: 'isSpecial',
-          formatter: function(row, value){
-            switch(row.isSpecial){
+          formatter: function (row, value) {
+            switch (row.isSpecial) {
               case 'N':
                 return "非特种机型";
                 break;
@@ -279,7 +292,7 @@
         terminalStateList: [{
           stateName: '上架',
           stateCode: '001'
-        },{
+        }, {
           stateName: '下架',
           stateCode: '002'
         }],
@@ -287,7 +300,7 @@
         specialModelsOptions: [{
           optName: '是',
           optCode: 'Y'
-        },{
+        }, {
           optName: '否',
           optCode: 'N'
         }],
@@ -295,31 +308,31 @@
         brandList: [{
           brandName: '苹果',
           brandCode: '001'
-        },{
+        }, {
           brandName: '三星',
           brandCode: '002'
-        },{
+        }, {
           brandName: '华为',
           brandCode: '003'
-        },{
+        }, {
           brandName: '酷派',
           brandCode: '004'
-        },{
+        }, {
           brandName: '中兴',
           brandCode: '005'
-        },{
+        }, {
           brandName: '黑莓',
           brandCode: '006'
-        },{
+        }, {
           brandName: '诺基亚',
           brandCode: '007'
-        },{
+        }, {
           brandName: '魅族',
           brandCode: '008'
-        },{
+        }, {
           brandName: '锤子',
           brandCode: '009'
-        },{
+        }, {
           brandName: '小米',
           brandCode: '010'
         }],
@@ -329,43 +342,43 @@
         qryModelList: [{
           modelName: 'iphone 3',
           modelCode: '001'
-        },{
+        }, {
           modelName: 'iphone 4',
           modelCode: '002'
-        },{
+        }, {
           modelName: 'iphone 4s',
           modelCode: '003'
-        },{
+        }, {
           modelName: 'iphone 5',
           modelCode: '004'
-        },{
+        }, {
           modelName: 'iphone 5s',
           modelCode: '005'
-        },{
+        }, {
           modelName: 'iphone 6',
           modelCode: '006'
-        },{
+        }, {
           modelName: 'iphone 6s',
           modelCode: '007'
-        },{
+        }, {
           modelName: 'iphone 5c',
           modelCode: '008'
-        },{
+        }, {
           modelName: 'iphone 5se',
           modelCode: '009'
-        },{
+        }, {
           modelName: 'iphone 6 plus',
           modelCode: '010'
-        },{
+        }, {
           modelName: 'iphone 6s plus',
           modelCode: '011'
-        },{
+        }, {
           modelName: 'iphone 7',
           modelCode: '012'
-        },{
+        }, {
           modelName: 'iphone 8',
           modelCode: '013'
-        },{
+        }, {
           modelName: 'iphone X',
           modelCode: '014'
         }],
@@ -373,15 +386,15 @@
           name: '终端状态',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '是否特种机型',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '终端品牌',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '终端型号',
           categoryName: null,
           categoryCode: null
@@ -392,96 +405,101 @@
       search(obj) {
         console.log('参数：', obj);
       },
-      changeFoldBrand(){
+      changeFoldBrand() {
         this.isFoldBrand = !this.isFoldBrand;
       },
-      changeFoldModel(){
+      changeFoldModel() {
         this.isFoldModel = !this.isFoldModel;
       },
-      changeFoldScreen(){
+      changeFoldScreen() {
         this.isFoldScreen = !this.isFoldScreen;
       },
-      checkedState(val, index){
-        if(this.checkedStateIndex != index){
+      checkedState(val, index) {
+        if (this.checkedStateIndex != index) {
           this.checkedStateIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端状态'){
+            if (item.name == '终端状态') {
               item.categoryName = val.stateName;
               item.categoryCode = val.stateCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('终端状态');
-        };
+        }
+        ;
       },
-      checkedSpecialModel(val, index){
-        if(this.checkedSpecialIndex != index){
+      checkedSpecialModel(val, index) {
+        if (this.checkedSpecialIndex != index) {
           this.checkedSpecialIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '是否特种机型'){
+            if (item.name == '是否特种机型') {
               item.categoryName = val.optName;
               item.categoryCode = val.optCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('是否特种机型');
-        };
+        }
+        ;
       },
-      checkedBrand(val, index){
-        if(this.checkedBrandIndex != index){
+      checkedBrand(val, index) {
+        if (this.checkedBrandIndex != index) {
           this.checkedBrandIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端品牌'){
+            if (item.name == '终端品牌') {
               item.categoryName = val.brandName;
               item.categoryCode = val.brandCode;
               this.delCategoryItem('终端型号');
             }
           });
           this.modelList = this.qryModelList;
-        }else{
+        } else {
           this.delCategoryItem('终端品牌');
-        };
+        }
+        ;
       },
-      checkedModel(val, index){
-        if(this.checkedModelIndex != index){
+      checkedModel(val, index) {
+        if (this.checkedModelIndex != index) {
           this.checkedModelIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端型号'){
+            if (item.name == '终端型号') {
               item.categoryName = val.modelName;
               item.categoryCode = val.modelCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('终端型号');
-        };
+        }
+        ;
       },
-      addCategoryItem(val, index){
+      addCategoryItem(val, index) {
         this.checkedCategoryList.push(val);
       },
-      delCategoryItem(val){
-          if(val == '终端状态'){
-            this.checkedStateIndex = null;
-          }else if(val == '是否特种机型'){
-            this.checkedSpecialIndex = null;
-          }else if(val == '终端品牌'){
-            this.checkedBrandIndex = null;
-            this.checkedModelIndex = null;
-            this.modelList = [];
-            this.checkedCategoryList.map((item, index) => {
-              if(item.name == '终端型号'){
-                item.categoryName = null;
-                item.categoryCode = null;
-              }
-            });
-          }else if(val == '终端型号'){
-            this.checkedModelIndex = null;
-          };
+      delCategoryItem(val) {
+        if (val == '终端状态') {
+          this.checkedStateIndex = null;
+        } else if (val == '是否特种机型') {
+          this.checkedSpecialIndex = null;
+        } else if (val == '终端品牌') {
+          this.checkedBrandIndex = null;
+          this.checkedModelIndex = null;
+          this.modelList = [];
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == val){
+            if (item.name == '终端型号') {
               item.categoryName = null;
               item.categoryCode = null;
             }
           });
+        } else if (val == '终端型号') {
+          this.checkedModelIndex = null;
+        }
+        ;
+        this.checkedCategoryList.map((item, index) => {
+          if (item.name == val) {
+            item.categoryName = null;
+            item.categoryCode = null;
+          }
+        });
       }
     },
     components: {
@@ -630,7 +648,8 @@
   .fold {
     height: 38px;
   }
-  .fold-screen{
+
+  .fold-screen {
     height: 42px;
   }
 
@@ -681,7 +700,7 @@
     color: #f82134;
   }
 
-  .category-pick-up{
+  .category-pick-up {
     color: #979797;
   }
 

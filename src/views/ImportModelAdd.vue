@@ -20,7 +20,7 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <Import :tableTitle="tableTitle" ref="importComponent"/>
+        <Import :url="url" :tableTitle="tableTitle" ref="importComponent"/>
       </div>
 
       <div class="bottom-btns">
@@ -35,11 +35,12 @@
   import Import from '@/components/Import';
 
   export default {
-    name: 'ImportModel',
+    name: 'ImportModelAdd',
     created() {
     },
     data() {
       return {
+        url: '/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',
@@ -142,6 +143,7 @@
         this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
           tableDataIsSueccess
         }).then(rsp => {
+          this.$message.success('导入新增数据成功');
           console.log('19、批量导入新增机型接口：', rsp);
         })
       }

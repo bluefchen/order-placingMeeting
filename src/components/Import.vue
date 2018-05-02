@@ -1,7 +1,7 @@
 <template>
   <div class="v_import">
     <div class="file-import">
-      <UploadFile @callback="uploadData"/>
+      <UploadFile :url="url" @callback="uploadData"/>
     </div>
 
     <div class="result-header">
@@ -23,6 +23,10 @@
   export default {
     name: 'Import',
     props: {
+      url: {
+        type: String,
+        require: true
+      },
       tableTitle: {
         type: Array,
         require: true
