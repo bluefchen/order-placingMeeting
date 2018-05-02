@@ -73,7 +73,7 @@
             <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
           </div>
         </div>
-        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -99,6 +99,7 @@
         tableTitle: [{
           label: '终端名称',
           prop: 'offerName',
+          width: 400,
           render: (h, params) => {
             return h(DeviceInfo, {
               props: {data: params.row}
