@@ -26,8 +26,9 @@
   .title {
     min-width: 5px;
     min-height: 20px;
-    background: url('../assets/images/red-line.png') no-repeat 0 center;
+    margin-left: 5px;
     padding-left: 10px;
+    background: url('../assets/images/red-line.png') no-repeat 0 center;
     font-size: 18px;
     color: #000;
     font-weight: 800;
