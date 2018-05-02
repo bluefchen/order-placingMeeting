@@ -31,11 +31,10 @@
   export default {
     name: 'Order',
     created() {
-      this.$axios({
-        method: 'get',
-        url: '/api/data',
+      this.$get('/api/data', {
+        key: '12333'
       }).then(rsp => {
-        console.log('返回数据：', rsp.data);
+        console.log('返回数据：', rsp);
       })
     },
     data() {

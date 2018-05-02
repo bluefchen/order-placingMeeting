@@ -129,7 +129,7 @@
           render: (h, params) => {
             return h(TitlePlate, {
               props: {title: params.row.name},
-              on: { update: this.handleDelete }
+              on: {update: this.handleDelete}
             });
           }
         }],
@@ -142,16 +142,6 @@
           date: '2016-05-04',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1517 弄',
-          tag: '公司'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
           tag: '公司'
         }]
       }
