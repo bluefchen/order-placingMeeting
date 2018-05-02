@@ -50,7 +50,7 @@
         let excelfileExtend = '.xls,.xlsx';
         let fileExtend = this.fileList[0].name.substring(this.fileList[0].name.lastIndexOf('.')).toLowerCase();
         if (excelfileExtend.indexOf(fileExtend) <= -1) {
-          this.$message.error('文件格式错误');
+          this.$message.warning('导入文件只能是Excel文件');
           return false
         }
         let formdata = new FormData();
@@ -61,7 +61,7 @@
           }
         }).then(rsp => {
           this.$emit('callback' , rsp.data || []);
-          console.log('17、批量导入新增机型数据解析接口：', rsp.data);
+          console.log('18、批量导入新增机型数据解析接口：', rsp.data);
         })
       },
       download() {

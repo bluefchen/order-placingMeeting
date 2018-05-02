@@ -16,7 +16,7 @@ Mock.mock(new RegExp('/api/data'), {
   }
 });
 
-// 17、批量导入新增机型数据解析接口
+// 18、批量导入新增机型数据解析接口
 Mock.mock(new RegExp('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -43,4 +43,14 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferLis
       'resultMsg': '@cword()' //校验信息
     }]
   }
+});
+
+// 19、批量导入新增机型接口
+Mock.mock(new RegExp('/orderPlacingMeetingService/batchInsertOpmOffer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
 });

@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import './util/axios'
 
+import _ from 'lodash';
+Vue.prototype._ = _;
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
