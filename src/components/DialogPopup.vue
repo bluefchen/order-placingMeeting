@@ -1,27 +1,27 @@
 <template>
   <div class="popup">
-  <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>  
+  <el-button type="text" @click="dialogVisible = true">{{}}</el-button>  
   <el-dialog
-  title="选择添加供货商"
-  :visible.sync="dialogVisible"
-  width="70%"
-  :before-close="handleClose"
-  center>
-  <div class="content">
-    content
-  </div>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-</el-dialog>
+    title="选择添加供货商"
+    :visible.sync="dialogVisible"
+    width="70%"
+    :before-close="handleClose"
+    center>
+    <div class="content">
+      content
+    </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    </span>
+  </el-dialog>
 
 </div>
 </template>
 
 <script>
  export default {
-    name: 'Pop',
+    name: 'DialogPopup',
     data() {
       return {
         dialogVisible: false
