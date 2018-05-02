@@ -20,7 +20,7 @@
 
       <!-- 搜索 -->
       <div class="box-1200 search">
-        <SearchInput :search="search"/>
+        <InputWithSelect :search="search"/>
         <a href="javascript:;" class="category-more fn-left" @click="openMore()" v-show="!openshow">更多条件 <i class="iconfont">&#xe608;</i></a>
         <a href="javascript:;" class="category-more fn-left" @click="openMore()" v-show="openshow">收起条件 <i class="iconfont">&#xe607;</i></a>
       </div>
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-  import SearchInput from '@/components/SearchInput';
+  import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';

@@ -1,6 +1,6 @@
 <template>
   <div class="popup">
-  <el-button type="text" @click="dialogVisible = true">{{}}</el-button>  
+  <!-- <el-button type="text" @click="dialogVisible = true">{{}}</el-button>   -->
   <el-dialog
     title="选择添加供货商"
     :visible.sync="dialogVisible"
