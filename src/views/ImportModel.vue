@@ -20,12 +20,11 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <Import />
+        <Import ref="importComponent"/>
       </div>
 
       <div class="bottom-btns">
-        <el-button type="success">确定</el-button>
-        <el-button type="success">重置</el-button>
+        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
       </div>
     </div>
   </div>
@@ -43,8 +42,26 @@
       return {}
     },
     methods: {
-      search(obj) {
-        console.log('参数：', obj);
+      batchInsertOpmOffer() {
+        let tableData = this.$refs.importComponent.tableData;
+        if (!tableData.length) {
+          this.$message.warning('导入数据不能为空');
+          return;
+        }
+        let tableDataIsSueccess = [];
+        _.each(tableData, (item) => {
+          if (item.isSuccess === 'Y') {
+            tableDataIsSueccess.push({
+              opMeetingId: '订购会ID',
+              ...item
+            })
+          }
+        });
+        this.$post('/orderPlacingMeetingService/batchInsertOpmOffer', {
+          tableDataIsSueccess
+        }).then(rsp => {
+          console.log('19、批量导入新增机型接口：', rsp);
+        })
       }
     },
     components: {
