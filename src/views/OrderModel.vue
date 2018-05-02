@@ -29,16 +29,11 @@
           <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList" :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
 
           <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen" class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i class="iconfont">&#xe607;</i></a></p>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端状态：</span>
-          <div class="category-list fn-left">
-            <span class="category-item" :class="{'hover': checkedStateIndex == index}" v-for="(value, index) in terminalStateList" :key="index" @click="checkedState(value, index)">{{value.stateName}}</span>
-          </div>
-        </div>
+
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">是否特种机型：</span>
           <div class="category-list fn-left">
-            <span class="category-item" :class="{'hover': checkedSpecialIndex == index}" v-for="(opt, index) in specialModelsOptions" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.optName}}</span>
+            <span class="category-item" :class="{'hover': checkedSpecialIndex == index}" v-for="(opt, index) in isSpecialList" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.isSpecialName}}</span>
           </div>
         </div>
         <div class="queries-category fn-clear">
@@ -52,7 +47,7 @@
         <div class="queries-category fn-clear">
           <span class="category-label fn-left">终端型号：</span>
           <div class="category-list fn-left" :class="{fold: isFoldModel}">
-            <span class="category-item" :class="{'hover': checkedModelIndex == index}" v-for="(item, index) in modelList" :key="index" @click="checkedModel(item, index)">{{item.modelName}}</span>
+            <span class="category-item" :class="{'hover': checkedModelIndex == index}" v-for="(item, index) in modelList" :key="index" @click="checkedModel(item, index)">{{item.offerModelName}}</span>
           </div>
           <a href="javascript:;" @click="changeFoldModel" v-show="isFoldModel" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
           <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i class="iconfont">&#xe607;</i></a>
@@ -60,20 +55,17 @@
       </div>
       <div class="box-1200">
         <div class="order-titl fn-clear">
-          <div class="tel-model fn-left">订货会机型</div>
+          <div class="tel-model fn-left">订货会机型列表</div>
           <div class="buttons fn-right">
-            <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入新增</button>
             <router-link class="btns" to="/order/importModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
             <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除</button>
-            <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
-            <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
           </div>
         </div>
+        <Table :tableTitle="tableTitle" :tableData="tableData" />
 
-        <table width="100%" cellspacing="0" cellpadding="0" class="table">
+        <!-- <table width="100%" cellspacing="0" cellpadding="0" class="table">
           <thead>
           <tr>
-            <th width="5%"><input type="checkbox"></th>
             <th width="25%">终端名称</th>
             <th width="10%">终端品牌</th>
             <th width="10%">终端型号</th>
@@ -81,13 +73,10 @@
             <th width="9%">终端价格</th>
             <th width="10%">是否特种机型</th>
             <th width="8%">上架数量</th>
-            <th width="8%">状态</th>
-            <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td><input type="checkbox"></td>
             <td>
               <DeviceInfo/>
             </td>
@@ -97,13 +86,8 @@
             <td>￥1890</td>
             <td><i class="iconfont red">&#xe63f;</i></td>
             <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
           </tr>
           <tr>
-            <td><input type="checkbox"></td>
             <td class="td-first">
               <p class="p-img"><img src="@/assets/images/telephone2.jpg"></p>
               <p class="tel-info">
@@ -117,13 +101,8 @@
             <td>￥1890</td>
             <td><i class="iconfont red">&#xe63f;</i></td>
             <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn green">上架</button>
-            </td>
           </tr>
           <tr>
-            <td><input type="checkbox"></td>
             <td class="td-first">
               <p class="p-img"><img src="@/assets/images/telephone3.jpg"></p>
               <p class="tel-info">
@@ -137,14 +116,9 @@
             <td>￥1890</td>
             <td><i class="iconfont red">&#xe63f;</i></td>
             <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
             </td>
           </tr>
           <tr>
-            <td><input type="checkbox"></td>
             <td class="td-first">
               <p class="p-img"><img src="@/assets/images/telephone4.jpg"></p>
               <p class="tel-info">
@@ -158,13 +132,9 @@
             <td>￥1890</td>
             <td><i class="iconfont red">&#xe63f;</i></td>
             <td>300</td>
-            <td>上架</td>
-            <td>
-              <button class="updown-btn red">下架</button>
-            </td>
           </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
   </div>
@@ -179,201 +149,53 @@
   export default {
     name: 'OrderModel',
     created() {
+      this.$axios.post('/orderPlacingMeetingService/queryOfferBrandList', {}).then((response) => {
+        this.brandList = response.data;
+      });
+      this.qryOpMeetingOfferList();
     },
     data() {
       return {
         //表格的数据
-        isSelection: true,
         tableTitle: [{
-          label: '终端品牌',
-          prop: 'terminalBrand'
-        }, {
-          label: '终端型号',
-          prop: 'terminalModel'
-        }, {
-          label: '产品类型',
-          prop: 'prodType'
-        }, {
-          label: '终端价格',
-          prop: 'terminalPrice'
-        }, {
-          label: '是否特种机型',
-          prop: 'isSpecial',
-          formatter: function(row, value){
-            switch(row.isSpecial){
-              case 'N':
-                return "非特种机型";
-                break;
-              case 'Y':
-                return '特种机型';
-                break;
-            }
+          label: '终端名称',
+          prop: 'offerName',
+          render: (h, params) => {
+            return h(DeviceInfo, {
+              // props: {title: params.row.name},
+              // on: { update: this.handleEdit }
+            });
           }
-        }, {
+        },{
+          label: '终端品牌',
+          prop: 'brandName'
+        },{
+          label: '终端型号',
+          prop: 'offerModelName'
+        },{
+          label: '终端价格',
+          prop: 'salePrice',
+          render: function(h, params){
+            return h({
+              template: '<p>¥ {{salePrice}}</p>',
+              data: function() {
+                return {
+                  salePrice: params.row.salePrice
+                }
+              }
+            })
+          }
+        },{
           label: '上架数量',
-          prop: 'count'
-        }, {
-          label: '状态',
-          prop: 'type'
+          prop: 'offerQty',
         }],
-        tableData: [{
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架'
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }],
+        tableData: [],
         //分类选择
         isFoldBrand: true, //是否折叠品牌
         isFoldModel: true, //是否折叠型好
         isFoldScreen: false, //是否折叠更多筛选
         //筛选数据
-        terminalStateList: [{
-          stateName: '上架',
-          stateCode: '001'
-        },{
-          stateName: '下架',
-          stateCode: '002'
-        }],
-        checkedStateIndex: null,
-        specialModelsOptions: [{
-          optName: '是',
-          optCode: 'Y'
-        },{
-          optName: '否',
-          optCode: 'N'
-        }],
-        checkedSpecialIndex: null,
-        brandList: [{
-          brandName: '苹果',
-          brandCode: '001'
-        },{
-          brandName: '三星',
-          brandCode: '002'
-        },{
-          brandName: '华为',
-          brandCode: '003'
-        },{
-          brandName: '酷派',
-          brandCode: '004'
-        },{
-          brandName: '中兴',
-          brandCode: '005'
-        },{
-          brandName: '黑莓',
-          brandCode: '006'
-        },{
-          brandName: '诺基亚',
-          brandCode: '007'
-        },{
-          brandName: '魅族',
-          brandCode: '008'
-        },{
-          brandName: '锤子',
-          brandCode: '009'
-        },{
-          brandName: '小米',
-          brandCode: '010'
-        }],
-        checkedBrandIndex: null,
-        modelList: [],
-        checkedModelIndex: null,
-        qryModelList: [{
-          modelName: 'iphone 3',
-          modelCode: '001'
-        },{
-          modelName: 'iphone 4',
-          modelCode: '002'
-        },{
-          modelName: 'iphone 4s',
-          modelCode: '003'
-        },{
-          modelName: 'iphone 5',
-          modelCode: '004'
-        },{
-          modelName: 'iphone 5s',
-          modelCode: '005'
-        },{
-          modelName: 'iphone 6',
-          modelCode: '006'
-        },{
-          modelName: 'iphone 6s',
-          modelCode: '007'
-        },{
-          modelName: 'iphone 5c',
-          modelCode: '008'
-        },{
-          modelName: 'iphone 5se',
-          modelCode: '009'
-        },{
-          modelName: 'iphone 6 plus',
-          modelCode: '010'
-        },{
-          modelName: 'iphone 6s plus',
-          modelCode: '011'
-        },{
-          modelName: 'iphone 7',
-          modelCode: '012'
-        },{
-          modelName: 'iphone 8',
-          modelCode: '013'
-        },{
-          modelName: 'iphone X',
-          modelCode: '014'
-        }],
         checkedCategoryList: [{
-          name: '终端状态',
-          categoryName: null,
-          categoryCode: null
-        },{
           name: '是否特种机型',
           categoryName: null,
           categoryCode: null
@@ -386,11 +208,35 @@
           categoryName: null,
           categoryCode: null
         }],
+        categoryItem: {
+          'opMeetingId': '',
+          'isCentman': '',
+          'offerNameOrCode': '',
+          'isSpecial': '',
+          'brandCd': '',
+          'offerModelId': ''
+        },
+        isSpecialList: [{
+          isSpecialName: '是',
+          isSpecial: 'Y'
+        },{
+          isSpecialName: '否',
+          isSpecial: 'N'
+        }],
+        checkedSpecialIndex: null,
+        brandList: [],
+        checkedBrandIndex: null,
+        modelList: [],
+        checkedModelIndex: null,
+        opMeetingOfferList: [],
+        totalNum: 0 //列表总数
       }
     },
     methods: {
       search(obj) {
-        console.log('参数：', obj);
+        this.categoryItem.isCentman = obj.type;
+        this.categoryItem.offerNameOrCode = obj.value;
+        this.qryOpMeetingOfferList();
       },
       changeFoldBrand(){
         this.isFoldBrand = !this.isFoldBrand;
@@ -401,31 +247,21 @@
       changeFoldScreen(){
         this.isFoldScreen = !this.isFoldScreen;
       },
-      checkedState(val, index){
-        if(this.checkedStateIndex != index){
-          this.checkedStateIndex = index;
-          this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端状态'){
-              item.categoryName = val.stateName;
-              item.categoryCode = val.stateCode;
-            }
-          });
-        }else{
-          this.delCategoryItem('终端状态');
-        };
-      },
       checkedSpecialModel(val, index){
         if(this.checkedSpecialIndex != index){
           this.checkedSpecialIndex = index;
           this.checkedCategoryList.map((item, index) => {
             if(item.name == '是否特种机型'){
-              item.categoryName = val.optName;
-              item.categoryCode = val.optCode;
+              item.categoryName = val.isSpecialName;
+              item.categoryCode = val.isSpecial;
             }
           });
+          this.categoryItem.isSpecial = val.isSpecial;
+          this.qryOpMeetingOfferList();
         }else{
           this.delCategoryItem('是否特种机型');
-        };
+          this.categoryItem.isSpecial = '';
+        }
       },
       checkedBrand(val, index){
         if(this.checkedBrandIndex != index){
@@ -437,7 +273,16 @@
               this.delCategoryItem('终端型号');
             }
           });
-          this.modelList = this.qryModelList;
+          this.$axios.post('/orderPlacingMeetingService/queryOfferModelList', {
+            param: {
+              'brandCd': val.brandCd
+            }
+          }).then((response) => {
+            this.modelList = response.data;
+          });
+          this.categoryItem.brandCd = val.brandCd;
+          this.categoryItem.offerModelId = '';
+          this.qryOpMeetingOfferList();
         }else{
           this.delCategoryItem('终端品牌');
         };
@@ -447,10 +292,12 @@
           this.checkedModelIndex = index;
           this.checkedCategoryList.map((item, index) => {
             if(item.name == '终端型号'){
-              item.categoryName = val.modelName;
-              item.categoryCode = val.modelCode;
+              item.categoryName = val.offerModelName;
+              item.categoryCode = val.offerModelId;
             }
           });
+          this.categoryItem.offerModelId = val.offerModelId;
+          this.qryOpMeetingOfferList();
         }else{
           this.delCategoryItem('终端型号');
         };
@@ -459,10 +306,9 @@
         this.checkedCategoryList.push(val);
       },
       delCategoryItem(val){
-          if(val == '终端状态'){
-            this.checkedStateIndex = null;
-          }else if(val == '是否特种机型'){
+          if(val == '是否特种机型'){
             this.checkedSpecialIndex = null;
+            this.categoryItem.isSpecial = '';
           }else if(val == '终端品牌'){
             this.checkedBrandIndex = null;
             this.checkedModelIndex = null;
@@ -473,8 +319,11 @@
                 item.categoryCode = null;
               }
             });
+            this.categoryItem.brandCd = '';
+            this.categoryItem.offerModelId = '';
           }else if(val == '终端型号'){
             this.checkedModelIndex = null;
+            this.categoryItem.offerModelId = '';
           };
           this.checkedCategoryList.map((item, index) => {
             if(item.name == val){
@@ -482,7 +331,27 @@
               item.categoryCode = null;
             }
           });
-      }
+          this.qryOpMeetingOfferList();
+      },
+      qryOpMeetingOfferList(){
+        this.$axios.post('/orderPlacingMeetingService/queryOpMeetingOfferList', {
+          param: this.categoryItem
+        }).then((response) => {
+          this.opMeetingOfferList = response.data.rows;
+          this.totalNum = response.data.total;
+          this.tableData = [];
+          this.opMeetingOfferList.map((item, index) =>{
+            let itemInfo = {
+              'offerName': item.offerName,
+              'brandName': item.brandName,
+              'offerModelName': item.offerModelName,
+              'salePrice': item.salePrice,
+              'offerQty': item.offerQty
+            };
+            this.tableData.push(itemInfo);
+          })
+        });
+      },
     },
     components: {
       InputWithSelect,
