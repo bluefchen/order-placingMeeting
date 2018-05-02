@@ -7,7 +7,7 @@
     <div class="result-header">
       <TitlePlate title="导入结果"/>
       <div class="result-info"><span>校验结果：</span>Excel中共有<b>{{totalCnt}}</b>条数据，其中<b
-       >{{successCnt}}</b>条校验通过有效，<b>{{failCnt}}</b>条校验不通过无效，点击提交可以导入正确信息。
+      >{{successCnt}}</b>条校验通过有效，<b>{{failCnt}}</b>条校验不通过无效，点击提交可以导入正确信息。
       </div>
     </div>
 
