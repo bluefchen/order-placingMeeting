@@ -53,12 +53,12 @@
     text-align: left;
     .device-pic {
       width: 80px;
-      height: 70px;
+      height: 80px;
       border: 1px solid #e7e7e7;
       img {
         display: block;
         width: 78px;
-        height: 68px;
+        height: 78px;
       }
     }
     .device-info {
@@ -82,7 +82,7 @@
         .truncate();
       }
       .property {
-        margin-top: 10px;
+        margin-top: 8px;
         white-space: nowrap;
         overflow: hidden;
         span {
