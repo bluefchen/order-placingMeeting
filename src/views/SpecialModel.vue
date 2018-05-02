@@ -92,8 +92,7 @@
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">特种机型分配量列表</div>
           <div class="buttons fn-right">
-            <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入机型</button>
-            <button class="btns"><i class="iconfont">&#xe610;</i> 导入删除机型</button>
+            <router-link class="btns" to="/order/importSpecialModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
           </div>
         </div>
         <table width="100%" cellspacing="0" cellpadding="0" class="table">

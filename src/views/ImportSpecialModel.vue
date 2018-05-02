@@ -14,7 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['首页', '机型管理', '导入删除']"/>
+          <Breadcrumb :list="['首页', '机型管理', '导入新增']"/>
         </div>
       </div>
 
@@ -24,7 +24,7 @@
       </div>
 
       <div class="bottom-btns">
-        <el-button type="success" @click="batchDeleteOpmOffer">确定</el-button>
+        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
       </div>
     </div>
   </div>
@@ -35,12 +35,12 @@
   import Import from '@/components/Import';
 
   export default {
-    name: 'ImportModelDel',
+    name: 'ImportSpecialModel',
     created() {
     },
     data() {
       return {
-        url: '/orderPlacingMeetingController/analyzeDeleteOpmOfferList',
+        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',
@@ -52,15 +52,15 @@
         }, {
           label: '终端品牌',
           prop: 'brandName',
-          width: 100
+          width: 80
         }, {
           label: '终端型号',
           prop: 'offerModelName',
-          width: 140
+          width: 100
         }, {
           label: '产品类型',
           prop: 'isCentman',
-          width: 100,
+          width: 80,
           render: (h, params) => {
             return h({
               template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
@@ -72,9 +72,13 @@
             });
           }
         }, {
+          label: '供货商',
+          prop: 'supplierName',
+          width: 100
+        }, {
           label: '终端价格',
           prop: 'costPrice',
-          width: 100,
+          width: 80,
           render: (h, params) => {
             return h({
               template: '<span>￥{{data.row.costPrice}}</span>',
@@ -86,12 +90,16 @@
             });
           }
         }, {
-          label: '是否特种机型',
-          prop: 'isSpecial',
-          width: 100,
+          label: '分配省份',
+          prop: 'commonRegionName',
+          width: 80
+        }, {
+          label: '分配量(台)',
+          prop: 'assignQty',
+          width: 80,
           render: (h, params) => {
             return h({
-              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
+              template: '<span class="num">{{data.row.assignQty}}</span>',
               data() {
                 return {
                   data: params
@@ -100,13 +108,13 @@
             });
           }
         }, {
-          label: '数量',
+          label: '上架数量',
           prop: 'offerQty',
-          width: 100
+          width: 80
         }, {
           label: '校验结果',
           prop: 'isSuccess',
-          width: 100,
+          width: 80,
           render: (h, params) => {
             return h({
               template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
@@ -124,7 +132,7 @@
       }
     },
     methods: {
-      batchDeleteOpmOffer() {
+      batchInsertOpmOffer() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
           this.$message.warning('导入数据不能为空');
@@ -140,12 +148,12 @@
           }
         });
         console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/orderPlacingMeetingController/batchDeleteOpmOffer', {
+        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
           tableDataIsSueccess
         }).then(rsp => {
-          this.$router.push({path: '/order/orderModel'});
-          // this.$message.success('导入删除数据成功');
-          console.log('21、批量导入删除机型接口：', rsp);
+          this.$router.push({path: '/order/specialModel'});
+          // this.$message.success('导入新增数据成功');
+          console.log('25、批量导入新增机型接口：', rsp);
         })
       }
     },
@@ -186,7 +194,6 @@
     color: #fcfdff;
     text-align: center;
   }
-
   /*中间背景图片*/
 
   .my-location {

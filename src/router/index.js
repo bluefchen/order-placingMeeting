@@ -7,6 +7,7 @@ const OrderModel = () => import('@/views/OrderModel');
 const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModelAdd = () => import('@/views/ImportModelAdd');
 const ImportModelDel = () => import('@/views/ImportModelDel');
+const ImportSpecialModel = () => import('@/views/ImportSpecialModel');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
@@ -62,6 +63,13 @@ export default new Router({
           component: ImportModelDel,
           meta: {
             title: '机型导入新增'
+          },
+        }, {
+          path: 'importSpecialModel',
+          name: 'importSpecialModel',
+          component: ImportSpecialModel,
+          meta: {
+            title: '特种机型导入新增'
           },
         }, {
           path: 'depositConfigure',

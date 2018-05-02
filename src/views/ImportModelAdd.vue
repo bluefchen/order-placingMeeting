@@ -197,7 +197,7 @@
 
   /*底部按钮*/
   .bottom-btns {
-    margin-top: 40px;
+    margin: 20px 0;
     text-align: center;
   }
 </style>

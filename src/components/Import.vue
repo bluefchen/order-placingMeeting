@@ -98,6 +98,10 @@
         color: #f71515;
       }
     }
+    .num {
+      color: #f82134;
+      font-weight: 700;
+    }
     .result-icon {
       width: 20px;
       height: 20px;

@@ -8,6 +8,7 @@
         <el-menu-item index="/order/importModelAdd" style="display: none;">机型导入新增</el-menu-item>
         <el-menu-item index="/order/importModelDel" style="display: none;">机型导入删除</el-menu-item>
         <el-menu-item index="/order/specialModel">特种机型分配量维护</el-menu-item>
+        <el-menu-item index="/order/importSpecialModel" style="display: none;">特种机型导入新增</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">订单管理</template>
