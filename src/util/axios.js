@@ -14,7 +14,7 @@ axios.interceptors.request.use(config => {
   loadingInstance = Loading.service({
     lock: true,
     text: '数据加载中，请稍后...',
-    spinner: 'el-icon-loading',
+    // spinner: 'el-icon-loading',
     background: 'rgba(0, 0, 0, 0.7)'
   });
   return config
@@ -64,5 +64,6 @@ export function fetchGet(url, params) {
   })
 }
 
+Vue.prototype.$axios = axios;
 Vue.prototype.$get = fetchGet;
 Vue.prototype.$post = fetchPost;
