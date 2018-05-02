@@ -103,13 +103,16 @@
       return {
         tableTitle: [{
           label: '省份',
-          prop: 'date'
+          prop: 'date',
+          width: 200
         }, {
           label: '地市',
-          prop: 'name'
+          prop: 'name',
+          width: 200
         }, {
           label: '零售商名称',
           prop: 'address',
+          width: 200,
           render: (h, params) => {
             return h({
               template: '<div><el-button class="btn-upload" size="small" type="success" @click="handleClick">导入</el-button></div>',
