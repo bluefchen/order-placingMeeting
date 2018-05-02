@@ -77,7 +77,7 @@
           <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
         </div>
       </div>
-      <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" :pageChanged="pageChanged" :isPagination="true" />
     </div>
   </div>
 </template>
