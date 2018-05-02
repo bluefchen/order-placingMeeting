@@ -1,6 +1,6 @@
 # order-placingMeeting
 
-> A Vue.js project
+> 订货会
 
 ## Build Setup
 
@@ -18,4 +18,18 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 组件名称字典
+
+- **Breadcrumb** 我的位置
+- **DeviceInfo** 终端展示
+- **Import** 文件导入
+- **InputWithSelect** 搜索
+- **OrderMenu** 订购会导航菜单
+- **Pagination** 分页
+- **ReductionPop** 满减
+- **OrderMenu** 订购会导航菜单
+- **Table** 表格
+- **TableRow** 表格行
+- **TabWithTable** 标签和表格
+- **TitlePlate** 标题
+- **UploadFile** 上传文件
