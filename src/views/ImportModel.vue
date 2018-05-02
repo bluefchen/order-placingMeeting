@@ -20,7 +20,7 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <Import ref="importComponent"/>
+        <Import :tableTitle="tableTitle" ref="importComponent"/>
       </div>
 
       <div class="bottom-btns">
@@ -39,7 +39,88 @@
     created() {
     },
     data() {
-      return {}
+      return {
+        tableTitle: [{
+          label: '终端编码',
+          prop: 'offerCode',
+          width: 160
+        }, {
+          label: '终端名称',
+          prop: 'offerName',
+          width: 120
+        }, {
+          label: '终端品牌',
+          prop: 'brandName',
+          width: 100
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName',
+          width: 140
+        }, {
+          label: '产品类型',
+          prop: 'isCentman',
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '终端价格',
+          prop: 'costPrice',
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<span>￥{{data.row.costPrice}}</span>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '是否特种机型',
+          prop: 'isSpecial',
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '数量',
+          prop: 'offerQty',
+          width: 100
+        }, {
+          label: '校验结果',
+          prop: 'isSuccess',
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '校验信息',
+          prop: 'resultMsg'
+        }]
+      }
     },
     methods: {
       batchInsertOpmOffer() {
@@ -57,7 +138,8 @@
             })
           }
         });
-        this.$post('/orderPlacingMeetingService/batchInsertOpmOffer', {
+        console.log('待提交确定信息：', tableDataIsSueccess);
+        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
           tableDataIsSueccess
         }).then(rsp => {
           console.log('19、批量导入新增机型接口：', rsp);

@@ -55,7 +55,7 @@
         }
         let formdata = new FormData();
         formdata.append('file', this.fileList[0].raw);
-        this.$axios.post('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferList', formdata, {
+        this.$axios.post('/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList', formdata, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

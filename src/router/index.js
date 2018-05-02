@@ -10,7 +10,6 @@ const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
 
-
 Vue.use(Router);
 
 export default new Router({
