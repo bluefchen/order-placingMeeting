@@ -10,8 +10,8 @@
       <slot name="content"></slot>
     </template>   
     <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      <el-button @click="dialogVisible = false">关闭</el-button>
+      <el-button type="primary" @click="dialogVisible = false">确定</el-button>
     </span>
   </el-dialog>
 
@@ -22,6 +22,10 @@
  export default {
     name: 'DialogPopup',
     props: {
+      title: {
+        type: String,
+        required: true
+      },
       value: {
         type: Boolean,
         default:false
@@ -60,6 +64,7 @@
     background-color: #f82134;      
     font-size: 16px;
     padding:0;
+    color: #fff;
     .el-dialog__title{
       color: #fff;
     }

@@ -29,7 +29,7 @@
           <div class="buttons fn-right">
             <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 政策投入</el-button>
             <el-button type="text" @click="isShow = true">打开</el-button>
-            <DialogPopup :value="isShow" @visible-change="modalVisibleChange">
+            <DialogPopup :value="isShow" title="优惠政策详情" @visible-change="modalVisibleChange">
               <div slot="content">
                 <p class="vivo">vivo</p>
                 <p>vivoX20系列,VIVOX09系列：</p>
