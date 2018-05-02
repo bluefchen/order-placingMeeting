@@ -28,13 +28,13 @@ Mock.mock(new RegExp('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferLis
     'successCnt|1-100': 100, //成功条数
     'failCnt|1-100': 1, //失败条数
     'rows|10': [{
-      'offerId': '@id', //商品ID
-      'offerCode': '@id', //商品编码
-      'offerName': '@cword()', //商品名称
-      'brandCd': '@cword()', //商品品牌
-      'brandName': '@cword()', //商品品牌名称
-      'offerModelId': '@id', //商品型号
-      'offerModelName': '@cword()', //商品型号名称
+      'offerId': '@id', //终端ID
+      'offerCode': '@id', //终端编码
+      'offerName': '@cword()', //终端名称
+      'brandCd': '@cword()', //终端品牌
+      'brandName': '@cword()', //终端品牌名称
+      'offerModelId': '@id', //终端型号
+      'offerModelName': '@cword()', //终端型号名称
       'isCentman|1': ['Y', 'N'], //产品类型，Y-集采，N社采
       'costPrice|100-1000': 100, //终端价格
       'offerQty|100-1000': 100, //上架数量
