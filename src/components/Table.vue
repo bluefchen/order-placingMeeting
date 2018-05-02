@@ -1,6 +1,6 @@
 <template>
   <div class="v_table">
-    <el-table :data="tableData" stripe border @selection-change="handleSelectionChange" size="small">
+    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small">
       <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
       <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width">
         <template slot-scope="scope">
@@ -22,6 +22,14 @@
   export default {
     name: 'Table',
     props: {
+      stripe: {
+        type: Boolean,
+        default: true
+      },
+      border: {
+        type: Boolean,
+        default: true
+      },
       isSelection: {
         type: Boolean,
         default: false
