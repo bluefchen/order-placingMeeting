@@ -30,17 +30,14 @@
             <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 政策投入</el-button>
             <el-button type="text" @click="isShow = true">打开</el-button>
             <DialogPopup :value="isShow" @visible-change="modalVisibleChange">
-              <!-- <div class="child">
-                <slot name="content"></slot>
+              <div slot="content">
                 <p class="vivo">vivo</p>
                 <p>vivoX20系列,VIVOX09系列：</p>
                 <p>订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span class="red">六折</span></p>
                 <p>vivoXXX系列,VIVOOOOO系列：</p>
-                <p>订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span class="red">六五</span>折</p>
-              </div> -->
-          
-            </DialogPopup>
-              
+                <p>订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span class="red">六五</span>折</p></slot>
+              </div>         
+            </DialogPopup>             
           </div>
         </div>
       </div>
@@ -61,6 +58,7 @@
     },
     data() {
       return {
+        title:'优惠政策详情',
         //表格的数据
         isSelection: true,
         tableTitle: [{

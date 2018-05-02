@@ -1,14 +1,13 @@
 <template>
   <div>
-  <!-- <el-button type="text" @click="dialogVisible = true">{{}}</el-button>   -->
-  <el-dialog
-    title="选择添加供货商"
+  <el-dialog   
     :visible.sync="dialogVisible"
-    width="70%"
+    width="65%"
     :before-close="handleClose"
     center>
+    <span slot="title" class="el-dialog__header">{{title}}</span>
     <template>
-      <div slot="content"></div>
+      <slot name="content"></slot>
     </template>   
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
@@ -43,11 +42,7 @@
     },
     methods: {
       handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
+        done();         
       },
     },
     mounted() {
@@ -91,6 +86,10 @@
       border: 0;
     }
   } 
+  .el-dialog__headerbtn .el-dialog__close{
+    color: #fff;
+    font-size: 18px;
+  }
 </style>
 
 
