@@ -18,7 +18,7 @@
     <!-- 头部切换 -->
     <div class="header fn-clear">
       <img src="@/assets/images/vivo-logo.png" class="fn-left">
-      <OrderMenu />
+      <OrderMenu/>
     </div>
     <!-- 头部切换 -->
     <router-view/>
@@ -31,11 +31,6 @@
   export default {
     name: 'Order',
     created() {
-      this.$get('/api/data', {
-        key: '12333'
-      }).then(rsp => {
-        console.log('返回数据：', rsp);
-      })
     },
     data() {
       return {};

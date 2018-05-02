@@ -143,7 +143,8 @@
         this.$post('/orderPlacingMeetingController/batchDeleteOpmOffer', {
           tableDataIsSueccess
         }).then(rsp => {
-          this.$message.success('导入删除数据成功');
+          this.$router.push({path: '/order/orderModel'});
+          // this.$message.success('导入删除数据成功');
           console.log('21、批量导入删除机型接口：', rsp);
         })
       }
