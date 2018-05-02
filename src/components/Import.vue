@@ -2,7 +2,7 @@
   <div class="v_import">
     <!-- 文件导入 -->
     <div class="file-import">
-      <UploadFile/>
+      <UploadFile @callback="uploadData"/>
     </div>
 
     <div class="result-header">
@@ -147,6 +147,9 @@
       }
     },
     methods: {
+      uploadData(data) {
+        console.log('导入文件返回的数据：', data);
+      },
       handleEdit(uuid) {
         debugger
       },

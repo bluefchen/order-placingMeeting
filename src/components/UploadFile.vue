@@ -60,6 +60,7 @@
             'Content-Type': 'multipart/form-data'
           }
         }).then(rsp => {
+          this.$emit('callback' , rsp);
           console.log('17、批量导入新增机型数据解析接口：', rsp);
         })
       },
