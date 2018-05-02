@@ -61,14 +61,24 @@
         }, {
           label: '终端价格',
           prop: 'costPrice',
-          width: 100
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<span>￥{{data.row.costPrice}}</span>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
         }, {
           label: '是否特种机型',
           prop: 'isSpecial',
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span></div>',
+              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
               data() {
                 return {
                   data: params
