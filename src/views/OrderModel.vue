@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vue_roder-model">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -66,9 +66,8 @@
       </div>
     </div>
 
-    <div class="box-1200">
+    <div class="box-1200 model-list-table">
       <div class="order-titl fn-clear">
-        <!-- <div class="tel-model fn-left">订货会机型列表</div> -->
         <TitlePlate class="fn-left" title="订货会机型列表"/>
         <div class="buttons fn-right">
           <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
@@ -297,7 +296,8 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+.vue_roder-model{
   /*中间背景图片*/
   .img-bg {
     width: 100%;
@@ -526,82 +526,87 @@
   .buttons .btns:hover {
     background-color: #e20606;
   }
+  .model-list-table{
+    .el-table__header{
+      border: 1px solid #dcdcdc;
+      table-layout: inherit;
+    }
+    .table thead tr {
+      height: 40px;
+      background-color: #efefef;
+      border: 1px solid #dcdcdc;
+      color: #131212;
+    }
 
-  .table thead tr {
-    height: 40px;
-    background-color: #efefef;
-    border: 1px solid #dcdcdc;
-    color: #131212;
-  }
+    .table tbody tr {
+      height: 90px;
+      border-bottom: 1px solid #dcdcdc;
+    }
 
-  .table tbody tr {
-    height: 90px;
-    border-bottom: 1px solid #dcdcdc;
-  }
+    .table thead tr th {
+      text-align: center;
+    }
 
-  .table thead tr th {
-    text-align: center;
-  }
+    .table tbody tr td {
+      text-align: center;
+    }
 
-  .table tbody tr td {
-    text-align: center;
-  }
+    .table input[type=checkbox] {
+      width: 16px;
+      height: 16px;
+      background: url('../assets/images/checkbox.png') no-repeat;
+    }
 
-  .table input[type=checkbox] {
-    width: 16px;
-    height: 16px;
-    background: url('../assets/images/checkbox.png') no-repeat;
-  }
+    .table input[type=checkbox]:checked {
+      background: url('../assets/images/checkedbox.png') no-repeat;
+    }
 
-  .table input[type=checkbox]:checked {
-    background: url('../assets/images/checkedbox.png') no-repeat;
-  }
+    .table tbody .td-first {
+      display: flex;
+    }
 
-  .table tbody .td-first {
-    display: flex;
-  }
+    .table tbody .td-first .p-img {
+      width: 79px;
+      height: 67px;
+      margin: 10px 15px 0 0;
+      border: 1px solid #e7e7e7;
+      text-align: center;
+      overflow: hidden;
+    }
 
-  .table tbody .td-first .p-img {
-    width: 79px;
-    height: 67px;
-    margin: 10px 15px 0 0;
-    border: 1px solid #e7e7e7;
-    text-align: center;
-    overflow: hidden;
-  }
+    .table tbody .td-first .tel-info {
+      flex: 1;
+      text-align: left;
+    }
 
-  .table tbody .td-first .tel-info {
-    flex: 1;
-    text-align: left;
-  }
+    .table .tel-href {
+      display: block;
+      margin: 22px 0 16px;
+      font-size: 14px;
+      color: #050505;
+      text-decoration: none;
+    }
 
-  .table .tel-href {
-    display: block;
-    margin: 22px 0 16px;
-    font-size: 14px;
-    color: #050505;
-    text-decoration: none;
-  }
+    .table .tel-href:hover {
+      color: #ed0000;
+      text-decoration: underline;
+    }
 
-  .table .tel-href:hover {
-    color: #ed0000;
-    text-decoration: underline;
-  }
+    .table .tel-href.overflow-handle {
+      width: 96%;
+    }
 
-  .table .tel-href.overflow-handle {
-    width: 96%;
-  }
+    .table .tel-info label {
+      color: #7d7d7d;
+    }
 
-  .table .tel-info label {
-    color: #7d7d7d;
-  }
+    .table td i.iconfont {
+      font-size: 18px;
+    }
 
-  .table td i.iconfont {
-    font-size: 18px;
-  }
-
-  .table tbody tr:hover {
-    background-color: #f9f9f9;
+    .table tbody tr:hover {
+      background-color: #f9f9f9;
+    }
   }
 
   .updown-btn {
@@ -619,4 +624,5 @@
   .updown-btn.green:hover {
     border: 1px solid #46b02e;
   }
+}
 </style>
