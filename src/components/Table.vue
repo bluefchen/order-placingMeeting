@@ -11,11 +11,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <Pagination v-if="isPagination" :page-changed="pageChanged"/>
   </div>
 </template>
 
 <script>
   import TableRow from '@/components/TableRow';
+  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'Table',
@@ -24,6 +26,12 @@
         type: Boolean,
         default: false
       },
+      handleSelectionChange: {
+        type: Function,
+        default: function (val) {
+          console.log('表格选择项：', val);
+        }
+      },
       tableTitle: {
         type: Array,
         require: true
@@ -31,18 +39,24 @@
       tableData: {
         type: Array,
         require: true
+      },
+      isPagination: {
+        type: Boolean,
+        default: false
+      },
+      pageChanged: {
+        type: Function,
+        default: function (currentPage) {
+          console.log('当前页：', currentPage);
+        }
       }
     },
     data() {
       return {}
     },
-    methods: {
-      handleSelectionChange(val) {
-        console.log('表格选择项：', val);
-      }
-    },
     components: {
-      TableRow
+      TableRow,
+      Pagination
     }
   }
 </script>

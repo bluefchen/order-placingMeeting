@@ -84,3 +84,13 @@ body {
   background-color: #f25555;
   border-color: #f25555;
 }
+
+.el-loading-spinner .path {
+  stroke: #fff;
+}
+
+.el-loading-spinner .el-loading-text {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 12px;
+}

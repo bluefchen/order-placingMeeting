@@ -2,7 +2,7 @@
   <div class="v_import">
     <!-- 文件导入 -->
     <div class="file-import">
-      <UploadFile/>
+      <UploadFile @callback="uploadData"/>
     </div>
 
     <div class="result-header">
@@ -129,7 +129,7 @@
           render: (h, params) => {
             return h(TitlePlate, {
               props: {title: params.row.name},
-              on: { update: this.handleDelete }
+              on: {update: this.handleDelete}
             });
           }
         }],
@@ -143,20 +143,13 @@
           name: '王小虎',
           address: '上海市普陀区金沙江路 1517 弄',
           tag: '公司'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
         }]
       }
     },
     methods: {
+      uploadData(data) {
+        console.log('导入文件返回的数据：', data);
+      },
       handleEdit(uuid) {
         debugger
       },
