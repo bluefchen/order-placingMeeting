@@ -68,7 +68,8 @@
 
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <div class="tel-model fn-left">订货会机型列表</div>
+        <!-- <div class="tel-model fn-left">订货会机型列表</div> -->
+        <TitlePlate class="fn-left" title="订货会机型列表"/>
         <div class="buttons fn-right">
           <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
           <router-link class="btns" to="/order/importModelDel"><i class="iconfont">&#xe610;</i> 导入删除</router-link>
@@ -84,6 +85,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
+  import TitlePlate from '@/components/TitlePlate';
 
   export default {
     name: 'OrderModel',
@@ -289,7 +291,8 @@
       InputWithSelect,
       DeviceInfo,
       Table,
-      Breadcrumb
+      Breadcrumb,
+      TitlePlate
     }
   }
 </script>
