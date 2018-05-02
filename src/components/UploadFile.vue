@@ -5,7 +5,7 @@
       <p class="file-name">{{uploadFileName}}</p>
       <el-upload
         class="file-check"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action=""
         :file-list="fileList"
         :show-file-list="false"
         :multiple="false"
@@ -14,8 +14,10 @@
         <el-button slot="trigger" size="small">浏览</el-button>
       </el-upload>
     </div>
-    <el-button class="btn-upload" size="small" type="success" :disabled="!fileList[0].raw" @click="submitUpload">导入</el-button>
-    <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 模板下载
+    <el-button class="btn-upload" size="small" type="success" :disabled="!fileList[0].raw" @click="upload">导入
+    </el-button>
+    <el-button class="btn-download fn-right" size="small" type="success" @click="download"><i
+      class="iconfont">&#xe794;</i> 模板下载
     </el-button>
   </div>
 </template>
@@ -41,10 +43,19 @@
       }
     },
     methods: {
-      submitUpload() {
+      handleChange(file, fileList) {
+        this.fileList = fileList.slice(-1);
+      },
+      upload() {
+        let excelfileExtend = '.xls,.xlsx';
+        let fileExtend = this.fileList[0].name.substring(this.fileList[0].name.lastIndexOf('.')).toLowerCase();
+        if (excelfileExtend.indexOf(fileExtend) <= -1) {
+          this.$message.error('文件格式错误');
+          return false
+        }
         let formdata = new FormData();
         formdata.append('file', this.fileList[0].raw);
-        this.$axios('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferList', formdata, {
+        this.$axios.post('/orderPlacingMeetingService/analyzeInsertOpMeetingOfferList', formdata, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -52,8 +63,20 @@
           console.log('17、批量导入新增机型数据解析接口：', rsp);
         })
       },
-      handleChange(file, fileList) {
-        this.fileList = fileList.slice(-1);
+      download() {
+        this.$axios.get('/rest/schedule/template', {
+          params: {
+            key: ''
+          },
+          responseType: 'arraybuffer'
+        }).then((response) => {
+          //创建一个blob对象,file的一种
+          let blob = new Blob([response.data], {type: 'application/x-xls'});
+          let link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = fileNames[scheduleType] + '_' + response.headers.datestr + '.xls';
+          link.click();
+        })
       }
     }
   }
