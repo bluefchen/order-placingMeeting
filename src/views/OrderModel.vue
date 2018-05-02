@@ -26,8 +26,11 @@
     <!-- 更多筛选 -->
     <div class="box-1200 queries-list" :class="{'fold-screen': isFoldScreen}">
       <p class="queries-title">所有分类 >
-        <span v-show="item.categoryName" class="checked-query" v-for="(item, index) in checkedCategoryList"
-              :key="index">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
+        <span v-show="item.categoryName" v-for="(item, index) in checkedCategoryList"
+              :key="index">
+          <span v-if="item.name !=='是否特种机型'">&gt;</span>
+          <span class="checked-query">{{item.name}}：{{item.categoryName}}<i class="iconfont" @click="delCategoryItem(item.name)">&#xe633;</i></span>
+        </span>
 
         <a href="javascript:;" class="category-more fn-right" v-if="isFoldScreen" @click="changeFoldScreen">更多筛选 <i
           class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen"
@@ -374,7 +377,7 @@
     position: relative;
     display: inline-block;
     height: 20px;
-    margin-left: 10px;
+    margin: 0 9px 0 5px;
     padding: 0 25px 0 5px;
     line-height: 20px;
     border: 1px solid #d2d2d2;
