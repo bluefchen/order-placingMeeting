@@ -1,15 +1,15 @@
 <template>
   <div class="device-wrap fn-clear">
     <div class="device-pic fn-left">
-      <img src="@/assets/images/telephone1.jpg">
+      <img :src="data.offerPic.offerPicUrl">
     </div>
     <div class="device-info fn-left">
-      <p class="name">VIVO-X20全面屏 美颜拍照手机</p>
-      <p class="code">编码：11020300001</p>
+      <p class="name" title="data.offerName">{{data.offerName}}</p>
+      <p class="code">编码：{{data.offerCode}}</p>
       <p class="property">
-        <span class="sc">社采</span>
-        <span class="jc">集采</span>
-        <span class="spec">特</span>
+        <span v-if="data.isCentman == 'N'" class="sc">社采</span>
+        <span v-if="data.isCentman == 'Y'" class="jc">集采</span>
+        <span v-if="data.isSpecial == 'Y'" class="spec">特</span>
         <ReductionPop/>
       </p>
     </div>
@@ -21,7 +21,21 @@
 
   export default {
     name: 'DeviceInfo',
-    props: {},
+    props: {
+      data: {
+        type: Object,
+        default: function() {
+          return {
+            offerName: '',
+            offerCode: '',
+            isCentman: '',
+            isSpecial: '',
+            offerPicId: '',
+            offerPic: ''
+          }
+        }
+      }
+    },
     data() {
       return {}
     },
@@ -51,7 +65,7 @@
       box-sizing: border-box;
       width: calc(100% - 82px);
       padding-left: 15px;
-      .name {
+      .name{
         height: 26px;
         line-height: 26px;
         color: #050505;
@@ -65,6 +79,7 @@
       }
       .code {
         color: #7d7d7d;
+        .truncate();
       }
       .property {
         margin-top: 10px;
