@@ -126,7 +126,6 @@
     },
     methods: {
       queryOpmSupplierList(curPage, pageSize) {
-        console.log('当前页：', curPage);
         this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
           opMeetingId: '订货会ID',
           pageSize: pageSize || 10,
@@ -138,7 +137,6 @@
         });
       },
       queryOpmRetailerList(curPage, pageSize) {
-        console.log('当前页：', curPage);
         this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
           opMeetingId: '订货会ID',
           pageSize: pageSize || 10,
