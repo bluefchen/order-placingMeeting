@@ -29,31 +29,49 @@
           <div class="first-step" v-show="!editshow">
             <ul class="selections fn-clear">
               <label class="select-wrds fn-left">定金模式：</label>
-              <li class="select-sp fn-left" :class="step == 1?'on':''" @click="selectMode(1)">全额付款</li>
-              <li class="select-sp fn-left" :class="step == 2?'on':''" @click="selectMode(2)">定金</li>
-              <li class="select-sp fn-left" :class="step == 3?'on':''" @click="selectMode(3)">诚意金</li>
+              <div class="fn-left" v-show="step == 1 || step == 2 || step == 3">
+                <li class="select-sp fn-left" :class="step == 1?'on':''" @click="selectMode(1)">全额付款</li>
+                <li class="select-sp fn-left" :class="step == 2?'on':''" @click="selectMode(2)">定金</li>
+                <li class="select-sp fn-left" :class="step == 3?'on':''" @click="selectMode(3)">诚意金</li>
+              </div>
+              <div class="qb fn-left" v-show="step == 4">
+                <p class="fir-wrds fn-left">全额付款</p>
+                <el-button class="edit-btn fn-left" @click="selectMode(1)"><i class="iconfont">&#xe738;</i> 修改</el-button>
+              </div>
+              <div class="dj fn-left" v-show="step == 5">
+                <p class="fir-wrds fn-left">定金</p>
+                <el-button class="edit-btn fn-left" @click="selectMode(2)"><i class="iconfont">&#xe738;</i> 修改</el-button>
+              </div>
+              <div class="cyj fn-left" v-show="step == 6">
+                <p class="fir-wrds fn-left">诚意金</p>
+                <el-button class="edit-btn fn-left" @click="selectMode(3)"><i class="iconfont">&#xe738;</i> 修改</el-button>
+              </div>
             </ul>
             <div class="steps">
               <!-- 定金 -->
-              <div class="second-step fn-clear" v-show="step == 2">
+              <div class="second-step fn-clear" v-show="step == 2 || step == 5">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <el-input class="fn-left" suffix-icon="el-icon-date">
+                <el-input class="fn-left" suffix-icon="el-icon-date" v-show="step == 2">
                 </el-input>
+                <p class="sec-done fn-left" v-show="step == 5">10%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
               <!-- 诚意金 -->
-              <div class="third-step" v-show="step == 3">
+              <div class="third-step" v-show="step == 3 || step == 6">
                 <div class="model-list-table">
                   <div class="order-titl fn-clear">
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" :pageChanged="pageChanged" :isPagination="true" />
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" :pageChanged="pageChanged" :isPagination="true" v-show="step == 3"/>
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableDataDone" :pageChanged="pageChanged" :isPagination="true" v-show="step == 6"/>
                 </div>
               </div>
             </div>
-            <div class="confirm-btn">
-              <el-button class="confirm" @click="confirm()">确定</el-button>
+            <div class="confirm-btn" v-show="step == 1 || step == 2 || step == 3">
+              <el-button class="confirm" @click="confirm(4)" v-show="step == 1">确定</el-button>
+              <el-button class="confirm" @click="confirm(5)" v-show="step == 2">确定</el-button>
+              <el-button class="confirm" @click="confirm(6)" v-show="step == 3">确定</el-button>
             </div>           
           </div>
         </div>        
@@ -104,6 +122,33 @@ export default {
       tableData: [{
 
       }],
+      tableTitleDone: [{
+        label: '零售商编码',
+        prop: 'offerName',
+        width: 200
+      }, {
+        label: '零售商名称',
+        prop: 'brandName',
+        width: 450,
+      }, {
+        label: '零售商类型',
+        prop: 'offerModelName',
+        width: 234,
+      }, {
+        label: '诚意金金额',
+        prop: 'salePrice',
+        render: function (h, params) {
+          return h({
+            template: '<p class="red">¥{{salePrice}}</p>',
+            data: function () {
+              return {
+                salePrice: params.row.salePrice
+              }
+            }
+          })
+        }
+      }],
+      tableDataDone: [],
     }
   },
   methods: {
@@ -115,7 +160,10 @@ export default {
     },
     pageChanged(currentPage) {
       console.log('当前页：', currentPage);
-    }
+    },
+    confirm(index){
+      this.step = index;
+    },
   },
   components: {
     Breadcrumb,
@@ -220,6 +268,14 @@ export default {
       border:0;
     }
   }
+  .fir-wrds{
+    width: 250px;
+    line-height: 34px;
+    margin-left: 40px;
+  }
+  .edit-btn{
+    margin-top: 5px;
+  }
 }
 .steps{
   min-height: 100px;
@@ -231,7 +287,7 @@ export default {
   text-align: right;
 }
 .selections{
-  margin: 20px 0 0 0;
+  margin: 20px 0 0 15px;
   font-size: 14px;
   color: #151515; 
   .select-sp{
@@ -290,9 +346,16 @@ export default {
     line-height: 32px;
     color: #000;
   } 
+  .sec-done{
+    width: 108px;
+    color: #e52941;
+    line-height: 34px;
+    margin-left: 40px;
+    font-weight: 700;
+  }
 }
 .warn-wrds{
-  line-height: 32px;
+  line-height: 34px;
   color: #fa0000;
   margin-left: 20px;
   font-size: 12px;
@@ -320,16 +383,43 @@ export default {
     border: 1px solid #e6e6e6;
     border-top:0;
   }
+  .el-input{
+    width: 128px;
+    margin:0 auto;
+  }
   .el-input--prefix .el-input__inner{
     width: 128px;
     height: 23px;
     text-align: center;
     border-radius: 0;
     color: #ff2222;
-    font-weight: 800;
+    border: 1px solid #b3b3b3;
+    &:focus{
+      border: 1px solid #b3b3b3;
+    }
   }
   .el-table__header{
     border: 1px solid #dcdcdc;
+    th{
+      border-right: 1px solid #d1d1d1;
+    }
+  }
+  .el-table--small td, .el-table--small th{
+    padding: 4px 0;
+  }
+  .el-input__icon{
+    line-height: 24px;
+    color: #ff2222;
+  }
+  .el-table__body{
+    border: 1px solid #dcdcdc;
+    border-top:0;
+    td{
+      border-right: 1px solid #d1d1d1;
+      .el-icon-search:before{
+        content:'\00A5';
+      }
+    }  
   }
 }
 
