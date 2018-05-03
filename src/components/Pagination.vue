@@ -2,7 +2,7 @@
   <div class="v_pagination">
     <el-pagination
       :page-size="pageSize"
-      :current-page.sync="currentPage"
+      :current-page="currentPage"
       :pager-count="11"
       layout="prev, pager, next"
       :total="total"
@@ -21,8 +21,7 @@
       },
       currentPage: {
         type: Number,
-        default: 1,
-        require: true
+        default: 1
       },
       total: {
         type: Number,

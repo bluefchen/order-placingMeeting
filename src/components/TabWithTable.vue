@@ -3,7 +3,7 @@
     <el-tabs v-model="activeNameUpdate" type="card">
       <el-tab-pane v-for="(tab, index) in tabsListUpdate" :key="index" :label="tab.tabLabel" :name="tab.tabLabel">
         <Table :table-title="tab.tableTitle" :table-data="tab.tableData"/>
-        <Pagination :page-changed="tab.pageChanged"/>
+        <Pagination :total="tab.total" @pageChanged="tab.pageChanged"/>
       </el-tab-pane>
     </el-tabs>
   </div>

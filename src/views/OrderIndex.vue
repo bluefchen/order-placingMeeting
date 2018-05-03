@@ -93,6 +93,8 @@
             companyTel: '025-5800000000',
             fax: '025-5800000000'
           }],
+          pageSize: 10,
+          total: 100,
           pageChanged: this.pageChanged
         }, {
           tabLabel: '参会零售商',
@@ -149,6 +151,8 @@
             companyTel: '025-5800000000',
             fax: '025-5800000000'
           }],
+          pageSize: 10,
+          total: 100,
           pageChanged: this.pageChanged
         }]
       }
