@@ -135,7 +135,7 @@ export default {
       }, {
         label: '零售商类型',
         prop: 'offerModelName',
-        width: 234,
+        width: 230,
       }, {
         label: '诚意金金额',
         prop: 'salePrice',
@@ -387,13 +387,12 @@ export default {
   .warn-wrds{
     line-height: 20px;
   }
+  .v_table .el-table, .v_table .el-table__expanded-cell{
+    border: 1px solid #e6e6e6;
+    border-bottom: 0;
+  }
   .v_pagination .el-pagination{
     margin-bottom: 20px;
-  }
-  .el-table__empty-block{
-    width: calc(100% - 2px) !important;
-    border: 1px solid #e6e6e6;
-    border-top:0;
   }
   .el-input{
     width: 128px;
@@ -414,10 +413,8 @@ export default {
     }
   }
   .el-table__header{
-    border: 1px solid #dcdcdc;
-    border-right:0;
     th{
-      border-right: 1px solid #d1d1d1;
+      border-right: 1px solid #e6e6e6;
     }
   }
   .el-table--small td, .el-table--small th{
@@ -428,21 +425,12 @@ export default {
     color: #ff2222;
   }
   .el-table__body{
-    border: 1px solid #dcdcdc;
-    border-right:0;
-    border-top:0;
     td{
-      border-right: 1px solid #d1d1d1;
+      border-right: 1px solid #e6e6e6;
       .el-icon-search:before{
         content:'\00A5';
       }
     }  
-  }
-  .el-table__footer-wrapper, .el-table__header-wrapper{
-    width: calc(100% - 2px);
-  }
-  .el-table__body-wrapper{
-    width: calc(100% - 2px);
   }
 }
 
