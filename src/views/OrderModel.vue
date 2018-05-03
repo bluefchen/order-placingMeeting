@@ -173,7 +173,7 @@
         checkedBrandIndex: null,
         modelList: [],
         checkedModelIndex: null,
-        total: 0, //列表总数
+        total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
       }
