@@ -16,7 +16,7 @@
     </div>
     <el-button class="btn-upload" size="small" type="success" :disabled="!fileList[0].raw" @click="upload">导入
     </el-button>
-    <el-button class="btn-download fn-right" size="small" type="success" @click="download"><i
+    <el-button class="fn-right" size="small" type="success" @click="download"><i
       class="iconfont">&#xe794;</i> 模板下载
     </el-button>
   </div>
@@ -133,16 +133,6 @@
 
     .btn-upload {
       margin-left: 15px;
-      padding-left: 25px;
-      padding-right: 25px;
-    }
-
-    .btn-download {
-      padding-left: 25px;
-      padding-right: 25px;
-      .iconfont {
-        font-size: 12px;
-      }
     }
   }
 </style>

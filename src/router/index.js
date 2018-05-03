@@ -8,7 +8,7 @@ const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModelAdd = () => import('@/views/ImportModelAdd');
 const ImportModelDel = () => import('@/views/ImportModelDel');
 const ImportSpecialModel = () => import('@/views/ImportSpecialModel');
-const OrderPickupGoodsDataDefend = () => import('@/views/OrderPickupGoodsDataDefend');
+const OrderPickupData = () => import('@/views/OrderPickupData');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
@@ -74,9 +74,9 @@ export default new Router({
             title: '特种机型导入新增'
           },
         }, {
-          path: 'orderPickupGoodsDataDefend',
-          name: 'orderPickupGoodsDataDefend',
-          component: OrderPickupGoodsDataDefend,
+          path: 'orderPickupData',
+          name: 'orderPickupData',
+          component: OrderPickupData,
           meta: {
             title: '订单提货数据维护'
           },

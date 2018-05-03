@@ -27,22 +27,27 @@
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">优惠政策列表</div>
           <div class="buttons fn-right">
-            <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 政策投入</el-button>
+            <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 政策投入
+            </el-button>
             <el-button type="text" @click="isShow = true">打开</el-button>
-            <DialogPopup :value="isShow" title="优惠政策详情" @visible-change="modalVisibleChange">
+            <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
               <div slot="content">
                 <p class="vivo">vivo</p>
                 <p>vivoX20系列,VIVOX09系列：</p>
-                <p>订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span class="red">六折</span></p>
+                <p>订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span
+                  class="red">六折</span></p>
                 <p>vivoXXX系列,VIVOOOOO系列：</p>
-                <p>订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span class="red">六五</span>折</p></slot>
-              </div>         
-            </DialogPopup>             
+                <p>订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span
+                  class="red">六五</span>折</p>
+              </div>
+              <div slot="footer">
+                <el-button type="success" @click="isShow = false">关闭</el-button>
+              </div>
+            </DialogPopup>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -58,7 +63,7 @@
     },
     data() {
       return {
-        title:'优惠政策详情',
+        title: '优惠政策详情',
         //表格的数据
         isSelection: true,
         tableTitle: [{
@@ -76,10 +81,10 @@
         }, {
           label: '是否特种机型',
           prop: 'isSpecial',
-          formatter: function(row, value){
-            switch(row.isSpecial){
+          formatter: function (row, value) {
+            switch (row.isSpecial) {
               case 'N':
-                return "非特种机型";
+                return '非特种机型';
                 break;
               case 'Y':
                 return '特种机型';
@@ -148,7 +153,7 @@
           count: 300,
           type: '下架',
         }],
-        isShow:false,
+        isShow: false,
         //分类选择
         isFoldBrand: true, //是否折叠品牌
         isFoldModel: true, //是否折叠型好
@@ -157,7 +162,7 @@
         terminalStateList: [{
           stateName: '上架',
           stateCode: '001'
-        },{
+        }, {
           stateName: '下架',
           stateCode: '002'
         }],
@@ -165,7 +170,7 @@
         specialModelsOptions: [{
           optName: '是',
           optCode: 'Y'
-        },{
+        }, {
           optName: '否',
           optCode: 'N'
         }],
@@ -173,31 +178,31 @@
         brandList: [{
           brandName: '苹果',
           brandCode: '001'
-        },{
+        }, {
           brandName: '三星',
           brandCode: '002'
-        },{
+        }, {
           brandName: '华为',
           brandCode: '003'
-        },{
+        }, {
           brandName: '酷派',
           brandCode: '004'
-        },{
+        }, {
           brandName: '中兴',
           brandCode: '005'
-        },{
+        }, {
           brandName: '黑莓',
           brandCode: '006'
-        },{
+        }, {
           brandName: '诺基亚',
           brandCode: '007'
-        },{
+        }, {
           brandName: '魅族',
           brandCode: '008'
-        },{
+        }, {
           brandName: '锤子',
           brandCode: '009'
-        },{
+        }, {
           brandName: '小米',
           brandCode: '010'
         }],
@@ -207,43 +212,43 @@
         qryModelList: [{
           modelName: 'iphone 3',
           modelCode: '001'
-        },{
+        }, {
           modelName: 'iphone 4',
           modelCode: '002'
-        },{
+        }, {
           modelName: 'iphone 4s',
           modelCode: '003'
-        },{
+        }, {
           modelName: 'iphone 5',
           modelCode: '004'
-        },{
+        }, {
           modelName: 'iphone 5s',
           modelCode: '005'
-        },{
+        }, {
           modelName: 'iphone 6',
           modelCode: '006'
-        },{
+        }, {
           modelName: 'iphone 6s',
           modelCode: '007'
-        },{
+        }, {
           modelName: 'iphone 5c',
           modelCode: '008'
-        },{
+        }, {
           modelName: 'iphone 5se',
           modelCode: '009'
-        },{
+        }, {
           modelName: 'iphone 6 plus',
           modelCode: '010'
-        },{
+        }, {
           modelName: 'iphone 6s plus',
           modelCode: '011'
-        },{
+        }, {
           modelName: 'iphone 7',
           modelCode: '012'
-        },{
+        }, {
           modelName: 'iphone 8',
           modelCode: '013'
-        },{
+        }, {
           modelName: 'iphone X',
           modelCode: '014'
         }],
@@ -251,15 +256,15 @@
           name: '终端状态',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '是否特种机型',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '终端品牌',
           categoryName: null,
           categoryCode: null
-        },{
+        }, {
           name: '终端型号',
           categoryName: null,
           categoryCode: null
@@ -270,98 +275,103 @@
       search(obj) {
         console.log('参数：', obj);
       },
-      changeFoldBrand(){
+      changeFoldBrand() {
         this.isFoldBrand = !this.isFoldBrand;
       },
-      changeFoldModel(){
+      changeFoldModel() {
         this.isFoldModel = !this.isFoldModel;
       },
-      changeFoldScreen(){
+      changeFoldScreen() {
         this.isFoldScreen = !this.isFoldScreen;
       },
-      checkedState(val, index){
-        if(this.checkedStateIndex != index){
+      checkedState(val, index) {
+        if (this.checkedStateIndex != index) {
           this.checkedStateIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端状态'){
+            if (item.name == '终端状态') {
               item.categoryName = val.stateName;
               item.categoryCode = val.stateCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('终端状态');
-        };
+        }
+        ;
       },
-      checkedSpecialModel(val, index){
-        if(this.checkedSpecialIndex != index){
+      checkedSpecialModel(val, index) {
+        if (this.checkedSpecialIndex != index) {
           this.checkedSpecialIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '是否特种机型'){
+            if (item.name == '是否特种机型') {
               item.categoryName = val.optName;
               item.categoryCode = val.optCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('是否特种机型');
-        };
+        }
+        ;
       },
-      checkedBrand(val, index){
-        if(this.checkedBrandIndex != index){
+      checkedBrand(val, index) {
+        if (this.checkedBrandIndex != index) {
           this.checkedBrandIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端品牌'){
+            if (item.name == '终端品牌') {
               item.categoryName = val.brandName;
               item.categoryCode = val.brandCode;
               this.delCategoryItem('终端型号');
             }
           });
           this.modelList = this.qryModelList;
-        }else{
+        } else {
           this.delCategoryItem('终端品牌');
-        };
+        }
+        ;
       },
-      checkedModel(val, index){
-        if(this.checkedModelIndex != index){
+      checkedModel(val, index) {
+        if (this.checkedModelIndex != index) {
           this.checkedModelIndex = index;
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == '终端型号'){
+            if (item.name == '终端型号') {
               item.categoryName = val.modelName;
               item.categoryCode = val.modelCode;
             }
           });
-        }else{
+        } else {
           this.delCategoryItem('终端型号');
-        };
+        }
+        ;
       },
-      addCategoryItem(val, index){
+      addCategoryItem(val, index) {
         this.checkedCategoryList.push(val);
       },
-      delCategoryItem(val){
-          if(val == '终端状态'){
-            this.checkedStateIndex = null;
-          }else if(val == '是否特种机型'){
-            this.checkedSpecialIndex = null;
-          }else if(val == '终端品牌'){
-            this.checkedBrandIndex = null;
-            this.checkedModelIndex = null;
-            this.modelList = [];
-            this.checkedCategoryList.map((item, index) => {
-              if(item.name == '终端型号'){
-                item.categoryName = null;
-                item.categoryCode = null;
-              }
-            });
-          }else if(val == '终端型号'){
-            this.checkedModelIndex = null;
-          };
+      delCategoryItem(val) {
+        if (val == '终端状态') {
+          this.checkedStateIndex = null;
+        } else if (val == '是否特种机型') {
+          this.checkedSpecialIndex = null;
+        } else if (val == '终端品牌') {
+          this.checkedBrandIndex = null;
+          this.checkedModelIndex = null;
+          this.modelList = [];
           this.checkedCategoryList.map((item, index) => {
-            if(item.name == val){
+            if (item.name == '终端型号') {
               item.categoryName = null;
               item.categoryCode = null;
             }
           });
+        } else if (val == '终端型号') {
+          this.checkedModelIndex = null;
+        }
+        ;
+        this.checkedCategoryList.map((item, index) => {
+          if (item.name == val) {
+            item.categoryName = null;
+            item.categoryCode = null;
+          }
+        });
       },
-      modalVisibleChange(val){
+      visibleChange(val) {
         this.isShow = val;
       }
     },
@@ -511,7 +521,8 @@
   .fold {
     height: 38px;
   }
-  .fold-screen{
+
+  .fold-screen {
     height: 42px;
   }
 
@@ -562,7 +573,7 @@
     color: #f82134;
   }
 
-  .category-pick-up{
+  .category-pick-up {
     color: #979797;
   }
 
@@ -602,7 +613,8 @@
   .buttons .btns:hover {
     background-color: #e20606;
   }
-  .child{
+
+  .child {
     height: 330px;
   }
 

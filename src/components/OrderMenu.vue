@@ -10,10 +10,10 @@
         <el-menu-item index="/order/specialModel">特种机型分配量维护</el-menu-item>
         <el-menu-item index="/order/importSpecialModel" style="display: none;">特种机型导入新增</el-menu-item>
       </el-submenu>
-      <el-submenu index="/order/orderPickupGoodsDataDefend">
+      <el-submenu index="/order/orderPickupData">
         <template slot="title">订单管理</template>
         <el-menu-item index="3-1">订单批量导入</el-menu-item>
-        <el-menu-item index="/order/orderPickupGoodsDataDefend">订单提货数据维护</el-menu-item>
+        <el-menu-item index="/order/orderPickupData">订单提货数据维护</el-menu-item>
       </el-submenu>
       <el-submenu index="4">
         <template slot="title">定金管理</template>
