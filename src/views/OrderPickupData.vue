@@ -28,16 +28,16 @@
 		<!-- 条件搜索 -->
 		<div class="box-1200 condition-search" v-show="isShowMoreCondition">
 			<div class="condition-iterm wid30">
-				<label class="label-wrds">机型编码：</label>
-				<input type="text" class="condition-input">
+				<label class="label-wrds">订单号：</label>
+				<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
 			</div>
 			<div class="condition-iterm wid30">
 				<label class="label-wrds">零售商名称：</label>
-				<input type="text" class="condition-input">
+				<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
 			</div>
 			<div class="condition-iterm wid40">
 				<label class="label-wrds">订购起止日期：</label>
-				<el-date-picker class="condition-input" v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+				<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
 			</div>
 		</div>
 
@@ -61,37 +61,22 @@
 				</thead>
 			</table>
 			<ul class="ul-tab">
-				<li class="li-list">
+				<li class="li-list" v-for="(item, index) in orderPickupRecordList" :key="index">
 					<p class="p-line fn-clear">
-						<span class="fn-left"><b>订单号：1000000010</b>【2018-04-06】</span>
-						<span class="fn-left text-center">零售商：零售商AAAAAA</span>
-						<span class="fn-left text-right">供货商：供货商VCCCCC</span>
+						<span class="fn-left"><b>订单号：{{item.opmOrderNo}}</b>--【2018-04-06】--</span>
+						<span class="fn-left text-center">零售商：{{item.retailerName}}</span>
+						<span class="fn-left text-right">供货商：{{item.supplierName}}</span>
 					</p>
 					<div class="tabs fn-clear">
-						<dl class="td-first fn-left wid32">
-							<!-- <DeviceInfo /> -->
-							<p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-							<p class="tel-info">
-								<a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-								<label>编码：11020300001</label>
-								<label class="tags">
-									<!-- 社采或者集采 -->
-									<span class="sc">社采</span>
-									<span class="jc">集采</span>
-									<span class="mj">满减
-										<label class="small-pop">
-											<label>满<b class="red">10000</b>减<b class="red">200</b></label>
-											<label>满<b class="red">20000</b>减<b class="red">400</b></label>
-										</label>
-									</span>
-									<span class="spec">特</span>									
-								</label>		
-							</p>
+						<dl class="fn-left wid32">
+							<div class="pd5">
+								<DeviceInfo :data="item" />
+							</div>
 						</dl>
-						<dl class="dll wid17 fn-left"><p>VIVO</p></dl>
-						<dl class="dll wid17 fn-left"><p>VIVO-X20</p></dl>
-						<dl class="dll wid11 fn-left"><b>100</b></dl>
-						<dl class="dll wid10 fn-left"><p>--</p></dl>
+						<dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
+						<dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
+						<dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
+						<dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
 						<dl class="dll wid13 fn-left"><button class="updown-btn red">编辑</button></dl>
 					</div>
 				</li>
@@ -117,7 +102,14 @@
 		},
 		data() {
 			return {
-				value6: '',
+				orderPickupRecordList: [], //查询返回的数据
+				orderDeliveryData: {
+					isCentman: '',
+					offerNameOrCode: '',
+					opmOrderNo: '',
+					retailerId: '',
+					dateValue: []
+				},
 				isShowMoreCondition: false, //是否显示更多条件
 				total: 0, //列表总数
 		        pageSize: 10, //每页展示条数
@@ -126,7 +118,9 @@
 		},
 		methods: {
 			search(obj) {
-				console.log(obj);
+				this.orderDeliveryData.isCentman = obj.type;
+				this.orderDeliveryData.offerNameOrCode = obj.value;
+				this.qryOpmOrderPickupRecordList()
 			},
 			showMoreCondition(){
 				this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -134,12 +128,17 @@
 			qryOpmOrderPickupRecordList(curPage, pageSize){
 				this.currentPage = curPage || 1;
 				this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-		          opMeetingId: '订货会ID',
-		          pageSize: pageSize || 10,
-		          curPage: curPage || 1
+					opMeetingId: '订货会ID',
+					isCentman: this.orderDeliveryData.isCentman,
+					offerNameOrCode: this.orderDeliveryData.offerNameOrCode,
+					opmOrderNo: this.orderDeliveryData.opmOrderNo,
+					retailerId: this.orderDeliveryData.retailerId,
+					fromDate: this.orderDeliveryData.dateValue[0],
+					toDate: this.orderDeliveryData.dateValue[1],
+					pageSize: pageSize || 10,
+					curPage: curPage || 1
 		        }).then((rsp) => {
-		          this.tableData = rsp.rows;
-		          console.log(rsp);
+		          this.orderPickupRecordList = rsp.rows;
 		          this.total = rsp.totalSize;
 		        })
 			},
@@ -449,6 +448,9 @@
 	}
 	.text-right {
 	    text-align: right;
+	}
+	.pd5{
+		padding: 5px;
 	}
 
 </style>
