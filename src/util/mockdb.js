@@ -99,7 +99,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
   error: null,
   data: {
     'totalSize|1-100': 1,
-    'rows|5-10': [{
+    'rows|10': [{
       'offerId': '@id',
       'offerCode': '@id',
       'offerName': '@cword(3, 5)',
