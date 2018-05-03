@@ -77,7 +77,10 @@
 						<dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
 						<dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
 						<dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
-						<dl class="dll wid13 fn-left"><button class="updown-btn red">编辑</button></dl>
+						<dl class="dll wid13 fn-left">
+							<button @click="editDeliveryData(item)" class="updown-btn red">编辑</button>
+						</dl>
+						
 					</div>
 				</li>
 			</ul>
@@ -141,6 +144,12 @@
 		          this.orderPickupRecordList = rsp.rows;
 		          this.total = rsp.totalSize;
 		        })
+			},
+			editDeliveryData(item){
+				this.$router.push({
+					path: `/order/OrderPickupGoodsConfirm`,
+					query: item
+				});
 			},
 			pageChanged(curPage) {
 				this.qryOpmOrderPickupRecordList(curPage);
@@ -356,6 +365,7 @@
 			border: 1px solid #f82134;
 			border-radius: 3px;
 			text-decoration: none;
+			cursor: pointer;
 		}
 		.updown-btn.green:hover{
 			border: 1px solid #46b02e;
