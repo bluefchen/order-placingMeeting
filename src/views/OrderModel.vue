@@ -80,7 +80,6 @@
       </div>
       <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" />
       <Pagination :pageSize="pageSize" :currentPage="currentPage" :total="total" @pageChanged="pageChanged" />
-      ---{{total}}---
     </div>
   </div>
 </template>
