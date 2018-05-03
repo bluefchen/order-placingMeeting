@@ -37,41 +37,39 @@
 </script>
 
 <style lang="less">
-  .v_input-with-select {
-    .input-with-select {
-      width: 480px;
-    }
+  .input-with-select {
+    width: 480px;
+  }
 
-    .el-select .el-input {
-      width: 90px;
-    }
+  .el-select .el-input {
+    width: 90px;
+  }
 
-    .el-input-group__append, .el-input-group__prepend {
-      border-radius: 0;
-    }
+  .el-input-group__append, .el-input-group__prepend {
+    border-radius: 0;
+  }
 
-    .input-with-select .el-input-group__prepend {
-      background-color: #f8f8f8;
-    }
+  .input-with-select .el-input-group__prepend {
+    background-color: #f8f8f8;
+  }
 
-    .input-with-select .el-input-group__append {
-      background-color: #f82134;
-      border-color: #f82134;
-      color: #fff;
-    }
+  .input-with-select .el-input-group__append {
+    background-color: #f82134;
+    border-color: #f82134;
+    color: #fff;
+  }
 
-    .el-input.is-active .el-input__inner, .el-input__inner:focus {
-      border-color: #ff7a7a;
-    }
+  .el-input.is-active .el-input__inner, .el-input__inner:focus {
+    border-color: #ff7a7a;
+  }
 
-    .el-select-dropdown {
-      border: none;
-    }
+  .el-select-dropdown {
+    border: none;
+  }
 
-    .el-select-dropdown__item.selected {
-      color: #fff;
-      font-weight: normal;
-      background-color: #f13939;
-    }
+  .el-select-dropdown__item.selected {
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
 </style>
