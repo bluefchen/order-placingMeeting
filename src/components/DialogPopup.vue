@@ -1,34 +1,36 @@
 <template>
   <div>
-  <el-dialog   
-    :visible.sync="dialogVisible"
-    width="65%"
-    :before-close="handleClose"
-    center>
-    <span slot="title" class="el-dialog__header">{{title}}</span>
-    <template>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      :width="width"
+      :close-on-click-modal="false"
+      center>
+      <div slot="title">
+        {{title}}
+      </div>
       <slot name="content"></slot>
-    </template>   
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">关闭</el-button>
-      <el-button type="primary" @click="dialogVisible = false">确定</el-button>
-    </span>
-  </el-dialog>
-
-</div>
+      <div slot="footer">
+        <slot name="footer"></slot>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
- export default {
+  export default {
     name: 'DialogPopup',
     props: {
+      width: {
+        type: String,
+        default: '60%'
+      },
       title: {
         type: String,
         required: true
       },
-      value: {
+      visible: {
         type: Boolean,
-        default:false
+        default: false
       }
     },
     data() {
@@ -37,61 +39,48 @@
       };
     },
     watch: {
-      value(val) {
+      visible(val) {
         this.dialogVisible = val;
       },
       dialogVisible(val) {
-        this.$emit("visible-change",val);
+        this.$emit('visibleChange', val);
       }
     },
-    methods: {
-      handleClose(done) {
-        done();         
-      },
-    },
-    mounted() {
-      if (this.value) {
-        this.dialogVisible = true;
-      }
-    }   
+    methods: {}
   };
 </script>
+
 <style lang="less">
-  .el-dialog__header{
+  .el-dialog__header {
     width: 100%;
     height: 40px;
     line-height: 40px;
-    background-color: #f82134;      
+    background-color: #f82134;
     font-size: 16px;
-    padding:0;
+    padding: 0;
     color: #fff;
-    .el-dialog__title{
+    .el-dialog__title {
       color: #fff;
     }
-    .el-dialog__headerbtn{
+    .el-dialog__headerbtn {
       top: 10px;
       font-size: 18px;
     }
   }
-  .content{
+
+  .content {
     min-height: 50px;
   }
-  .el-dialog__footer{
-    text-align: center;
-    height: 66px;
-    padding:0;
+
+  .el-dialog__footer {
+    height: 68px;
+    padding: 15px 0;
     border-top: 1px solid #e3e3e3;
     background-color: #f3f3f3;
-    button{
-      margin: 15px 24px 0 0;
-    }
-    .el-button{
-      background-color: #f01919;
-      color: #fff;
-      border: 0;
-    }
-  } 
-  .el-dialog__headerbtn .el-dialog__close{
+    text-align: center;
+  }
+
+  .el-dialog__headerbtn .el-dialog__close {
     color: #fff;
     font-size: 18px;
   }

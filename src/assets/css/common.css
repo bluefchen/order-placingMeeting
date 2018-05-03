@@ -57,6 +57,10 @@ body {
   padding-right: 20px;
 }
 
+.el-button--small .iconfont {
+  font-size: 12px;
+}
+
 .el-button--success {
   color: #fff;
   background-color: #fa0000;
