@@ -50,7 +50,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
   msg: null, //失败信息
   error: null,
   data: {
-    'total|1-99': 1,
+    'total|1-100': 1,
     'rows|5-10': [{
       'offerId': '@id',
       'offerCode': '@id',

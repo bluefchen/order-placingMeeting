@@ -11,13 +11,11 @@
         </template>
       </el-table-column>
     </el-table>
-    <Pagination v-if="isPagination" :page-changed="pageChanged"/>
   </div>
 </template>
 
 <script>
   import TableRow from '@/components/TableRow';
-  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'Table',
@@ -47,24 +45,13 @@
       tableData: {
         type: Array,
         require: true
-      },
-      isPagination: {
-        type: Boolean,
-        default: false
-      },
-      pageChanged: {
-        type: Function,
-        default: function (currentPage) {
-          console.log('当前页：', currentPage);
-        }
       }
     },
     data() {
       return {}
     },
     components: {
-      TableRow,
-      Pagination
+      TableRow
     }
   }
 </script>
