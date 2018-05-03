@@ -95,7 +95,7 @@ body {
   font-size: 12px;
 }
 
-.el-table td, .el-table th {
+.el-table .cell {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
