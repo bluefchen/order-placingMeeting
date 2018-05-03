@@ -22,11 +22,11 @@
 		<!-- 搜索 -->
 	    <div class="box-1200 search fn-clear">
 			<InputWithSelect class="fn-left" :search="search"/>
-			<div class="fn-left category-more">更多条件 <i class="iconfont">&#xe607;</i></div>
+			<div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
 	    </div>
 
 		<!-- 条件搜索 -->
-		<div class="box-1200 condition-search">
+		<div class="box-1200 condition-search" v-show="isShowMoreCondition">
 			<div class="condition-iterm wid30">
 				<label class="label-wrds">机型编码：</label>
 				<input type="text" class="condition-input">
@@ -96,6 +96,7 @@
 					</div>
 				</li>
 			</ul>
+      		<Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
 		</div>
 	</div>
 
@@ -107,26 +108,52 @@
 	import TitlePlate from '@/components/TitlePlate';
 	import Table from '@/components/Table';
 	import DeviceInfo from '@/components/DeviceInfo';
+	import Pagination from '@/components/Pagination';
 
 	export default {
 		name: 'OrderPickupData',
 		created() {
+			this.qryOpmOrderPickupRecordList();
 		},
 		data() {
 			return {
-				value6: ''
+				value6: '',
+				isShowMoreCondition: false, //是否显示更多条件
+				total: 0, //列表总数
+		        pageSize: 10, //每页展示条数
+		        currentPage: 1 //当前页
 			}
 		},
 		methods: {
 			search(obj) {
-				console.log(obj)
+				console.log(obj);
+			},
+			showMoreCondition(){
+				this.isShowMoreCondition = !this.isShowMoreCondition;
+			},
+			qryOpmOrderPickupRecordList(curPage, pageSize){
+				this.currentPage = curPage || 1;
+				this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
+		          opMeetingId: '订货会ID',
+		          pageSize: pageSize || 10,
+		          curPage: curPage || 1
+		        }).then((rsp) => {
+		          this.tableData = rsp.rows;
+		          console.log(rsp);
+		          this.total = rsp.totalSize;
+		        })
+			},
+			pageChanged(curPage) {
+				this.qryOpmOrderPickupRecordList(curPage);
 			}
 		},
 		components: {
 			Breadcrumb,
 			InputWithSelect,
 			TitlePlate,
-			Table
+			Table,
+			DeviceInfo,
+			Pagination
 		}
 	}
 </script>
