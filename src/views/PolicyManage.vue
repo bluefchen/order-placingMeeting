@@ -30,7 +30,7 @@
             <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe794;</i> 政策投入
             </el-button>
             <el-button type="text" @click="isShow = true">打开</el-button>
-            <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="modalVisibleChange">
+            <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
               <div slot="content">
                 <p class="vivo">vivo</p>
                 <p>vivoX20系列,VIVOX09系列：</p>
@@ -84,7 +84,7 @@
           formatter: function (row, value) {
             switch (row.isSpecial) {
               case 'N':
-                return "非特种机型";
+                return '非特种机型';
                 break;
               case 'Y':
                 return '特种机型';
@@ -371,7 +371,7 @@
           }
         });
       },
-      modalVisibleChange(val) {
+      visibleChange(val) {
         this.isShow = val;
       }
     },
