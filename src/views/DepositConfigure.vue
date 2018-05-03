@@ -345,7 +345,10 @@ export default {
     text-align: center;
     border-radius: 0;
     &:focus{
-      border: 1px solid #dcdfe6;
+      border: 1px solid #ff2222;
+    }
+    &:hover{
+      border: 1px solid #ff2222;
     }
   }
   .el-icon-date:before{
@@ -404,11 +407,15 @@ export default {
     color: #ff2222;
     border: 1px solid #b3b3b3;
     &:focus{
-      border: 1px solid #b3b3b3;
+      border: 1px solid #ff2222;
+    }
+    &:hover{
+      border: 1px solid #ff2222;
     }
   }
   .el-table__header{
     border: 1px solid #dcdcdc;
+    border-right:0;
     th{
       border-right: 1px solid #d1d1d1;
     }
@@ -422,6 +429,7 @@ export default {
   }
   .el-table__body{
     border: 1px solid #dcdcdc;
+    border-right:0;
     border-top:0;
     td{
       border-right: 1px solid #d1d1d1;
@@ -429,6 +437,12 @@ export default {
         content:'\00A5';
       }
     }  
+  }
+  .el-table__footer-wrapper, .el-table__header-wrapper{
+    width: calc(100% - 2px);
+  }
+  .el-table__body-wrapper{
+    width: calc(100% - 2px);
   }
 }
 
