@@ -65,7 +65,7 @@
                   </div>
                   <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
                   <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableDataDone" v-show="step == 6"/>
-                  <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>                 
+                  <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>              
                 </div>
               </div>
             </div>
@@ -151,7 +151,7 @@ export default {
         }
       }],
       tableDataDone: [],
-      total: 0, //列表总数
+      total: 1, //列表总数
       pageSize: 10, //每页展示条数
       currentPage: 1 //当前页
     }
