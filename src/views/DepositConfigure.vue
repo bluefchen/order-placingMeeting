@@ -19,98 +19,45 @@
       </div>
       
       <!-- 修改 -->
-      <div class="provin box-1200" v-show="editshow">
-        <p class="pro-left fn-left">当前省份： <span>江苏省</span></p>
-        <p class="pro-mid fn-left">定金模式：<span>----</span></p>
-        <button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</button>
-      </div>
-      
-      <div class="provin-edit" v-show="!editshow">
-        <el-steps :active="active" finish-status="success" align-center>
-          <el-step title="选择定金模式"></el-step>
-          <el-step title="配置定金"></el-step>
-          <el-step title="完成"></el-step>
-        </el-steps>
-       
-        <!-- 第一步 -->
-        <div class="first-step" v-show="active == 1">
-          <ul class="selections fn-clear">
-            <label class="select-wrds fn-left">选择定金模式：</label>
-            <li class="select-sp fn-left">全额付款</li>
-            <li class="select-sp on fn-left">定金</li>
-            <li class="select-sp fn-left">诚意金</li>
-          </ul>
-          <div class="bottom">
-            <button class="button" @click="next">下一步</button>
+      <div class="provin box-1200">
+        <p class="pro-left">当前省份： <span>江苏省</span></p>
+        <div class="provin-edit">
+          <div class="fn-clear" v-show="editshow">
+            <p class="pro-mid fn-left">定金模式：<span>----</span></p>
+            <el-button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</el-button>
           </div>
-        </div>
-        
-        <!-- 第二步 -->
-        <div class="second-step" v-show="active == 2">
-          <div class="info">
-            <p class="fn-left">省份：<span>江苏</span></p>
-            <p class="fn-right">选择定金模式：<span class="red">定金</span></p>
-          </div>
-          <div class="tabs-list">
-            <div class="result-header">
-              <TitlePlate title="配置定金的订单列表"/>
-              <div class="result-info"><span class="red">校验结果：</span>Excel中共有<b class="red">100</b>条数据，其中<b
-                class="red">98</b>条校验通过有效，<b class="red">2</b>条校验不通过无效，点击提交可以导入正确信息。
+          <div class="first-step" v-show="!editshow">
+            <ul class="selections fn-clear">
+              <label class="select-wrds fn-left">定金模式：</label>
+              <li class="select-sp fn-left" :class="step == 1?'on':''" @click="selectMode(1)">全额付款</li>
+              <li class="select-sp fn-left" :class="step == 2?'on':''" @click="selectMode(2)">定金</li>
+              <li class="select-sp fn-left" :class="step == 3?'on':''" @click="selectMode(3)">诚意金</li>
+            </ul>
+            <div class="steps">
+              <!-- 定金 -->
+              <div class="second-step fn-clear" v-show="step == 2">
+                <label class="select-wrds fn-left">定金比例配置：</label>
+                <el-input class="fn-left" suffix-icon="el-icon-date">
+                </el-input>
+                <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
+              </div>
+              <!-- 诚意金 -->
+              <div class="third-step" v-show="step == 3">
+                <div class="model-list-table">
+                  <div class="order-titl fn-clear">
+                    <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
+                    <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                  </div>
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" :pageChanged="pageChanged" :isPagination="true" />
+                </div>
               </div>
             </div>
-            <table width="100%" cellspacing="0" cellpadding="0" class="table">
-              <thead>  
-                <tr>
-                  <th width="8%">订单号</th>
-                  <th width="8%">零售商</th>
-                  <th width="8%">终端编码</th>
-                  <th width="15%">终端名称</th>
-                  <th width="8%">终端品牌</th>
-                  <th width="10%">终端型号</th>
-                  <th width="7%">产品类型</th>
-                  <th width="7%">订购数量</th>
-                  <th width="11%">供货商</th>
-                  <th width="7%">货款金额</th>
-                  <th>定金比例配置</th>           
-                </tr>
-              </thead>
-              <tbody>
-                <tr>            
-                  <!-- <td><a href="" class="red">11020300001</a></td> -->
-                  <td><router-link to="orderFormDetail" class="red">11020300001</router-link></td>
-                  <td><p>美颜拍照手机</p></td>
-                  <td><p>美颜拍照</p></td>
-                  <td><p class="overflow">VIVO-X20全面屏 美颜拍照手机美颜拍照手机</p></td>
-                  <td><p>VIVO</p></td>
-                  <td><p>VIVO-X20</p></td>
-                  <td><p>集采</p></td>
-                  <td><p>￥1890</p></td>
-                  <td><p class="overflow">美颜拍照手机美颜拍照手机美颜拍照手机</p></td>
-                  <td><p>1890</p></td>
-                  <td><p><input type="text" value="1%"></p></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="confirm-btn">
+              <el-button class="confirm" @click="confirm()">确定</el-button>
+            </div>           
           </div>
-          <div class="bottom-btns">
-            <button class="confirm-btn" @click="next">确定</button>
-            <button class="reset-btn" @click="reset()">重置</button>
-          </div>
-        </div>
-
-        <!-- 第三步 -->
-        <div class="third-step" v-show="active == 3">
-          <div class="success fn-clear">
-            <img src="../assets/images/icon-success.png" class="suc-img fn-left">
-            <div class="wrds fn-right">
-              <p class="p1">订单的定金配置完成！</p> 
-              <p class="p2">等待订货会进行或结束时到<span>定金管理</span>》<a href="" class="red">定金补录</a>查看结果。</p>
-              <button class="button" @click="next">继续定金配置</button>
-            </div>
-          </div>        
-        </div>
+        </div>        
       </div>
-
     </div>
   </div>
 </template>
@@ -118,6 +65,7 @@
 <script>
 import Breadcrumb from '@/components/Breadcrumb';
 import TitlePlate from '@/components/TitlePlate';
+import Table from '@/components/Table';
 
 export default {
   name: 'DepositConfigure',
@@ -125,24 +73,54 @@ export default {
   },
   data() {
     return {
-      active: 1,
-      editshow: true
+      step: 1,
+      editshow: true,
+      tableTitle: [{
+        label: '零售商编码',
+        prop: 'offerName',
+        width: 200
+      }, {
+        label: '零售商名称',
+        prop: 'brandName',
+        width: 450,
+      }, {
+        label: '零售商类型',
+        prop: 'offerModelName',
+        width: 234,
+      }, {
+        label: '诚意金金额',
+        prop: 'salePrice',
+        render: function (h, params) {
+          return h({
+            template: '<el-input prefix-icon="el-icon-search" v-model="salePrice"></el-input>',
+            data: function () {
+              return {
+                salePrice: params.row.salePrice
+              }
+            }
+          })
+        }
+      }],
+      tableData: [{
+
+      }],
     }
   },
   methods: {
-    next() {
-      if (this.active++ > 2) this.active = 1;
-    },
     edit() {
       this.editshow = !this.editshow;
     },
-    reset(){
-      this.active = 1;
+    selectMode(index){
+      this.step = index;
+    },
+    pageChanged(currentPage) {
+      console.log('当前页：', currentPage);
     }
   },
   components: {
     Breadcrumb,
-    TitlePlate
+    TitlePlate,
+    Table
   }
 }
 </script>
@@ -191,85 +169,71 @@ export default {
   color: #e52941;
 }
 .provin{
-  height: 70px;
-  margin: 50px auto;
-  line-height: 70px;
-  border: 1px solid #e8e8e8;
+  margin: 28px auto;
   font-size: 14px;
-  overflow: hidden;
   .pro-left{
     position: relative;
-    width: 212px;
-    text-indent: 34px;
-    border-right: 1px solid #e8e8e8;
-    background-color: #fcfcfc;
-    &:after{
-      position: absolute;
-      content: '';
-      top: 27px;
-      right: -10px;
-      width: 10px;
-      height: 15px;
-      background: url('../assets/images/arrow-right.png') no-repeat;
-    }
-  }
-  .pro-mid{
-    margin-left: 37px;
-  }
-  .edit-btn{
-    height: 25px;
-    padding: 0 12px;
-    margin: 22px 0 0 140px;
-    line-height: 25px;
-    color: #e52840;
-    border: 1px solid #e52840;
-    border-radius: 3px;
+    width: 215px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background-color: #e4263e;
+    color: #fff;
   }
 }
 .provin-edit{
   width: 100%;
-  padding-bottom: 50px;
-  .el-steps--horizontal{
-    margin: 30px auto;
-  } 
-  .el-step__title{
-    font-size: 14px;
-    &.is-success{
-      color: #e52941;
+  border: 1px solid #e8e8e8;
+  .pro-mid{
+    width: 354px;
+    height: 70px;
+    line-height: 70px;
+    margin-left: 109px;
+  }
+  .edit-btn{
+    height: 25px;
+    padding: 0 12px;
+    margin: 22px 0 0 0;
+    line-height: 24px;
+    color: #e52840;
+    border: 1px solid #e52840;
+    border-radius: 3px;
+    &:hover{
+      background-color: #fff;
     }
-  }
-  .el-step__head{
-    &.is-success{
-      .el-step__line{
-          background-color: #e52941;
-      }
-    }
-  }
-  .el-step__icon{
-    border: 1px solid;
-  }
-  .el-step__head.is-success{
-    color:#e52941;
-    border-color: #e52941;
-  }
-  .el-step__title.is-process{
-    font-weight: normal;
-    color: #c0c4cc;
-  }
-  .el-step__head.is-process{
-    font-weight: normal;
-    color: #c0c4cc;
   }
 }
-
-.selections{
-  width: 496px;
-  margin: 60px auto 42px;
-  font-size: 14px;
-  color: #151515;
-  .select-wrds{
-    line-height: 34px;
+.first-step{
+  .confirm-btn{
+    width: 100%;
+    height: 54px;
+    background-color: #fafafa;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    .confirm{
+      height: 34px;
+      padding: 0 35px;
+      line-height: 34px;
+      color: #fff;
+      margin-top: 10px;
+      background-color: #e52840;
+      border:0;
+    }
   }
+}
+.steps{
+  min-height: 100px;
+  padding: 0 15px;
+}
+.select-wrds{
+  width: 180px;
+  line-height: 34px;
+  text-align: right;
+}
+.selections{
+  margin: 20px 0 0 0;
+  font-size: 14px;
+  color: #151515; 
   .select-sp{
     width: 114px;
     height: 32px;
@@ -278,6 +242,7 @@ export default {
     border: 1px solid #b7b7b7;
     text-align: center;
     border-radius: 3px;
+    cursor: pointer;
     &.on{
       border: 1px solid #f01d1d;
       background: url('../assets/images/selected-icon.png') right bottom no-repeat;
@@ -301,158 +266,71 @@ export default {
   }
 }
 
-
-/* 第二步 */
 .second-step {
-  .info{
-    width: 1154px;
-    height: 38px;
-    margin: 0 auto;
-    border: 1px solid #e8e8e8;
-    background-color: #fcfcfc;
-    line-height: 38px;
-    p{
-      width: calc(50% - 94px);
-      margin-left: 94px;
-    }
-  }
-  .tabs-list{
-    width: 1118px;
-    margin: 0 auto;
-    padding: 12px 18px 20px;
-    border: 1px solid #e8e8e8;
-    border-top:0;
-    .result-header {
-      position: relative;
-      height: 28px;
-      margin: 0 0 8px;
-      line-height: 28px;
-      .result-info {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        > span {
-          color: #f82134;
-        }
-
-        > b {
-          margin: 0 3px;
-          color: #f82134;
-          font-size: 14px;
-        }
-      }
-    }
-  }
-}
-
-.table{
-  border: 1px solid #e3e3e3;
-  table-layout:fixed;
-  word-break:break-all;
-}
-.table thead tr{
-  height: 32px;
-  background-color: #efefef;
-  border-bottom: 1px solid #d1d1d1;
-  color: #131212;
-}
-.table thead tr th{
-  text-align: center;
-  border-right: 1px solid #d1d1d1;
-}
-.table tbody tr{
-  height: 34px;
-  border-bottom: 1px solid #e3e3e3;
-}
-.table tbody tr td{
-  text-align: center;
-  border-right: 1px solid #e3e3e3;
-  .overflow{
-    margin: 0 auto;
-    .truncate(90%);
-  }
-}
-.table tbody tr:nth-of-type(2n){
-  background-color: #fcfcfc;
-}
-.table td i.iconfont{
-  font-size: 18px;
-}
-.table tbody tr td input{
-  width: 80%;
-  height: 20px;
-  border: 1px solid #b3b3b3;
-  text-align: center;
-  color: #f02b2b;
-}
-
-/*底部按钮*/
-.bottom-btns{
+  border-top: 1px dashed #e1e1e1;
+  padding-top: 20px;
   margin-top: 20px;
-  text-align: center;
-  button{
-    height: 34px;
-    padding: 0 32px;
-    margin-right: 32px;
-    background-color: #f01919;
-    line-height: 34px;
-    border: 0;
-    font-size: 14px;
-    color: #fff;
-    border-radius: 3px;
-    &.grey{
-      background-color: #cecece;
-      color: #9d9d9d;
+  .el-input{
+    width: 374px;
+  }
+  .el-input__inner{
+    height: 32px;
+    line-height: 32px;
+    color: #f01d1d;
+    text-align: center;
+    border-radius: 0;
+    &:focus{
+      border: 1px solid #dcdfe6;
     }
   }
-  .reset-btn{
-    margin-right: 0;
+  .el-icon-date:before{
+    content: '\0025';
   }
+  .el-input__icon{
+    line-height: 32px;
+    color: #000;
+  } 
 }
-
+.warn-wrds{
+  line-height: 32px;
+  color: #fa0000;
+  margin-left: 20px;
+  font-size: 12px;
+}
 /* 第三步 */
 .third-step{
-  width: 1028px;
-  height: 168px;
-  margin: 98px auto;
-  border: 1px solid #e4f0e7;
-  background-color: #f5fff8;
-  .success{
-    width: 450px;
-    margin: 16px auto 0;
-    .suc-img{
-      margin-right: 16px;
-    }
-    .wrds{
-      .p1{
-        margin: 20px 0 14px 0;
-        font-size: 16px;
-      }
-      .p2{
-        margin: 0 0 20px 0;
-        font-size: 12px;
-        span{
-          margin-left: 6px;
-        }
-        a{
-          margin-left: 6px;
-          margin-right: 4px;
-          text-decoration: underline;
-        }
-      }
-    }
-    .button{
-      height: 34px;
-      padding: 0 10px;
-      border: 0;
+  border-top: 1px dashed #e1e1e1;
+  padding-top: 20px;
+  margin-top: 10px;
+  .order-titl{
+    margin-bottom: 5px;
+    .title{
       font-size: 14px;
-      background-color: #f01919;
-      border-radius: 3px;
-      color: #fff;
+      line-height: 20px;
     }
   }
-
+  .warn-wrds{
+    line-height: 20px;
+  }
+  .v_pagination .el-pagination{
+    margin-bottom: 20px;
+  }
+  .el-table__empty-block{
+    width: calc(100% - 2px) !important;
+    border: 1px solid #e6e6e6;
+    border-top:0;
+  }
+  .el-input--prefix .el-input__inner{
+    width: 128px;
+    height: 23px;
+    text-align: center;
+    border-radius: 0;
+    color: #ff2222;
+    font-weight: 800;
+  }
+  .el-table__header{
+    border: 1px solid #dcdcdc;
+  }
 }
 
 </style>
