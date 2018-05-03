@@ -12,192 +12,188 @@
     </div>
     <!-- 中间背景图片 -->
 
-    <div class="content">
-      <!-- 我的位置 -->
-      <div class="my-location">
-        <div class="location">
-          <label>我的位置： </label>
-          <p class="location-p">机型管理 > <span class="red">特种机型分配</span></p>
-        </div>
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="location">
+        <label>我的位置： </label>
+        <p class="location-p">机型管理 > <span class="red">特种机型分配</span></p>
       </div>
+    </div>
 
-      <!-- 搜索 -->
-      <div class="search-cnt fn-clear">
-        <div class="search fn-left">
-          <input type="text" class="search-input" placeholder="输入终端名称搜索">
-        </div>
-        <button class="search-btn fn-left">搜 索</button>
-      </div>
+    <!-- 搜索 -->
+    <div class="box-1200 search">
+      <InputWithSelect :search="search"/>
+    </div>
 
-      <!-- 更多筛选（机型管理） -->
-      <div class="queries-list">
-        <p class="queries-title">所有分类 > <span class="checked-query">类别：手机<i class="iconfont">&#xe633;</i></span><span
-          class="checked-query">品牌：中兴<i class="iconfont">&#xe633;</i></span><a href="javascript:;"
-                                                                               class="category-more fn-right">更多筛选 <i
-          class="iconfont">&#xe608;</i></a></p>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端状态：</span>
-          <div class="category-list fn-left">
-            <span class="category-item">上架</span>
-            <span class="category-item">下架</span>
-          </div>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">是否特种机型：</span>
-          <div class="category-list fn-left">
-            <span class="category-item">是</span>
-            <span class="category-item">否</span>
-          </div>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端品牌：</span>
-          <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
-            <span class="category-item hover">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-            <span class="category-item">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-            <span class="category-item">苹果</span>
-            <span class="category-item">三星</span>
-            <span class="category-item">华为</span>
-            <span class="category-item">酷派</span>
-            <span class="category-item">中兴</span>
-            <span class="category-item">黑莓</span>
-          </div>
-          <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
-        </div>
-        <div class="queries-category fn-clear">
-          <span class="category-label fn-left">终端型号：</span>
-          <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldModel}">
-            <span class="category-item">Iphone 5s</span>
-            <span class="category-item">Iphone 6</span>
-            <span class="category-item">Iphone 6s</span>
-            <span class="category-item">Iphone 6plus</span>
-            <span class="category-item">Iphone 7s</span>
-          </div>
-          <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-          <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+    <!-- 更多筛选（机型管理） -->
+    <div class="box-1200 queries-list">
+      <p class="queries-title">所有分类 > <span class="checked-query">类别：手机<i class="iconfont">&#xe633;</i></span><span
+        class="checked-query">品牌：中兴<i class="iconfont">&#xe633;</i></span><a href="javascript:;"
+                                                                             class="category-more fn-right">更多筛选 <i
+        class="iconfont">&#xe608;</i></a></p>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端状态：</span>
+        <div class="category-list fn-left">
+          <span class="category-item">上架</span>
+          <span class="category-item">下架</span>
         </div>
       </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">是否特种机型：</span>
+        <div class="category-list fn-left">
+          <span class="category-item">是</span>
+          <span class="category-item">否</span>
+        </div>
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端品牌：</span>
+        <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
+          <span class="category-item hover">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+          <span class="category-item">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+          <span class="category-item">苹果</span>
+          <span class="category-item">三星</span>
+          <span class="category-item">华为</span>
+          <span class="category-item">酷派</span>
+          <span class="category-item">中兴</span>
+          <span class="category-item">黑莓</span>
+        </div>
+        <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">终端型号：</span>
+        <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldModel}">
+          <span class="category-item">Iphone 5s</span>
+          <span class="category-item">Iphone 6</span>
+          <span class="category-item">Iphone 6s</span>
+          <span class="category-item">Iphone 6plus</span>
+          <span class="category-item">Iphone 7s</span>
+        </div>
+        <a href="javascript:;" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+      </div>
+    </div>
 
-      <div class="tabs-list">
-        <div class="order-titl fn-clear">
-          <div class="tel-model fn-left">特种机型分配量列表</div>
-          <div class="buttons fn-right">
-            <router-link class="btns" to="/order/importSpecialModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
-          </div>
+    <div class="tabs-list">
+      <div class="order-titl fn-clear">
+        <div class="tel-model fn-left">特种机型分配量列表</div>
+        <div class="buttons fn-right">
+          <router-link class="btns" to="/order/importSpecialModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
         </div>
-        <table width="100%" cellspacing="0" cellpadding="0" class="table">
-          <thead>
-          <tr>
-            <th width="22%">终端名称</th>
-            <th width="12%">终端品牌</th>
-            <th width="12%">终端型号</th>
-            <th width="9%">终端类型</th>
-            <th width="12%">供货商</th>
-            <th width="8%">提货价</th>
-            <th width="8%">分配省份</th>
-            <th>分配量（台）</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-                <label class="tags">
-                  <!-- 社采或者集采 -->
-                  <span class="sc">社采</span>
-                  <!-- <span class="jc">集采</span> -->
-                  <span class="mj">满减
-                    <label class="small-pop">
-                      <label>满<b class="red">10000</b>减<b class="red">200</b></label>
-                      <label>满<b class="red">20000</b>减<b class="red">400</b></label>
-                    </label>
-                  </span>
-                  <span class="spec">特</span>
-                </label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td><b class="red">200</b></td>
-          </tr>
-          <tr>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone2.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-                <label class="tags">
-                  <!-- 社采或者集采 -->
-                  <span class="jc">集采</span>
-                  <span class="mj">满减
-                    <label class="small-pop">
-                      <label>满<b class="red">10000</b>减<b class="red">200</b></label>
-                      <label>满<b class="red">20000</b>减<b class="red">400</b></label>
-                    </label>
-                  </span>
-                  <span class="spec">特</span>
-                </label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>300</td>
-            <td><b class="red">200</b></td>
-          </tr>
-          <tr>
-            <td class="td-first">
-              <p class="p-img"><img src="@/assets/images/telephone3.jpg"></p>
-              <p class="tel-info">
-                <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-                <label>编码：11020300001</label>
-                <label class="tags">
-                  <!-- 社采或者集采 -->
-                  <span class="mj">满减
-                    <label class="small-pop">
-                      <label>满<b class="red">10000</b>减<b class="red">200</b></label>
-                      <label>满<b class="red">20000</b>减<b class="red">400</b></label>
-                    </label>
-                  </span>
-                  <span class="spec">特</span>
-                </label>
-              </p>
-            </td>
-            <td>VIVO</td>
-            <td>VIVO-X20</td>
-            <td>集采</td>
-            <td>￥1890</td>
-            <td><i class="iconfont red">&#xe63f;</i></td>
-            <td>上架</td>
-            <td><b class="red">200</b></td>
-          </tr>
-          </tbody>
-        </table>
       </div>
+      <table width="100%" cellspacing="0" cellpadding="0" class="table">
+        <thead>
+        <tr>
+          <th width="22%">终端名称</th>
+          <th width="12%">终端品牌</th>
+          <th width="12%">终端型号</th>
+          <th width="9%">终端类型</th>
+          <th width="12%">供货商</th>
+          <th width="8%">提货价</th>
+          <th width="8%">分配省份</th>
+          <th>分配量（台）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+              <label class="tags">
+                <!-- 社采或者集采 -->
+                <span class="sc">社采</span>
+                <!-- <span class="jc">集采</span> -->
+                <span class="mj">满减
+                  <label class="small-pop">
+                    <label>满<b class="red">10000</b>减<b class="red">200</b></label>
+                    <label>满<b class="red">20000</b>减<b class="red">400</b></label>
+                  </label>
+                </span>
+                <span class="spec">特</span>
+              </label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td><b class="red">200</b></td>
+        </tr>
+        <tr>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone2.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+              <label class="tags">
+                <!-- 社采或者集采 -->
+                <span class="jc">集采</span>
+                <span class="mj">满减
+                  <label class="small-pop">
+                    <label>满<b class="red">10000</b>减<b class="red">200</b></label>
+                    <label>满<b class="red">20000</b>减<b class="red">400</b></label>
+                  </label>
+                </span>
+                <span class="spec">特</span>
+              </label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>300</td>
+          <td><b class="red">200</b></td>
+        </tr>
+        <tr>
+          <td class="td-first">
+            <p class="p-img"><img src="@/assets/images/telephone3.jpg"></p>
+            <p class="tel-info">
+              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
+              <label>编码：11020300001</label>
+              <label class="tags">
+                <!-- 社采或者集采 -->
+                <span class="mj">满减
+                  <label class="small-pop">
+                    <label>满<b class="red">10000</b>减<b class="red">200</b></label>
+                    <label>满<b class="red">20000</b>减<b class="red">400</b></label>
+                  </label>
+                </span>
+                <span class="spec">特</span>
+              </label>
+            </p>
+          </td>
+          <td>VIVO</td>
+          <td>VIVO-X20</td>
+          <td>集采</td>
+          <td>￥1890</td>
+          <td><i class="iconfont red">&#xe63f;</i></td>
+          <td>上架</td>
+          <td><b class="red">200</b></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
+  import InputWithSelect from '@/components/InputWithSelect';
   export default {
     name: 'specialModelAssignment',
     created() {
@@ -207,11 +203,22 @@
       return {
         msg: 'Welcome to Your Vue.js App'
       }
+    },
+    methods: {
+      search(obj) {
+        console.log(obj);
+      }
+    },
+    components: {
+      InputWithSelect
     }
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
+  .search {
+    margin: 10px auto;
+  }
   /*顶部*/
   .toper {
     width: 100%;
@@ -384,94 +391,9 @@
     color: #46b02e;
   }
 
-  .search-cnt {
-    width: 1160px;
-    margin: 18px auto;
-  }
-
-  .search {
-    display: flex;
-    width: 416px;
-    height: 34px;
-    line-height: 34px;
-    border: 1px solid #d5d5d5;
-    border-right: 0;
-  }
-
-  .search:hover {
-    border: 1px solid #f13939;
-    border-right: 0;
-  }
-
-  .selections {
-    position: relative;
-    width: 77px;
-    height: 34px;
-    border-right: 1px solid #d5d5d5;
-    background-color: #f8f8f8;
-    font-size: 14px;
-    color: #595959;
-    cursor: pointer;
-  }
-
-  .selections .wrds {
-    padding-left: 13px;
-  }
-
-  .selections i {
-    position: absolute;
-    top: 0;
-    right: 10px;
-  }
-
-  .selections:hover .select-list {
-    display: block;
-  }
-
-  .select-list {
-    position: absolute;
-    display: none;
-    left: -1px;
-    top: 35px;
-    width: 100%;
-    border: 1px solid #d9d9d9;
-    border-bottom: 0;
-    background: #fff;
-    box-shadow: 0 5px 5px #bcbcbc;
-  }
-
-  .select-list li {
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .select-list li:hover {
-    color: #fff;
-    background-color: #f13939;
-  }
-
-  .search-input {
-    flex: 1;
-    padding: 0 16px;
-    height: 34px;
-    line-height: 34px;
-  }
-
-  .search-btn {
-    width: 62px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    background-color: #f13939;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
-  }
+  
 
   .queries-list {
-    width: 1160px;
     margin: 10px auto;
     border: 1px solid #dfdfdf;
   }

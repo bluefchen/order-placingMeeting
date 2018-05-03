@@ -1,10 +1,11 @@
 <template>
   <div class="v_pagination">
     <el-pagination
-      :page-size="20"
+      :page-size="pageSize"
+      :current-page="currentPage"
       :pager-count="11"
       layout="prev, pager, next"
-      :total="1000"
+      :total="total"
       @current-change="handlePageChanged">
     </el-pagination>
   </div>
@@ -14,9 +15,18 @@
   export default {
     name: 'Pagination',
     props: {
-      pageChanged: {
-        type: Function,
-        required: true
+      pageSize: {
+        type: Number,
+        default: 10
+      },
+      currentPage: {
+        type: Number,
+        default: 1
+      },
+      total: {
+        type: Number,
+        default: 1,
+        require: true
       }
     },
     data() {
@@ -24,9 +34,9 @@
     },
     methods: {
       handlePageChanged(val) {
-        this.pageChanged(val);
+        this.$emit('pageChanged', val);
       }
-    },
+    }
   }
 </script>
 

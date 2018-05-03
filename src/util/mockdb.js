@@ -16,6 +16,54 @@ Mock.mock(new RegExp('/api/data'), {
   }
 });
 
+//4、关联的供应商信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 1,
+    'rows|10': [{
+      supplierId: '@id', //供应商ID
+      province: '@province()', //供应商省份
+      city: '@city()', //供应商地市
+      supplierName: '@cword()', //供应商名称
+      supplierType: '', //供应商类型
+      supplierTypeName: '@cword()', //供应商类型名称
+      linkMan: '@cname()', //联系人
+      linkNbr: '', //联系电话
+      supplierPhone: '', //公司电话
+      supplierFax: '' //公司传真
+    }]
+  }
+});
+
+//5、关联的零售商信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 1,
+    'rows|10': [{
+      retailerId: '@id', //零售商ID
+      province: '@province()', //零售商省份
+      city: '@city()', //零售商地市
+      retailerName: '@cword()', //零售商名称
+      retailerType: '', //零售商类型
+      retailerTypeName: '@cword()', //零售商类型名称
+      linkMan: '@cname()', //联系人
+      linkNbr: '', //联系电话
+      retailerPhone: '', //公司电话
+      retailerFax: '' //公司传真
+    }]
+  }
+});
+
 //10、查询终端品牌接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferBrandList'), {
   rsphead: 's',
@@ -50,7 +98,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
   msg: null, //失败信息
   error: null,
   data: {
-    'total|1-99': 1,
+    'totalSize|1-100': 1,
     'rows|5-10': [{
       'offerId': '@id',
       'offerCode': '@id',
@@ -188,7 +236,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotL
 });
 
 //25、批量导入新增机型
-Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOffer'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
