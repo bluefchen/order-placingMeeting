@@ -79,7 +79,8 @@
         </div>
       </div>
       <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" />
-      <Pagination :pgaeSize="pgaeSize" :currentPage="currentPage" :total="total" @pageChanged="pageChanged" />
+      <Pagination :pageSize="pageSize" :currentPage="currentPage" :total="total" @pageChanged="pageChanged" />
+      ---{{total}}---
     </div>
   </div>
 </template>
@@ -99,7 +100,7 @@
       this.$axios.post('/orderPlacingMeetingController/queryOfferBrandList', {}).then((response) => {
         this.brandList = response.data;
       });
-      this.qryOpMeetingOfferList();
+      this.qryOpMeetingOfferList(this.currentPage);
     },
     data() {
       return {
@@ -177,15 +178,15 @@
         checkedModelIndex: null,
         opMeetingOfferList: [],
         total: 0, //列表总数
-        pgaeSize: 10, //每页展示条数
-        currentPage: 2 //当前页
+        pageSize: 10, //每页展示条数
+        currentPage: 1 //当前页
       }
     },
     methods: {
       search(obj) {
         this.categoryItem.isCentman = obj.type;
         this.categoryItem.offerNameOrCode = obj.value;
-        this.qryOpMeetingOfferList();
+        this.qryOpMeetingOfferList(this.currentPage);
       },
       changeFoldBrand() {
         this.isFoldBrand = !this.isFoldBrand;
@@ -206,7 +207,7 @@
             }
           });
           this.categoryItem.isSpecial = val.isSpecial;
-          this.qryOpMeetingOfferList();
+          this.qryOpMeetingOfferList(this.currentPage);
         } else {
           this.delCategoryItem('是否特种机型');
           this.categoryItem.isSpecial = '';
@@ -231,7 +232,7 @@
           });
           this.categoryItem.brandCd = val.brandCd;
           this.categoryItem.offerModelId = '';
-          this.qryOpMeetingOfferList();
+          this.qryOpMeetingOfferList(this.currentPage);
         } else {
           this.delCategoryItem('品牌');
         }
@@ -246,7 +247,7 @@
             }
           });
           this.categoryItem.offerModelId = val.offerModelId;
-          this.qryOpMeetingOfferList();
+          this.qryOpMeetingOfferList(this.currentPage);
         } else {
           this.delCategoryItem('型号');
         }
@@ -280,11 +281,23 @@
             item.categoryCode = null;
           }
         });
-        this.qryOpMeetingOfferList();
+        this.qryOpMeetingOfferList(this.currentPage);
       },
-      qryOpMeetingOfferList() {
+      qryOpMeetingOfferList(currentPage, pageSize) {
+        let curPage = currentPage ? currentPage : this.currentPage;
+        let pageNum = pageSize ? pageSize : this.pageSize;
+        let params = {
+          'opMeetingId': this.categoryItem.opMeetingId,
+          'isCentman': this.categoryItem.isCentman,
+          'offerNameOrCode': this.categoryItem.offerNameOrCode,
+          'isSpecial': this.categoryItem.isSpecial,
+          'brandCd': this.categoryItem.brandCd,
+          'offerModelId': this.categoryItem.offerModelId,
+          'pageSize': pageNum,
+          'curPage': curPage
+        };
         this.$axios.post('/orderPlacingMeetingController/queryOpMeetingOfferList', {
-          param: this.categoryItem
+          param: params
         }).then((response) => {
           this.opMeetingOfferList = response.data.rows;
           this.total = response.data.total;
@@ -295,7 +308,7 @@
         });
       },
       pageChanged(currentPage) {
-        this.currentPage = currentPage;
+        this.qryOpMeetingOfferList(currentPage)
         console.log('当前页：', currentPage);
       }
     },

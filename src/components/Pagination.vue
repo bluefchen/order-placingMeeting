@@ -1,7 +1,7 @@
 <template>
   <div class="v_pagination">
     <el-pagination
-      :page-size="pgaeSize"
+      :page-size="pageSize"
       :current-page.sync="currentPage"
       :pager-count="11"
       layout="prev, pager, next"
@@ -15,7 +15,7 @@
   export default {
     name: 'Pagination',
     props: {
-      pgaeSize: {
+      pageSize: {
         type: Number,
         default: 10
       },
