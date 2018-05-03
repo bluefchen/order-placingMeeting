@@ -32,7 +32,7 @@
             <el-button type="text" @click="isShow = true">打开</el-button>
             <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
               <div slot="content">
-                <p class="vivo">vivo</p>
+                <p class="vivo">vivo--{{title}}</p>
                 <p>vivoX20系列,VIVOX09系列：</p>
                 <p>订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span
                   class="red">六折</span></p>
