@@ -63,7 +63,7 @@
 			<ul class="ul-tab">
 				<li class="li-list" v-for="(item, index) in orderPickupRecordList" :key="index">
 					<p class="p-line fn-clear">
-						<span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【2018-04-06】</span>
+						<span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
 						<span class="fn-left text-center">零售商：{{item.retailerName}}</span>
 						<span class="fn-left text-right">供货商：{{item.supplierName}}</span>
 					</p>
