@@ -54,6 +54,7 @@
     .device-pic {
       width: 80px;
       height: 80px;
+      box-sizing: border-box;
       border: 1px solid #e7e7e7;
       img {
         display: block;
@@ -65,6 +66,7 @@
       box-sizing: border-box;
       width: calc(100% - 82px);
       padding-left: 15px;
+      line-height: 22px;
       .name{
         height: 26px;
         line-height: 26px;
