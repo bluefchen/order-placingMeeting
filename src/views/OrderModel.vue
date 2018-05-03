@@ -26,9 +26,9 @@
     <!-- 更多筛选 -->
     <div class="box-1200 queries-list" :class="{'fold-screen': isFoldScreen}">
       <p class="queries-title">所有分类 >
-        <span v-show="item.categoryName" v-for="(item, index) in checkedCategoryList"
+        <span v-if="item.categoryName" v-for="(item, index) in checkedCategoryList"
               :key="index">
-          <span v-if="item.name !=='是否特种机型'">&gt;</span>
+          <span class="arrows">&gt;</span>
           <span class="checked-query">{{item.name}}：{{item.categoryName}}<i class="iconfont"
                                                                             @click="delCategoryItem(item.name)">&#xe633;</i></span>
         </span>
@@ -80,7 +80,6 @@
       </div>
       <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" />
       <Pagination :pageSize="pageSize" :currentPage="currentPage" :total="total" @pageChanged="pageChanged" />
-      ---{{total}}---
     </div>
   </div>
 </template>
@@ -635,6 +634,10 @@
 
     .updown-btn.green:hover {
       border: 1px solid #46b02e;
+    }
+
+    .queries-title span:first-child .arrows{
+      display: none;
     }
   }
 </style>
