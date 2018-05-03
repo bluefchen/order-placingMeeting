@@ -35,131 +35,119 @@
 
   export default {
     name: 'OrderIndex',
+    created() {
+      this.queryOpmSupplierList();
+      this.queryOpmRetailerList();
+    },
     data() {
       return {
+        supplierList: [], //关联供应商列表
+        retailerList: [], //关联零售商列表
+        pageSize: 10, //每页展示条数
         activeName: '参会供货商',
         tabsList: [{
           tabLabel: '参会供货商',
           tableTitle: [{
             label: '省份',
-            prop: 'province'
+            prop: 'province',
+            width: 140
           }, {
             label: '地市',
-            prop: 'city'
+            prop: 'city',
+            width: 140
           }, {
             label: '供应商名称',
             prop: 'supplierName'
           }, {
             label: '供应商类型',
-            prop: 'supplierType'
+            prop: 'supplierTypeName',
+            width: 120
           }, {
             label: '联系人',
-            prop: 'contact'
+            prop: 'linkMan',
+            width: 120
           }, {
             label: '联系电话',
-            prop: 'TEL'
+            prop: 'linkNbr',
+            width: 120
           }, {
             label: '公司电话',
-            prop: 'companyTel'
+            prop: 'supplierPhone',
+            width: 120
           }, {
             label: '公司传真',
-            prop: 'fax'
+            prop: 'supplierFax',
+            width: 120
           }],
-          tableData: [{
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }, {
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }, {
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }],
-          pageSize: 10,
-          total: 100,
-          pageChanged: this.pageChanged
+          tableData: [],
+          pageSize: 0,
+          total: 0,
+          pageChanged: this.queryOpmSupplierList
         }, {
           tabLabel: '参会零售商',
           tableTitle: [{
             label: '省份',
-            prop: 'province'
+            prop: 'province',
+            width: 140
           }, {
             label: '地市',
-            prop: 'city'
+            prop: 'city',
+            width: 140
           }, {
             label: '零售商名称',
-            prop: 'supplierName'
+            prop: 'retailerName'
           }, {
             label: '零售商类型',
-            prop: 'supplierType'
+            prop: 'retailerTypeName',
+            width: 120
           }, {
             label: '联系人',
-            prop: 'contact'
+            prop: 'linkMan',
+            width: 120
           }, {
             label: '联系电话',
-            prop: 'TEL'
+            prop: 'linkNbr',
+            width: 120
           }, {
             label: '公司电话',
-            prop: 'companyTel'
+            prop: 'retailerPhone',
+            width: 120
           }, {
             label: '公司传真',
-            prop: 'fax'
+            prop: 'retailerFax',
+            width: 120
           }],
-          tableData: [{
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }, {
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }, {
-            province: '江苏省',
-            city: '南京市',
-            supplierName: '供货商AAAAA',
-            supplierType: '省代',
-            contact: '王小明',
-            TEL: '180123456789  ',
-            companyTel: '025-5800000000',
-            fax: '025-5800000000'
-          }],
-          pageSize: 10,
-          total: 100,
-          pageChanged: this.pageChanged
+          tableData: [],
+          pageSize: 0,
+          total: 0,
+          pageChanged: this.queryOpmRetailerList
         }]
       }
     },
     methods: {
-      pageChanged(currentPage) {
-        console.log('当前页：', currentPage);
+      queryOpmSupplierList(curPage, pageSize) {
+        console.log('当前页：', curPage);
+        this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
+          opMeetingId: '订货会ID',
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
+        }).then((rsp) => {
+          this.tabsList[0].pageSize = this.pageSize;
+          this.tabsList[0].total = rsp.totalSize;
+          this.tabsList[0].tableData = rsp.rows;
+        });
+      },
+      queryOpmRetailerList(curPage, pageSize) {
+        console.log('当前页：', curPage);
+        this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
+          opMeetingId: '订货会ID',
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
+        }).then((rsp) => {
+          this.tabsList[1].pageSize = this.pageSize;
+          this.tabsList[1].total = rsp.totalSize;
+          this.tabsList[1].tableData = rsp.rows;
+        });
       }
     },
     components: {

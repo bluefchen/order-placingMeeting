@@ -94,3 +94,9 @@ body {
   color: #fff;
   font-size: 12px;
 }
+
+.el-table td, .el-table th {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
