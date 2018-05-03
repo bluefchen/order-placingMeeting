@@ -289,6 +289,7 @@
 	}
 	.button:disabled {
 		opacity: 0.6;
+		cursor: not-allowed;
 	}
 	.cancel-btn{
 		background-color: #ffd6d6;
