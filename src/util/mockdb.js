@@ -188,7 +188,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotL
 });
 
 //25、批量导入新增机型
-Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOffer'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,

@@ -24,7 +24,7 @@
       </div>
 
       <div class="bottom-btns">
-        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
+        <el-button type="success" @click="batchInsertOpmOfferAllot">确定</el-button>
       </div>
     </div>
   </div>
@@ -132,7 +132,7 @@
       }
     },
     methods: {
-      batchInsertOpmOffer() {
+      batchInsertOpmOfferAllot() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
           this.$message.warning('导入数据不能为空');
@@ -148,7 +148,7 @@
           }
         });
         console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
+        this.$post('/orderPlacingMeetingController/batchInsertOpmOfferAllot', {
           tableDataIsSueccess
         }).then(rsp => {
           this.$router.push({path: '/order/specialModel'});
