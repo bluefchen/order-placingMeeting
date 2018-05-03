@@ -63,8 +63,9 @@
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" :pageChanged="pageChanged" :isPagination="true" v-show="step == 3"/>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableDataDone" :pageChanged="pageChanged" :isPagination="true" v-show="step == 6"/>
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableDataDone" v-show="step == 6"/>
+                  <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>                 
                 </div>
               </div>
             </div>
@@ -84,6 +85,7 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import TitlePlate from '@/components/TitlePlate';
 import Table from '@/components/Table';
+import Pagination from '@/components/Pagination';
 
 export default {
   name: 'DepositConfigure',
@@ -149,6 +151,9 @@ export default {
         }
       }],
       tableDataDone: [],
+      total: 0, //列表总数
+      pageSize: 10, //每页展示条数
+      currentPage: 1 //当前页
     }
   },
   methods: {
@@ -164,11 +169,15 @@ export default {
     confirm(index){
       this.step = index;
     },
+    pageChanged(curPage) {
+      this.queryOpMeetingOfferList(curPage);
+    }
   },
   components: {
     Breadcrumb,
     TitlePlate,
-    Table
+    Table,
+    Pagination
   }
 }
 </script>
