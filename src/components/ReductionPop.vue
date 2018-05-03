@@ -1,6 +1,6 @@
 <template>
   <span class="text">
-    <abbr v-popover:popover>满减</abbr>
+    <abbr v-popover:popover>优惠政策</abbr>
     <el-popover
       ref="popover"
       width="100"
