@@ -150,153 +150,154 @@
 </script>
 
 <style lang="less">
+	.order_pickup-goods-confirm{
+		/*中间背景图片*/
+		.img-bg{
+			width: 100%;
+			height: 200px;
+			background: #e4273f;
+		}
+		.img-bg .info{
+			width: 1036px;
+			height: 200px;
+			margin: 0 auto;
+			background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;	
+			overflow: hidden;
+		}
+		.img-bg .info .p-titl{
+			margin: 62px 0 0 0;
+			font-size: 22px;
+			color: #fcfdff;
+		}
+		.img-bg .info .activity{
+			width: 306px;
+			margin: 10px 0 0 0;
+			line-height: 18px;
+			font-size: 12px;
+			color: #fcfdff;
+			text-align: center;
+		}
+		/*中间背景图片*/
 
-	/*中间背景图片*/
-	.img-bg{
-		width: 100%;
-		height: 200px;
-		background: #e4273f;
-	}
-	.img-bg .info{
-		width: 1036px;
-		height: 200px;
-		margin: 0 auto;
-		background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;	
-		overflow: hidden;
-	}
-	.img-bg .info .p-titl{
-		margin: 62px 0 0 0;
-		font-size: 22px;
-		color: #fcfdff;
-	}
-	.img-bg .info .activity{
-		width: 306px;
-		margin: 10px 0 0 0;
-		line-height: 18px;
-		font-size: 12px;
-		color: #fcfdff;
-		text-align: center;
-	}
-	/*中间背景图片*/
-
-	.my-location{
-		height: 30px;
-		line-height: 30px;
-		background-color: #f6f6f6;
-	}
-	.my-location label{
-		color: #aaa;
-	}
-	.orderInfo{
-		padding: 0 0 20px;
-		margin: 16px auto 0;
-		border: 1px solid #cecece;	
-	}
-	.tel-model{
-		height: 36px;
-		line-height: 36px;
-		background: url('../assets/images/red-line.png') no-repeat 10px center;
-		padding-left: 20px;
-		font-size: 18px;
-		color: #000;
-		font-weight: 800;
-		background-color: #f2f1f1;
-		border-bottom: 1px solid #d6d6d6;
-	}
-	.info-list{
-		padding: 15px 0 0;
-		margin: 0 15px;
-		border-bottom: 1px solid #d6d6d6;
-	}
-	.info-list:last-child{
-		border-bottom: 0;
-	}
-	.info-list-li{
-		width: calc(50% - 1px);
-		margin-bottom: 15px;
-		padding: 8px 0;
-		border-right: 1px solid #d6d6d6;
-		color: #2b2020;
-		font-size: 12px;
-	}
-	.info-list-li:last-child{
-		border-right: 0;
-	}
-	.info-detail{
-		width: 230px;
-	    margin: 0 20px;
-	}
-	.detail-p{
-		height: 24px;
-		line-height: 24px;
-	}
-	.info-table{
-		margin: 0 20px;
-		line-height: 18px;
-	}
-	.detail-table{
-		width: 25%;
-	}
-	.table{
-		margin-top: 10px;
-		border: 1px solid #e0e0e0;
-	}
-	.table thead tr{
-		height: 36px;
-		background-color: #f8f8f8;
-		border-bottom: 1px solid #e0e0e0;
-		color: #131212;
-	}
-	.table tbody tr{
-		height: 90px;
-		border-bottom: 1px solid #dcdcdc;
-	}
-	.table thead tr th{
-		text-align: center;
-	}
-	.table tbody tr td{
-		text-align: center;
-	}
-	.order-num{
-		height: 75px;
-		border: 1px solid #ff223d;
-		background-color: #fff8ef;
-		margin: 23px auto;
-	}
-	.order-num input[type="text"]{
-		width: 153px;
-		height: 32px;
-		padding: 0 10px;
-		margin-top: 22px;
-		border: 1px solid #d5d5d5;
-	}
-	.order-num .wrds{
-		width: 102px;
-		line-height: 34px;
-		margin-top: 22px;
-		text-align: right;
-	}
-	.button{
-		height: 34px;
-		padding: 0 24px;
-		margin: 22px 0 0 22px;
-		border: 0;
-		font-size: 14px;
-		background-color: #f01919;
-		border-radius: 3px;
-		color: #fff;
-		cursor: pointer;
-	}
-	.button:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-	.cancel-btn{
-		background-color: #ffd6d6;
-		color: #f01919;
-		border: 1px solid #f01919;
-	}
-	.td-device-info{
-		margin: 10px;
+		.my-location{
+			height: 30px;
+			line-height: 30px;
+			background-color: #f6f6f6;
+		}
+		.my-location label{
+			color: #aaa;
+		}
+		.orderInfo{
+			padding: 0 0 20px;
+			margin: 16px auto 0;
+			border: 1px solid #cecece;	
+		}
+		.tel-model{
+			height: 36px;
+			line-height: 36px;
+			background: url('../assets/images/red-line.png') no-repeat 10px center;
+			padding-left: 20px;
+			font-size: 18px;
+			color: #000;
+			font-weight: 800;
+			background-color: #f2f1f1;
+			border-bottom: 1px solid #d6d6d6;
+		}
+		.info-list{
+			padding: 15px 0 0;
+			margin: 0 15px;
+			border-bottom: 1px solid #d6d6d6;
+		}
+		.info-list:last-child{
+			border-bottom: 0;
+		}
+		.info-list-li{
+			width: calc(50% - 1px);
+			margin-bottom: 15px;
+			padding: 8px 0;
+			border-right: 1px solid #d6d6d6;
+			color: #2b2020;
+			font-size: 12px;
+		}
+		.info-list-li:last-child{
+			border-right: 0;
+		}
+		.info-detail{
+			width: 230px;
+		    margin: 0 20px;
+		}
+		.detail-p{
+			height: 24px;
+			line-height: 24px;
+		}
+		.info-table{
+			margin: 0 20px;
+			line-height: 18px;
+		}
+		.detail-table{
+			width: 25%;
+		}
+		.table{
+			margin-top: 10px;
+			border: 1px solid #e0e0e0;
+		}
+		.table thead tr{
+			height: 36px;
+			background-color: #f8f8f8;
+			border-bottom: 1px solid #e0e0e0;
+			color: #131212;
+		}
+		.table tbody tr{
+			height: 90px;
+			border-bottom: 1px solid #dcdcdc;
+		}
+		.table thead tr th{
+			text-align: center;
+		}
+		.table tbody tr td{
+			text-align: center;
+		}
+		.order-num{
+			height: 75px;
+			border: 1px solid #ff223d;
+			background-color: #fff8ef;
+			margin: 23px auto;
+		}
+		.order-num input[type="text"]{
+			width: 153px;
+			height: 32px;
+			padding: 0 10px;
+			margin-top: 22px;
+			border: 1px solid #d5d5d5;
+		}
+		.order-num .wrds{
+			width: 102px;
+			line-height: 34px;
+			margin-top: 22px;
+			text-align: right;
+		}
+		.button{
+			height: 34px;
+			padding: 0 24px;
+			margin: 22px 0 0 22px;
+			border: 0;
+			font-size: 14px;
+			background-color: #f01919;
+			border-radius: 3px;
+			color: #fff;
+			cursor: pointer;
+		}
+		.button:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
+		}
+		.cancel-btn{
+			background-color: #ffd6d6;
+			color: #f01919;
+			border: 1px solid #f01919;
+		}
+		.td-device-info{
+			margin: 10px;
+		}
 	}
 </style>
