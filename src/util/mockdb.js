@@ -281,7 +281,64 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
         'offerPicUrl4': '@url',
         'offerPicUrl5': '@url',
         'offerPicUrl6': '@url'
-      }
+      },
+      'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
+      'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
     }]
+  }
+});
+
+//35、订单提货确认接口
+Mock.mock(new RegExp('/opmOrderController/updateOpmOrderPickupRecord'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null, 
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+
+//36、查询供应商信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierById'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'supplierId': '@id', 
+    'province': '@province()', 
+    'city': '@city()', 
+    'supplierName': '@cword(4, 6)',
+    'supplierType': '@id', 
+    'supplierTypeName': '@cword(4,6)', 
+    'linkMan': '@cname',
+    'linkNbr': /\d{5,11}/,
+    'supplierPhone|3': /\d{5,9}\-/,
+    'supplierFax|3': /\d{5,9}\-/
+  }
+});
+
+//37、查询零售商信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'retailerId': '@id', 
+    'province': '@province()', 
+    'city': '@city()', 
+    'retailerName': '@cword(4, 6)',
+    'retailerType': '@id', 
+    'retailerTypeName': '@cword(4,6)', 
+    'linkMan': '@cname',
+    'linkNbr': /\d{5,11}/,
+    'retailerPhone': /\d{5,9}\-/,
+    'retailerFax': /\d{5,9}\-/
   }
 });
