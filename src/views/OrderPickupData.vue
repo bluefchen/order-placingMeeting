@@ -146,9 +146,14 @@
 		        })
 			},
 			editDeliveryData(item){
+
+				localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+
 				this.$router.push({
-					path: `/order/OrderPickupGoodsConfirm`,
-					query: item
+					path: '/order/OrderPickupGoodsConfirm',
+					query: { 
+						opmOrderId: item.opmOrderId 
+					}
 				});
 			},
 			pageChanged(curPage) {
