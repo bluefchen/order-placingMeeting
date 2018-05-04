@@ -31,22 +31,23 @@
             </el-button>
           </div>         
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>       
-        <!-- 弹窗 -->
-        <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
-          <div slot="content" class="pop-cnt">
-            <p class="vivo">vivo</p>
-            <p class="p-ttl"><b>vivoX20系列,VIVOX09系列：</b></p>
-            <p class="cnt-info">订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span
-              class="red">六折</span></p>
-            <p class="p-ttl"><b>vivoXXX系列,VIVOOOOO系列：</b></p>
-            <p class="cnt-info">订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span
-              class="red">六五</span>折</p>
-          </div>
-          <div slot="footer">
-            <el-button type="success" @click="isShow = false">关闭</el-button>
-          </div>
-        </DialogPopup>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData">       
+          <!-- 弹窗 -->
+          <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
+            <div slot="content" class="pop-cnt">
+              <p class="vivo">vivo</p>
+              <p class="p-ttl"><b>vivoX20系列,VIVOX09系列：</b></p>
+              <p class="cnt-info">订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span
+                class="red">六折</span></p>
+              <p class="p-ttl"><b>vivoXXX系列,VIVOOOOO系列：</b></p>
+              <p class="cnt-info">订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span
+                class="red">六五</span>折</p>
+            </div>
+            <div slot="footer">
+              <el-button type="success" @click="isShow = false">关闭</el-button>
+            </div>
+          </DialogPopup>
+        </Table>
       </div>
     </div>
   </div>
@@ -59,7 +60,7 @@
   import DialogPopup from '@/components/DialogPopup';
 
   export default {
-    name: 'PolicyManage',
+    name: 'PolicyManage',    
     created() {
     },
     data() {
@@ -77,12 +78,17 @@
           width: 360,
           render: function (h, params) {
             return h({
-              template: '<el-button type="text" @click="this.isShow = true" class="hover-btn">{{policyName}}</el-button>',
+              template: '<el-button type="text" @click="openDetail(reslutList)" class="hover-btn">{{reslutList.policyName}}</el-button>',
               data: function () {
                 return {
-                  policyName: params.row.policyName
+                  reslutList: params.row,
                 }
-              }
+              },
+              methods: {
+                openDetail(list){
+                  this.isShow = true;
+                }
+              },
             })
           }
         }, {
@@ -105,8 +111,17 @@
           label: '操作',
           render: function (h, params) {
             return h({
-              template: '<el-button type="text" @click="" class="delete-btn">删除</el-button>',
-              
+              template: '<el-button type="text" @click="deleteInfo(reslutList)" class="delete-btn">删除</el-button>',
+              data: function () {
+                return {
+                  reslutList: params.row
+                }
+              },
+              methods: {
+                deleteInfo(list){
+                  console.log(list)
+                }
+              },
             })
           }
         }],
@@ -118,8 +133,7 @@
           policyModelName: 1890,
           state: 'Y'
         }],
-        isShow: false,
-        
+        isShow: false
       }
     },
     methods: {

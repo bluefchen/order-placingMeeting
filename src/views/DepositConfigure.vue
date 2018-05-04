@@ -51,7 +51,7 @@
               <!-- 定金 -->
               <div class="second-step fn-clear" v-show="step == 2 || step == 5">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <el-input class="fn-left" suffix-icon="el-icon-date" v-show="step == 2">
+                <el-input class="fn-left" suffix-icon="el-icon-percent" v-show="step == 2">
                 </el-input>
                 <p class="sec-done fn-left" v-show="step == 5">10%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
@@ -431,6 +431,13 @@ export default {
         content:'\00A5';
       }
     }  
+  }
+}
+
+.el-icon-percent {
+  &::before{
+    content:'\e658';
+    font-family: iconfont
   }
 }
 
