@@ -27,7 +27,7 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(response => {
   loadingInstance.close();
-  return response;
+  return response.data;
 }, error => {
   loadingInstance.close();
   return Promise.reject(error);
