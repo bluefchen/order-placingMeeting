@@ -27,17 +27,32 @@
 
 		<!-- 条件搜索 -->
 		<div class="box-1200 condition-search" v-show="isShowMoreCondition">
-			<div class="condition-iterm wid30">
-				<label class="label-wrds">订单号：</label>
-				<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
+			<div class="fn-clear">
+				<div class="condition-iterm wid30">
+					<label class="label-wrds">订单号：</label>
+					<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
+				</div>
+				<div class="condition-iterm wid30">
+					<label class="label-wrds">零售商名称：</label>
+					<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
+				</div>
+				<div class="condition-iterm wid40">
+					<label class="label-wrds">订购起止日期：</label>
+					<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+				</div>
 			</div>
-			<div class="condition-iterm wid30">
-				<label class="label-wrds">零售商名称：</label>
-				<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
-			</div>
-			<div class="condition-iterm wid40">
-				<label class="label-wrds">订购起止日期：</label>
-				<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+			<div class="fn-clear">
+				<div class="condition-iterm wid30">
+					<label class="label-wrds">付款状态：</label>
+					<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
+				</div>
+				<div class="condition-iterm wid30">
+					<label class="label-wrds">供应商名称：</label>
+					<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
+				</div>
+				<div class="condition-iterm wid40">
+					<el-button>12341324</el-button>
+				</div>
 			</div>
 		</div>
 
@@ -206,14 +221,16 @@
 	      margin: 10px auto;
 	    }
 		.condition-search{
-			display: flex;
-			height: 72px;
+			height: 114px;
 			margin: 18px auto 22px;
 			border: 1px solid #dfdfdf;
+			div{
+				display: flex;
+			}
 		}
 		.condition-iterm{
 			position: relative;
-			margin: 20px 30px 0 0;
+			margin: 16px 30px 0 0;
 		}
 		.condition-iterm .label-wrds{
 			position: absolute;

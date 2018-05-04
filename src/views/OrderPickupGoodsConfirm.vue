@@ -288,7 +288,8 @@
 			cursor: pointer;
 		}
 		.button:disabled {
-			opacity: 0.6;
+			// opacity: 0.6;
+			background: #f25555;
 			cursor: not-allowed;
 		}
 		.cancel-btn{
