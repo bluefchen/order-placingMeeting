@@ -26,9 +26,9 @@
         <el-menu-item index="/order/PolicyManage">政策投入</el-menu-item>
         <el-menu-item index="5-2">政策列表</el-menu-item>
       </el-submenu>
-      <el-submenu index="6">
+      <el-submenu index="/order/orderCompositeQuery">
         <template slot="title">统计查询</template>
-        <el-menu-item index="6-1">订单综合查询</el-menu-item>
+        <el-menu-item index="/order/orderCompositeQuery">订单综合查询</el-menu-item>
         <el-menu-item index="6-2">优惠政策结算</el-menu-item>
       </el-submenu>
     </el-menu>
