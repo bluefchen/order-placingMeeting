@@ -109,7 +109,9 @@
           width: 400,
           render: (h, params) => {
             return h(DeviceInfo, {
-              props: {data: params.row}
+              props: {
+                data: params.row,
+              }
             });
           }
         }, {

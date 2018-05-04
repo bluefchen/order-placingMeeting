@@ -34,5 +34,6 @@ npm run build --report
 - **TitlePlate** 标题
 - **UploadFile** 上传文件
 - **DialogPopup** 弹框
+- **ButtonWithDialog** 表格内按钮+弹框
 
 

@@ -29,25 +29,9 @@
           <div class="buttons fn-right">
             <el-button class="btn-download fn-right" size="small" type="success"><i class="iconfont">&#xe642;</i> 政策投入
             </el-button>
-          </div>         
+          </div>
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData">       
-          <!-- 弹窗 -->
-          <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
-            <div slot="content" class="pop-cnt">
-              <p class="vivo">vivo</p>
-              <p class="p-ttl"><b>vivoX20系列,VIVOX09系列：</b></p>
-              <p class="cnt-info">订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span class="red">八折</span>，订购籽量满500打<span
-                class="red">六折</span></p>
-              <p class="p-ttl"><b>vivoXXX系列,VIVOOOOO系列：</b></p>
-              <p class="cnt-info">订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span class="red">八五</span>折，订购籽量满500打<span
-                class="red">六五</span>折</p>
-            </div>
-            <div slot="footer">
-              <el-button type="success" @click="isShow = false">关闭</el-button>
-            </div>
-          </DialogPopup>
-        </Table>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -57,10 +41,10 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
-  import DialogPopup from '@/components/DialogPopup';
+  import ButtonWithDialog from '@/components/ButtonWithDialog';
 
   export default {
-    name: 'PolicyManage',    
+    name: 'PolicyManage',
     created() {
     },
     data() {
@@ -71,25 +55,18 @@
         tableTitle: [{
           label: '序号',
           prop: 'orderNum',
-          width: 106,        
+          width: 106,
         }, {
           label: '政策名称',
           prop: 'policyName',
           width: 360,
-          render: function (h, params) {
-            return h({
-              template: '<el-button type="text" @click="openDetail(reslutList)" class="hover-btn">{{reslutList.policyName}}</el-button>',
-              data: function () {
-                return {
-                  reslutList: params.row,
-                }
-              },
-              methods: {
-                openDetail(list){
-                  this.isShow = true;
-                }
-              },
-            })
+          render: (h, params) => {
+            return h(ButtonWithDialog, {
+              props: {
+                title: params.row.policyName,
+                data: params.row
+              }
+            });
           }
         }, {
           label: '政策机型',
@@ -99,7 +76,7 @@
           label: '政策制定日期',
           prop: 'policyDate',
           width: 166,
-        },  {
+        }, {
           label: '制定人',
           prop: 'policyModelName',
           width: 128,
@@ -107,19 +84,29 @@
           label: '制定状态',
           prop: 'state',
           width: 110,
-        },{
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.state === \'Y\'">已发布</span><span v-else>待审核</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
           label: '操作',
           render: function (h, params) {
             return h({
-              template: '<el-button type="text" @click="deleteInfo(reslutList)" class="delete-btn">删除</el-button>',
+              template: '<el-button type="text" @click="deleteInfo(row)" class="delete-btn">删除</el-button>',
               data: function () {
                 return {
-                  reslutList: params.row
+                  data: params.row
                 }
               },
               methods: {
-                deleteInfo(list){
-                  console.log(list)
+                deleteInfo(row) {
+                  console.log(row)
                 }
               },
             })
@@ -139,16 +126,13 @@
     methods: {
       search(obj) {
         console.log('参数：', obj);
-      },     
-      visibleChange(val) {
-        this.isShow = val;
       }
     },
     components: {
       InputWithSelect,
       Table,
       Breadcrumb,
-      DialogPopup
+      ButtonWithDialog
     }
   }
 </script>
@@ -192,25 +176,10 @@
     background-color: #f6f6f6;
   }
 
-  .my-location label {
-    color: #aaa;
-  }
-
-  .location-p {
-    display: inline-block;
-  }
-
-  .red {
-    color: #f82134;
-  }
-
-  .green {
-    color: #46b02e;
-  }
-
   .search {
     margin: 10px auto;
   }
+
   .order-titl {
     height: 28px;
     margin: 15px 0;
@@ -247,43 +216,14 @@
   .child {
     height: 330px;
   }
-  .el-table--small td, .el-table--small th{
+
+  .el-table--small td, .el-table--small th {
     padding: 5px 0;
   }
-  .v_table .el-table, .v_table .el-table__expanded-cell{
+
+  .v_table .el-table, .v_table .el-table__expanded-cell {
     border: 1px solid #dcdcdc;
     border-bottom: 0;
   }
-  .el-table__row .el-button--text{
-    padding: 0;
-    color: #606266;
-    font-size: 12px;
-    font-weight: normal;
-  }
-  .hover-btn:hover{
-    color: #ff0000;
-    text-decoration: underline;
-  }
-  /* 弹窗 */ 
-  .pop-cnt{
-    .vivo{
-      width: 102px;
-      height: 28px;
-      margin-bottom: 16px;
-      line-height: 28px;
-      text-align: center;
-      background-color: #ff0000;
-      color: #fff;
-      border-radius: 14px;
-    }
-    .p-ttl{
-      margin: 0 0 6px 8px; 
-    }
-    .cnt-info{
-      margin: 0 0 16px 40px;
-    }
-  }
-  
-
 
 </style>
