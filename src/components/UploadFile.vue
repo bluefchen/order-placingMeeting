@@ -64,24 +64,25 @@
             'Content-Type': 'multipart/form-data'
           }
         }).then(rsp => {
-          this.$emit('callback' , rsp.data || []);
+          this.$emit('callback', rsp.data || []);
           console.log('导入URL：', this.url, '导入数据：', rsp.data);
         })
       },
       download() {
-        this.$axios.get('/rest/schedule/template', {
-          params: {
-            key: ''
-          },
-          responseType: 'arraybuffer'
-        }).then((response) => {
-          //创建一个blob对象,file的一种
-          let blob = new Blob([response.data], {type: 'application/x-xls'});
-          let link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = fileNames[scheduleType] + '_' + response.headers.datestr + '.xls';
-          link.click();
-        })
+        // window.open('/orderPlacingMeeting/orderPlacingMeetingService/exportTest');
+        // this.$axios.get('/orderPlacingMeeting/orderPlacingMeetingService/exportTest', {
+        //   params: {
+        //     key: ''
+        //   },
+        //   responseType: 'arraybuffer'
+        // }).then((response) => {
+        //   //创建一个blob对象,file的一种
+        //   let blob = new Blob([response.data], {type: 'application/vnd.ms-excel;charset=UTF-8'});
+        //   let link = document.createElement('a');
+        //   link.href = window.URL.createObjectURL(blob);
+        //   link.download = '_' + response.headers.datestr + '.xls';
+        //   link.click();
+        // })
       }
     }
   }
