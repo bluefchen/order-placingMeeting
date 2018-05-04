@@ -139,7 +139,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   /*中间背景图片*/
   .img-bg {
     width: 100%;
@@ -238,12 +238,17 @@
   }
   .v_table .el-table, .v_table .el-table__expanded-cell{
     border: 1px solid #dcdcdc;
+    border-bottom: 0;
   }
-  .el-button--text{
+  .el-table__row .el-button--text{
     padding: 0;
+    color: #606266;
+    font-size: 12px;
+    font-weight: normal;
   }
   .hover-btn:hover{
     color: #ff0000;
+    text-decoration: underline;
   }
   /* 弹窗 */ 
   .pop-cnt{
