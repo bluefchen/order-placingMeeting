@@ -19,41 +19,41 @@
 			</div>
 	    </div>
 
-		<div class="orderInfo">
+		<div class="orderInfo box-1200">
 			<div class="tel-model">订单信息</div>
 			<ul class="info-list fn-clear">
 				<li class="info-list-li fn-left fn-clear">
 					<div class="info-detail fn-left">  
-						<p class="detail-p"><span>零售商名称：</span>零售商AAAAAAAAA</p>
-						<p class="detail-p"><span>零售商类型：</span>散户</p>       				
-						<p class="detail-p"><span>联系电话：</span>180123456778</p>				
+						<p class="detail-p"><span>零售商名称：</span>{{retailerInfo.retailerName}}</p>
+						<p class="detail-p"><span>零售商类型：</span>{{retailerInfo.retailerTypeName}}</p>
+						<p class="detail-p"><span>联系电话：</span>{{retailerInfo.linkNbr}}</p>				
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
-						<p class="detail-p"><span>所属省分：</span>江苏</p>
-						<p class="detail-p"><span>联系人：</span>XXXX</p>
+						<p class="detail-p"><span>所属省份：</span>{{retailerInfo.province}}</p>
+						<p class="detail-p"><span>联系人：</span>{{retailerInfo.linkMan}}</p>
 					</div>
 				</li>
 				<li class="info-list-li fn-right fn-clear">                                               
 					<div class="info-detail fn-left">                                                     
-        				<p class="detail-p"><span>供货商名称：</span>零售商CCCCCCC</p>
-        				<p class="detail-p"><span>供货商类型：</span>散户</p>
-						<p class="detail-p"><span>联系电话：</span>180123411111</p>
+        				<p class="detail-p"><span>供货商名称：</span>{{supplierInfo.supplierName}}</p>
+        				<p class="detail-p"><span>供货商类型：</span>{{supplierInfo.supplierTypeName}}</p>
+						<p class="detail-p"><span>联系电话：</span>{{supplierInfo.linkNbr}}</p>
 								
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
-						<p class="detail-p"><span>所属省分：</span>江苏</p>
-						<p class="detail-p"><span>联系人：</span>XXXX</p>		
+						<p class="detail-p"><span>所属省分：</span>{{supplierInfo.province}}</p>
+						<p class="detail-p"><span>联系人：</span>{{supplierInfo.linkMan}}</p>		
 					</div>
 				</li>				
 			</ul>
 			<div class="info-list">       
 				<div class="info-table fn-clear">                                                     
-    				<p class="detail-table fn-left"><span>订单编号：</span>1000000010</p>
-					<p class="detail-table fn-left"><span>创建时间：</span>2018-04-06 15:02:46</p>
-					<p class="detail-table fn-left"><span>付款时间：</span></p>
-					<p class="detail-table fn-left"><span>提货时间：</span></p>				
+    				<p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
+					<p class="detail-table fn-left"><span>创建时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
+					<p class="detail-table fn-left"><span>付款时间：</span>--</p>
+					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupDt}}</p>
 				</div>
 				<table width="100%" cellspacing="0" cellpadding="0" class="table">
 					<thead> 
@@ -67,38 +67,25 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="td-first">							
-								<p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-								<p class="tel-info">
-									<a href="" class="tel-href">VIVO-X20全面屏 美颜拍照手机美颜拍照手机</a>
-									<label class="tags">
-										<!-- 社采或者集采 -->
-										<span class="sc">社采</span>
-										<!-- <span class="jc">集采</span> -->
-										<span class="mj">满减
-											<label class="small-pop">
-												<label>满<b class="red">10000</b>减<b class="red">200</b></label>
-												<label>满<b class="red">20000</b>减<b class="red">400</b></label>
-											</label>
-										</span>
-										<span class="spec">特</span>									
-									</label>		
-								</p>						
+							<td>
+								<div class="td-device-info">				
+									<DeviceInfo :data="orderPickGoodsInfo" />
+								</div>					
 							</td>
-							<td>VIVO</td>
-							<td>VIVO-X20</td>
-							<td>集采</td>
-							<td>￥1890</td>
+							<td>{{orderPickGoodsInfo.brandName}}</td>
+							<td>{{orderPickGoodsInfo.offerModelName}}</td>
+							<td>￥{{orderPickGoodsInfo.salePrice}}</td>
+							<td>{{orderPickGoodsInfo.offerQty}}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
-		<div class="order-num">
-			<span class="wrds fn-left">提货数量：</span><input type="text" name="" class="fn-left">
-			<button class="button fn-left">确认提货</button>
-			<button class="button cancel-btn fn-left">取消提货</button>
+		<div class="order-num box-1200">
+			<span class="wrds fn-left">提货数量：</span><input type="text" v-model="pickupGoodsAmount" name="" class="fn-left">
+			<button class="button fn-left" :disabled="!pickupGoodsAmount" @click="confirmDelivery">确认提货</button>
+			<button @click="countermandDelivery" class="button cancel-btn fn-left">取消提货</button>
 		</div>
 	</div>
 
@@ -107,134 +94,62 @@
 <script>
 
 	import Breadcrumb from '@/components/Breadcrumb';
+	import DeviceInfo from '@/components/DeviceInfo';
 
 	export default {
 		name: 'OrderPickupGoodsConfirm',
 		created() {
-			this.getRouterData()
+
+			this.orderPickGoodsInfo = this.$route.query;
+
+			this.$post('/orderPlacingMeetingController/querySupplierById', {
+				supplierId: this.orderPickGoodsInfo.supplierId
+	        }).then((rsp) => {
+	          this.supplierInfo = rsp;
+	        });
+
+	        this.$post('/orderPlacingMeetingController/queryRetailerById', {
+				retailerId: this.orderPickGoodsInfo.retailerId
+	        }).then((rsp) => {
+	          this.retailerInfo = rsp;
+	        });
+
 		},
 		data() {
 			return {
-				getRouterData() {
-			     	console.log(this.$route.query)
-			    }
+				orderPickGoodsInfo: {}, //传入的数据
+				supplierInfo: {}, //查询供应商信息
+				retailerInfo: {}, //查询零售商信息
+				pickupGoodsAmount: null //提货数量
 			}
 		},
 		methods: {
+			confirmDelivery(){
+				this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+					'opmOrderId': this.orderPickGoodsInfo.opmOrderId,
+					'pickupGoodsAmount': this.pickupGoodsAmount
+				}).then((rsp) => {
+					this.$message.success('确认提货成功！');
+					this.$router.push({
+						path: `/order/OrderPickupData`
+					});
+				});
+			},
+			countermandDelivery(){
+				this.$message.warning('取消提货成功！');
+				this.$router.push({
+					path: `/order/OrderPickupData`
+				});
+			}
 		},
 		components: {
-			Breadcrumb
+			Breadcrumb,
+			DeviceInfo
 		}
 	}
 </script>
 
 <style lang="less">
-.red{
-	color: #f82134;
-}
-.green{
-	color: #46b02e;
-}
-.text-center{
-	text-align: center;
-}
-.text-right{
-	text-align: right;
-}
-/*顶部*/
-.toper{
-	width: 100%;
-	border-bottom: 2px solid #ff0404;
-}
-.top-header{
-	width: 1180px;
-	height: 36px;
-	margin: 0 auto;
-	line-height: 36px;
-}
-.top-header img{
-	margin: 5px 130px 0 0;
-}
-.iterms li{
-	float: left;
-	padding: 0 25px;
-	font-size: 14px;
-	color: #000;
-}
-.user a{
-	float: right;
-	width: 38px;
-	height: 20px;
-	line-height: 20px;
-	padding-left: 12px;
-	margin-top: 9px;
-	color: #000;
-	border-left: 1px solid #dadada;
-	text-decoration: none;
-}
-.select-info{
-	float: left;
-	padding: 0 10px;
-}
-/*顶部*/
-
-/*头部切换*/
-	.header{
-		width: 1200px;
-		height: 80px;
-		margin: 0 auto;
-	}
-	.header img{
-		margin-top: 10px;
-	}
-	.tab-change{
-		margin-top: 26px;
-	}
-	.tab-change .lifor{
-		position: relative;
-		float: left;
-		height: 45px;
-		padding: 0 23px;
-		line-height: 45px;
-		font-size: 14px;
-		color: #000;
-	}
-	.tab-change .lifor.on{
-		color: #ff0404;
-	}
-	.tab-change .lifor.on:after{
-		position: absolute;
-		content: '';
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		height: 3px;
-		background: #ff0404;
-	}
-	.tab-change .lifor:hover .li-list{
-		display: block;
-	}
-	.tab-change .lifor .li-list{
-		position: absolute;
-		display: none;
-		left: -20%;
-		top: 46px;
-		width: 140%;
-		background: #f8f8f8;
-		color: #000;
-		box-shadow: 0px 0px 10px #bcbcbc;
-	}
-	.tab-change .lifor .li-list li{
-		height: 45px;
-		line-height: 45px;
-		text-align: center;
-		cursor: pointer;
-	}
-	.tab-change .lifor .li-list li:hover{
-		color: #fff;
-		background-color: #f13939;
-	}
-	/*头部切换*/
 
 	/*中间背景图片*/
 	.img-bg{
@@ -264,54 +179,15 @@
 	}
 	/*中间背景图片*/
 
-
 	.my-location{
 		height: 30px;
 		line-height: 30px;
 		background-color: #f6f6f6;
 	}
-	.location{
-		width: 1160px;
-		margin: 0 auto;
-	}
 	.my-location label{
 		color: #aaa;
 	}
-	.location-p{
-		display: inline-block;
-	}
-	.order-titl{
-		height: 28px;
-		margin: 15px 0;
-		line-height: 28px;
-	}
-	.order-pay-info{
-		width: 1200px;
-		height: 76px;
-		margin: 25px auto 20px;
-		border: 1px solid #fadaaf;
-		background-color: #fff4e6
-	}
-	.order-pay-info .p1{
-		font-size: 16px;
-		font-weight: 800;
-		margin: 15px 0 12px;
-	    line-height: 20px;
-	}
-	.order-pay-info .p2{
-		font-size: 12px;
-		color: #5b5b5b;
-	}
-	.order-pay-info p label{
-		display: inline-block;
-		width: 145px;
-		text-align: right;
-	}
-	.order-pay-info .p2{
-		
-	}
 	.orderInfo{
-		width: 1154px;
 		padding: 0 0 20px;
 		margin: 16px auto 0;
 		border: 1px solid #cecece;	
@@ -381,100 +257,7 @@
 	.table tbody tr td{
 		text-align: center;
 	}
-	.table tbody .td-first{
-		display: flex;
-	}
-	.table tbody .td-first .p-img{
-		width: 79px;
-		height: 67px;
-		margin: 10px 15px 0 10px;
-		border: 1px solid #e7e7e7;
-		text-align: center;
-		overflow: hidden;
-	}
-	.table tbody .td-first .tel-info{
-		flex: 1;
-		text-align: left;
-	}
-	.table tbody .td-first .tags{
-		position: relative;
-		display: flex;
-		margin-top: 10px;
-	}
-	.table tbody .td-first .tags span{
-		display: inline-block;
-		height: 18px;
-		padding: 0 4px;
-		line-height: 18px;
-		font-size: 12px;
-		border-radius: 3px;
-	}
-	.table tbody .td-first .tags .sc{
-		background-color: #00b5b8;
-		border: 1px solid #00b5b8;
-		color: #fff;
-		margin-right: 3px;
-	}
-	.table tbody .td-first .tags .jc{
-		background-color: #e23a3a;
-		border: 1px solid #e23a3a;
-		color: #fff;
-		margin-right: 3px;
-	}
-	.table tbody .td-first .tags .mj{
-		position: relative;
-		border: 1px solid #e23a3a;
-		color:#e23a3a;
-		margin-right: 6px;
-	}
-	.table tbody .td-first .tags .spec{
-		padding: 0 2px;
-		border: 1px solid #ff982d;
-		background-color: #ff982d;
-		color: #fff;
-		font-size: 14px;
-		border-radius: 2px;
-	}
-	.table tbody .td-first .small-pop{
-		display: none;
-		position: absolute;
-		top: 14px;
-	    left: -158px;
-		width: 218px;
-		height: 52px;
-		padding-top: 26px;
-		background: url('../assets/images/smremind-pop.png') no-repeat;
-	}
-	.table tbody .td-first .mj:hover .small-pop{
-		display: block;
-	}
-	.table tbody .td-first .small-pop label{
-		display: block;
-		padding: 0 22px;
-		margin-bottom: 2px;
-		text-align: left;
-	}
-	.table .tel-href{
-		display: block;
-	    margin: 16px 0 10px;
-	    font-size: 14px;
-	    color: #050505;
-	    text-decoration: none;
-	    line-height: 16px;
-	    font-weight: 700;
-	}
-	.table .tel-href:hover{
-		color: #ed0000;
-		text-decoration: underline;
-	}
-	.table .tel-href.overflow-handle{
-		width: 96%;
-	}
-	.table .tel-info label{
-		color: #7d7d7d;
-	}
 	.order-num{
-		width: 1160px;
 		height: 75px;
 		border: 1px solid #ff223d;
 		background-color: #fff8ef;
@@ -502,10 +285,18 @@
 		background-color: #f01919;
 		border-radius: 3px;
 		color: #fff;
+		cursor: pointer;
+	}
+	.button:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
 	}
 	.cancel-btn{
 		background-color: #ffd6d6;
 		color: #f01919;
 		border: 1px solid #f01919;
+	}
+	.td-device-info{
+		margin: 10px;
 	}
 </style>

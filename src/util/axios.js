@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading} from 'element-ui'
+import qs from 'qs'
 import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
-axios.defaults.baseURL = 'http://127.0.0.1';
+// axios.defaults.baseURL = 'http://127.0.0.1';
+axios.defaults.baseURL = 'http://192.168.16.86:8080';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
 };
@@ -34,7 +36,7 @@ axios.interceptors.response.use(response => {
 export function fetchPost(url, params) {
   return new Promise((resolve, reject) => {
     axios
-      .post(url, params)
+      .post(url, qs.stringify(params))
       .then(
         res => {
           resolve(res.data)
