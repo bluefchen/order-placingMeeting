@@ -100,7 +100,7 @@
 		name: 'OrderPickupGoodsConfirm',
 		created() {
 
-			this.orderPickGoodsInfo = this.$route.query;
+			this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opmOrderId));
 
 			this.$post('/orderPlacingMeetingController/querySupplierById', {
 				supplierId: this.orderPickGoodsInfo.supplierId
