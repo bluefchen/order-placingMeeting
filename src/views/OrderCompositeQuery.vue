@@ -30,37 +30,39 @@
 			<div class="fn-clear">
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">订单号：</label>
-					<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
+					<input type="text" class="condition-input" v-model="orderQueryData.opmOrderNo" >
 				</div>
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">零售商名称：</label>
-					<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
+					<input type="text" class="condition-input" v-model="orderQueryData.retailerId">
 				</div>
 				<div class="condition-iterm wid40">
 					<label class="label-wrds">订购起止日期：</label>
-					<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+					<el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
 				</div>
 			</div>
 			<div class="fn-clear">
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">付款状态：</label>
-					<input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo" >
+					<el-select class="condition-select" v-model="paymentCtatusCd" placeholder="请选择">
+						<el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+					</el-select>
 				</div>
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">供应商名称：</label>
-					<input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
+					<input type="text" class="condition-input" v-model="orderQueryData.retailerId">
 				</div>
 				<div class="condition-iterm wid40">
-					<el-button>12341324</el-button>
+					<el-button>查询</el-button>
 				</div>
 			</div>
 		</div>
 
 		<div class="box-1200 tabs-list">
 			<div class="order-titl fn-clear">
-				<TitlePlate class="fn-left" title="提货数据列表"/>
+				<TitlePlate class="fn-left" title="订单列表"/>
 				<div class="buttons fn-right">
-					<button class="btns"><i class="iconfont">&#xe6a8;</i> 导入</button>
+					<button class="btns"><i class="iconfont">&#xe6a8;</i> 导出</button>
 				</div>
 			</div>
 			<table width="100%" cellspacing="0" cellpadding="0" class="table">
@@ -70,7 +72,7 @@
 						<th width="17%">终端品牌</th>
 						<th width="17%">终端型号</th>
 						<th width="11%">订购数量</th>
-						<th width="10%">提货数量</th>
+						<th width="10%">付款状态</th>
 						<th width="13%">操作</th>
 					</tr>
 				</thead>
@@ -93,7 +95,7 @@
 						<dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
 						<dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
 						<dl class="dll wid13 fn-left">
-							<button @click="editDeliveryData(item)" class="updown-btn red">编辑</button>
+							<button @click="editDeliveryData(item)" class="updown-btn red">订单详情</button>
 						</dl>
 						
 					</div>
@@ -120,15 +122,28 @@
 		},
 		data() {
 			return {
+
+				paymentStatusList: [{ //付款状态列表
+		          value: 1000,
+		          label: '未交定金'
+		        }, {
+		          value: 1001,
+		          label: '已交定金'
+		        }, {
+		          value: 1002,
+		          label: '已付款'
+		        }],
+		        paymentCtatusCd: '', //付款状态CD
+
 				orderPickupRecordList: [], //查询返回的数据
-				orderDeliveryData: {
+				orderQueryData: {
 					isCentman: '',
 					offerNameOrCode: '',
 					opmOrderNo: '',
 					retailerId: '',
 					dateValue: []
 				},
-				isShowMoreCondition: false, //是否显示更多条件
+				isShowMoreCondition: true, //是否显示更多条件
 				total: 0, //列表总数
 		        pageSize: 10, //每页展示条数
 		        currentPage: 1 //当前页
@@ -136,8 +151,8 @@
 		},
 		methods: {
 			search(obj) {
-				this.orderDeliveryData.isCentman = obj.type;
-				this.orderDeliveryData.offerNameOrCode = obj.value;
+				this.orderQueryData.isCentman = obj.type;
+				this.orderQueryData.offerNameOrCode = obj.value;
 				this.qryOpmOrderPickupRecordList()
 			},
 			showMoreCondition(){
@@ -147,12 +162,12 @@
 				this.currentPage = curPage || 1;
 				this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
 					opMeetingId: '订货会ID',
-					isCentman: this.orderDeliveryData.isCentman,
-					offerNameOrCode: this.orderDeliveryData.offerNameOrCode,
-					opmOrderNo: this.orderDeliveryData.opmOrderNo,
-					retailerId: this.orderDeliveryData.retailerId,
-					fromDate: this.orderDeliveryData.dateValue[0],
-					toDate: this.orderDeliveryData.dateValue[1],
+					isCentman: this.orderQueryData.isCentman,
+					offerNameOrCode: this.orderQueryData.offerNameOrCode,
+					opmOrderNo: this.orderQueryData.opmOrderNo,
+					retailerId: this.orderQueryData.retailerId,
+					fromDate: this.orderQueryData.dateValue[0],
+					toDate: this.orderQueryData.dateValue[1],
 					pageSize: pageSize || 10,
 					curPage: curPage || 1
 		        }).then((rsp) => {
@@ -248,11 +263,11 @@
 			margin-left: 110px; 
 			border: 1px solid #e5e5e5;
 		}
-		.condition-input:hover {
+		.condition-input:hover{
 		    border-color: #c0c4cc;
 		}
 
-		.condition-input:focus {
+		.condition-input:focus{
 		    border-color: #ff7a7a;
 		}
 		.wid30{
@@ -410,6 +425,43 @@
 		.p-line span b {
 			color: #333;
 		}
+
+		.condition-iterm{
+			.el-button {
+				margin-left: 110px;
+			    background-color: #f82134;
+			    border-color: #f82134;
+			    color: #fff;
+			    border-radius: 0;
+			    padding: 6px 40px;
+			    cursor: pointer;
+			}
+		}
+
+		.condition-select{
+			width: calc(100% - 110px);
+		    height: 30px;
+		    margin-left: 110px;
+			.el-input{
+				width: 100%;
+		   		border: 1px solid #e5e5e5;
+				.el-input__inner{
+					border: none;
+					height: 28px;
+					font-size: 12px;
+					padding: 0 10px;
+				}
+				&:hover{
+				    border-color: #c0c4cc;
+				}
+				&.is-focus{
+					border-color: #ff7a7a;
+				}
+			}
+			
+		}
+
+		
 	}
 	.el-range-editor.is-active, .el-range-editor.is-active:hover{
 		border-color: #ff7a7a;
