@@ -342,3 +342,46 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
     'retailerFax': /\d{5,9}\-/
   }
 });
+
+//38、订单查询列表接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'totalSize ': '12', 
+    'rows': [{
+      'opmOrderId':'@id',
+      'opMeetingId':'@id',
+      'opmOrderNo':'@id',
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(4,10)',
+      'brandCd':'@id',
+      'brandName':'@cword(4,10)',
+      'offerModelId':'@id',
+      'offerModelName':'@word(6,10)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'supplierId':'@id',
+      'supplierName':'@cword(4,10)',
+      'retailerId':'@id',
+      'retailerName':'@cword(4,10)',
+      'offerQty|1-99': 1,
+      'pickupGoodsAmount|1-99': 1,
+      'remarks':'@cword(15,30)',
+      'offerPic':{
+        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl2': '@url',
+        'offerPicUrl3': '@url',
+        'offerPicUrl4': '@url',
+        'offerPicUrl5': '@url',
+        'offerPicUrl6': '@url'
+      },
+      'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
+      'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
+    }]
+  }
+});

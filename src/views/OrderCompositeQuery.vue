@@ -44,16 +44,16 @@
 			<div class="fn-clear">
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">付款状态：</label>
-					<el-select class="condition-select" v-model="paymentCtatusCd" placeholder="请选择">
+					<el-select class="condition-select" v-model="orderQueryData.statusCd" placeholder="请选择">
 						<el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</div>
 				<div class="condition-iterm wid30">
 					<label class="label-wrds">供应商名称：</label>
-					<input type="text" class="condition-input" v-model="orderQueryData.retailerId">
+					<input type="text" class="condition-input" v-model="orderQueryData.supplierId">
 				</div>
 				<div class="condition-iterm wid40">
-					<el-button>查询</el-button>
+					<el-button @click="queryOpmOrderSubmit()">查询</el-button>
 				</div>
 			</div>
 		</div>
@@ -118,7 +118,7 @@
 	export default {
 		name: 'OrderCompositeQuery',
 		created() {
-			this.qryOpmOrderPickupRecordList();
+			this.queryOpmOrderSubmit();
 		},
 		data() {
 			return {
@@ -141,7 +141,9 @@
 					offerNameOrCode: '',
 					opmOrderNo: '',
 					retailerId: '',
-					dateValue: []
+					dateValue: [],
+					supplierId: '',
+					statusCd: ''
 				},
 				isShowMoreCondition: true, //是否显示更多条件
 				total: 0, //列表总数
@@ -153,12 +155,12 @@
 			search(obj) {
 				this.orderQueryData.isCentman = obj.type;
 				this.orderQueryData.offerNameOrCode = obj.value;
-				this.qryOpmOrderPickupRecordList()
+				this.queryOpmOrderSubmit()
 			},
 			showMoreCondition(){
 				this.isShowMoreCondition = !this.isShowMoreCondition;
 			},
-			qryOpmOrderPickupRecordList(curPage, pageSize){
+			queryOpmOrderSubmit(curPage, pageSize){
 				this.currentPage = curPage || 1;
 				this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
 					opMeetingId: '订货会ID',
@@ -187,7 +189,7 @@
 				});
 			},
 			pageChanged(curPage) {
-				this.qryOpmOrderPickupRecordList(curPage);
+				this.queryOpmOrderSubmit(curPage);
 			}
 		},
 		components: {
