@@ -112,7 +112,7 @@ export default {
         prop: 'salePrice',
         render: function (h, params) {
           return h({
-            template: '<el-input prefix-icon="el-icon-search" v-model="salePrice"></el-input>',
+            template: '<el-input prefix-icon="el-icon-money" v-model="salePrice"></el-input>',
             data: function () {
               return {
                 salePrice: params.row.salePrice
@@ -351,8 +351,11 @@ export default {
       border: 1px solid #ff2222;
     }
   }
-  .el-icon-date:before{
-    content: '\0025';
+  .el-icon-percent {
+    &::before{
+      content:'\e658';
+      font-family: iconfont
+    }
   }
   .el-input__icon{
     line-height: 32px;
@@ -427,17 +430,11 @@ export default {
   .el-table__body{
     td{
       border-right: 1px solid #e6e6e6;
-      .el-icon-search:before{
-        content:'\00A5';
+      .el-icon-money::before{
+        content:'\e611';
+        font-family: iconfont;
       }
     }  
-  }
-}
-
-.el-icon-percent {
-  &::before{
-    content:'\e658';
-    font-family: iconfont
   }
 }
 
