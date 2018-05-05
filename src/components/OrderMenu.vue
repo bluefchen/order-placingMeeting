@@ -29,6 +29,7 @@
       <el-submenu index="/order/orderCompositeQuery">
         <template slot="title">统计查询</template>
         <el-menu-item index="/order/orderCompositeQuery">订单综合查询</el-menu-item>
+        <el-menu-item index="/order/orderdetail" style="display: none;">订单详情</el-menu-item>
         <el-menu-item index="6-2">优惠政策结算</el-menu-item>
       </el-submenu>
     </el-menu>
