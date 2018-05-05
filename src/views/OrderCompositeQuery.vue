@@ -53,7 +53,7 @@
 					<input type="text" class="condition-input" v-model="orderQueryData.supplierId">
 				</div>
 				<div class="condition-iterm wid40">
-					<el-button @click="queryOpmOrderSubmit()">查询</el-button>
+					<el-button @click="queryOpmOrderSubmit">查询</el-button>
 				</div>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 				</thead>
 			</table>
 			<ul class="ul-tab">
-				<li class="li-list" v-for="(item, index) in orderPickupRecordList" :key="index">
+				<li class="li-list" v-for="(item, index) in qryOpmOrderList" :key="index">
 					<p class="p-line fn-clear">
 						<span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
 						<span class="fn-left text-center">零售商：{{item.retailerName}}</span>
@@ -95,7 +95,7 @@
 						<dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
 						<dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
 						<dl class="dll wid13 fn-left">
-							<button @click="editDeliveryData(item)" class="updown-btn red">订单详情</button>
+							<button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
 						</dl>
 						
 					</div>
@@ -135,7 +135,7 @@
 		        }],
 		        paymentCtatusCd: '', //付款状态CD
 
-				orderPickupRecordList: [], //查询返回的数据
+				qryOpmOrderList: [], //查询返回的数据
 				orderQueryData: {
 					isCentman: '',
 					offerNameOrCode: '',
@@ -161,28 +161,27 @@
 				this.isShowMoreCondition = !this.isShowMoreCondition;
 			},
 			queryOpmOrderSubmit(curPage, pageSize){
-				this.currentPage = curPage || 1;
-				this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-					opMeetingId: '订货会ID',
+				this.$post('/opmOrderController/queryOpmOrderList', {
+                    opMeetingId: '订货会ID',
 					isCentman: this.orderQueryData.isCentman,
 					offerNameOrCode: this.orderQueryData.offerNameOrCode,
 					opmOrderNo: this.orderQueryData.opmOrderNo,
+					supplierId: this.orderQueryData.supplierId,
 					retailerId: this.orderQueryData.retailerId,
 					fromDate: this.orderQueryData.dateValue[0],
 					toDate: this.orderQueryData.dateValue[1],
-					pageSize: pageSize || 10,
+					statusCd: this.orderQueryData.statusCd,
+                	pageSize: pageSize || 10,
 					curPage: curPage || 1
 		        }).then((rsp) => {
-		          this.orderPickupRecordList = rsp.rows;
-		          this.total = rsp.totalSize;
+		        	this.qryOpmOrderList = rsp.rows;
+		        	this.total = rsp.totalSize;
 		        })
 			},
-			editDeliveryData(item){
-
+			orderdetail(item){
 				localStorage.setItem(item.opmOrderId, JSON.stringify(item));
-
 				this.$router.push({
-					path: '/order/OrderPickupGoodsConfirm',
+					path: '/order/Orderdetail',
 					query: { 
 						opmOrderId: item.opmOrderId 
 					}

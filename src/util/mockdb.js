@@ -351,8 +351,8 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
   'msg': null, 
   'error': null,
   'data': {
-    'totalSize ': '12', 
-    'rows': [{
+    'totalSize|1-99': 1, 
+    'rows|5-10': [{
       'opmOrderId':'@id',
       'opMeetingId':'@id',
       'opmOrderNo':'@id',
