@@ -23,10 +23,10 @@
 			<div class="tel-model">订单信息</div>
 			<ul class="info-list fn-clear">
 				<li class="info-list-li fn-left fn-clear">
-					<div class="info-detail fn-left">  
+					<div class="info-detail fn-left">
 						<p class="detail-p"><span>零售商名称：</span>{{retailerInfo.retailerName}}</p>
 						<p class="detail-p"><span>零售商类型：</span>{{retailerInfo.retailerTypeName}}</p>
-						<p class="detail-p"><span>联系电话：</span>{{retailerInfo.linkNbr}}</p>				
+						<p class="detail-p"><span>联系电话：</span>{{retailerInfo.linkNbr}}</p>
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
@@ -34,29 +34,29 @@
 						<p class="detail-p"><span>联系人：</span>{{retailerInfo.linkMan}}</p>
 					</div>
 				</li>
-				<li class="info-list-li fn-right fn-clear">                                               
-					<div class="info-detail fn-left">                                                     
+				<li class="info-list-li fn-right fn-clear">
+					<div class="info-detail fn-left">
         				<p class="detail-p"><span>供货商名称：</span>{{supplierInfo.supplierName}}</p>
         				<p class="detail-p"><span>供货商类型：</span>{{supplierInfo.supplierTypeName}}</p>
 						<p class="detail-p"><span>联系电话：</span>{{supplierInfo.linkNbr}}</p>
-								
+
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
 						<p class="detail-p"><span>所属省分：</span>{{supplierInfo.province}}</p>
-						<p class="detail-p"><span>联系人：</span>{{supplierInfo.linkMan}}</p>		
+						<p class="detail-p"><span>联系人：</span>{{supplierInfo.linkMan}}</p>
 					</div>
-				</li>				
+				</li>
 			</ul>
-			<div class="info-list">       
-				<div class="info-table fn-clear">                                                     
+			<div class="info-list">
+				<div class="info-table fn-clear">
     				<p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
 					<p class="detail-table fn-left"><span>创建时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
 					<p class="detail-table fn-left"><span>付款时间：</span>--</p>
 					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupDt}}</p>
 				</div>
 				<table width="100%" cellspacing="0" cellpadding="0" class="table">
-					<thead> 
+					<thead>
 						<tr>
 							<th width="30%">终端名称</th>
 							<th width="18%">终端品牌</th>
@@ -68,9 +68,9 @@
 					<tbody>
 						<tr>
 							<td>
-								<div class="td-device-info">				
+								<div class="td-device-info">
 									<DeviceInfo :data="orderPickGoodsInfo" />
-								</div>					
+								</div>
 							</td>
 							<td>{{orderPickGoodsInfo.brandName}}</td>
 							<td>{{orderPickGoodsInfo.offerModelName}}</td>
@@ -161,7 +161,7 @@
 			width: 1036px;
 			height: 200px;
 			margin: 0 auto;
-			background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;	
+			background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
 			overflow: hidden;
 		}
 		.img-bg .info .p-titl{
@@ -190,7 +190,7 @@
 		.orderInfo{
 			padding: 0 0 20px;
 			margin: 16px auto 0;
-			border: 1px solid #cecece;	
+			border: 1px solid #cecece;
 		}
 		.tel-model{
 			height: 36px;

@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<!-- 中间背景图片 -->
-		
+
 		<!-- 我的位置 -->
 	    <div class="my-location">
 			<div class="box-1200">
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			<table width="100%" cellspacing="0" cellpadding="0" class="table">
-				<thead> 
+				<thead>
 					<tr>
 						<th width="32%">终端名称</th>
 						<th width="17%">终端品牌</th>
@@ -97,7 +97,7 @@
 						<dl class="dll wid13 fn-left">
 							<button @click="editDeliveryData(item)" class="updown-btn red">订单详情</button>
 						</dl>
-						
+
 					</div>
 				</li>
 			</ul>
@@ -182,9 +182,9 @@
 				localStorage.setItem(item.opmOrderId, JSON.stringify(item));
 
 				this.$router.push({
-					path: '/order/OrderPickupGoodsConfirm',
-					query: { 
-						opmOrderId: item.opmOrderId 
+					path: '/order/orderPickupGoodsConfirm',
+					query: {
+						opmOrderId: item.opmOrderId
 					}
 				});
 			},
@@ -215,7 +215,7 @@
 			width: 1036px;
 			height: 200px;
 			margin: 0 auto;
-			background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;	
+			background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
 			overflow: hidden;
 		}
 		.img-bg .info .p-titl{
@@ -262,7 +262,7 @@
 			width: calc(100% - 20px - 110px);
 			height: 24px;
 			padding: 3px 10px;
-			margin-left: 110px; 
+			margin-left: 110px;
 			border: 1px solid #e5e5e5;
 		}
 		.condition-input:hover{
@@ -357,7 +357,7 @@
 			border: 1px solid #e0e0e0;
 		}
 		.p-line{
-			height: 35px;	
+			height: 35px;
 			line-height: 35px;
 			background: #f8f8f8;
 			border-bottom: 1px solid #e0e0e0;
@@ -374,7 +374,7 @@
 		}
 		.tabs dl{
 			height: 90px;
-			
+
 		}
 		.tabs .dll{
 			line-height: 90px;
@@ -395,7 +395,7 @@
 		.wid13{
 			width: 13%;
 		}
-		.updown-btn{	
+		.updown-btn{
 			padding:2px 5px;
 			border:0;
 			text-decoration: underline;
@@ -460,10 +460,10 @@
 					border-color: #ff7a7a;
 				}
 			}
-			
+
 		}
 
-		
+
 	}
 	.el-range-editor.is-active, .el-range-editor.is-active:hover{
 		border-color: #ff7a7a;

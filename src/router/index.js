@@ -8,6 +8,7 @@ const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModelAdd = () => import('@/views/ImportModelAdd');
 const ImportModelDel = () => import('@/views/ImportModelDel');
 const ImportSpecialModel = () => import('@/views/ImportSpecialModel');
+const ImportPickupAdd = () => import('@/views/ImportPickupAdd');
 const OrderPickupData = () => import('@/views/OrderPickupData');
 const OrderPickupGoodsConfirm = () => import('@/views/OrderPickupGoodsConfirm');
 const DepositConfigure = () => import('@/views/DepositConfigure');
@@ -75,6 +76,13 @@ export default new Router({
           component: ImportSpecialModel,
           meta: {
             title: '特种机型导入新增'
+          },
+        }, {
+          path: 'importPickupAdd',
+          name: 'importPickupAdd',
+          component: ImportPickupAdd,
+          meta: {
+            title: '订单批量导入'
           },
         }, {
           path: 'orderPickupData',
