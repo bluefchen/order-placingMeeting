@@ -17,6 +17,7 @@ const DepositAddRecord = () => import('@/views/DepositAddRecord');
 const PolicyManage = () => import('@/views/PolicyManage');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
+const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
 
 Vue.use(Router);
 
@@ -139,7 +140,14 @@ export default new Router({
           name: 'orderdetail',
           component: Orderdetail,
           meta: {
-            title: '订单综合查询'
+            title: '订单详情'
+          },
+        }, {
+          path: 'preferentialPolicySettlement',
+          name: 'preferentialPolicySettlement',
+          component: PreferentialPolicySettlement,
+          meta: {
+            title: '优惠政策结算'
           },
         }
       ]
