@@ -343,30 +343,68 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
   }
 });
 
-// 40、查询当前配置模式
-  Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
-    'rsphead': 's',
-    'success': true,
-    'code': null,
-    'msg': null, 
-    'error': null,
-    'data': {
+//38、订单查询列表接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
+  'data': {
+    'totalSize ': '12', 
+    'rows': [{
+      'opmOrderId':'@id',
       'opMeetingId':'@id',
-      'provinceCommonRegionId':'@id',
-      'provinceCommonRegionName':'@cword(4, 6)',
-      'depositType|+1':[1, 2, 3],
-      'depositTypeName|+1': ['全额付款', '定金', '诚意金'],
-      'depositProportion|1-100': 10,
-      'opmRetailerDepositList|8':[{
-        'retailerId': '@id',
-        'retailerCode': '@id',
-        'retailerName':'@cword(4, 6)',
-        'retailerType|+1': [1000, 1001, 1002],
-        'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
-        'depositAmount|1-1000': 100
-      }]
-    } 
-  });
+      'opmOrderNo':'@id',
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(4,10)',
+      'brandCd':'@id',
+      'brandName':'@cword(4,10)',
+      'offerModelId':'@id',
+      'offerModelName':'@word(6,10)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'supplierId':'@id',
+      'supplierName':'@cword(4,10)',
+      'retailerId':'@id',
+      'retailerName':'@cword(4,10)',
+      'offerQty|1-99': 1,
+      'pickupGoodsAmount|1-99': 1,
+      'remarks':'@cword(15,30)',
+      'offerPic':{
+        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl2': '@url',
+        'offerPicUrl3': '@url',
+        'offerPicUrl4': '@url',
+        'offerPicUrl5': '@url',
+        'offerPicUrl6': '@url'
+      },
+      'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
+      'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
+    }]
+  }
+});
+
+// 40、查询当前配置模式
+Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'opMeetingId':'@id',
+    'provinceCommonRegionId':'@id',
+    'provinceCommonRegionName':'@cword(4, 6)',
+    'depositType|+1':[1, 2, 3],
+    'depositTypeName|+1': ['全额付款', '定金', '诚意金'],
+    'depositProportion|1-100': 10,
+    'opmRetailerDepositList|8':[{
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'retailerName':'@cword(4, 6)',
+      'retailerType|+1': [1000, 1001, 1002],
+      'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
+      'depositAmount|1-1000': 100
+    }]
+  } 
+});
 
 // 41、配置定金模式接口
 Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
@@ -375,9 +413,8 @@ Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
   'code': null,
   'msg': null, 
   'error': null,
-  data: {
+  'data': {
     "resultMsg": "成功",
     "resultCode": "0"
   }
 });
-
