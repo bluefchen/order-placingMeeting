@@ -245,6 +245,50 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'),
   data: null
 });
 
+//30、	批量导入订单数据解析接口
+Mock.mock(new RegExp('/opmOrderController/analyzeInsertOpmOrderList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalCnt|1-100': 100, //总记录条数
+    'successCnt|1-100': 100, //成功条数
+    'failCnt|1-100': 1, //失败条数
+    'rows|10': [{
+      'opmOrderNo': '@id', //订单号
+      'offerId': '@id', //商品ID
+      'offerCode': '@id', //商品编码
+      'offerName': '@cword()', //商品名称
+      'brandCd': '@cword()', //商品品牌
+      'brandName': '@cword()', //商品品牌名称
+      'offerModelId': '', //商品型号
+      'offerModelName': '@cword()', //商品型号名称
+      'isCentman|1': ['Y', 'N'], //产品类型，Y-集采，N社采
+      'salePrice|100-1000': 100, //终端价格
+      'supplierId': '', //供货商ID
+      'supplierName': '@cword()', //供货商名称
+      'retailerId': '', //零售商ID
+      'retailerName': '@cword()', //零售商名称
+      'offerQty|100-1000': 100, //订购数量
+      'remarks': '@cword()', //备注
+      'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
+      'resultMsg': '@cword()', //校验信息
+    }]
+  }
+});
+
+//31、批量导入订单数据接口
+Mock.mock(new RegExp('/opmOrderController/batchInsertOpmOffer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
+
 //32、订单提货查询列表接口
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
   rsphead: 's',
@@ -253,28 +297,28 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-100': 1, 
+    'totalSize|1-100': 1,
     'rows|5-10': [{
-      'opmOrderId':'@id',
-      'opMeetingId':'@id',
-      'opmOrderNo':'@id',
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(3,6)',
-      'brandCd':'@id',
-      'brandName':'@cword(3,6)',
-      'offerModelId':'@id',
-      'offerModelName':'@cword(3,6)',
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(3,6)',
+      'brandCd': '@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId': '@id',
+      'offerModelName': '@cword(3,6)',
       'isCentman|1': ['Y', 'N'],
       'salePrice|1-100.1-2': 1,
-      'supplierId':'@id',
-      'supplierName':'@cword(3,6)',
-      'retailerId':'@id',
-      'retailerName':'@cword(3,6)',
+      'supplierId': '@id',
+      'supplierName': '@cword(3,6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(3,6)',
       'offerQty|1-100': 1,
       'pickupGoodsAmount|1-100': 1,
-      'remarks':'@cword(8, 30)',
-      'offerPic':{
+      'remarks': '@cword(8, 30)',
+      'offerPic': {
         'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
@@ -293,7 +337,7 @@ Mock.mock(new RegExp('/opmOrderController/updateOpmOrderPickupRecord'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
     "resultMsg": "成功",
@@ -306,15 +350,15 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierById'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
-    'supplierId': '@id', 
-    'province': '@province()', 
-    'city': '@city()', 
+    'supplierId': '@id',
+    'province': '@province()',
+    'city': '@city()',
     'supplierName': '@cword(4, 6)',
-    'supplierType': '@id', 
-    'supplierTypeName': '@cword(4,6)', 
+    'supplierType': '@id',
+    'supplierTypeName': '@cword(4,6)',
     'linkMan': '@cname',
     'linkNbr': /\d{5,11}/,
     'supplierPhone|3': /\d{5,9}\-/,
@@ -327,15 +371,15 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
-    'retailerId': '@id', 
-    'province': '@province()', 
-    'city': '@city()', 
+    'retailerId': '@id',
+    'province': '@province()',
+    'city': '@city()',
     'retailerName': '@cword(4, 6)',
-    'retailerType': '@id', 
-    'retailerTypeName': '@cword(4,6)', 
+    'retailerType': '@id',
+    'retailerTypeName': '@cword(4,6)',
     'linkMan': '@cname',
     'linkNbr': /\d{5,11}/,
     'retailerPhone': /\d{5,9}\-/,
@@ -346,24 +390,24 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
 //38、订单查询列表接口
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
   'data': {
-    'totalSize|1-99': 1, 
+    'totalSize|1-99': 1,
     'rows|5-10': [{
-      'opmOrderId':'@id',
-      'opMeetingId':'@id',
-      'opmOrderNo':'@id',
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(4,10)',
-      'brandCd':'@id',
-      'brandName':'@cword(4,10)',
-      'offerModelId':'@id',
-      'offerModelName':'@word(6,10)',
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(4,10)',
+      'brandCd': '@id',
+      'brandName': '@cword(4,10)',
+      'offerModelId': '@id',
+      'offerModelName': '@word(6,10)',
       'isCentman|1': ['Y', 'N'],
       'salePrice|1-100.1-2': 1,
-      'supplierId':'@id',
-      'supplierName':'@cword(4,10)',
-      'retailerId':'@id',
-      'retailerName':'@cword(4,10)',
+      'supplierId': '@id',
+      'supplierName': '@cword(4,10)',
+      'retailerId': '@id',
+      'retailerName': '@cword(4,10)',
       'offerQty|1-99': 1,
       'pickupGoodsAmount|1-99': 1,
       'paymentStatusCd|1': [1000, 1001, 1002],
@@ -371,7 +415,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'statusCd|1': [1000, 1001, 1002],
       'statusCdName|1': ['进行中', '已完成', '已撤销'],
       'remarks':'@cword(15,30)',
-      'offerPic':{
+      'offerPic': {
         'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
@@ -390,24 +434,24 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
-    'opMeetingId':'@id',
-    'provinceCommonRegionId':'@id',
-    'provinceCommonRegionName':'@cword(4, 6)',
-    'depositType|+1':[1, 2, 3],
+    'opMeetingId': '@id',
+    'provinceCommonRegionId': '@id',
+    'provinceCommonRegionName': '@cword(4, 6)',
+    'depositType|+1': [1, 2, 3],
     'depositTypeName|+1': ['全额付款', '定金', '诚意金'],
     'depositProportion|1-100': 10,
-    'opmRetailerDepositList|8':[{
+    'opmRetailerDepositList|8': [{
       'retailerId': '@id',
       'retailerCode': '@id',
-      'retailerName':'@cword(4, 6)',
+      'retailerName': '@cword(4, 6)',
       'retailerType|+1': [1000, 1001, 1002],
       'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
       'depositAmount|1-1000': 100
     }]
-  } 
+  }
 });
 
 // 41、配置定金模式接口
@@ -415,7 +459,7 @@ Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
     "resultMsg": "成功",
