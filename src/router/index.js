@@ -8,6 +8,7 @@ const SpecialModel = () => import('@/views/SpecialModel');
 const ImportModelAdd = () => import('@/views/ImportModelAdd');
 const ImportModelDel = () => import('@/views/ImportModelDel');
 const ImportSpecialModel = () => import('@/views/ImportSpecialModel');
+const ImportPickupAdd = () => import('@/views/ImportPickupAdd');
 const OrderPickupData = () => import('@/views/OrderPickupData');
 const OrderPickupGoodsConfirm = () => import('@/views/OrderPickupGoodsConfirm');
 const DepositConfigure = () => import('@/views/DepositConfigure');
@@ -15,6 +16,7 @@ const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
 const PolicyManage = () => import('@/views/PolicyManage');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
+const Orderdetail = () => import('@/views/Orderdetail');
 
 Vue.use(Router);
 
@@ -77,6 +79,13 @@ export default new Router({
             title: '特种机型导入新增'
           },
         }, {
+          path: 'importPickupAdd',
+          name: 'importPickupAdd',
+          component: ImportPickupAdd,
+          meta: {
+            title: '订单批量导入'
+          },
+        }, {
           path: 'orderPickupData',
           name: 'orderPickupData',
           component: OrderPickupData,
@@ -122,6 +131,13 @@ export default new Router({
           path: 'orderCompositeQuery',
           name: 'orderCompositeQuery',
           component: OrderCompositeQuery,
+          meta: {
+            title: '订单综合查询'
+          },
+        }, {
+          path: 'orderdetail',
+          name: 'orderdetail',
+          component: Orderdetail,
           meta: {
             title: '订单综合查询'
           },
