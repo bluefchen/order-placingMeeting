@@ -366,6 +366,10 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'retailerName':'@cword(4,10)',
       'offerQty|1-99': 1,
       'pickupGoodsAmount|1-99': 1,
+      'paymentStatusCd|1': [1000, 1001, 1002],
+      'paymentStatusCdName|1': ['未交定金', '已交定金', '已付款'],
+      'statusCd|1': [1000, 1001, 1002],
+      'statusCdName|1': ['进行中', '已完成', '已撤销'],
       'remarks':'@cword(15,30)',
       'offerPic':{
         'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
