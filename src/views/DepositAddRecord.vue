@@ -51,42 +51,8 @@
           <TitlePlate title="定金补录结果列表"/>         
           <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>         
         </div>
-        <table width="100%" cellspacing="0" cellpadding="0" class="table">
-          <thead>  
-            <tr>
-              <th width="8%">订单号</th>
-              <th width="9%">零售商</th>
-              <th width="7%">终端编码</th>
-              <th width="12%">终端名称</th>
-              <th width="7%">终端品牌</th>
-              <th width="8%">终端型号</th>
-              <th width="7%">产品类型</th>
-              <th width="6%">订购数量</th>
-              <th width="10%">供货商</th>
-              <th width="6%">货款金额</th>
-              <th width="8%">定金比例配置</th>    
-              <th width="6%">定金金额</th>
-              <th>状态</th>           
-            </tr>
-          </thead>
-          <tbody>
-            <tr>            
-              <td><router-link to="orderFormDetail" class="red">11020300001</router-link></td>
-              <td><p class="overflow">美颜拍照手机</p></td>
-              <td><p>美颜拍照</p></td>
-              <td><p class="overflow">VIVO-X20全面屏 美颜拍照手机美颜拍照手机</p></td>
-              <td><p>VIVO</p></td>
-              <td><p>VIVO-X20</p></td>
-              <td><p>集采</p></td>
-              <td><p>￥1890</p></td>
-              <td><p class="overflow">美颜拍照手机美颜拍照手机美颜拍照手机</p></td>
-              <td><p>1890</p></td>
-              <td><p>1%</p></td>
-              <td><p class="red">1890</p></td>
-              <td><p>已付款</p></td>
-            </tr>
-          </tbody>
-        </table>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
+        <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
   </div>
@@ -98,6 +64,7 @@
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
+  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'DepositAddRecord',
@@ -105,125 +72,84 @@
     },
     data() {
       return {
-        isSelection: true,
         openshow: false,
+        orderPickupRecordList: [], //查询返回的数据     
+        total: 0, //列表总数
+        pageSize: 10, //每页展示条数
+        currentPage: 1, //当前页
         tableTitle: [{
-          label: '终端品牌',
-          prop: 'terminalBrand'
-        }, {
-          label: '终端型号',
-          prop: 'terminalModel'
-        }, {
-          label: '产品类型',
-          prop: 'prodType'
-        }, {
-          label: '终端价格',
-          prop: 'terminalPrice'
-        }, {
-          label: '是否特种机型',
-          prop: 'isSpecial',
-          formatter: function(row, value){
-            switch(row.isSpecial){
-              case 'N':
-                console.log(row, value)
-                return "非特种机型";
-                break;
-              case 'Y':
-                return '特种机型';
-                break;
-            }
+          label: '订单号',
+          prop: 'opmOrderNo',
+          width: 95,
+          render: function (h, params) {
+            return h({
+              template: '<router-link to="orderFormDetail" class="red">{{opmOrderNo}}</router-link>',
+              data: function () {
+                return {
+                  opmOrderNo: params.row.opmOrderNo
+                }
+              }
+            })
           }
         }, {
-          label: '上架数量',
-          prop: 'count'
+          label: '零售商',
+          prop: 'retailerName',
+          width: 107
+        }, {
+          label: '终端编码',
+          prop: 'offerCode',
+          width: 83
+        }, {
+          label: '终端名称',
+          prop: 'offerName',
+          width: 140
+        }, {
+          label: '终端品牌',
+          prop: 'brandCd', 
+          width: 80                   
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName',
+          width: 85         
+        }, {
+          label: '产品类型',
+          prop: 'isCentman',
+          width: 80         
+        }, {
+          label: '订购数量',
+          prop: 'offerQty',
+          width: 70  
+        }, {
+          label: '供货商',
+          prop: 'supplierName',
+          width: 120 
+        }, {
+          label: '货款金额',
+          prop: 'totalAmount',
+          width: 70                    
+        }, {
+          label: '定金比例配置',
+          prop: 'depositProportion',
+          width: 90
+        }, {
+          label: '已交定金金额',
+          prop: 'depositAmount',
+          width: 90,
+          render: function (h, params) {
+            return h({
+              template: '<p class="red">{{depositAmount}}</p>',
+              data: function () {
+                return {
+                  depositAmount: params.row.depositAmount
+                }
+              }
+            })
+          }
         }, {
           label: '状态',
-          prop: 'type'
+          prop: 'paymentStatusCdName'
         }],
-        tableData: [{
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架'
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'Y',
-          count: 300,
-          type: '上架',
-        }, {
-          terminalName: '手机',
-          terminalBrand: 'VIVO',
-          terminalModel: 'VIVO-X20',
-          prodType: '集采',
-          terminalPrice: 1890,
-          isSpecial: 'N',
-          count: 300,
-          type: '下架',
-        }],
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-        value5: ''
+        tableData: [],
       }
     },
     methods: {
@@ -235,11 +161,12 @@
       }
     },
     components: {
-      SearchInput,
+      InputWithSelect,
       DeviceInfo,
       Table,
       TitlePlate,
-      Breadcrumb
+      Breadcrumb,
+      Pagination
     }
   }
 </script>
