@@ -23,16 +23,16 @@
         <p class="pro-left">当前省份： <span>江苏省</span></p>
         <div class="provin-edit">
           <div class="fn-clear" v-show="editshow">
-            <p class="pro-mid fn-left">定金模式：<span>----</span></p>
+            <p class="pro-mid fn-left">定金模式：<span>{{depositInfoList.depositTypeName}}</span></p>
             <el-button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</el-button>
           </div>
           <div class="first-step" v-show="!editshow">
             <ul class="selections fn-clear">
               <label class="select-wrds fn-left">定金模式：</label>
               <div class="fn-left" v-show="step == 1 || step == 2 || step == 3">
-                <li class="select-sp fn-left" :class="step == 1?'on':''" @click="selectMode(1)">全额付款</li>
-                <li class="select-sp fn-left" :class="step == 2?'on':''" @click="selectMode(2)">定金</li>
-                <li class="select-sp fn-left" :class="step == 3?'on':''" @click="selectMode(3)">诚意金</li>
+                <li class="select-sp fn-left" :class="step == 1 || depositInfoList.depositType == 1?'on':''" @click="selectMode(1)">全额付款</li>
+                <li class="select-sp fn-left" :class="step == 2 || depositInfoList.depositType == 2?'on':''" @click="selectMode(2)">定金</li>
+                <li class="select-sp fn-left" :class="step == 3 || depositInfoList.depositType == 3?'on':''" @click="selectMode(3)">诚意金</li>
               </div>
               <div class="qb fn-left" v-show="step == 4">
                 <p class="fir-wrds fn-left">全额付款</p>
@@ -51,9 +51,9 @@
               <!-- 定金 -->
               <div class="second-step fn-clear" v-show="step == 2 || step == 5">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <el-input class="fn-left" suffix-icon="el-icon-percent" v-show="step == 2">
+                <el-input class="fn-left" suffix-icon="el-icon-percent"  v-model="depositInfoList.depositProportion"  v-show="step == 2">
                 </el-input>
-                <p class="sec-done fn-left" v-show="step == 5">10%</p>
+                <p class="sec-done fn-left" v-show="step == 5">{{depositInfoList.depositProportion}}%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
               <!-- 诚意金 -->
@@ -64,15 +64,14 @@
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
                   <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableDataDone" v-show="step == 6"/>
-                  <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>              
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableData" v-show="step == 6"/>             
                 </div>
               </div>
             </div>
             <div class="confirm-btn" v-show="step == 1 || step == 2 || step == 3">
-              <el-button class="confirm" @click="confirm(4)" v-show="step == 1">确定</el-button>
-              <el-button class="confirm" @click="confirm(5)" v-show="step == 2">确定</el-button>
-              <el-button class="confirm" @click="confirm(6)" v-show="step == 3">确定</el-button>
+              <el-button class="confirm" @click="confirm(4, 1)" v-show="step == 1">确定</el-button>
+              <el-button class="confirm" @click="confirm(5, 2)" v-show="step == 2">确定</el-button>
+              <el-button class="confirm" @click="confirm(6, 3)" v-show="step == 3">确定</el-button>
             </div>           
           </div>
         </div>        
@@ -85,75 +84,70 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import TitlePlate from '@/components/TitlePlate';
 import Table from '@/components/Table';
-import Pagination from '@/components/Pagination';
 
 export default {
   name: 'DepositConfigure',
   created() {
+    this.queryOpmDepositInfo();
   },
   data() {
     return {
       step: 1,
       editshow: true,
+      depositInfoList: [], //查询返回的数据
       tableTitle: [{
         label: '零售商编码',
-        prop: 'offerName',
+        prop: 'retailerCode',
         width: 200
       }, {
         label: '零售商名称',
-        prop: 'brandName',
+        prop: 'retailerName',
         width: 450,
       }, {
         label: '零售商类型',
-        prop: 'offerModelName',
+        prop: 'retailerTypeName',
         width: 234,
       }, {
         label: '诚意金金额',
-        prop: 'salePrice',
+        prop: 'depositAmount',
         render: function (h, params) {
           return h({
-            template: '<el-input prefix-icon="el-icon-money" v-model="salePrice"></el-input>',
+            template: '<el-input prefix-icon="el-icon-money" v-model="depositAmount"></el-input>',
             data: function () {
               return {
-                salePrice: params.row.salePrice
+                depositAmount: params.row.depositAmount
               }
             }
           })
         }
       }],
-      tableData: [{
-
-      }],
+      tableData: [],
       tableTitleDone: [{
         label: '零售商编码',
-        prop: 'offerName',
+        prop: 'retailerCode',
         width: 200
       }, {
         label: '零售商名称',
-        prop: 'brandName',
+        prop: 'retailerName',
         width: 450,
       }, {
         label: '零售商类型',
-        prop: 'offerModelName',
-        width: 230,
+        prop: 'retailerTypeName',
+        width: 234,
       }, {
         label: '诚意金金额',
-        prop: 'salePrice',
+        prop: 'depositAmount',
         render: function (h, params) {
           return h({
-            template: '<p class="red">¥{{salePrice}}</p>',
+            template: '<p class="red">¥{{depositAmount}}</p>',
             data: function () {
               return {
-                salePrice: params.row.salePrice
+                depositAmount: params.row.depositAmount
               }
             }
           })
         }
       }],
-      tableDataDone: [],
-      total: 1, //列表总数
-      pageSize: 10, //每页展示条数
-      currentPage: 1 //当前页
     }
   },
   methods: {
@@ -162,22 +156,35 @@ export default {
     },
     selectMode(index){
       this.step = index;
+      this.depositInfoList.depositType = index;
     },
-    pageChanged(currentPage) {
-      console.log('当前页：', currentPage);
-    },
-    confirm(index){
+    confirm(index, type){
       this.step = index;
+      this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {      
+        opMeetingId:'订货会ID',
+        provinceCommonRegionId: '省份ID',
+        depositType: type,
+        depositProportion: this.depositInfoList.depositProportion,
+        opmRetailerDepositList: this.depositInfoList.opmRetailerDepositList
+      }).then((rsp) => {
+        this.$message.success('修改配置成功！');
+        this.queryOpmDepositInfo();
+      })
     },
-    pageChanged(curPage) {
-      this.queryOpMeetingOfferList(curPage);
+    queryOpmDepositInfo(curPage, pageSize){
+      this.currentPage = curPage || 1;
+      this.$post('/opmDepositController/queryOpmDepositInfo', {
+        opMeetingId: '订货会ID'
+      }).then((rsp) => {
+        this.depositInfoList = rsp;
+        this.tableData = rsp.opmRetailerDepositList;
+      })
     }
   },
   components: {
     Breadcrumb,
     TitlePlate,
-    Table,
-    Pagination
+    Table
   }
 }
 </script>
@@ -246,6 +253,9 @@ export default {
     height: 70px;
     line-height: 70px;
     margin-left: 109px;
+    span{
+      margin-left: 42px;
+    }
   }
   .edit-btn{
     height: 25px;
@@ -380,6 +390,9 @@ export default {
   border-top: 1px dashed #e1e1e1;
   padding-top: 20px;
   margin-top: 10px;
+  .model-list-table{
+    margin-bottom: 20px;
+  }
   .order-titl{
     margin-bottom: 5px;
     .title{

@@ -345,11 +345,6 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
 
 //38、订单查询列表接口
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
-  'rsphead': 's',
-  'success': true,
-  'code': null,
-  'msg': null, 
-  'error': null,
   'data': {
     'totalSize|1-99': 1, 
     'rows|5-10': [{
@@ -383,5 +378,43 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
       'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
     }]
+  }
+});
+
+// 40、查询当前配置模式
+Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'opMeetingId':'@id',
+    'provinceCommonRegionId':'@id',
+    'provinceCommonRegionName':'@cword(4, 6)',
+    'depositType|+1':[1, 2, 3],
+    'depositTypeName|+1': ['全额付款', '定金', '诚意金'],
+    'depositProportion|1-100': 10,
+    'opmRetailerDepositList|8':[{
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'retailerName':'@cword(4, 6)',
+      'retailerType|+1': [1000, 1001, 1002],
+      'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
+      'depositAmount|1-1000': 100
+    }]
+  } 
+});
+
+// 41、配置定金模式接口
+Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    "resultMsg": "成功",
+    "resultCode": "0"
   }
 });
