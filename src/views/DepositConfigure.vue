@@ -95,6 +95,7 @@ export default {
       step: 1,
       editshow: true,
       depositInfoList: [], //查询返回的数据
+      opmRetailerUpate: [], //诚意金修改后要提交的数据
       tableTitle: [{
         label: '零售商编码',
         prop: 'retailerCode',
@@ -115,7 +116,7 @@ export default {
             template: '<el-input prefix-icon="el-icon-money" v-model="depositAmount"></el-input>',
             data: function () {
               return {
-                depositAmount: params.row.depositAmount
+                depositAmount: params.row.depositAmount,               
               }
             }
           })
@@ -160,12 +161,20 @@ export default {
     },
     confirm(index, type){
       this.step = index;
+      var opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
+      opmRetailerDepositList.map((item) => {
+        var obj ={
+          'retailerId': item.retailerId,
+          'depositAmount': item.depositAmount
+        }
+        this.opmRetailerUpate.push(obj);
+      });
       this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {      
         opMeetingId:'订货会ID',
         provinceCommonRegionId: '省份ID',
         depositType: type,
         depositProportion: this.depositInfoList.depositProportion,
-        opmRetailerDepositList: this.depositInfoList.opmRetailerDepositList
+        opmRetailerDepositList: this.opmRetailerUpate
       }).then((rsp) => {
         this.$message.success('修改配置成功！');
         this.queryOpmDepositInfo();

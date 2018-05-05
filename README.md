@@ -37,3 +37,6 @@ npm run build --report
 - **ButtonWithDialog** 表格内按钮+弹框
 
 
+## 问题记录
+1、定金配置页面
+table中input更改提交，更改之后的数据并没有生效
