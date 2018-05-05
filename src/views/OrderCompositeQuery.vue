@@ -97,7 +97,7 @@
             <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
             <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
             <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
+            <dl class="dll wid10 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
             <dl class="dll wid13 fn-left">
               <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
             </dl>
