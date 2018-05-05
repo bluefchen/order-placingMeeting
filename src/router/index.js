@@ -16,6 +16,7 @@ const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
 const PolicyManage = () => import('@/views/PolicyManage');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
+const Orderdetail = () => import('@/views/Orderdetail');
 
 Vue.use(Router);
 
@@ -130,6 +131,13 @@ export default new Router({
           path: 'orderCompositeQuery',
           name: 'orderCompositeQuery',
           component: OrderCompositeQuery,
+          meta: {
+            title: '订单综合查询'
+          },
+        }, {
+          path: 'orderdetail',
+          name: 'orderdetail',
+          component: Orderdetail,
           meta: {
             title: '订单综合查询'
           },
