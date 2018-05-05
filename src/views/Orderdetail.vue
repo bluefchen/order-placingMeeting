@@ -15,9 +15,15 @@
 		<!-- 我的位置 -->
 	    <div class="my-location">
 			<div class="box-1200">
-				<Breadcrumb :list="['订单管理', '订单提货数据维护', '订单提货确认']"/>
+				<Breadcrumb :list="['统计查询', '订单综合查询', '订单详情']"/>
 			</div>
 	    </div>
+
+	    <!-- 订单付款信息 -->
+		<div class="order-pay-info box-1200">
+			<p class="p1"><label>订单付款状态：</label><span class="payment-status">{{orderPickGoodsInfo.paymentStatusCdName}}</span></p>
+			<p class="p2"><label>订单时间：</label>{{orderPickGoodsInfo.orderDt}}</p>
+		</div>
 
 		<div class="orderInfo box-1200">
 			<div class="tel-model">订单信息</div>
@@ -82,11 +88,6 @@
 			</div>
 		</div>
 
-		<div class="order-num box-1200">
-			<span class="wrds fn-left">提货数量：</span><input type="text" v-model="pickupGoodsAmount" name="" class="fn-left">
-			<button class="button fn-left" :disabled="!pickupGoodsAmount" @click="confirmDelivery">确认提货</button>
-			<button @click="countermandDelivery" class="button cancel-btn fn-left">取消提货</button>
-		</div>
 	</div>
 
 </template>
@@ -97,9 +98,8 @@
 	import DeviceInfo from '@/components/DeviceInfo';
 
 	export default {
-		name: 'OrderPickupGoodsConfirm',
+		name: 'Orderdetail',
 		created() {
-
 			this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opmOrderId));
 
 			this.$post('/orderPlacingMeetingController/querySupplierById', {
@@ -257,47 +257,35 @@
 		.table tbody tr td{
 			text-align: center;
 		}
-		.order-num{
-			height: 75px;
-			border: 1px solid #ff223d;
-			background-color: #fff8ef;
-			margin: 23px auto;
-		}
-		.order-num input[type="text"]{
-			width: 153px;
-			height: 32px;
-			padding: 0 10px;
-			margin-top: 22px;
-			border: 1px solid #d5d5d5;
-		}
-		.order-num .wrds{
-			width: 102px;
-			line-height: 34px;
-			margin-top: 22px;
-			text-align: right;
-		}
-		.button{
-			height: 34px;
-			padding: 0 24px;
-			margin: 22px 0 0 22px;
-			border: 0;
-			font-size: 14px;
-			background-color: #f01919;
-			border-radius: 3px;
-			color: #fff;
-			cursor: pointer;
-		}
-		.button:disabled {
-			background: #f25555;
-			cursor: not-allowed;
-		}
-		.cancel-btn{
-			background-color: #ffd6d6;
-			color: #f01919;
-			border: 1px solid #f01919;
-		}
 		.td-device-info{
 			margin: 10px;
+		}
+		.order-pay-info{
+			height: 76px;
+			margin: 25px auto 20px;
+			border: 1px solid #fadaaf;
+			background-color: #fff4e6
+		}
+		.order-pay-info .p1{
+			font-size: 16px;
+			font-weight: 800;
+			margin: 15px 0 12px;
+		    line-height: 20px;
+		    .payment-status{
+		    	color: #e62840;
+		    }
+		}
+		.order-pay-info .p2{
+			font-size: 12px;
+			color: #5b5b5b;
+		}
+		.order-pay-info p label{
+			display: inline-block;
+			width: 145px;
+			text-align: right;
+		}
+		.order-pay-info .p2{
+			
 		}
 	}
 </style>

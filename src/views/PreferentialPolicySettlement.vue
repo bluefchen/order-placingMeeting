@@ -15,7 +15,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['首页', '统计查询', '订单查询']"/>
+        <Breadcrumb :list="['首页', '统计查询', '优惠政策结算']"/>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <!-- 条件搜索 -->
-    <div class="box-1200 condition-query" v-show="isShowMoreCondition">
+    <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <div class="fn-clear">
         <div class="condition-iterm wid30">
           <label class="label-wrds">订单号：</label>
@@ -120,7 +120,7 @@
   import Pagination from '@/components/Pagination';
 
   export default {
-    name: 'OrderCompositeQuery',
+    name: 'PreferentialPolicySettlement',
     created() {
       this.queryOpmOrderSubmit();
     },
@@ -149,7 +149,7 @@
           supplierId: '',
           statusCd: ''
         },
-        isShowMoreCondition: false, //是否显示更多条件
+        isShowMoreCondition: true, //是否显示更多条件
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -240,41 +240,40 @@
     .search {
       margin: 10px auto;
     }
-    .condition-query {
-      display: block;
+    .condition-search {
       height: 114px;
       margin: 18px auto 22px;
       border: 1px solid #dfdfdf;
       div {
         display: flex;
       }
-      .condition-iterm {
-        position: relative;
-        margin: 16px 30px 0 0;
-      }
-      .condition-iterm .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        width: calc(100% - 20px - 110px);
-        height: 24px;
-        padding: 3px 10px;
-        margin-left: 110px;
-        border: 1px solid #e5e5e5;
-      }
-      .condition-input:hover {
-        border-color: #c0c4cc;
-      }
+    }
+    .condition-iterm {
+      position: relative;
+      margin: 16px 30px 0 0;
+    }
+    .condition-iterm .label-wrds {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 110px;
+      line-height: 32px;
+      font-size: 14px;
+      text-align: right;
+    }
+    .condition-input {
+      width: calc(100% - 20px - 110px);
+      height: 24px;
+      padding: 3px 10px;
+      margin-left: 110px;
+      border: 1px solid #e5e5e5;
+    }
+    .condition-input:hover {
+      border-color: #c0c4cc;
+    }
 
-      .condition-input:focus {
-        border-color: #ff7a7a;
-      }
+    .condition-input:focus {
+      border-color: #ff7a7a;
     }
     .wid30 {
       width: 30%;
