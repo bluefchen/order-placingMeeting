@@ -30,7 +30,7 @@
             <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
           </div>
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -212,25 +212,6 @@
 
   .child {
     height: 330px;
-  }
-
-  .el-table--small td, .el-table--small th {
-    padding: 5px 0;
-  }
-
-  .v_table .el-table, .v_table .el-table__expanded-cell {
-    border: 1px solid #dcdcdc;
-    border-bottom: 0;
-  }
-
-  .delete-btn {
-    padding: 0;
-    color: #ff0000;
-    font-size: 12px;
-    &:hover {
-      color: #ff0000;
-      text-decoration: underline;
-    }
   }
 
 </style>

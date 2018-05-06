@@ -27,7 +27,7 @@
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">优惠政策列表</div>
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -193,15 +193,6 @@
 
   .child {
     height: 330px;
-  }
-
-  .el-table--small td, .el-table--small th {
-    padding: 5px 0;
-  }
-
-  .v_table .el-table, .v_table .el-table__expanded-cell {
-    border: 1px solid #dcdcdc;
-    border-bottom: 0;
   }
 
 </style>
