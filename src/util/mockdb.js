@@ -64,6 +64,58 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
   }
 });
 
+//6、供应商列表查询接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null, 
+  error: null,
+  data: {
+    'totalSize|1-99': 1,
+    'rows|5-10': [{
+        'supplierId': '@id',
+        'supplierCode': '@id',
+        'province': '@province',
+        'city': '@city',
+        'supplierName': '@cword(4,6)',
+        'supplierType|1': [1001, 1002, 1003, 1004],
+        'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
+        'linkMan': '@cname',
+        'linkNbr': /\d{5,11}/,
+        'supplierPhone': /\d{5,9}\-/,
+        'supplierFax': /\d{5,9}\-/
+    }]
+
+  }
+});
+
+//7、零售商列表查询接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null, 
+  error: null,
+  data: {
+    'totalSize|1-99': 1,
+    'rows|5-10': [{
+        'retailerId': '@id',
+        'retailerCode': '@id',
+        'province': '@province',
+        'city': '@city',
+        'retailerName': '@cword(4,6)',
+        'retailerType|1': [1001, 1002, 1003],
+        'retailerTypeName|1': ['自营厅', '大连锁', '代理商'],
+        'linkMan': '@cname',
+        'linkNbr': /\d{5,11}/,
+        'retailerPhone': /\d{5,9}\-/,
+        'retailerFax': /\d{5,9}\-/
+    }]
+
+  }
+});
+
 //10、查询终端品牌接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferBrandList'), {
   rsphead: 's',
