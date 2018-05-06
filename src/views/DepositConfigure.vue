@@ -198,7 +198,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 @import "../assets/css/mixin";
 /*中间背景图片*/
 .img-bg {

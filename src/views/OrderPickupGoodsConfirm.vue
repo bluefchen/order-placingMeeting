@@ -149,7 +149,7 @@
 	}
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 	.order_pickup-goods-confirm{
 		/*中间背景图片*/
 		.img-bg{

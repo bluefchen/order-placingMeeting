@@ -41,7 +41,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   /*顶部*/
   .toper {
     width: 100%;
