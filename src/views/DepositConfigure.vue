@@ -411,14 +411,7 @@ export default {
   }
   .warn-wrds{
     line-height: 20px;
-  }
-  .v_table .el-table, .v_table .el-table__expanded-cell{
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-  }
-  .v_pagination .el-pagination{
-    margin-bottom: 20px;
-  }
+  } 
   .el-input{
     width: 128px;
     margin:0 auto;
@@ -436,6 +429,13 @@ export default {
     &:hover{
       border: 1px solid #ff2222;
     }
+  }
+  .v_table .el-table, .v_table .el-table__expanded-cell{
+    border: 1px solid #e6e6e6;
+    border-bottom: 0;
+  }
+  .v_pagination .el-pagination{
+    margin-bottom: 20px;
   }
   .el-table__header{
     th{

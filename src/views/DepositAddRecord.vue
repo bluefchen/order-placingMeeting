@@ -21,28 +21,33 @@
       <!-- 搜索 -->
       <div class="box-1200 search">
         <InputWithSelect :search="search"/>
-        <a href="javascript:;" class="category-more fn-left" @click="openMore()" v-show="!openshow">更多条件 <i class="iconfont">&#xe608;</i></a>
-        <a href="javascript:;" class="category-more fn-left" @click="openMore()" v-show="openshow">收起条件 <i class="iconfont">&#xe607;</i></a>
+        <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
       
       <!-- 条件搜索 -->
-      <div class="condition-search box-1200" v-show="openshow">
-        <div class="condition-iterm wid30">
+      <div class="condition-search box-1200" v-show="isShowMoreCondition">
+        <div class="condition-iterm wid25">
+          <label class="label-wrds">订单号：</label>
+          <input type="text" class="condition-input" v-model="depositRecord.opmOrderNo">
+        </div>
+        <div class="condition-iterm wid25">
           <label class="label-wrds">零售商名称：</label>
-          <input type="text" class="condition-input">
+          <input type="text" class="condition-input" v-model="depositRecord.retailerId">
         </div>
         <div class="condition-iterm wid40">
           <label class="label-wrds">订购起止日期：</label>
           <el-date-picker
-            v-model="value4"
+            v-model="depositRecord.orderDate"
             type="datetimerange"
             range-separator="至"
             start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            end-placeholder="结束日期"
+            value-format="yyyy-MM-dd">
           </el-date-picker>
         </div>
-        <div class="condition-iterm wid30">
-           <button class="btns">查询</button> 
+        <div class="condition-iterm wid10">
+           <!-- <button class="btns">定金付款查询</button>  -->
+           <el-button class="btns" @click="queryOpmDepositList">定金付款查询</el-button>
         </div>
       </div>
       
@@ -51,7 +56,7 @@
           <TitlePlate title="定金补录结果列表"/>         
           <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>         
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -69,12 +74,19 @@
   export default {
     name: 'DepositAddRecord',
     created() {
+
     },
     data() {
       return {
-        openshow: false,
-        orderPickupRecordList: [], //查询返回的数据     
-        total: 0, //列表总数
+        depositRecord: {
+          isCentman: '',
+          offerNameOrCode: '',
+          opmOrderNo: '',
+          retailerId: '',
+          orderDate: []
+        },
+        isShowMoreCondition: false, //是否显示更多条件
+        total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1, //当前页
         tableTitle: [{
@@ -83,22 +95,34 @@
           width: 95,
           render: function (h, params) {
             return h({
-              template: '<router-link to="orderFormDetail" class="red">{{opmOrderNo}}</router-link>',
+              template: '<span class="red router" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
               data: function () {
                 return {
-                  opmOrderNo: params.row.opmOrderNo
+                  opmOrderNo: params.row.opmOrderNo,
+                  opmOrderList: params.row
                 }
+              },
+              methods: {                
+                orderDetail(item){
+                  localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+                  this.$router.push({
+                    path: '/order/orderFormDetail',
+                    query: {
+                      opmOrderId: item.opmOrderId
+                    }
+                  });
+                },
               }
             })
           }
         }, {
           label: '零售商',
           prop: 'retailerName',
-          width: 107
+          width: 95
         }, {
           label: '终端编码',
           prop: 'offerCode',
-          width: 83
+          width: 80
         }, {
           label: '终端名称',
           prop: 'offerName',
@@ -130,11 +154,11 @@
         }, {
           label: '定金比例配置',
           prop: 'depositProportion',
-          width: 90
+          width: 100
         }, {
           label: '已交定金金额',
           prop: 'depositAmount',
-          width: 90,
+          width: 100,
           render: function (h, params) {
             return h({
               template: '<p class="red">{{depositAmount}}</p>',
@@ -154,10 +178,33 @@
     },
     methods: {
       search(obj) {
-        console.log('参数：', obj);
+        this.depositRecord.isCentman = obj.type;
+        this.depositRecord.offerNameOrCode = obj.value;
+        this.queryOpmDepositList();
       },
-      openMore(){
-        this.openshow = !this.openshow;
+      showMoreCondition(){
+        this.isShowMoreCondition = !this.isShowMoreCondition;
+      },
+      queryOpmDepositList(curPage, pageSize){
+        this.currentPage = curPage || 1;
+        this.$post('/opmDepositController/queryOpmDepositList', {
+          opMeetingId: '订货会ID',
+          isCentman: this.depositRecord.isCentman,
+          offerNameOrCode: this.depositRecord.offerNameOrCode,
+          opmOrderNo: this.depositRecord.opmOrderNo,
+          supplierId: '',
+          retailerId: this.depositRecord.retailerId,
+          fromDate: this.depositRecord.orderDate[0],
+          toDate: this.depositRecord.orderDate[1],
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
+        }).then((rsp) => {   
+          this.tableData = rsp.rows;          
+          this.total = rsp.totalSize;
+        })
+      },
+      pageChanged(curPage) {
+        this.qryOpmOrderPickupRecordList(curPage);
       }
     },
     components: {
@@ -229,7 +276,7 @@
     margin: 10px auto;
     .category-more{
       position: absolute;
-      top: 11px;
+      top: 0px;
       left: 500px;
       color: #151515;
       text-decoration: none;
@@ -249,22 +296,23 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 110px;
+        width: 100px;
         line-height: 32px;
         font-size: 14px;
         text-align: right;
       }
       .condition-input{
-        width: calc(100% - 20px - 110px);
+        width: calc(100% - 20px - 100px);
         height: 24px;
         padding: 3px 10px;
-        margin-left: 110px; 
+        margin-left: 100px; 
         border: 1px solid #e5e5e5;
       }
       .btns{
         left: 15px;
         line-height: 31px;
-        padding: 0 30px;
+        padding: 0 10px;
+        font-size: 14px;
       }
     }
   }
@@ -286,11 +334,33 @@
   .el-date-editor .el-range__close-icon{
     line-height: 27px;
   }
-  .wid30{
-    width: 30%;
+  .category-more {
+    height: 22px;
+    margin: 7px 0 0 20px;
+    padding: 0 5px;
+    line-height: 22px;
+    background-color: #fff;
+    border: 0;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .category-more:active,
+  .category-more:focus,
+  .category-more:hover {
+    color: #f82134;
+  }
+  .category-more .iconfont {
+    font-size: 12px;
   }
   .wid40{
     width: 40%;
+  }
+  .wid25{
+    width: 25%;
+  }
+  .wid10{
+    width: 10%;
   }
 
   .tabs-list{
@@ -317,6 +387,9 @@
         }
       }      
     }
+    .router{
+      cursor: pointer;
+    }
   }
   
   .btns{
@@ -335,44 +408,24 @@
     }
   }
 
-  .table{
-    border: 1px solid #e3e3e3;
-    table-layout:fixed;
-    word-break:break-all;
-    thead tr{
-      height: 32px;
-      background-color: #efefef;
-      border-bottom: 1px solid #d1d1d1;
-      color: #131212;
-      th{
-        text-align: center;
-        border-right: 1px solid #d1d1d1;
-      }
+  .v_table .el-table, .v_table .el-table__expanded-cell{
+    border: 1px solid #e6e6e6;
+    border-bottom: 0;
+  }
+  .v_pagination .el-pagination{
+    margin-bottom: 20px;
+  }
+  .el-table__header{
+    th{
+      border-right: 1px solid #e6e6e6;
     }
-    tbody tr{
-      height: 34px;
-      border-bottom: 1px solid #e3e3e3;
-      &:nth-of-type(2n){
-        background-color: #fcfcfc;
-      }
-      td{
-        text-align: center;
-        border-right: 1px solid #e3e3e3;
-        .overflow{
-          margin: 0 auto;
-          .truncate(90%);
-        }
-        i.iconfont{
-          font-size: 18px;
-        }
-        input{
-          width: 80%;
-          height: 20px;
-          border: 1px solid #b3b3b3;
-          text-align: center;
-          color: #f02b2b;
-        }
-      }
-    }
+  }
+  .el-table--small td, .el-table--small th{
+    padding: 4px 0;
+  }
+  .el-table__body{
+    td{
+      border-right: 1px solid #e6e6e6;
+    }  
   }
 </style>
