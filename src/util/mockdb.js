@@ -515,3 +515,57 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositList'), {
     }]
   }
 });
+// 43、查询诚意金缴纳情况列表接口
+Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null,
+  'error': null,
+  'data': {
+    'totalSize|1-100': 1,
+    'rows|5-10': [{
+      'opMeetingId':'@id',
+      'retailerId':'@id',
+      'retailerCode':'@id',
+      'retailerName':'@cword(4, 6)',
+      'retailerType|+1': [1001, 1002, 1003],
+      'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
+      'payDepositAmount|1-1000': 100,
+      'depositAmount|1-1000': 100
+    }]
+  }
+});
+// 44、导入诚意金数据解析
+Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalCnt|1-100': 100, //总记录条数
+    'successCnt|1-100': 100, //成功条数
+    'failCnt|1-100': 1, //失败条数
+    'rows|10': [{
+      'opMeetingId':'@id',
+      'retailerId':'@id',
+      'retailerCode':'@id',
+      'retailerName':'@cword(4, 6)',
+      'retailerType|+1': [1001, 1002, 1003],
+      'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
+      'payDepositAmount|1-1000': 100,
+      'depositAmount|1-1000': 100
+    }]
+  }
+});
+
+// 45、批量导入新增机型
+Mock.mock(new RegExp('/opmDepositController/batchInsertOpmRetailerDeposit'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
