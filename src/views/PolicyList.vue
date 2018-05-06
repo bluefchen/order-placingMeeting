@@ -14,7 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['政策管理', '政策投入']"/>
+          <Breadcrumb :list="['政策管理', '政策列表']"/>
         </div>
       </div>
 
@@ -26,9 +26,6 @@
       <div class="box-1200">
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">优惠政策列表</div>
-          <div class="buttons fn-right">
-            <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
-          </div>
         </div>
         <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
@@ -49,6 +46,8 @@
     data() {
       return {
         title: '优惠政策详情',
+        //表格的数据
+        isSelection: true,
         tableTitle: [{
           label: '序号',
           prop: 'orderNum',
@@ -75,11 +74,11 @@
         }, {
           label: '制定人',
           prop: 'policyModelName',
-          width: 120,
+          width: 150,
         }, {
           label: '制定状态',
           prop: 'state',
-          width: 120,
+          width: 150,
           render: (h, params) => {
             return h({
               template: '<div><span v-if="data.row.state === \'Y\'">已发布</span><span v-else>待审核</span></div>',
@@ -89,24 +88,6 @@
                 }
               }
             });
-          }
-        }, {
-          label: '操作',
-          width: 120,
-          render: function (h, params) {
-            return h({
-              template: '<el-button type="text" @click="deleteInfo(row)" class="delete-btn">删除</el-button>',
-              data: function () {
-                return {
-                  data: params.row
-                }
-              },
-              methods: {
-                deleteInfo(row) {
-                  console.log(row)
-                }
-              },
-            })
           }
         }],
         tableData: [{
@@ -221,16 +202,6 @@
   .v_table .el-table, .v_table .el-table__expanded-cell {
     border: 1px solid #dcdcdc;
     border-bottom: 0;
-  }
-
-  .delete-btn {
-    padding: 0;
-    color: #ff0000;
-    font-size: 12px;
-    &:hover {
-      color: #ff0000;
-      text-decoration: underline;
-    }
   }
 
 </style>

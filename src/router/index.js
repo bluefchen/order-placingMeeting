@@ -15,6 +15,8 @@ const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
 const PolicyManage = () => import('@/views/PolicyManage');
+const ImportPolicyAdd = () => import('@/views/ImportPolicyAdd');
+const PolicyList = () => import('@/views/PolicyList');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
@@ -127,6 +129,20 @@ export default new Router({
           component: PolicyManage,
           meta: {
             title: '政策投入'
+          },
+        }, {
+          path: 'importPolicyAdd',
+          name: 'importPolicyAdd',
+          component: ImportPolicyAdd,
+          meta: {
+            title: '上传政策'
+          },
+        }, {
+          path: 'policyList',
+          name: 'policyList',
+          component: PolicyList,
+          meta: {
+            title: '政策列表'
           },
         }, {
           path: 'orderCompositeQuery',

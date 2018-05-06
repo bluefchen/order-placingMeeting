@@ -17,7 +17,7 @@
           <Breadcrumb :list="['定金管理', '定金配置']"/>
         </div>
       </div>
-      
+
       <!-- 修改 -->
       <div class="provin box-1200">
         <p class="pro-left">当前省份： <span>江苏省</span></p>
@@ -64,7 +64,7 @@
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
                   <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableData" v-show="step == 6"/>             
+                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableData" v-show="step == 6"/>
                 </div>
               </div>
             </div>
@@ -72,9 +72,9 @@
               <el-button class="confirm" @click="confirm(4, 1)" v-show="step == 1">确定</el-button>
               <el-button class="confirm" @click="confirm(5, 2)" v-show="step == 2">确定</el-button>
               <el-button class="confirm" @click="confirm(6, 3)" v-show="step == 3">确定</el-button>
-            </div>           
+            </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </div>
@@ -116,7 +116,7 @@ export default {
             template: '<el-input prefix-icon="el-icon-money" v-model="depositAmount"></el-input>',
             data: function () {
               return {
-                depositAmount: params.row.depositAmount,               
+                depositAmount: params.row.depositAmount,
               }
             }
           })
@@ -169,7 +169,7 @@ export default {
         }
         this.opmRetailerUpate.push(obj);
       });
-      this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {      
+      this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
         opMeetingId:'订货会ID',
         provinceCommonRegionId: '省份ID',
         depositType: type,
@@ -234,10 +234,6 @@ export default {
   background-color: #f6f6f6;
 }
 
-.v_import {
-  background-color: #fcfcfc;
-  border: 1px solid #e8e8e8;
-}
 .red{
   color: #e52941;
 }
@@ -317,7 +313,7 @@ export default {
 .selections{
   margin: 20px 0 0 15px;
   font-size: 14px;
-  color: #151515; 
+  color: #151515;
   .select-sp{
     width: 114px;
     height: 32px;
@@ -379,7 +375,7 @@ export default {
   .el-input__icon{
     line-height: 32px;
     color: #000;
-  } 
+  }
   .sec-done{
     width: 108px;
     color: #e52941;
@@ -411,7 +407,7 @@ export default {
   }
   .warn-wrds{
     line-height: 20px;
-  } 
+  }
   .el-input{
     width: 128px;
     margin:0 auto;
@@ -456,7 +452,7 @@ export default {
         content:'\e611';
         font-family: iconfont;
       }
-    }  
+    }
   }
 }
 
