@@ -25,7 +25,8 @@
       <el-submenu index="5">
         <template slot="title">政策管理</template>
         <el-menu-item index="/order/policyManage">政策投入</el-menu-item>
-        <el-menu-item index="5-2">政策列表</el-menu-item>
+        <el-menu-item index="/order/importPolicyAdd" style="display: none;">上传政策</el-menu-item>
+        <el-menu-item index="/order/policyList">政策列表</el-menu-item>
       </el-submenu>
       <el-submenu index="/order/orderCompositeQuery">
         <template slot="title">统计查询</template>
