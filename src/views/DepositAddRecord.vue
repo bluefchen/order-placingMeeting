@@ -56,7 +56,7 @@
           <TitlePlate title="定金补录结果列表"/>         
           <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>         
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -408,24 +408,4 @@
     }
   }
 
-  .v_table .el-table, .v_table .el-table__expanded-cell{
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-  }
-  .v_pagination .el-pagination{
-    margin-bottom: 20px;
-  }
-  .el-table__header{
-    th{
-      border-right: 1px solid #e6e6e6;
-    }
-  }
-  .el-table--small td, .el-table--small th{
-    padding: 4px 0;
-  }
-  .el-table__body{
-    td{
-      border-right: 1px solid #e6e6e6;
-    }  
-  }
 </style>

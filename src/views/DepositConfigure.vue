@@ -63,8 +63,8 @@
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
-                  <Table :stripe="false" :border="false" :tableTitle="tableTitleDone" :tableData="tableData" v-show="step == 6"/>
+                  <Table :tableTitle="tableTitle" :tableData="tableData" v-show="step == 3"/>
+                  <Table :tableTitle="tableTitleDone" :tableData="tableData" v-show="step == 6"/>
                 </div>
               </div>
             </div>
@@ -426,34 +426,17 @@ export default {
       border: 1px solid #ff2222;
     }
   }
-  .v_table .el-table, .v_table .el-table__expanded-cell{
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-  }
-  .v_pagination .el-pagination{
-    margin-bottom: 20px;
-  }
-  .el-table__header{
-    th{
-      border-right: 1px solid #e6e6e6;
-    }
-  }
-  .el-table--small td, .el-table--small th{
-    padding: 4px 0;
-  }
+ 
   .el-input__icon{
     line-height: 24px;
     color: #ff2222;
   }
-  .el-table__body{
-    td{
-      border-right: 1px solid #e6e6e6;
-      .el-icon-money::before{
-        content:'\e611';
-        font-family: iconfont;
-      }
-    }
+  
+  .el-icon-money::before{
+    content:'\e611';
+    font-family: iconfont;
   }
+
 }
 
 </style>
