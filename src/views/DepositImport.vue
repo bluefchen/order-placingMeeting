@@ -14,7 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['定金管理', '诚意金补录', '诚意金导入']"/>
+          <Breadcrumb :list="['定金管理', '定金补录', '定金导入']"/>
         </div>
       </div>
 
@@ -40,40 +40,79 @@
     },
     data() {
       return {
-        url: '/opmDepositController/analyzeInsertOpmRetailerDepositList',
+        url: '/opmDepositController/analyzeInsertOpmDepositList',
         tableTitle: [{
-          label: '零售商编码',
-          prop: 'retailerCode',
-          width: 154
+          label: '订单号',
+          prop: 'opmOrderNo',
+          width: 105         
         }, {
-          label: '零售商名称',
+          label: '零售商',
           prop: 'retailerName',
-          width: 320
+          width: 95
         }, {
-          label: '零售商类型',
-          prop: 'retailerTypeName',
-          width: 150
+          label: '终端编码',
+          prop: 'offerCode',
+          width: 80
         }, {
-          label: '已交诚意金金额',
-          prop: 'payDepositAmount',
-          width: 200,
+          label: '终端名称',
+          prop: 'offerName',
+          width: 140
+        }, {
+          label: '终端品牌',
+          prop: 'brandCd',
+          width: 80
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName',
+          width: 85
+        }, {
+          label: '产品类型',
+          prop: 'isCentman',
+          width: 80,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '订购数量',
+          prop: 'offerQty',
+          width: 70
+        }, {
+          label: '货款金额',
+          prop: 'totalAmount',
+          width: 70
+        }, {
+          label: '定金比例配置',
+          prop: 'depositProportion',
+          width: 100
+        }, {
+          label: '已交定金金额',
+          prop: 'depositAmount',
+          width: 100,
           render: function (h, params) {
             return h({
-              template: '<p class="red">{{payDepositAmount}}</p>',
+              template: '<p class="red">{{depositAmount}}</p>',
               data: function () {
                 return {
-                  payDepositAmount: params.row.payDepositAmount
+                  depositAmount: params.row.depositAmount
                 }
               }
             })
-          }    
+          }
         }, {
           label: '校验结果',
           prop: 'isSuccess',
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
+              template: '<span class="state-icon" :class="data.row.isSuccess === \'Y\' ? \'ok\' : \'error\'"></span>'
+              ,
               data() {
                 return {
                   data: params
@@ -84,7 +123,7 @@
         }, {
           label: '校验信息',
           prop: 'resultMsg'
-        }],
+        }]
       }
     },
     methods: {
@@ -104,7 +143,7 @@
           }
         });
         console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/opmDepositController/batchInsertOpmRetailerDeposit', {
+        this.$post('/opmDepositController/batchInsertOpmDeposit', {
           tableDataIsSueccess
         }).then(rsp => {
           this.$router.push({path: '/order/CyjDepositAddRecord'});
@@ -164,4 +203,5 @@
     margin: 20px 0;
     text-align: center;
   }
+  
 </style>

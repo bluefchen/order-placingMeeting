@@ -20,24 +20,32 @@
 
       <!-- 条件搜索 -->
       <div class="condition-search box-1200">
-        <div class="condition-iterm wid25">
-          <label class="label-wrds">零售商名称：</label>
-          <input type="text" class="condition-input" v-model="depositRecord.retailerId">
-        </div>
-        <div class="condition-iterm wid40">
-          <label class="label-wrds">订购起止日期：</label>
-          <el-date-picker
-            v-model="depositRecord.orderDate"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            value-format="yyyy-MM-dd">
-          </el-date-picker>
-        </div>
-        <div class="condition-iterm wid10">
-          <el-button class="btns" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
-        </div>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <div class="condition-iterm">
+              <label class="label-wrds">零售商名称：</label>
+              <input type="text" class="condition-input" v-model="depositRecord.retailerId">
+            </div>
+          </el-col>
+          <el-col :span="12">
+              <div class="condition-iterm">
+                <label class="label-wrds">订购起止日期：</label>
+                <el-date-picker
+                  v-model="depositRecord.orderDate"
+                  type="datetimerange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+              </div>
+          </el-col>
+          <el-col :span="4">
+            <div class="condition-iterm">
+              <el-button class="btns" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
+            </div>
+          </el-col>
+        </el-row>
       </div>
       
       <div class="tabs-list box-1200">
@@ -157,7 +165,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   @import "../assets/css/mixin";
 
   /*中间背景图片*/
@@ -194,22 +202,6 @@
     background-color: #f6f6f6;
   }
 
-  .my-location label {
-    color: #aaa;
-  }
-
-  .location-p {
-    display: inline-block;
-  }
-
-  .red {
-    color: #f82134;
-  }
-
-  .green {
-    color: #46b02e;
-  }
-
   .search {
     position: relative;
     margin: 10px auto;
@@ -221,7 +213,12 @@
       text-decoration: none;
     }
   }
-  
+  .el-row {
+    width: 100%;
+  }
+  .el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner{
+    width: calc(100% - 110px);
+  }
   /* 条件搜索 */
   .condition-search{
     display: flex;
@@ -248,7 +245,7 @@
         border: 1px solid #e5e5e5;
       }
       .btns{
-        left: 15px;
+        left: 0;
         line-height: 31px;
         padding: 0 10px;
         font-size: 14px;
@@ -292,16 +289,6 @@
   .category-more .iconfont {
     font-size: 12px;
   }
-  .wid40{
-    width: 40%;
-  }
-  .wid25{
-    width: 25%;
-  }
-  .wid10{
-    width: 10%;
-  }
-
   .tabs-list{
     margin: 0 auto;
     padding: 0 0 20px;

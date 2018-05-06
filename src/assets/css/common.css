@@ -46,7 +46,12 @@ body {
   visibility: hidden;
   height: 0;
 }
-
+.router{
+  cursor: pointer;
+}
+.red{
+  color: #e52941;
+}
 .el-button {
   padding-left: 35px;
   padding-right: 35px;

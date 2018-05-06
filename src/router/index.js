@@ -14,6 +14,7 @@ const OrderPickupGoodsConfirm = () => import('@/views/OrderPickupGoodsConfirm');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
 const DepositAddRecord = () => import('@/views/DepositAddRecord');
+const DepositImport = () => import('@/views/DepositImport');
 const CyjDepositAddRecord = () => import('@/views/CyjDepositAddRecord');
 const CyjImport = () => import('@/views/CyjImport');
 const PolicyManage = () => import('@/views/PolicyManage');
@@ -125,7 +126,14 @@ export default new Router({
           meta: {
             title: '定金补录'
           },
-        }, {
+        },  {
+          path: 'depositImport',
+          name: 'depositImport',
+          component: DepositImport,
+          meta: {
+            title: '定金导入'
+          },
+        },{
           path: 'cyjDepositAddRecord',
           name: 'cyjDepositAddRecord',
           component: CyjDepositAddRecord,

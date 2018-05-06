@@ -198,7 +198,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 @import "../assets/css/mixin";
 /*中间背景图片*/
 .img-bg {
@@ -232,10 +232,6 @@ export default {
   height: 30px;
   line-height: 30px;
   background-color: #f6f6f6;
-}
-
-.red{
-  color: #e52941;
 }
 .provin{
   margin: 28px auto;
@@ -330,21 +326,6 @@ export default {
     }
   }
 }
-.bottom{
-  margin-top: 26px;
-  border-top: 1px solid #dcdcdc;
-  padding-top: 25px;
-  text-align: center;
-  .button{
-    height: 34px;
-    padding: 0 30px;
-    border: 0;
-    font-size: 14px;
-    background-color: #f01919;
-    border-radius: 3px;
-    color: #fff;
-  }
-}
 
 .second-step {
   border-top: 1px dashed #e1e1e1;
@@ -383,6 +364,7 @@ export default {
     margin-left: 40px;
     font-weight: 700;
   }
+
 }
 .warn-wrds{
   line-height: 34px;

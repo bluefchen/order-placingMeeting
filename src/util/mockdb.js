@@ -515,7 +515,57 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositList'), {
     }]
   }
 });
-// 43、查询诚意金缴纳情况列表接口
+// 43、批量导入定金缴纳数据解析接口
+Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmDepositList'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null,
+  'error': null,
+  'data': {
+    'totalSize|1-100': 1,
+    'rows|5-10': [{
+      'opmOrderId':'@id',
+      'opMeetingId':'@id',
+      'opmOrderNo':'@id',
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(4, 6)',
+      'brandCd':'@id',
+      'brandName':'@cword(4, 6)',
+      'offerModelId':'@id',
+      'offerModelName': '@cword(4, 6)',
+      'isCentman|1': ['Y', 'N'],
+      'price|1-1000': 1000,
+      'totalAmount|1-1000': 1000,
+      'supplierId':'@id',
+      'supplierName':'@cword(4, 6)',
+      'retailerId':'@id',
+      'retailerName':'@cword(4, 6)',
+      'offerQty|1-1000': 1000,
+      'pickupGoodsAmount|1-1000': 1000,
+      'depositProportion|1-100': 100,
+      'depositAmount|1-1000': 1000,
+      'paymentStatusCd|+1': [1000, 1001, 1002],
+      'paymentStatusCdName|+1':['未交定金', '已交定金', '已付款'],
+      'statusCd|+1':[1000, 1001, 1002],
+      'statusCdName|+1':['进行中', '已完成', '已撤销'],
+      'remarks':'@cword(4, 6)',
+      'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
+      'resultMsg': '@cword()' //校验信息
+    }]
+  }
+});
+// 44、批量导入定金缴纳数据
+Mock.mock(new RegExp('/opmDepositController/batchInsertOpmDeposit'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
+// 45、查询诚意金缴纳情况列表接口
 Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
   'rsphead': 's',
   'success': true,
@@ -536,7 +586,8 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
     }]
   }
 });
-// 44、导入诚意金数据解析
+
+// 46、导入诚意金数据解析
 Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -555,7 +606,9 @@ Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'
       'retailerType|+1': [1001, 1002, 1003],
       'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
       'payDepositAmount|1-1000': 100,
-      'depositAmount|1-1000': 100
+      'depositAmount|1-1000': 100,
+      'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
+      'resultMsg': '@cword()' //校验信息
     }]
   }
 });
