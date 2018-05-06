@@ -189,7 +189,7 @@
 		}
 		.orderInfo{
 			padding: 0 0 20px;
-			margin: 16px auto 0;
+			margin: 16px auto 20px;
 			border: 1px solid #cecece;	
 		}
 		.tel-model{

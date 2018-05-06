@@ -28,7 +28,7 @@
     </div>
 
     <!-- 条件搜索 -->
-    <div class="box-1200 condition-search" v-show="isShowMoreCondition">
+    <div class="box-1200 condition-query" v-show="isShowMoreCondition">
       <div class="fn-clear">
         <div class="condition-iterm wid30">
           <label class="label-wrds">订单号：</label>
@@ -64,20 +64,19 @@
 
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="订单列表"/>
-        <div class="buttons fn-right">
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 导出</button>
-        </div>
+        <TitlePlate title="订单列表"/>
       </div>
       <table width="100%" cellspacing="0" cellpadding="0" class="table">
         <thead>
         <tr>
-          <th width="32%">终端名称</th>
-          <th width="17%">终端品牌</th>
-          <th width="17%">终端型号</th>
-          <th width="11%">订购数量</th>
-          <th width="10%">付款状态</th>
-          <th width="13%">操作</th>
+          <th width="30%">终端名称</th>
+          <th width="15%">终端品牌</th>
+          <th width="15%">终端型号</th>
+          <th width="8%">终端价格</th>
+          <th width="8%">订购数量</th>
+          <th width="8%">实付金额</th>
+          <th width="8%">付款状态</th>
+          <th width="8%">操作</th>
         </tr>
         </thead>
       </table>
@@ -89,16 +88,18 @@
             <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
           </p>
           <div class="tabs fn-clear">
-            <dl class="fn-left wid32">
+            <dl class="fn-left wid30">
               <div class="pd5">
                 <DeviceInfo :data="item"/>
               </div>
             </dl>
-            <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
-            <dl class="dll wid13 fn-left">
+            <dl class="dll wid15 fn-left"><p>{{item.brandName}}</p></dl>
+            <dl class="dll wid15 fn-left"><p>{{item.offerModelName}}</p></dl>
+            <dl class="dll wid8 fn-left"><b>¥ {{item.salePrice}}</b></dl>
+            <dl class="dll wid8 fn-left"><b>{{item.offerQty}}</b></dl>
+            <dl class="dll wid8 fn-left"><b>--</b></dl>
+            <dl class="dll wid8 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
+            <dl class="dll wid8 fn-left">
               <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
             </dl>
 
@@ -149,7 +150,7 @@
           supplierId: '',
           statusCd: ''
         },
-        isShowMoreCondition: true, //是否显示更多条件
+        isShowMoreCondition: false, //是否显示更多条件
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -190,6 +191,18 @@
             opmOrderId: item.opmOrderId
           }
         });
+      },
+      exportOpmOrder(){
+        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
+          isCentman: this.orderQueryData.isCentman,
+          offerNameOrCode: this.orderQueryData.offerNameOrCode,
+          opmOrderNo: this.orderQueryData.opmOrderNo,
+          supplierId: this.orderQueryData.supplierId,
+          retailerId: this.orderQueryData.retailerId,
+          fromDate: this.orderQueryData.dateValue[0],
+          toDate: this.orderQueryData.dateValue[1],
+          statusCd: this.orderQueryData.statusCd,
+        })));
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
@@ -240,46 +253,41 @@
     .search {
       margin: 10px auto;
     }
-    .condition-search {
+    .condition-query {
+      display: block;
       height: 114px;
       margin: 18px auto 22px;
       border: 1px solid #dfdfdf;
       div {
         display: flex;
       }
-    }
-    .condition-iterm {
-      position: relative;
-      margin: 16px 30px 0 0;
-    }
-    .condition-iterm .label-wrds {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 110px;
-      line-height: 32px;
-      font-size: 14px;
-      text-align: right;
-    }
-    .condition-input {
-      width: calc(100% - 20px - 110px);
-      height: 24px;
-      padding: 3px 10px;
-      margin-left: 110px;
-      border: 1px solid #e5e5e5;
-    }
-    .condition-input:hover {
-      border-color: #c0c4cc;
-    }
+      .condition-iterm {
+        position: relative;
+        margin: 16px 30px 0 0;
+      }
+      .condition-iterm .label-wrds {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 110px;
+        line-height: 32px;
+        font-size: 14px;
+        text-align: right;
+      }
+      .condition-input {
+        width: calc(100% - 20px - 110px);
+        height: 24px;
+        padding: 3px 10px;
+        margin-left: 110px;
+        border: 1px solid #e5e5e5;
+      }
+      .condition-input:hover {
+        border-color: #c0c4cc;
+      }
 
-    .condition-input:focus {
-      border-color: #ff7a7a;
-    }
-    .wid30 {
-      width: 30%;
-    }
-    .wid40 {
-      width: 40%;
+      .condition-input:focus {
+        border-color: #ff7a7a;
+      }
     }
     .category-more {
       height: 22px;
@@ -328,7 +336,7 @@
     }
 
     .buttons .btns {
-      padding: 0 12px;
+      padding: 0 16px;
       margin-left: 2px;
       border: 0;
       background-color: #fa0000;
@@ -336,6 +344,7 @@
       font-size: 12px;
       border-radius: 3px;
       line-height: 28px;
+      cursor: pointer;
     }
     .buttons .btns:hover {
       background-color: #e20606;
@@ -385,20 +394,14 @@
       line-height: 90px;
       text-align: center;
     }
-    .wid32 {
-      width: 32%;
+    .wid30 {
+      width: 30%;
     }
-    .wid17 {
-      width: 17%;
+    .wid15 {
+      width: 15%;
     }
-    .wid11 {
-      width: 11%;
-    }
-    .wid10 {
-      width: 10%;
-    }
-    .wid13 {
-      width: 13%;
+    .wid8 {
+      width: 8%;
     }
     .updown-btn {
       padding: 2px 5px;

@@ -66,7 +66,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="订单列表"/>
         <div class="buttons fn-right">
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 导出</button>
+          <button class="btns" @click="exportOpmOrder"><i class="iconfont">&#xe654;</i> 导出</button>
         </div>
       </div>
       <table width="100%" cellspacing="0" cellpadding="0" class="table">
@@ -190,6 +190,18 @@
             opmOrderId: item.opmOrderId
           }
         });
+      },
+      exportOpmOrder(){
+        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
+          isCentman: this.orderQueryData.isCentman,
+          offerNameOrCode: this.orderQueryData.offerNameOrCode,
+          opmOrderNo: this.orderQueryData.opmOrderNo,
+          supplierId: this.orderQueryData.supplierId,
+          retailerId: this.orderQueryData.retailerId,
+          fromDate: this.orderQueryData.dateValue[0],
+          toDate: this.orderQueryData.dateValue[1],
+          statusCd: this.orderQueryData.statusCd,
+        })));
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
@@ -329,7 +341,7 @@
     }
 
     .buttons .btns {
-      padding: 0 12px;
+      padding: 0 16px;
       margin-left: 2px;
       border: 0;
       background-color: #fa0000;
@@ -337,6 +349,7 @@
       font-size: 12px;
       border-radius: 3px;
       line-height: 28px;
+      cursor: pointer;
     }
     .buttons .btns:hover {
       background-color: #e20606;
