@@ -134,7 +134,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   /*中间背景图片*/
   .img-bg {
     width: 100%;

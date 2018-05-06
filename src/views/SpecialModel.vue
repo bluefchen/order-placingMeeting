@@ -215,7 +215,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .search {
     margin: 10px auto;
   }
@@ -391,7 +391,7 @@
     color: #46b02e;
   }
 
-  
+
 
   .queries-list {
     margin: 10px auto;

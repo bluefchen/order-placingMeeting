@@ -23,7 +23,7 @@
         <InputWithSelect :search="search"/>
         <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
-      
+
       <!-- 条件搜索 -->
       <div class="condition-search box-1200" v-show="isShowMoreCondition">
         <div class="condition-iterm wid25">
@@ -50,13 +50,13 @@
            <el-button class="btns" @click="queryOpmDepositList">定金付款查询</el-button>
         </div>
       </div>
-      
+
       <div class="tabs-list box-1200">
         <div class="result-header">
-          <TitlePlate title="定金补录结果列表"/>         
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>         
+          <TitlePlate title="定金补录结果列表"/>
+          <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -102,7 +102,7 @@
                   opmOrderList: params.row
                 }
               },
-              methods: {                
+              methods: {
                 orderDetail(item){
                   localStorage.setItem(item.opmOrderId, JSON.stringify(item));
                   this.$router.push({
@@ -129,28 +129,28 @@
           width: 140
         }, {
           label: '终端品牌',
-          prop: 'brandCd', 
-          width: 80                   
+          prop: 'brandCd',
+          width: 80
         }, {
           label: '终端型号',
           prop: 'offerModelName',
-          width: 85         
+          width: 85
         }, {
           label: '产品类型',
           prop: 'isCentman',
-          width: 80         
+          width: 80
         }, {
           label: '订购数量',
           prop: 'offerQty',
-          width: 70  
+          width: 70
         }, {
           label: '供货商',
           prop: 'supplierName',
-          width: 120 
+          width: 120
         }, {
           label: '货款金额',
           prop: 'totalAmount',
-          width: 70                    
+          width: 70
         }, {
           label: '定金比例配置',
           prop: 'depositProportion',
@@ -198,8 +198,8 @@
           toDate: this.depositRecord.orderDate[1],
           pageSize: pageSize || 10,
           curPage: curPage || 1
-        }).then((rsp) => {   
-          this.tableData = rsp.rows;          
+        }).then((rsp) => {
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
@@ -218,7 +218,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   @import "../assets/css/mixin";
 
   /*中间背景图片*/
@@ -282,7 +282,7 @@
       text-decoration: none;
     }
   }
-  
+
   /* 条件搜索 */
   .condition-search{
     display: flex;
@@ -305,7 +305,7 @@
         width: calc(100% - 20px - 100px);
         height: 24px;
         padding: 3px 10px;
-        margin-left: 100px; 
+        margin-left: 100px;
         border: 1px solid #e5e5e5;
       }
       .btns{
@@ -385,13 +385,13 @@
           color: #f82134;
           font-size: 14px;
         }
-      }      
+      }
     }
     .router{
       cursor: pointer;
     }
   }
-  
+
   .btns{
     position: absolute;
     top: 0;
@@ -406,26 +406,5 @@
     &:hover{
       background-color: #e20606;
     }
-  }
-
-  .v_table .el-table, .v_table .el-table__expanded-cell{
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-  }
-  .v_pagination .el-pagination{
-    margin-bottom: 20px;
-  }
-  .el-table__header{
-    th{
-      border-right: 1px solid #e6e6e6;
-    }
-  }
-  .el-table--small td, .el-table--small th{
-    padding: 4px 0;
-  }
-  .el-table__body{
-    td{
-      border-right: 1px solid #e6e6e6;
-    }  
   }
 </style>

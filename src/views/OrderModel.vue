@@ -310,7 +310,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .vue_roder-model {
     /*中间背景图片*/
     .img-bg {

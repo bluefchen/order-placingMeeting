@@ -218,7 +218,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .order_pickup-data {
     /*中间背景图片*/
     .img-bg {
