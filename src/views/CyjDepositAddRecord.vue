@@ -14,22 +14,12 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['定金管理', '定金补录']"/>
+          <Breadcrumb :list="['定金管理', '诚意金补录']"/>
         </div>
-      </div>
-
-      <!-- 搜索 -->
-      <div class="box-1200 search">
-        <InputWithSelect :search="search"/>
-        <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
 
       <!-- 条件搜索 -->
-      <div class="condition-search box-1200" v-show="isShowMoreCondition">
-        <div class="condition-iterm wid25">
-          <label class="label-wrds">订单号：</label>
-          <input type="text" class="condition-input" v-model="depositRecord.opmOrderNo">
-        </div>
+      <div class="condition-search box-1200">
         <div class="condition-iterm wid25">
           <label class="label-wrds">零售商名称：</label>
           <input type="text" class="condition-input" v-model="depositRecord.retailerId">
@@ -46,17 +36,16 @@
           </el-date-picker>
         </div>
         <div class="condition-iterm wid10">
-           <!-- <button class="btns">定金付款查询</button>  -->
-           <el-button class="btns" @click="queryOpmDepositList">定金付款查询</el-button>
+          <el-button class="btns" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
         </div>
       </div>
-
+      
       <div class="tabs-list box-1200">
         <div class="result-header">
-          <TitlePlate title="定金补录结果列表"/>
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 定金导入</button>
+          <TitlePlate title="定金补录结果列表"/>         
+          <el-button class="btns" @click="cyjImport()"><i class="iconfont">&#xe6a8;</i> 诚意金导入</el-button>
         </div>
-        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -72,7 +61,7 @@
   import Pagination from '@/components/Pagination';
 
   export default {
-    name: 'DepositAddRecord',
+    name: 'CyjDepositAddRecord',
     created() {
 
     },
@@ -85,127 +74,77 @@
           retailerId: '',
           orderDate: []
         },
-        isShowMoreCondition: false, //是否显示更多条件
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1, //当前页
         tableTitle: [{
-          label: '订单号',
-          prop: 'opmOrderNo',
-          width: 95,
-          render: function (h, params) {
-            return h({
-              template: '<span class="red router" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
-              data: function () {
-                return {
-                  opmOrderNo: params.row.opmOrderNo,
-                  opmOrderList: params.row
-                }
-              },
-              methods: {
-                orderDetail(item){
-                  localStorage.setItem(item.opmOrderId, JSON.stringify(item));
-                  this.$router.push({
-                    path: '/order/orderFormDetail',
-                    query: {
-                      opmOrderId: item.opmOrderId
-                    }
-                  });
-                },
-              }
-            })
-          }
+          label: '零售商编码',
+          prop: 'retailerCode',
+          width: 154
         }, {
-          label: '零售商',
+          label: '零售商名称',
           prop: 'retailerName',
-          width: 95
+          width: 320
         }, {
-          label: '终端编码',
-          prop: 'offerCode',
-          width: 80
+          label: '零售商类型',
+          prop: 'retailerTypeName',
+          width: 150
         }, {
-          label: '终端名称',
-          prop: 'offerName',
-          width: 140
+          label: '日期',
+          prop: 'paymentDate', 
+          width: 180                   
         }, {
-          label: '终端品牌',
-          prop: 'brandCd',
-          width: 80
-        }, {
-          label: '终端型号',
-          prop: 'offerModelName',
-          width: 85
-        }, {
-          label: '产品类型',
-          prop: 'isCentman',
-          width: 80
-        }, {
-          label: '订购数量',
-          prop: 'offerQty',
-          width: 70
-        }, {
-          label: '供货商',
-          prop: 'supplierName',
-          width: 120
-        }, {
-          label: '货款金额',
-          prop: 'totalAmount',
-          width: 70
-        }, {
-          label: '定金比例配置',
-          prop: 'depositProportion',
-          width: 100
-        }, {
-          label: '已交定金金额',
-          prop: 'depositAmount',
-          width: 100,
+          label: '已交诚意金金额',
+          prop: 'payDepositAmount',
+          width: 200,
           render: function (h, params) {
             return h({
-              template: '<p class="red">{{depositAmount}}</p>',
+              template: '<p class="red">{{payDepositAmount}}</p>',
               data: function () {
                 return {
-                  depositAmount: params.row.depositAmount
+                  payDepositAmount: params.row.payDepositAmount
                 }
               }
             })
-          }
+          }    
         }, {
           label: '状态',
           prop: 'paymentStatusCdName'
         }],
-        tableData: [],       
+        tableData: [],
       }
     },
     methods: {
       search(obj) {
         this.depositRecord.isCentman = obj.type;
         this.depositRecord.offerNameOrCode = obj.value;
-        this.queryOpmDepositList();
+        this.queryOpmRetailerDepositList();
       },
       showMoreCondition(){
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      queryOpmDepositList(curPage, pageSize){
+      queryOpmRetailerDepositList(curPage, pageSize){
         this.currentPage = curPage || 1;
-        this.$post('/opmDepositController/queryOpmDepositList', {
+        this.$post('/opmDepositController/queryOpmRetailerDepositList', {
           opMeetingId: '订货会ID',
-          isCentman: this.depositRecord.isCentman,
-          offerNameOrCode: this.depositRecord.offerNameOrCode,
-          opmOrderNo: this.depositRecord.opmOrderNo,
-          supplierId: '',
           retailerId: this.depositRecord.retailerId,
           fromDate: this.depositRecord.orderDate[0],
           toDate: this.depositRecord.orderDate[1],
           pageSize: pageSize || 10,
           curPage: curPage || 1
-        }).then((rsp) => {
-          this.tableData = rsp.rows;
+        }).then((rsp) => {   
+          this.tableData = rsp.rows;          
           this.total = rsp.totalSize;
         })
-      },      
+      },
       pageChanged(curPage) {
-        this.queryOpmDepositList(curPage);
-      }   
+        this.queryOpmRetailerDepositList(curPage);
+      },
+      cyjImport(){
+        this.$router.push({
+          path: '/order/cyjImport'
+        });
+      }
     },
     components: {
       InputWithSelect,
@@ -218,7 +157,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   @import "../assets/css/mixin";
 
   /*中间背景图片*/
@@ -282,7 +221,7 @@
       text-decoration: none;
     }
   }
-
+  
   /* 条件搜索 */
   .condition-search{
     display: flex;
@@ -305,7 +244,7 @@
         width: calc(100% - 20px - 100px);
         height: 24px;
         padding: 3px 10px;
-        margin-left: 100px;
+        margin-left: 100px; 
         border: 1px solid #e5e5e5;
       }
       .btns{
@@ -385,13 +324,13 @@
           color: #f82134;
           font-size: 14px;
         }
-      }
+      }      
     }
     .router{
       cursor: pointer;
     }
   }
-
+  
   .btns{
     position: absolute;
     top: 0;
@@ -406,5 +345,26 @@
     &:hover{
       background-color: #e20606;
     }
+  }
+
+  .v_table .el-table, .v_table .el-table__expanded-cell{
+    border: 1px solid #e6e6e6;
+    border-bottom: 0;
+  }
+  .v_pagination .el-pagination{
+    margin-bottom: 20px;
+  }
+  .el-table__header{
+    th{
+      border-right: 1px solid #e6e6e6;
+    }
+  }
+  .el-table--small td, .el-table--small th{
+    padding: 4px 0;
+  }
+  .el-table__body{
+    td{
+      border-right: 1px solid #e6e6e6;
+    }  
   }
 </style>

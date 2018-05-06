@@ -20,6 +20,7 @@
         <template slot="title">定金管理</template>
         <el-menu-item index="/order/depositConfigure">定金配置</el-menu-item>
         <el-menu-item index="/order/depositAddRecord">定金补录</el-menu-item>
+        <el-menu-item index="/order/cyjDepositAddRecord">诚意金补录</el-menu-item>
       </el-submenu>
       <el-submenu index="5">
         <template slot="title">政策管理</template>
