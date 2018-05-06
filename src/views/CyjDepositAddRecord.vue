@@ -39,13 +39,13 @@
           <el-button class="btns" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
         </div>
       </div>
-      
+
       <div class="tabs-list box-1200">
         <div class="result-header">
-          <TitlePlate title="定金补录结果列表"/>         
+          <TitlePlate title="定金补录结果列表"/>
           <el-button class="btns" @click="cyjImport()"><i class="iconfont">&#xe6a8;</i> 诚意金导入</el-button>
         </div>
-        <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -91,8 +91,8 @@
           width: 150
         }, {
           label: '日期',
-          prop: 'paymentDate', 
-          width: 180                   
+          prop: 'paymentDate',
+          width: 180
         }, {
           label: '已交诚意金金额',
           prop: 'payDepositAmount',
@@ -106,7 +106,7 @@
                 }
               }
             })
-          }    
+          }
         }, {
           label: '状态',
           prop: 'paymentStatusCdName'
@@ -120,10 +120,10 @@
         this.depositRecord.offerNameOrCode = obj.value;
         this.queryOpmRetailerDepositList();
       },
-      showMoreCondition(){
+      showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      queryOpmRetailerDepositList(curPage, pageSize){
+      queryOpmRetailerDepositList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmRetailerDepositList', {
           opMeetingId: '订货会ID',
@@ -132,15 +132,15 @@
           toDate: this.depositRecord.orderDate[1],
           pageSize: pageSize || 10,
           curPage: curPage || 1
-        }).then((rsp) => {   
-          this.tableData = rsp.rows;          
+        }).then((rsp) => {
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
       pageChanged(curPage) {
         this.queryOpmRetailerDepositList(curPage);
       },
-      cyjImport(){
+      cyjImport() {
         this.$router.push({
           path: '/order/cyjImport'
         });
@@ -157,7 +157,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   @import "../assets/css/mixin";
 
   /*中间背景图片*/
@@ -213,7 +213,7 @@
   .search {
     position: relative;
     margin: 10px auto;
-    .category-more{
+    .category-more {
       position: absolute;
       top: 0px;
       left: 500px;
@@ -221,17 +221,17 @@
       text-decoration: none;
     }
   }
-  
+
   /* 条件搜索 */
-  .condition-search{
+  .condition-search {
     display: flex;
     height: 72px;
-    margin: 10px auto  14px;
+    margin: 10px auto 14px;
     border: 1px solid #dfdfdf;
-    .condition-iterm{
+    .condition-iterm {
       position: relative;
       margin: 20px 30px 0 0;
-      .label-wrds{
+      .label-wrds {
         position: absolute;
         top: 0;
         left: 0;
@@ -240,14 +240,14 @@
         font-size: 14px;
         text-align: right;
       }
-      .condition-input{
+      .condition-input {
         width: calc(100% - 20px - 100px);
         height: 24px;
         padding: 3px 10px;
-        margin-left: 100px; 
+        margin-left: 100px;
         border: 1px solid #e5e5e5;
       }
-      .btns{
+      .btns {
         left: 15px;
         line-height: 31px;
         padding: 0 10px;
@@ -255,24 +255,30 @@
       }
     }
   }
-  .search-cnt .search[data-v-2eed8ffc]{
-    margin-top:0;
+
+  .search-cnt .search[data-v-2eed8ffc] {
+    margin-top: 0;
   }
-  .el-range-editor.el-input__inner{
+
+  .el-range-editor.el-input__inner {
     margin-left: 110px;
     height: 32px;
     line-height: 30px;
     border-radius: 0;
   }
-  .el-date-editor .el-range__icon{
+
+  .el-date-editor .el-range__icon {
     line-height: 27px;
   }
-  .el-date-editor .el-range-separator{
+
+  .el-date-editor .el-range-separator {
     line-height: 27px;
   }
-  .el-date-editor .el-range__close-icon{
+
+  .el-date-editor .el-range__close-icon {
     line-height: 27px;
   }
+
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;
@@ -284,25 +290,30 @@
     text-decoration: none;
     cursor: pointer;
   }
+
   .category-more:active,
   .category-more:focus,
   .category-more:hover {
     color: #f82134;
   }
+
   .category-more .iconfont {
     font-size: 12px;
   }
-  .wid40{
+
+  .wid40 {
     width: 40%;
   }
-  .wid25{
+
+  .wid25 {
     width: 25%;
   }
-  .wid10{
+
+  .wid10 {
     width: 10%;
   }
 
-  .tabs-list{
+  .tabs-list {
     margin: 0 auto;
     padding: 0 0 20px;
     .result-header {
@@ -324,47 +335,26 @@
           color: #f82134;
           font-size: 14px;
         }
-      }      
+      }
     }
-    .router{
+    .router {
       cursor: pointer;
     }
   }
-  
-  .btns{
+
+  .btns {
     position: absolute;
     top: 0;
-    right:0;
+    right: 0;
     padding: 0 20px;
-    border:0;
+    border: 0;
     background-color: #fa0000;
-    color:#fff;
+    color: #fff;
     font-size: 12px;
     border-radius: 3px;
     line-height: 28px;
-    &:hover{
+    &:hover {
       background-color: #e20606;
     }
-  }
-
-  .v_table .el-table, .v_table .el-table__expanded-cell{
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-  }
-  .v_pagination .el-pagination{
-    margin-bottom: 20px;
-  }
-  .el-table__header{
-    th{
-      border-right: 1px solid #e6e6e6;
-    }
-  }
-  .el-table--small td, .el-table--small th{
-    padding: 4px 0;
-  }
-  .el-table__body{
-    td{
-      border-right: 1px solid #e6e6e6;
-    }  
   }
 </style>
