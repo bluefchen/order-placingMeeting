@@ -194,14 +194,6 @@
     background-color: #f6f6f6;
   }
 
-  .my-location label {
-    color: #aaa;
-  }
-
-  .location-p {
-    display: inline-block;
-  }
-
   .red {
     color: #f82134;
   }
