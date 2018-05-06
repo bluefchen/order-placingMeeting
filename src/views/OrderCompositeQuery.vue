@@ -29,37 +29,49 @@
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">
-      <div class="fn-clear">
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">订单号：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.opmOrderNo">
-        </div>
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">零售商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.retailerId">
-        </div>
-        <div class="condition-iterm wid40">
-          <label class="label-wrds">订购起止日期：</label>
-          <el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange"
-                          range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-        </div>
-      </div>
-      <div class="fn-clear">
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">付款状态：</label>
-          <el-select class="condition-select" v-model="orderQueryData.statusCd" placeholder="请选择">
-            <el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label"
-                       :value="item.value"></el-option>
-          </el-select>
-        </div>
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">供应商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.supplierId">
-        </div>
-        <div class="condition-iterm wid40">
-          <el-button @click="queryOpmOrderSubmit">查询</el-button>
-        </div>
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">订单号：</label>
+            <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">零售商名称：</label>
+            <Input class="condition-input" :value.sync="orderQueryData.retailerId"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">订购起止日期：</label>
+            <el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange"
+                            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">付款状态：</label>
+            <el-select class="condition-select" v-model="orderQueryData.statusCd" placeholder="请选择">
+              <el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label"
+                         :value="item.value"></el-option>
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">供应商名称：</label>
+            <Input class="condition-input" :value.sync="orderQueryData.supplierId"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <el-button @click="queryOpmOrderSubmit">查询</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </div>
 
     <div class="box-1200 tabs-list">
@@ -97,7 +109,8 @@
             <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
             <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
             <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
+            <dl class="dll wid10 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>
+              {{item.paymentStatusCdName}}</p></dl>
             <dl class="dll wid13 fn-left">
               <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
             </dl>
@@ -113,6 +126,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
+  import Input from '@/components/Input';
   import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
@@ -191,7 +205,7 @@
           }
         });
       },
-      exportOpmOrder(){
+      exportOpmOrder() {
         window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
           isCentman: this.orderQueryData.isCentman,
           offerNameOrCode: this.orderQueryData.offerNameOrCode,
@@ -209,6 +223,7 @@
     },
     components: {
       Breadcrumb,
+      Input,
       InputWithSelect,
       TitlePlate,
       Table,
@@ -218,7 +233,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .order_pickup-data {
     /*中间背景图片*/
     .img-bg {
@@ -257,12 +272,10 @@
       height: 114px;
       margin: 18px auto 22px;
       border: 1px solid #dfdfdf;
-      div {
-        display: flex;
-      }
       .condition-iterm {
         position: relative;
-        margin: 16px 30px 0 0;
+        margin: 8px 0;
+        /*margin: 16px 30px 0 0;*/
       }
       .condition-iterm .label-wrds {
         position: absolute;
@@ -274,18 +287,7 @@
         text-align: right;
       }
       .condition-input {
-        width: calc(100% - 20px - 110px);
-        height: 24px;
-        padding: 3px 10px;
         margin-left: 110px;
-        border: 1px solid #e5e5e5;
-      }
-      .condition-input:hover {
-        border-color: #c0c4cc;
-      }
-
-      .condition-input:focus {
-        border-color: #ff7a7a;
       }
     }
     .wid30 {

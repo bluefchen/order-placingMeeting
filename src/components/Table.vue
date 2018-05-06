@@ -70,5 +70,15 @@
       font-weight: 700;
       text-align: center;
     }
+
+    .delete-btn {
+      padding: 0;
+      color: #ff0000;
+      font-size: 12px;
+      &:hover {
+        color: #ff0000;
+        text-decoration: underline;
+      }
+    }
   }
 </style>
