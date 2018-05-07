@@ -7,7 +7,7 @@
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
 
-    <DialogPopup :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
+    <DialogPopup width="80%" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <el-row :gutter="10">
           <el-col :span="3">{{title}}列表：</el-col>
@@ -148,7 +148,7 @@
 
         //供应商表头
         tableSupplierTitle: [{
-          label: '',
+          label: '选择',
           prop: '',
           width: '55px',
           render: function (h, params) {
@@ -187,7 +187,7 @@
 
         //零售商表头
         tableRetailerTitle: [{
-          label: '',
+          label: '选择',
           prop: '',
           width: '55px',
           render: function (h, params) {
