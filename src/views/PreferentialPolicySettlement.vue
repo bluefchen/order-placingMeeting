@@ -54,7 +54,7 @@
         </div>
         <div class="condition-iterm wid30">
           <label class="label-wrds">供应商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.supplierId">
+          <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
         </div>
         <div class="condition-iterm wid40">
           <el-button @click="queryOpmOrderSubmit">查询</el-button>
@@ -211,6 +211,9 @@
       },
       selectRetailer(val){
         console.log(val, 'selectRetailer');
+      },
+      selectSupplier(val){
+        console.log(val, 'selectSupplier');
       }
     },
     components: {

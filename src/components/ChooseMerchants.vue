@@ -2,7 +2,8 @@
   <div class="choose-merchants">
 
     <div class="choose-input-box" @click="isShow = true">
-      <input class="choose-input" v-model="checkedOption.retailerName" type="text" readonly />
+      <input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly />
+      <input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly />
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
 
@@ -147,6 +148,15 @@
 
         //供应商表头
         tableSupplierTitle: [{
+          label: '',
+          prop: '',
+          width: '55px',
+          render: function (h, params) {
+            return h({
+              template: '<div class="table-radio"></div>',
+            })
+          }
+        },{
           label: '省份',
           prop: 'province',
         },{
@@ -179,9 +189,10 @@
         tableRetailerTitle: [{
           label: '',
           prop: '',
+          width: '55px',
           render: function (h, params) {
             return h({
-              template: '<input type="checkbox" />1234123',
+              template: '<div class="table-radio"></div>',
             })
           }
         },{
@@ -279,6 +290,7 @@
 </script>
 
 <style lang="less">
+
   .choose-merchants{
     margin-left: 110px;
     width: 100%;

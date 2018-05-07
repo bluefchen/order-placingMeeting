@@ -71,6 +71,33 @@
 </script>
 
 <style lang="less">
+    .table-radio{
+      &:after{
+        font-family: 'iconfont';
+        content: '\e74a';
+        display: block;
+        margin: 0 auto;
+        width: 25px;
+        height: 20px;
+        font-size: 24px;
+        color: #c5c4c4;
+      }
+    }
+    .current-row{
+      .table-radio{
+      &:after{
+        font-family: 'iconfont';
+        content: '\e74b';
+        display: block;
+        margin: 0 auto;
+        width: 25px;
+        height: 20px;
+        font-size: 24px;
+        color: #f41b1b;
+      }
+      }
+    }
+
   .v_table {
     .el-table, .el-table__expanded-cell {
       width: 1200px;
