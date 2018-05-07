@@ -36,12 +36,7 @@
         </div>
         <div class="condition-iterm wid30">
           <label class="label-wrds">零售商名称：</label>
-          <div class="condition-input" @click="showDialog">
-
-            <ChooseMerchants title="供应商" :isShow="isShow" @searchItem="searchItem" />
-            
-          </div>  
-          <!-- <input type="text" class="condition-input" v-model="orderQueryData.retailerId"> -->
+          <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
         </div>
         <div class="condition-iterm wid40">
           <label class="label-wrds">订购起止日期：</label>
@@ -214,11 +209,8 @@
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
       },
-      showDialog(){
-        this.isShow = !this.isShow;
-      },
-      searchItem(val){
-        console.log(val, '1231234');
+      selectRetailer(val){
+        console.log(val, 'selectRetailer');
       }
     },
     components: {
