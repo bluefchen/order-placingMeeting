@@ -2,8 +2,12 @@
   <div class="v_input-with-select">
     <el-input placeholder="输入终端编码或名称搜索" v-model="input" class="input-with-select" size="small">
       <el-select v-model="select" slot="prepend" placeholder="请选择">
-        <el-option label="集采" value="Y"></el-option>
-        <el-option label="社采" value="N"></el-option>
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
       </el-select>
       <el-button slot="append" @click="handleSearch()">搜 索</el-button>
     </el-input>
@@ -14,9 +18,17 @@
   export default {
     name: 'InputWithSelect',
     props: {
-      search: {
-        type: Function,
-        required: true
+      options: {
+        type: Array,
+        default: function () {
+          return [{
+            label: '集采',
+            value: 'Y'
+          }, {
+            label: '社采',
+            value: 'N'
+          }]
+        }
       }
     },
     data() {
@@ -27,7 +39,7 @@
     },
     methods: {
       handleSearch() {
-        this.search({
+        this.$emit('search', {
           value: this.input,
           type: this.select
         });

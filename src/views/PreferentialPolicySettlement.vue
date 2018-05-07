@@ -21,11 +21,11 @@
 
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
-      <InputWithSelect class="fn-left" :search="search"/>
+      <InputWithSelect class="fn-left" @search="search"/>
       <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                             class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-    </div>    
+    </div>
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">

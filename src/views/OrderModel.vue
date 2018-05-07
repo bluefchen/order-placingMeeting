@@ -20,7 +20,7 @@
 
     <!-- 搜索 -->
     <div class="box-1200 search">
-      <InputWithSelect :search="search"/>
+      <InputWithSelect @search="search"/>
     </div>
 
     <!-- 更多筛选 -->

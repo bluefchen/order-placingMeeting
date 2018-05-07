@@ -20,7 +20,7 @@
 
       <!-- 搜索 -->
       <div class="box-1200 search">
-        <InputWithSelect :search="search"/>
+        <InputWithSelect @search="search"/>
         <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
 
@@ -193,7 +193,7 @@
           label: '状态',
           prop: 'paymentStatusCdName'
         }],
-        tableData: [],       
+        tableData: [],
       }
     },
     methods: {
@@ -222,7 +222,7 @@
           this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
-      },      
+      },
       pageChanged(curPage) {
         this.queryOpmDepositList(curPage);
       },
@@ -230,7 +230,7 @@
         this.$router.push({
           path: '/order/depositImport'
         });
-      }   
+      }
     },
     components: {
       InputWithSelect,
