@@ -1,6 +1,6 @@
 <template>
   <div class="v_table">
-    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small">
+    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small" :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange">
       <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
       <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width">
         <template slot-scope="scope">
@@ -45,6 +45,16 @@
       tableData: {
         type: Array,
         require: true
+      },
+      highlightCurrentRow: {
+        type: Boolean,
+        default: false
+      },
+      handleCurrentChange: {
+        type: Function,
+        default: function (val) {
+          console.log('表格当前选中行：', val);
+        }
       }
     },
     data() {
