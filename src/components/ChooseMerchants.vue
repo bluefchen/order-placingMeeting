@@ -30,7 +30,7 @@
             </div>
           </el-col>
           <el-col :span="9">
-            <el-input placeholder="输入终端编码或名称搜索" v-model="searchInput" size="small">
+            <el-input placeholder="输入商户名称或编码搜索" v-model="searchInput" size="small">
               <el-button slot="append" @click="handleSearch()">确定</el-button>
             </el-input>
           </el-col>
@@ -242,7 +242,11 @@
       },
       saveChange(){
         this.checkedOption = this.selectionChangeList;
-        this.$emit('selectOptions', this.selectionChangeList);
+        if(this.title === '供应商'){
+          this.$emit('selectOptions', this.selectionChangeList.supplierId);
+        }else{
+          this.$emit('selectOptions', this.selectionChangeList.retailerId);
+        };
         this.isShow = false;
       },
       visibleChange(val) {
