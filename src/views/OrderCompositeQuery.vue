@@ -22,7 +22,7 @@
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
       <InputWithSelect class="fn-left" :search="search"/>
-      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
+      <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                             class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
@@ -116,7 +116,6 @@
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -170,9 +169,6 @@
         this.orderQueryData.offerNameOrCode = obj.value;
         this.queryOpmOrderSubmit()
       },
-      showMoreCondition() {
-        this.isShowMoreCondition = !this.isShowMoreCondition;
-      },
       queryOpmOrderSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderList', {
@@ -202,16 +198,16 @@
         });
       },
       exportOpmOrder() {
-        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
-          statusCd: this.orderQueryData.statusCd,
-        })));
+        // window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
+        //   isCentman: this.orderQueryData.isCentman,
+        //   offerNameOrCode: this.orderQueryData.offerNameOrCode,
+        //   opmOrderNo: this.orderQueryData.opmOrderNo,
+        //   supplierId: this.orderQueryData.supplierId,
+        //   retailerId: this.orderQueryData.retailerId,
+        //   fromDate: this.orderQueryData.dateValue[0],
+        //   toDate: this.orderQueryData.dateValue[1],
+        //   statusCd: this.orderQueryData.statusCd,
+        // })));
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
