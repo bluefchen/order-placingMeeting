@@ -30,13 +30,13 @@
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">订单号：</label>
-              <input type="text" class="condition-input" v-model="depositRecord.opmOrderNo">
+              <Input type="text" class="condition-input" />
             </div>
           </el-col>
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
-              <input type="text" class="condition-input" v-model="depositRecord.retailerId">
+              <!-- <input type="text" class="condition-input" v-model="depositRecord.retailerId"> -->
             </div>
           </el-col>
           <el-col :span="9">
@@ -76,6 +76,7 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import TitlePlate from '@/components/TitlePlate';
+  import Input from '@/components/Input';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import Pagination from '@/components/Pagination';

@@ -51,8 +51,7 @@
               <!-- 定金 -->
               <div class="second-step fn-clear" v-show="step == 2 || step == 5">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <el-input class="fn-left" suffix-icon="el-icon-percent"  v-model="depositInfoList.depositProportion"  v-show="step == 2">
-                </el-input>
+                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" v-show="step == 2" suffixIcon="el-icon-percent"/>
                 <p class="sec-done fn-left" v-show="step == 5">{{depositInfoList.depositProportion}}%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
@@ -84,6 +83,8 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import TitlePlate from '@/components/TitlePlate';
 import Table from '@/components/Table';
+import Input from '@/components/Input';
+
 
 export default {
   name: 'DepositConfigure',
@@ -113,11 +114,14 @@ export default {
         prop: 'depositAmount',
         render: function (h, params) {
           return h({
-            template: '<el-input prefix-icon="el-icon-money" v-model="depositAmount"></el-input>',
+            template: '<Input :value.sync="depositAmount" size="mini" prefixIcon="el-icon-money" />',
             data: function () {
               return {
                 depositAmount: params.row.depositAmount,
               }
+            },
+            components: {
+              Input
             }
           })
         }
@@ -193,7 +197,8 @@ export default {
   components: {
     Breadcrumb,
     TitlePlate,
-    Table
+    Table,
+    Input
   }
 }
 </script>
@@ -315,7 +320,7 @@ export default {
     height: 32px;
     margin-left: 14px;
     line-height: 32px;
-    border: 1px solid #b7b7b7;
+    border: 1px solid #dcdfe6;
     text-align: center;
     border-radius: 3px;
     cursor: pointer;
@@ -334,35 +339,21 @@ export default {
   .el-input{
     width: 374px;
   }
-  .el-input__inner{
-    height: 32px;
-    line-height: 32px;
-    color: #f01d1d;
-    text-align: center;
-    border-radius: 0;
-    &:focus{
-      border: 1px solid #ff2222;
-    }
-    &:hover{
-      border: 1px solid #ff2222;
-    }
-  }
-  .el-icon-percent {
-    &::before{
-      content:'\e658';
-      font-family: iconfont
-    }
-  }
-  .el-input__icon{
-    line-height: 32px;
-    color: #000;
-  }
   .sec-done{
     width: 108px;
     color: #e52941;
     line-height: 34px;
     margin-left: 40px;
     font-weight: 700;
+  }
+  .el-icon-percent::before{
+    color: #151515;
+    font-weight: bold;
+  }
+  .el-input--small .el-input__inner{
+    text-align: center;
+    color: #f01919;
+    font-weight: bold;
   }
 
 }
@@ -390,33 +381,12 @@ export default {
   .warn-wrds{
     line-height: 20px;
   }
-  .el-input{
-    width: 128px;
-    margin:0 auto;
-  }
-  .el-input--prefix .el-input__inner{
-    width: 128px;
-    height: 23px;
-    text-align: center;
-    border-radius: 0;
-    color: #ff2222;
-    border: 1px solid #b3b3b3;
-    &:focus{
-      border: 1px solid #ff2222;
-    }
-    &:hover{
-      border: 1px solid #ff2222;
-    }
-  }
- 
-  .el-input__icon{
-    line-height: 24px;
-    color: #ff2222;
-  }
-  
   .el-icon-money::before{
-    content:'\e611';
-    font-family: iconfont;
+    color: #f01919;
+  }
+  .el-input--mini .el-input__inner{
+    text-align: center;
+    color: #f01919;
   }
 
 }

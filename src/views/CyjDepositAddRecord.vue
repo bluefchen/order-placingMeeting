@@ -24,7 +24,7 @@
           <el-col :span="8">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
-              <input type="text" class="condition-input" v-model="depositRecord.retailerId">
+              <!-- <input type="text" class="condition-input" v-model="depositRecord.retailerId"> -->
             </div>
           </el-col>
           <el-col :span="12">
@@ -51,7 +51,7 @@
       <div class="tabs-list box-1200">
         <div class="result-header">
           <TitlePlate title="定金补录结果列表"/>
-          <el-button class="btns" @click="cyjImport()"><i class="iconfont">&#xe6a8;</i> 诚意金导入</el-button>
+          <router-link class="btns" to="/order/cyjImport"><i class="iconfont">&#xe6a8;</i> 诚意金导入</router-link>
         </div>
         <Table :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
@@ -147,11 +147,6 @@
       },
       pageChanged(curPage) {
         this.queryOpmRetailerDepositList(curPage);
-      },
-      cyjImport() {
-        this.$router.push({
-          path: '/order/cyjImport'
-        });
       }
     },
     components: {
@@ -251,11 +246,6 @@
       }
     }
   }
-
-  .search-cnt .search[data-v-2eed8ffc] {
-    margin-top: 0;
-  }
-
   .el-range-editor.el-input__inner {
     margin-left: 110px;
     height: 32px;
@@ -329,13 +319,14 @@
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0 20px;
+    padding: 0 10px;
     border: 0;
     background-color: #fa0000;
     color: #fff;
     font-size: 12px;
     border-radius: 3px;
     line-height: 28px;
+    text-decoration: none;
     &:hover {
       background-color: #e20606;
     }

@@ -40,3 +40,8 @@ npm run build --report
 ## 问题记录
 1、定金配置页面
 table中input更改提交，更改之后的数据并没有生效
+
+2、input输入框只能输入数字
+
+
+
