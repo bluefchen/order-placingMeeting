@@ -1,16 +1,19 @@
 <template>
   <div class="choose-merchants">
-    
-    <el-button type="text" @click="isShow = true" class="hover-btn">按钮</el-button>
+
+    <div class="choose-input-box" @click="isShow = true">
+      <input class="choose-input" type="text" readonly />
+      <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
+    </div>
 
     <DialogPopup :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
-        <el-row>
+        <el-row :gutter="10">
           <el-col :span="3">{{title}}列表：</el-col>
           <el-col :span="6">
             <div class="form-group">
               <label>所属省市：</label>
-              <el-cascader v-model="orderQueryData.commonRegionId" :options="regionsList" @change="handleChange" :props="props"></el-cascader>
+              <el-cascader :options="regionsList" @change="handleChange" :props="props"></el-cascader>
             </div>
           </el-col>
           <el-col :span="6">
@@ -99,7 +102,8 @@
 
         orderQueryData: {
           supplierType: '',
-          retailerType: ''
+          retailerType: '',
+          commonRegionId: ''
         },
 
         regionsList: [{
@@ -213,7 +217,8 @@
         this.isShow = val;
       },
       handleChange(val){
-        console.log(val[val.length - 1])
+        this.orderQueryData.commonRegionId = val[val.length - 1];
+        console.log(this.orderQueryData.commonRegionId)
       },
       handleSearch(curPage, pageSize){
         if(this.title === '供应商'){
@@ -256,10 +261,38 @@
 
 <style lang="less">
   .choose-merchants{
+    .choose-input-box{
+      margin-left:300px;
+      position: relative;
+      width: 200px;
+      border: 1px solid #e5e5e5;
+      .choose-input-icon{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 24px;
+        height: 30px;
+        background: #f9f9f9;
+        color: #afafaf;
+        border-left: 1px solid #e5e5e5;
+        font-size: 14px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+      }
+      .choose-input{
+        border: none;
+        width: calc(100% - 45px);
+        height: 24px;
+        padding: 3px 10px;
+        cursor: pointer;
+      }
+    }
     .el-row{
       margin-bottom: 10px;
     }
     .form-group{
+      border: 1px solid #d0d0d0;
       width: 100%;
       position: relative;
       label{
@@ -267,31 +300,90 @@
         left: 0;
         top: 0;
         width: 90px;
-        height: 29px;
-        line-height: 29px;
+        height: 27px;
+        line-height: 27px;
+        text-align: center;
+        background: #f8f8f8;
+        border-right: 1px solid #d0d0d0;
       }
       .el-cascader{
         line-height: 27px;
-      }
-      .condition-select{
-        width: calc(100% - 90px);
-        height: 27px;
-        margin-left: 80px;
-        .el-input__inner{
-          height: 27px;
+        .el-input__icon{
           line-height: 27px;
         }
       }
+      .condition-select{
+        width: calc(100% - 91px);
+        height: 27px;
+        margin-left: 91px;
+        .el-input{
+          width: 100%;
+        }
+        .el-input__inner{
+          height: 27px;
+          line-height: 27px;
+          border-radius: 0;
+          border: none;
+          vertical-align: top;
+          &:focus{
+            border-color: #ff7a7a;
+          }
+          &:hover{
+            border-color: #c0c4cc;
+          }
+        }
+      }
       .el-cascader{
-        margin: 0 0 0 80px;
-        width: calc(100% - 90px);
+        margin-left: 91px;
+        width: calc(100% - 91px);
         height: 27px;
         .el-input__inner{
           height: 27px;
           line-height: 27px;
           vertical-align: top;
+          border-radius: 0;
+          border: none;
         }
       }
     }
+    .el-input-group--append .el-input__inner{
+      border-radius: 0;
+      height: 29px;
+      line-height: 29px;
+    }
+    .el-cascader-menu__item:focus:not(:active), .el-cascader-menu__item:hover {
+      background-color: #f5f7fa;
+    }
+    .v_pagination .el-pagination{
+      margin-top: 10px;
+    }
+    .el-dialog--center .el-dialog__body{
+      padding: 10px 20px 5px 20px;
+      line-height: 27px;
+    }
+    .el-icon-arrow-down:before{
+      font-family: 'iconfont';
+      content: "\e614";
+      font-size: 14px;
+      color: #aaa;
+    }
+    .el-icon-arrow-up:before{
+      color: #aaa;
+    }
+    .v_table .el-table th.is-leaf{
+      background: #efefef;
+    }
+    .el-table td, .el-table th.is-leaf{
+      border-color: #e6e6e6;
+      height: 33px;
+    }
+    .el-table--small td, .el-table--small th{
+      padding: 0;
+    }
+  }
+  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
 </style>

@@ -27,6 +27,8 @@
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
 
+    <ChooseMerchants title="零售商" />
+
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">
       <div class="fn-clear">
@@ -119,6 +121,7 @@
   import Table from '@/components/Table';
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'PreferentialPolicySettlement',
@@ -214,7 +217,8 @@
       TitlePlate,
       Table,
       DeviceInfo,
-      Pagination
+      Pagination,
+      ChooseMerchants
     }
   }
 </script>
