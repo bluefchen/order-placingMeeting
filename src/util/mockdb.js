@@ -297,6 +297,21 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'),
   data: null
 });
 
+//29、地区查询接口
+Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  'data|5-10': [{
+    'id': '@id',
+    'name': '@city',
+    'parentId': '@id',
+    'areaLevel|1': ['1', '2', '3', '4']
+  }]
+});
+
 //30、	批量导入订单数据解析接口
 Mock.mock(new RegExp('/opmOrderController/analyzeInsertOpmOrderList'), {
   rsphead: 's',
