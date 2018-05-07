@@ -32,11 +32,8 @@
         type: Boolean,
         default: false
       },
-      handleSelectionChange: {
-        type: Function,
-        default: function (val) {
-          console.log('表格选择项：', val);
-        }
+      selectionChange: {
+        type: Function
       },
       tableTitle: {
         type: Array,
@@ -50,15 +47,22 @@
         type: Boolean,
         default: false
       },
-      handleCurrentChange: {
-        type: Function,
-        default: function (val) {
-          console.log('表格当前选中行：', val);
-        }
+      currentChange: {
+        type: Function
       }
     },
     data() {
       return {}
+    },
+    methods: {
+      handleSelectionChange(val) {
+        console.log('表格选择项：', val);
+        this.$emit('selectionChange', val);
+      },
+      handleCurrentChange(val) {
+        console.log('表格当前选中行：', val);
+        this.$emit('currentChange', val);
+      }
     },
     components: {
       TableRow
