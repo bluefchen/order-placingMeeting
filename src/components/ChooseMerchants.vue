@@ -33,7 +33,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" :border="true" :isSelection="true" @selectionChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" :border="true" :isSelection="false" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
 
       </div>
