@@ -45,8 +45,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">订购起止日期：</label>
-            <el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange"
-                            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            <DatePicker class="condition-input" value.sync="orderQueryData.dateValue"/>
           </div>
         </el-col>
       </el-row>
@@ -125,6 +124,7 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
+  import DatePicker from '@/components/DatePicker';
   import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
@@ -149,7 +149,6 @@
           label: '已付款'
         }],
         paymentCtatusCd: '', //付款状态CD
-
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -222,6 +221,7 @@
       Breadcrumb,
       Input,
       Select,
+      DatePicker,
       InputWithSelect,
       TitlePlate,
       Table,
@@ -478,17 +478,5 @@
 
     }
 
-  }
-
-  .el-range-editor.is-active, .el-range-editor.is-active:hover {
-    border-color: #ff7a7a;
-  }
-
-  .el-date-table td.end-date span, .el-date-table td.start-date span {
-    background-color: #ff7a7a;
-  }
-
-  .el-date-table td.today span, .el-date-table td.available:hover {
-    color: #ff7a7a;
   }
 </style>
