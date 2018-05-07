@@ -115,3 +115,7 @@ body {
   font-family: iconfont;
   font-size: 12px;
 }
+.el-icon-percent::before{
+  content:'\e658';
+  font-family: iconfont
+}

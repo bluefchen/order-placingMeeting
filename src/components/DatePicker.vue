@@ -21,7 +21,7 @@
     name: 'DatePicker',
     props: {
       value: {
-        type: [String, Number]
+        type: Array
       },
       type: {
         type: String,
