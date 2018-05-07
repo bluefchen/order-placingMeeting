@@ -241,7 +241,11 @@
       },
       saveChange(){
         this.checkedOption = this.selectionChangeList;
-        this.$emit('selectOptions', this.selectionChangeList);
+        if(this.title === '供应商'){
+          this.$emit('selectOptions', this.selectionChangeList.supplierId);
+        }else{
+          this.$emit('selectOptions', this.selectionChangeList.retailerId);
+        };
         this.isShow = false;
       },
       visibleChange(val) {
