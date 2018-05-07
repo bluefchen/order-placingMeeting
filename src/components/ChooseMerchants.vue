@@ -7,14 +7,15 @@
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
 
-    <DialogPopup width="80%" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
+    <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <el-row :gutter="10">
           <el-col :span="3">{{title}}列表：</el-col>
           <el-col :span="6">
             <div class="form-group">
               <label>所属省市：</label>
-              <el-cascader :options="regionsList" @change="handleChange" :props="props"></el-cascader>
+              <Cascader/>
+              <!--<el-cascader :options="regionsList" @change="handleChange" :props="props"></el-cascader>-->
             </div>
           </el-col>
           <el-col :span="6">
@@ -36,7 +37,6 @@
         </el-row>
         <Table :stripe="false" :border="true" :isSelection="false" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
-
       </div>
       <div slot="footer">
         <el-button type="success" @click="saveChange">保存</el-button>
@@ -48,6 +48,7 @@
 
 <script>
   import DialogPopup from '@/components/DialogPopup';
+  import Cascader from '@/components/Cascader';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
 
@@ -67,7 +68,7 @@
       }else if(this.title === '零售商'){
         this.tableTitle = this.tableRetailerTitle;
         this.isShowSupplierType = false;
-      };
+      }
       this.handleSearch();
     },
     data() {
@@ -283,6 +284,7 @@
     },
     components: {
       DialogPopup,
+      Cascader,
       Table,
       Pagination
     }
@@ -318,6 +320,11 @@
         height: 24px;
         padding: 3px 10px;
         cursor: pointer;
+      }
+    }
+    .dialog-choose-merchants {
+      .el-dialog {
+        width: 880px;
       }
     }
     .el-row{
