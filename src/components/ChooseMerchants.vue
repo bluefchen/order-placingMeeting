@@ -1,10 +1,10 @@
 <template>
   <div class="choose-merchants">
 
-    <!-- <div class="choose-input-box" @click="isShow = true">
-      <input class="choose-input" type="text" readonly />
+    <div class="choose-input-box" @click="isShow = true">
+      <input class="choose-input" v-model="checkedOption.retailerName" type="text" readonly />
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
-    </div> -->
+    </div>
 
     <DialogPopup :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
@@ -33,13 +33,13 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" :border="true" :isSelection="true" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" :border="true" :isSelection="false" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
 
       </div>
       <div slot="footer">
-        <el-button type="success" @click="baocunChange">保存</el-button>
-        <el-button type="success" @click="visibleChange">关闭</el-button>
+        <el-button type="success" @click="saveChange">保存</el-button>
+        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
       </div>
     </DialogPopup>
   </div>
@@ -55,10 +55,6 @@
     props: {
       title: {
         type: String,
-        require: true
-      },
-      isShow: {
-        type: Boolean,
         require: true
       }
     },
@@ -78,6 +74,7 @@
         dialog: '选择添加',
         dialogTitle: '',
         isShowSupplierType: true,
+        checkedOption: {},
 
         supplierTypeList: [{ //供货商类型列表
           value: 1001,
@@ -209,6 +206,9 @@
         }],
 
         tableData: [],
+        selectionChangeList: [],
+
+        isShow: false,
 
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
@@ -217,10 +217,16 @@
       }
     },
     methods: {
-      baocunChange(val){
-        this.$emit('searchItem', val);
+      selectionChange(val){
+        this.selectionChangeList = val;
+      },
+      saveChange(){
+        this.checkedOption = this.selectionChangeList[0];
+        this.$emit('selectOptions', this.selectionChangeList);
+        this.isShow = false;
       },
       visibleChange(val) {
+        this.isShow = val;
       },
       handleChange(val){
         this.orderQueryData.commonRegionId = val[val.length - 1];
@@ -266,6 +272,8 @@
 
 <style lang="less">
   .choose-merchants{
+    margin-left: 110px;
+    width: 100%;
     .choose-input-box{
       position: relative;
       width: 100%;
