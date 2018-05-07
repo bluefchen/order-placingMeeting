@@ -1,10 +1,10 @@
 <template>
   <div class="choose-merchants">
 
-    <div class="choose-input-box" @click="isShow = true">
+    <!-- <div class="choose-input-box" @click="isShow = true">
       <input class="choose-input" type="text" readonly />
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
-    </div>
+    </div> -->
 
     <DialogPopup :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
@@ -38,7 +38,8 @@
 
       </div>
       <div slot="footer">
-        <el-button type="success" @click="isShow = false">关闭</el-button>
+        <el-button type="success" @click="baocunChange">保存</el-button>
+        <el-button type="success" @click="visibleChange">关闭</el-button>
       </div>
     </DialogPopup>
   </div>
@@ -54,6 +55,10 @@
     props: {
       title: {
         type: String,
+        require: true
+      },
+      isShow: {
+        type: Boolean,
         require: true
       }
     },
@@ -74,7 +79,6 @@
         dialogTitle: '',
         isShowSupplierType: true,
 
-        isShow: false,
         supplierTypeList: [{ //供货商类型列表
           value: 1001,
           label: '厂商'
@@ -213,12 +217,13 @@
       }
     },
     methods: {
+      baocunChange(val){
+        this.$emit('searchItem', val);
+      },
       visibleChange(val) {
-        this.isShow = val;
       },
       handleChange(val){
         this.orderQueryData.commonRegionId = val[val.length - 1];
-        console.log(this.orderQueryData.commonRegionId)
       },
       handleSearch(curPage, pageSize){
         if(this.title === '供应商'){
@@ -262,9 +267,8 @@
 <style lang="less">
   .choose-merchants{
     .choose-input-box{
-      margin-left:300px;
       position: relative;
-      width: 200px;
+      width: 100%;
       border: 1px solid #e5e5e5;
       .choose-input-icon{
         position: absolute;

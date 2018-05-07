@@ -25,9 +25,7 @@
       <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                             class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-    </div>
-
-    <ChooseMerchants title="零售商" />
+    </div>    
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">
@@ -38,7 +36,12 @@
         </div>
         <div class="condition-iterm wid30">
           <label class="label-wrds">零售商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.retailerId">
+          <div class="condition-input" @click="showDialog">
+
+            <ChooseMerchants title="供应商" :isShow="isShow" @searchItem="searchItem" />
+            
+          </div>  
+          <!-- <input type="text" class="condition-input" v-model="orderQueryData.retailerId"> -->
         </div>
         <div class="condition-iterm wid40">
           <label class="label-wrds">订购起止日期：</label>
@@ -130,6 +133,7 @@
     },
     data() {
       return {
+        isShow: false,
 
         paymentStatusList: [{ //付款状态列表
           value: 1000,
@@ -163,7 +167,7 @@
       search(obj) {
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit()
+        this.queryOpmOrderSubmit();
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -209,6 +213,12 @@
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
+      },
+      showDialog(){
+        this.isShow = !this.isShow;
+      },
+      searchItem(val){
+        console.log(val, '1231234');
       }
     },
     components: {
