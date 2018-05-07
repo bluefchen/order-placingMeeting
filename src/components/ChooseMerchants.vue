@@ -177,6 +177,14 @@
 
         //零售商表头
         tableRetailerTitle: [{
+          label: '',
+          prop: '',
+          render: function (h, params) {
+            return h({
+              template: '<input type="checkbox" />1234123',
+            })
+          }
+        },{
           label: '省份',
           prop: 'province',
         },{
@@ -221,7 +229,7 @@
         this.selectionChangeList = val;
       },
       saveChange(){
-        this.checkedOption = this.selectionChangeList[0];
+        this.checkedOption = this.selectionChangeList;
         this.$emit('selectOptions', this.selectionChangeList);
         this.isShow = false;
       },
