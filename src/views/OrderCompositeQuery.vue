@@ -174,6 +174,7 @@
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       queryOpmOrderSubmit(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderList', {
           opMeetingId: '订货会ID',
           isCentman: this.orderQueryData.isCentman,
