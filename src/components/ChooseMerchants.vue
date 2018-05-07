@@ -1,6 +1,8 @@
 <template>
   <div class="choose-merchants">
+    
     <el-button type="text" @click="isShow = true" class="hover-btn">按钮</el-button>
+
     <DialogPopup :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <el-row>
@@ -8,7 +10,7 @@
           <el-col :span="6">
             <div class="form-group">
               <label>所属省市：</label>
-              <el-cascader :options="options" @active-item-change="handleItemChange" :props="props"></el-cascader>
+              <el-cascader v-model="orderQueryData.commonRegionId" :options="regionsList" @change="handleChange" :props="props"></el-cascader>
             </div>
           </el-col>
           <el-col :span="6">
@@ -100,21 +102,42 @@
           retailerType: ''
         },
 
-        options: [{
-          label: '江苏',
-          cities: [{
-            label: '南京'
-          }]
-        }, {
-          label: '浙江',
-          cities: [{
-            label: '杭州'
+        regionsList: [{
+          id: '1',
+          name: '江苏',
+          parentId: '2',
+          areaLevel: '1',
+        },{
+          id: '5',
+          name: '浙江',
+          parentId: '6',
+          areaLevel: '1',
+          children: [{
+            id: '7',
+            name: '浙江1',
+            parentId: '6',
+            areaLevel: '2',
+            children: [{
+              id: '8',
+              name: '浙江2',
+              parentId: '7',
+              areaLevel: '3',
+              children: [{
+                id: '9',
+                name: '浙江3',
+                parentId: '8',
+                areaLevel: '4',
+              }]
+            }]
           }]
         }],
+
         props: {
-          value: 'label',
-          children: 'cities'
+          value: 'id',
+          label: 'name',
+          children: 'children'
         },
+
         searchInput: '',
 
         //供应商表头
@@ -189,16 +212,16 @@
       visibleChange(val) {
         this.isShow = val;
       },
-      handleItemChange(val) {
-        console.log('val:', val);
+      handleChange(val){
+        console.log(val[val.length - 1])
       },
       handleSearch(curPage, pageSize){
         if(this.title === '供应商'){
           //查询供应商
           this.$post('/orderPlacingMeetingController/querySupplierList', {
-            commonRegionId: '',
-            supplierNameOrCode: '',
-            supplierType: '',
+            commonRegionId: this.orderQueryData.commonRegionId,
+            supplierNameOrCode: this.searchInput,
+            supplierType: this.orderQueryData.supplierType,
             pageSize: pageSize || 10,
             curPage: curPage || 1
           }).then((rsp) => {
@@ -208,9 +231,9 @@
         }else if(this.title === '零售商'){
           //查询零售商
           this.$post('/orderPlacingMeetingController/queryRetailerList', {
-            commonRegionId: '',
-            retailerNameorCode: '',
-            retailerType: '',
+            commonRegionId: this.orderQueryData.commonRegionId,
+            retailerNameorCode:  this.searchInput,
+            retailerType: this.orderQueryData.retailerType,
             pageSize: pageSize || 10,
             curPage: curPage || 1
           }).then((rsp) => {

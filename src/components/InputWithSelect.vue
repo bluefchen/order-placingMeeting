@@ -42,7 +42,7 @@
   }
 
   .el-select .el-input {
-    width: 90px;
+    min-width: 90px;
   }
 
   .el-input-group__append, .el-input-group__prepend {

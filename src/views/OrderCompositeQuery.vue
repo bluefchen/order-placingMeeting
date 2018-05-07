@@ -45,8 +45,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">订购起止日期：</label>
-            <el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange"
-                            range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+            <DatePicker class="condition-input" value.sync="orderQueryData.dateValue"/>
           </div>
         </el-col>
       </el-row>
@@ -54,10 +53,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">付款状态：</label>
-            <el-select class="condition-select" v-model="orderQueryData.statusCd" placeholder="请选择">
-              <el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label"
-                         :value="item.value"></el-option>
-            </el-select>
+            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -127,6 +123,8 @@
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
   import Input from '@/components/Input';
+  import Select from '@/components/Select';
+  import DatePicker from '@/components/DatePicker';
   import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
@@ -140,7 +138,6 @@
     },
     data() {
       return {
-
         paymentStatusList: [{ //付款状态列表
           value: 1000,
           label: '未交定金'
@@ -152,7 +149,6 @@
           label: '已付款'
         }],
         paymentCtatusCd: '', //付款状态CD
-
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -224,6 +220,8 @@
     components: {
       Breadcrumb,
       Input,
+      Select,
+      DatePicker,
       InputWithSelect,
       TitlePlate,
       Table,
@@ -269,25 +267,21 @@
     }
     .condition-query {
       display: block;
-      height: 114px;
-      margin: 18px auto 22px;
+      margin: 20px auto;
+      padding: 10px;
       border: 1px solid #dfdfdf;
       .condition-iterm {
-        position: relative;
-        margin: 8px 0;
-        /*margin: 16px 30px 0 0;*/
-      }
-      .condition-iterm .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        margin-left: 110px;
+        display: flex;
+        margin: 10px 0;
+        .label-wrds {
+          width: 100px;
+          line-height: 32px;
+          font-size: 14px;
+          text-align: right;
+        }
+        .condition-input {
+          flex: 1 0 0;
+        }
       }
     }
     .wid30 {
@@ -484,17 +478,5 @@
 
     }
 
-  }
-
-  .el-range-editor.is-active, .el-range-editor.is-active:hover {
-    border-color: #ff7a7a;
-  }
-
-  .el-date-table td.end-date span, .el-date-table td.start-date span {
-    background-color: #ff7a7a;
-  }
-
-  .el-date-table td.today span, .el-date-table td.available:hover {
-    color: #ff7a7a;
   }
 </style>
