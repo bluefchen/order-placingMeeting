@@ -45,7 +45,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">订购起止日期：</label>
-            <DatePicker class="condition-input" value.sync="orderQueryData.dateValue"/>
+            <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
           </div>
         </el-col>
       </el-row>
@@ -64,7 +64,7 @@
         </el-col>
         <el-col :span="8">
           <div class="condition-iterm">
-            <el-button @click="queryOpmOrderSubmit">查询</el-button>
+            <el-button type="success" size="small" @click="queryOpmOrderSubmit">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -110,7 +110,6 @@
             <dl class="dll wid13 fn-left">
               <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
             </dl>
-
           </div>
         </li>
       </ul>
@@ -265,6 +264,25 @@
     .search {
       margin: 10px auto;
     }
+
+    .category-more {
+      height: 22px;
+      margin: 7px 0 0 20px;
+      padding: 0 5px;
+      line-height: 22px;
+      background-color: #fff;
+      border: 0;
+      color: #333;
+      text-decoration: none;
+      cursor: pointer;
+      &:active, &:focus, &:hover {
+        color: #f82134;
+      }
+      .iconfont {
+        font-size: 12px;
+      }
+    }
+
     .condition-query {
       display: block;
       margin: 20px auto;
@@ -284,42 +302,7 @@
         }
       }
     }
-    .wid30 {
-      width: 30%;
-    }
-    .wid40 {
-      width: 40%;
-    }
-    .category-more {
-      height: 22px;
-      margin: 7px 0 0 20px;
-      padding: 0 5px;
-      line-height: 22px;
-      background-color: #fff;
-      border: 0;
-      color: #333;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .category-more:active,
-    .category-more:focus,
-    .category-more:hover {
-      color: #f82134;
-    }
-    .category-more .iconfont {
-      font-size: 12px;
-    }
     /* 条件搜索 */
-
-    .el-range-editor.el-input__inner {
-      height: 32px;
-    }
-    .el-date-editor .el-range__icon, .el-date-editor .el-range-separator, .el-date-editor .el-range__close-icon {
-      line-height: 26px;
-    }
-    .el-input__inner {
-      border-radius: 0;
-    }
 
     .my-location {
       height: 30px;
@@ -377,14 +360,12 @@
       .date-color {
         color: #807e7e;
       }
-    ;
       span {
         width: calc(33% - 20px);
         padding: 0 10px;
         b {
           margin-right: 15px;
         }
-      ;
       }
     }
     .tabs dl {
@@ -442,41 +423,5 @@
     .p-line span b {
       color: #333;
     }
-
-    .condition-iterm {
-      .el-button {
-        margin-left: 110px;
-        background-color: #f82134;
-        border-color: #f82134;
-        color: #fff;
-        border-radius: 0;
-        padding: 6px 40px;
-        cursor: pointer;
-      }
-    }
-
-    .condition-select {
-      width: calc(100% - 110px);
-      height: 30px;
-      margin-left: 110px;
-      .el-input {
-        width: 100%;
-        border: 1px solid #e5e5e5;
-        .el-input__inner {
-          border: none;
-          height: 28px;
-          font-size: 12px;
-          padding: 0 10px;
-        }
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &.is-focus {
-          border-color: #ff7a7a;
-        }
-      }
-
-    }
-
   }
 </style>
