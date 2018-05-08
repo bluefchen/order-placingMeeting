@@ -22,44 +22,50 @@
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
       <InputWithSelect class="fn-left" @search="search"/>
-      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
-                                                                            class="iconfont">&#xe607;</i><i
-        v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
+      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">
-      <div class="fn-clear">
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">订单号：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.opmOrderNo">
-        </div>
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">零售商名称：</label>
-          <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
-        </div>
-        <div class="condition-iterm wid40">
-          <label class="label-wrds">订购起止日期：</label>
-          <el-date-picker class="condition-input" v-model="orderQueryData.dateValue" type="daterange"
-                          range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-        </div>
-      </div>
-      <div class="fn-clear">
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">付款状态：</label>
-          <el-select class="condition-select" v-model="orderQueryData.statusCd" placeholder="请选择">
-            <el-option v-for="item in paymentStatusList" :key="item.value" :label="item.label"
-                       :value="item.value"></el-option>
-          </el-select>
-        </div>
-        <div class="condition-iterm wid30">
-          <label class="label-wrds">供应商名称：</label>
-          <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
-        </div>
-        <div class="condition-iterm wid40">
-          <el-button @click="queryOpmOrderSubmit">查询</el-button>
-        </div>
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">订单号：</label>
+            <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">零售商名称：</label>
+            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">订购起止日期：</label>
+            <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">付款状态：</label>
+            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">供应商名称：</label>
+            <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <el-button type="success" size="small" @click="queryOpmOrderSubmit">查询</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </div>
 
     <div class="box-1200 tabs-list">
@@ -102,7 +108,6 @@
             <dl class="dll wid8 fn-left">
               <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
             </dl>
-
           </div>
         </li>
       </ul>
@@ -114,6 +119,9 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
+  import Input from '@/components/Input';
+  import Select from '@/components/Select';
+  import DatePicker from '@/components/DatePicker';
   import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
@@ -128,8 +136,6 @@
     },
     data() {
       return {
-        isShow: false,
-
         paymentStatusList: [{ //付款状态列表
           value: 1000,
           label: '未交定金'
@@ -140,8 +146,7 @@
           value: 1002,
           label: '已付款'
         }],
-        paymentCtatusCd: '', //付款状态CD
-
+        
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -194,6 +199,15 @@
           }
         });
       },
+      pageChanged(curPage) {
+        this.queryOpmOrderSubmit(curPage);
+      },
+      selectRetailer(val){
+        this.orderQueryData.retailerId = val;
+      },
+      selectSupplier(val){
+        this.orderQueryData.supplierId = val;
+      },
       exportOpmOrder(){
         window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
           isCentman: this.orderQueryData.isCentman,
@@ -205,19 +219,13 @@
           toDate: this.orderQueryData.dateValue[1],
           statusCd: this.orderQueryData.statusCd,
         })));
-      },
-      pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
-      },
-      selectRetailer(val){
-        console.log(val, 'selectRetailer');
-      },
-      selectSupplier(val){
-        console.log(val, 'selectSupplier');
       }
     },
     components: {
       Breadcrumb,
+      Input,
+      Select,
+      DatePicker,
       InputWithSelect,
       TitlePlate,
       Table,
@@ -230,255 +238,203 @@
 
 <style scoped lang="less">
   .order_pickup-data {
-    /*中间背景图片*/
-    .img-bg {
-      width: 100%;
-      height: 200px;
-      background: #e4273f;
-    }
-    .img-bg .info {
-      width: 1036px;
-      height: 200px;
-      margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
-      overflow: hidden;
-    }
-    .img-bg .info .p-titl {
-      margin: 62px 0 0 0;
-      font-size: 22px;
-      color: #fcfdff;
-    }
-    .img-bg .info .activity {
-      width: 306px;
-      margin: 10px 0 0 0;
-      line-height: 18px;
-      font-size: 12px;
-      color: #fcfdff;
-      text-align: center;
-    }
-    /*中间背景图片*/
-
-    /* 条件搜索 */
-    .search {
-      margin: 10px auto;
-    }
-    .condition-query {
-      display: block;
-      height: 114px;
-      margin: 18px auto 22px;
-      border: 1px solid #dfdfdf;
-      div {
-        display: flex;
+      /*中间背景图片*/
+      .img-bg {
+        width: 100%;
+        height: 200px;
+        background: #e4273f;
       }
-      .condition-iterm {
-        position: relative;
-        margin: 16px 30px 0 0;
+      .img-bg .info {
+        width: 1036px;
+        height: 200px;
+        margin: 0 auto;
+        background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
+        overflow: hidden;
       }
-      .condition-iterm .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
+      .img-bg .info .p-titl {
+        margin: 62px 0 0 0;
+        font-size: 22px;
+        color: #fcfdff;
       }
-      .condition-input {
-        width: calc(100% - 20px - 110px);
-        height: 24px;
-        padding: 3px 10px;
-        margin-left: 110px;
-        border: 1px solid #e5e5e5;
+      .img-bg .info .activity {
+        width: 306px;
+        margin: 10px 0 0 0;
+        line-height: 18px;
+        font-size: 12px;
+        color: #fcfdff;
+        text-align: center;
       }
-      .condition-input:hover {
-        border-color: #c0c4cc;
+      /*中间背景图片*/
+
+      /* 条件搜索 */
+      .search {
+        margin: 10px auto;
       }
-
-      .condition-input:focus {
-        border-color: #ff7a7a;
-      }
-    }
-    .category-more {
-      height: 22px;
-      margin: 7px 0 0 20px;
-      padding: 0 5px;
-      line-height: 22px;
-      background-color: #fff;
-      border: 0;
-      color: #333;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .category-more:active,
-    .category-more:focus,
-    .category-more:hover {
-      color: #f82134;
-    }
-    .category-more .iconfont {
-      font-size: 12px;
-    }
-    /* 条件搜索 */
-
-    .el-range-editor.el-input__inner {
-      height: 32px;
-    }
-    .el-date-editor .el-range__icon, .el-date-editor .el-range-separator, .el-date-editor .el-range__close-icon {
-      line-height: 26px;
-    }
-    .el-input__inner {
-      border-radius: 0;
-    }
-
-    .my-location {
-      height: 30px;
-      line-height: 30px;
-      background-color: #f6f6f6;
-    }
-
-    .tabs-list {
-      margin: 0 auto 20px;
-    }
-    .order-titl {
-      height: 28px;
-      margin: 15px 0;
-      line-height: 28px;
-    }
-
-    .buttons .btns {
-      padding: 0 16px;
-      margin-left: 2px;
-      border: 0;
-      background-color: #fa0000;
-      color: #fff;
-      font-size: 12px;
-      border-radius: 3px;
-      line-height: 28px;
-      cursor: pointer;
-    }
-    .buttons .btns:hover {
-      background-color: #e20606;
-    }
-
-    .table thead tr {
-      height: 40px;
-      background-color: #efefef;
-      border: 1px solid #dcdcdc;
-      color: #131212;
-    }
-    .table tbody tr {
-      height: 90px;
-      border-bottom: 1px solid #dcdcdc;
-    }
-    .table thead tr th {
-      text-align: center;
-    }
-
-    .li-list {
-      margin-top: 16px;
-      border: 1px solid #e0e0e0;
-    }
-    .p-line {
-      height: 35px;
-      line-height: 35px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #e0e0e0;
-      .date-color {
-        color: #807e7e;
-      }
-    ;
-      span {
-        width: calc(33% - 20px);
-        padding: 0 10px;
-        b {
-          margin-right: 15px;
+      .condition-query {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        border: 1px solid #dfdfdf;
+        .condition-iterm {
+          display: flex;
+          margin: 10px 0;
+          .label-wrds {
+            width: 100px;
+            line-height: 32px;
+            font-size: 14px;
+            text-align: right;
+          }
+          .condition-input {
+            flex: 1 0 0;
+          }
         }
-      ;
       }
-    }
-    .tabs dl {
-      height: 90px;
-
-    }
-    .tabs .dll {
-      line-height: 90px;
-      text-align: center;
-    }
-    .wid30 {
-      width: 30%;
-    }
-    .wid15 {
-      width: 15%;
-    }
-    .wid8 {
-      width: 8%;
-    }
-    .updown-btn {
-      padding: 2px 5px;
-      border: 0;
-      text-decoration: underline;
-    }
-    .updown-btn:hover {
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
-    }
-    .red {
-      color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
-    }
-    .p-line span {
-      color: #aaa;
-    }
-    .p-line span b {
-      color: #333;
-    }
-
-    .condition-iterm {
-      .el-button {
-        margin-left: 110px;
-        background-color: #f82134;
-        border-color: #f82134;
-        color: #fff;
-        border-radius: 0;
-        padding: 6px 40px;
+      .category-more {
+        height: 22px;
+        margin: 7px 0 0 20px;
+        padding: 0 5px;
+        line-height: 22px;
+        background-color: #fff;
+        border: 0;
+        color: #333;
+        text-decoration: none;
         cursor: pointer;
       }
-    }
+      .category-more:active,
+      .category-more:focus,
+      .category-more:hover {
+        color: #f82134;
+      }
+      .category-more .iconfont {
+        font-size: 12px;
+      }
+      /* 条件搜索 */
 
-    .condition-select {
-      width: calc(100% - 110px);
-      height: 30px;
-      margin-left: 110px;
-      .el-input {
-        width: 100%;
-        border: 1px solid #e5e5e5;
-        .el-input__inner {
-          border: none;
-          height: 28px;
-          font-size: 12px;
-          padding: 0 10px;
-        }
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &.is-focus {
-          border-color: #ff7a7a;
-        }
+      .el-range-editor.el-input__inner {
+        height: 32px;
+      }
+      .el-date-editor .el-range__icon, .el-date-editor .el-range-separator, .el-date-editor .el-range__close-icon {
+        line-height: 26px;
+      }
+      .el-input__inner {
+        border-radius: 0;
       }
 
-    }
+      .my-location {
+        height: 30px;
+        line-height: 30px;
+        background-color: #f6f6f6;
+      }
+
+      .tabs-list {
+        margin: 0 auto 20px;
+      }
+      .order-titl {
+        height: 28px;
+        margin: 15px 0;
+        line-height: 28px;
+      }
+
+      .buttons .btns {
+        padding: 0 16px;
+        margin-left: 2px;
+        border: 0;
+        background-color: #fa0000;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 3px;
+        line-height: 28px;
+        cursor: pointer;
+      }
+      .buttons .btns:hover {
+        background-color: #e20606;
+      }
+
+      .table thead tr {
+        height: 40px;
+        background-color: #efefef;
+        border: 1px solid #dcdcdc;
+        color: #131212;
+      }
+      .table tbody tr {
+        height: 90px;
+        border-bottom: 1px solid #dcdcdc;
+      }
+      .table thead tr th {
+        text-align: center;
+      }
+
+      .li-list {
+        margin-top: 16px;
+        border: 1px solid #e0e0e0;
+      }
+      .p-line {
+        height: 35px;
+        line-height: 35px;
+        background: #f8f8f8;
+        border-bottom: 1px solid #e0e0e0;
+        .date-color {
+          color: #807e7e;
+        }
+      ;
+        span {
+          width: calc(33% - 20px);
+          padding: 0 10px;
+          b {
+            margin-right: 15px;
+          }
+        ;
+        }
+      }
+      .tabs dl {
+        height: 90px;
+
+      }
+      .tabs .dll {
+        line-height: 90px;
+        text-align: center;
+      }
+      .wid30 {
+        width: 30%;
+      }
+      .wid15 {
+        width: 15%;
+      }
+      .wid8 {
+        width: 8%;
+      }
+      .updown-btn {
+        padding: 2px 5px;
+        border: 0;
+        text-decoration: underline;
+      }
+      .updown-btn:hover {
+        border: 1px solid #f82134;
+        border-radius: 3px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .updown-btn.green:hover {
+        border: 1px solid #46b02e;
+      }
+      .red {
+        color: #f82134;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .pd5 {
+        padding: 5px;
+      }
+      .p-line span {
+        color: #aaa;
+      }
+      .p-line span b {
+        color: #333;
+      }
 
   }
 

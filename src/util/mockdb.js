@@ -781,3 +781,50 @@ Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
   data: null
 });
 
+//52、优惠政策结算订单查询列表接口
+Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize ': '12', 
+    'rows': [{
+      'opmOrderId':'@id',
+      'opMeetingId':'@id',
+      'opmOrderNo':'@id',
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(4, 6)',
+      'brandCd':'@id',
+      'brandName':'@cword(4, 6)',
+      'offerModelId':'@id',
+      'offerModelName':'@cword(4, 6)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'supplierId':'@id',
+      'supplierName':'@cword(4, 6)',
+      'retailerId':'@id',
+      'retailerName':'@cword(4, 6)',
+      'offerQty|1-1000': 1000,
+      'pickupGoodsAmount|1-1000': 1000,
+      'paymentStatusCd|+1': [1000, 1001, 1002],
+      'paymentStatusCdName|+1':['未交定金', '已交定金', '已付款'],
+      'statusCd|+1':[1000, 1001, 1002],
+      'statusCdName|+1':['进行中', '已完成', '已撤销'],
+      'remarks':'@cword(18, 30)',
+      'contents':['',''],
+      'discountAmount|1-1000': 1,
+      'offerPic':{
+        'offerPicId':'@id',
+        'offerPicUrl':'',
+        'offerPicUrl2':'',
+        'offerPicUrl3':'',
+        'offerPicUrl4':'',
+        'offerPicUrl5':'',
+        'offerPicUrl6':''
+      }
+    }]
+  }
+});
