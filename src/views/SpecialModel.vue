@@ -66,7 +66,7 @@
       </div>
       <div class="queries-category fn-clear">
         <span class="category-label fn-left">供货商：</span>
-        <div style="width: 100px; height: 27px;">
+        <div class="selection-supplier">
           <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
         </div>
       </div>
@@ -175,7 +175,17 @@
           prop: '',
           render: (h, params) => {
             return h({
-              template: '<div><button class="updown-btn">删除</button></div>'
+              template: '<div><button @click="delOpmOfferAllot(param.row, param.index)" class="updown-btn">删除</button></div>',
+              data: function(){
+                return {
+                  param: params
+                }
+              },
+              methods: {
+                delOpmOfferAllot: (val, index) => {
+                  this.deleteOpmOfferAllot(val, index);
+                }
+              }
             })
           }
         }],
@@ -205,7 +215,8 @@
           'isSpecial': '',
           'brandCd': '',
           'offerModelId': '',
-          'commonRegionId': ''
+          'commonRegionId': '',
+          'supplierId': ''
         },
         brandList: [],
         checkedBrandIndex: null,
@@ -324,12 +335,12 @@
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOpmOfferAllotList', {
           opMeetingId: '订货会ID',
-          brandCd: '',
-          offerModelId: '',
-          isCentman: '',
-          offerNameOrCode: '',
-          commonRegionId: '',
-          supplierId: '',
+          brandCd: this.categoryItem.brandCd,
+          offerModelId: this.categoryItem.offerModelId,
+          isCentman: this.categoryItem.isCentman,
+          offerNameOrCode: this.categoryItem.offerNameOrCode,
+          commonRegionId: this.categoryItem.commonRegionId,
+          supplierId: this.categoryItem.supplierId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -341,7 +352,16 @@
         this.queryOpmOfferAllotList(curPage);
       },
       selectSupplier(val){
-        console.log(val);
+        this.categoryItem.supplierId = val;
+        this.queryOpmOfferAllotList();
+      },
+      deleteOpmOfferAllot(val, index){
+        this.$post('/orderPlacingMeetingController/deleteOpmOfferAllot', {
+          opmOaId: val.opmOaId
+        }).then((rsp) => {
+          console.log('删除成功！');
+        });
+        this.queryOpmOfferAllotList(this.currentPage);
       }
     },
     components: {
@@ -363,29 +383,26 @@
       width: 100%;
       height: 200px;
       background: #e4273f;
-    }
-
-    .img-bg .info {
-      width: 1036px;
-      height: 200px;
-      margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
-      overflow: hidden;
-    }
-
-    .img-bg .info .p-titl {
-      margin: 62px 0 0 0;
-      font-size: 22px;
-      color: #fcfdff;
-    }
-
-    .img-bg .info .activity {
-      width: 306px;
-      margin: 10px 0 0 0;
-      line-height: 18px;
-      font-size: 12px;
-      color: #fcfdff;
-      text-align: center;
+      .info {
+        width: 1036px;
+        height: 200px;
+        margin: 0 auto;
+        background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
+        overflow: hidden;
+        .p-titl {
+          margin: 62px 0 0 0;
+          font-size: 22px;
+          color: #fcfdff;
+        }
+        .activity {
+          width: 306px;
+          margin: 10px 0 0 0;
+          line-height: 18px;
+          font-size: 12px;
+          color: #fcfdff;
+          text-align: center;
+        }
+      }
     }
 
     /*中间背景图片*/
@@ -424,31 +441,27 @@
       border: 1px solid #d2d2d2;
       color: #333;
       cursor: pointer;
-    }
-
-    .checked-query i {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 20px;
-    }
-
-    .checked-query .iconfont {
-      margin-left: 4px;
-      color: #d2d2d2;
-      font-size: 12px;
-    }
-
-    .checked-query:hover {
-      border-color: #f82134;
-    }
-
-    .checked-query:hover .iconfont {
-      background-color: #f82134;
-      color: #fff;
+      i {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+      }
+      .iconfont {
+        margin-left: 4px;
+        color: #d2d2d2;
+        font-size: 12px;
+      }
+      &:hover {
+        border-color: #f82134;
+      }
+      &:hover .iconfont {
+        background-color: #f82134;
+        color: #fff;
+      }
     }
 
     .queries-category {
@@ -570,6 +583,10 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
+    .selection-supplier{
+        width: 240px;
+        padding-top: 3px;
+      }
     .model-list-table {
       margin-bottom: 20px;
       .number-stores{
