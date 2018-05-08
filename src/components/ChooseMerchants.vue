@@ -298,8 +298,9 @@
 <style lang="less">
 
   .choose-merchants{
-    margin-left: 110px;
-    width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0;
     .choose-input-box{
       position: relative;
       width: 100%;
