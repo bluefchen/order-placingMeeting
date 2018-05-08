@@ -9,38 +9,52 @@
 <script>
   export default {
     name: 'Cascader',
+    created() {
+      this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
+        this.areaList = rsp;
+      });
+    },
     data() {
       return {
-        options: [{
-          label: '江苏',
-          cities: []
-        }, {
-          label: '浙江',
-          cities: []
-        }],
+        areaList: [],
         props: {
           value: 'label',
           children: 'cities'
         }
       }
     },
-    methods: {
-      handleItemChange(val) {
-        console.log('active item:', val);
-        setTimeout(_ => {
-          if (val.indexOf('江苏') > -1 && !this.options[0].cities.length) {
-            this.options[0].cities = [{
-              label: '南京'
-            }];
-          } else if (val.indexOf('浙江') > -1 && !this.options[1].cities.length) {
-            this.options[1].cities = [{
-              label: '杭州'
-            }];
-          }
-        }, 300);
+    computed: {
+      options() {
+        let arr = [];
+        _.forEach(this.areaList, (item) => {
+          arr.push({
+            label: item.name,
+            areaId: item.id,
+            cities: []
+          })
+        });
+        return arr;
       }
     },
-    components: {}
+    methods: {
+      handleItemChange(val) {
+        debugger;
+        if (val.id && !val.cities.length) {
+          this.$post('/commonCfgController/getCommonRegionTreeList', {
+            commonRegionId: val.id
+          }).then((rsp) => {
+            let arr = [];
+            _.forEach(rsp, (item) => {
+              arr.push({
+                label: item.name,
+                areaId: item.id
+              })
+            });
+            val.cities = arr;
+          });
+        }
+      }
+    }
   }
 </script>
 
