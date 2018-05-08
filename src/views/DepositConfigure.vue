@@ -116,16 +116,19 @@
         }, {
           label: '诚意金金额',
           prop: 'depositAmount',
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
-              template: '<Input :value.sync="depositAmount" size="mini" prefixIcon="el-icon-money" />',
+              template: '<el-input v-model="row.depositAmount" placeholder="请输入内容" size="mini" prefix-icon="el-icon-money" @change="onChange"></el-input>',
               data: function () {
                 return {
-                  depositAmount: params.row.depositAmount,
+                  index: params.index,
+                  row: params.row
                 }
               },
-              components: {
-                Input
+              methods: {
+                onChange: () => {
+                  this.handleEdit(params.index, params.row);
+                }
               }
             })
           }
@@ -155,12 +158,14 @@
                 }
               }
             })
-
           }
         }],
       }
     },
     methods: {
+      handleEdit(index, row) {
+        this.tableData[index] = row;
+      },
       edit() {
         this.editshow = !this.editshow;
       },
@@ -188,19 +193,18 @@
           opmRetailerDepositList: this.opmRetailerUpate
         }).then((rsp) => {
           this.$message.success('修改配置成功！');
-          // this.queryOpmDepositInfo();
-          this.step = 0;
-          this.stepdone = type;
+          this.queryOpmDepositInfo();
+          // this.step = 0;
+          // this.stepdone = type;
         })
       }
       ,
-      queryOpmDepositInfo(curPage, pageSize) {
-        this.currentPage = curPage || 1;
+      queryOpmDepositInfo() {
         this.$post('/opmDepositController/queryOpmDepositInfo', {
           opMeetingId: '订货会ID'
         }).then((rsp) => {
           this.depositInfoList = rsp;
-          this.step = this.depositInfoList.depositType;
+          this.step = this.depositInfoList.depositType || 1;
           this.tableData = rsp.opmRetailerDepositList;
         })
       }
