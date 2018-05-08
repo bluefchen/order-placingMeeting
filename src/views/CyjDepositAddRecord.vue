@@ -24,7 +24,6 @@
           <el-col :span="8">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
-              <!-- <input type="text" class="condition-input" v-model="depositRecord.retailerId"> -->
             </div>
           </el-col>
           <el-col :span="12">
@@ -88,18 +87,17 @@
         tableTitle: [{
           label: '零售商编码',
           prop: 'retailerCode',
-          width: 154
+          width: 180
         }, {
           label: '零售商名称',
-          prop: 'retailerName',
-          width: 320
+          prop: 'retailerName'
         }, {
           label: '零售商类型',
           prop: 'retailerTypeName',
           width: 150
         }, {
           label: '日期',
-          prop: 'paymentDate',
+          prop: 'paymentDt',
           width: 180
         }, {
           label: '已交诚意金金额',
@@ -115,9 +113,6 @@
               }
             })
           }
-        }, {
-          label: '状态',
-          prop: 'paymentStatusCdName'
         }],
         tableData: [],
       }
@@ -155,7 +150,7 @@
       Table,
       TitlePlate,
       Breadcrumb,
-      Pagination
+      Pagination,
     }
   }
 </script>
@@ -210,9 +205,7 @@
   .el-row {
     width: 100%;
   }
-  .el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner{
-    width: calc(100% - 110px);
-  }
+  
   /* 条件搜索 */
   .condition-search {
     display: flex;
@@ -246,25 +239,6 @@
       }
     }
   }
-  .el-range-editor.el-input__inner {
-    margin-left: 110px;
-    height: 32px;
-    line-height: 30px;
-    border-radius: 0;
-  }
-
-  .el-date-editor .el-range__icon {
-    line-height: 27px;
-  }
-
-  .el-date-editor .el-range-separator {
-    line-height: 27px;
-  }
-
-  .el-date-editor .el-range__close-icon {
-    line-height: 27px;
-  }
-
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;
@@ -309,9 +283,6 @@
           font-size: 14px;
         }
       }
-    }
-    .router {
-      cursor: pointer;
     }
   }
 

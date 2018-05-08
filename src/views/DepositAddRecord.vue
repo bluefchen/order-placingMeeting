@@ -31,7 +31,7 @@
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">订单号：</label>
-              <Input type="text" class="condition-input"/>
+              <Input class="condition-input" :value.sync="depositRecord.opmOrderNo"/>
             </div>
           </el-col>
           <el-col :span="6">
@@ -139,14 +139,6 @@
           prop: 'offerName',
           width: 140
         }, {
-          label: '终端品牌',
-          prop: 'brandCd',
-          width: 80
-        }, {
-          label: '终端型号',
-          prop: 'offerModelName',
-          width: 85
-        }, {
           label: '产品类型',
           prop: 'isCentman',
           width: 80,
@@ -161,25 +153,43 @@
             });
           }
         }, {
+          label: '供货商',
+          prop: 'supplierName',
+          width: 110
+        }, {
+          label: '日期',
+          prop: '',
+          width: 90
+        }, {
           label: '订购数量',
           prop: 'offerQty',
           width: 70
         }, {
-          label: '供货商',
-          prop: 'supplierName',
-          width: 120
-        }, {
           label: '货款金额',
           prop: 'totalAmount',
-          width: 70
+          width: 80
         }, {
           label: '定金比例配置',
           prop: 'depositProportion',
-          width: 100
-        }, {
-          label: '已交定金金额',
-          prop: 'depositAmount',
           width: 100,
+          render: function (h, params) {
+            return h({
+              template: '<span>{{depositProportion}}%</span>',
+              data: function () {
+                return {
+                  depositProportion: params.row.depositProportion
+                }
+              }
+            })
+          }
+        }, {
+          label: '应付定金',
+          prop: '',
+          width: 90
+        }, {
+          label: '已付定金',
+          prop: 'depositAmount',
+          width: 90,
           render: function (h, params) {
             return h({
               template: '<p class="text-tag-danger">{{depositAmount}}</p>',
@@ -303,7 +313,10 @@
     height: 72px;
     margin: 10px auto 14px;
     border: 1px solid #dfdfdf;
-    .condition-iterm {
+    .el-row{
+      width: 100%;
+    }
+    .condition-iterm{
       position: relative;
       margin: 20px 0 0 0;
       .label-wrds {
@@ -315,8 +328,7 @@
         font-size: 14px;
         text-align: right;
       }
-      .condition-input {
-        width: calc(100% - 20px - 100px);
+      .condition-input{
         height: 24px;
         padding: 3px 10px;
         margin-left: 100px;
@@ -330,22 +342,6 @@
       }
     }
   }
-
-  .el-row {
-    width: 100%;
-  }
-
-  .el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner {
-    width: calc(100% - 110px);
-  }
-
-  .el-range-editor.el-input__inner {
-    margin-left: 110px;
-    height: 32px;
-    line-height: 30px;
-    border-radius: 0;
-  }
-
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;
