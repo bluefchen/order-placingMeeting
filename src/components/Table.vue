@@ -121,5 +121,21 @@
         text-decoration: underline;
       }
     }
+    .updown-btn {
+      padding: 2px 5px;
+      border: 0;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .updown-btn:hover {
+      border: 1px solid #f82134;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+
+    .updown-btn.green:hover {
+      border: 1px solid #46b02e;
+    }
   }
 </style>

@@ -262,7 +262,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-99': 1, 
+    'totalSize|30-99': 1, 
     'rows|5-10': [{
       'opmOaId':'@id',
       'offerId': '@id',

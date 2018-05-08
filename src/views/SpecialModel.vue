@@ -35,12 +35,6 @@
           class="iconfont">&#xe608;</i></a><a href="javascript:;" v-if="!isFoldScreen" class="category-pick-up fn-right" @click="changeFoldScreen">收起筛选 <i class="iconfont">&#xe607;</i></a>
       </p>
       <div class="queries-category fn-clear">
-        <span class="category-label fn-left">是否特种机型：</span>
-        <div class="category-list fn-left">
-            <span class="category-item" :class="{'hover': checkedSpecialIndex===index}" v-for="(opt, index) in isSpecialList" :key="index" @click="checkedSpecialModel(opt, index)">{{opt.isSpecialName}}</span>
-        </div>
-      </div>
-      <div class="queries-category fn-clear">
         <span class="category-label fn-left">终端品牌：</span>
         <div class="category-list fn-left" :class="{fold:isFoldBrand}">
             <span class="category-item" :class="{'hover': checkedBrandIndex===index}" v-for="(item, index) in brandList" :key="index" @click="checkedBrand(item, index)">{{item.brandName}}</span>
@@ -60,9 +54,17 @@
         <a href="javascript:;" @click="changeFoldModel" v-show="!isFoldModel" class="category-pick-up fn-right">收起 <i
           class="iconfont">&#xe607;</i></a>
       </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">分配省份：</span>
+        <div class="category-list fn-left" :class="{fold: isFoldProvince}">
+            <span class="category-item" :class="{'hover': checkedProvinceIndex===index}" v-for="(item, index) in provinceList" :key="index" @click="checkedProvince(item, index)">{{item.name}}</span>
+        </div>
+        <a href="javascript:;" @click="changeProvinceModel" v-show="isFoldProvince" class="category-more fn-right">更多 <i
+          class="iconfont">&#xe608;</i></a>
+        <a href="javascript:;" @click="changeProvinceModel" v-show="!isFoldProvince" class="category-pick-up fn-right">收起 <i
+          class="iconfont">&#xe607;</i></a>
+      </div>
     </div>
-
-
 
     <div class="box-1200 model-list-table">
       <div class="order-titl fn-clear">
@@ -70,51 +72,9 @@
         <div class="buttons fn-right">
           <router-link class="btns" to="/order/importSpecialModel"><i class="iconfont">&#xe6a8;</i> 导入新增</router-link>
         </div>
-
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="22%">终端名称</th>
-          <th width="12%">终端品牌</th>
-          <th width="12%">终端型号</th>
-          <th width="9%">终端类型</th>
-          <th width="12%">供货商</th>
-          <th width="8%">提货价</th>
-          <th width="8%">分配省份</th>
-          <th>分配量（台）</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td class="td-first">
-            <p class="p-img"><img src="@/assets/images/telephone1.jpg"></p>
-            <p class="tel-info">
-              <a href="" class="tel-href overflow-handle">VIVO-X20全面屏 美颜拍照手机</a>
-              <label>编码：11020300001</label>
-              <label class="tags">
-                <span class="sc">社采</span>
-                <span class="jc">集采</span>
-                <span class="mj">满减
-                  <label class="small-pop">
-                    <label>满<b class="red">10000</b>减<b class="red">200</b></label>
-                    <label>满<b class="red">20000</b>减<b class="red">400</b></label>
-                  </label>
-                </span>
-                <span class="spec">特</span>
-              </label>
-            </p>
-          </td>
-          <td>VIVO</td>
-          <td>VIVO-X20</td>
-          <td>集采</td>
-          <td>￥1890</td>
-          <td><i class="iconfont red">&#xe63f;</i></td>
-          <td>300</td>
-          <td><b class="red">200</b></td>
-        </tr>
-        </tbody>
-      </table>
+      <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
 </template>
@@ -123,6 +83,9 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import Breadcrumb from '@/components/Breadcrumb';
   import TitlePlate from '@/components/TitlePlate';
+  import Table from '@/components/Table';
+  import DeviceInfo from '@/components/DeviceInfo';
+  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'specialModel',
@@ -153,6 +116,9 @@
           label: '终端型号',
           prop: 'offerModelName'
         }, {
+          label: '供货商',
+          prop: 'supplierName'
+        }, {
           label: '终端价格',
           prop: 'salePrice',
           render: function (h, params) {
@@ -166,20 +132,31 @@
             })
           }
         }, {
+          label: '分配省份',
+          prop: 'commonRegionName',
+        }, {
           label: '上架数量',
           prop: 'offerQty',
+        }, {
+          label: '分配量（台）',
+          prop: 'assignQty',
+        }, {
+          label: '操作',
+          prop: '',
+          render: (h, params) => {
+            return h({
+              template: '<div><button class="updown-btn red">删除</button></div>'
+            })
+          }
         }],
         tableData: [],
         //分类选择
         isFoldBrand: true, //是否折叠品牌
         isFoldModel: true, //是否折叠型好
         isFoldScreen: false, //是否折叠更多筛选
+        isFoldProvince: true, //是否折叠省份
         //筛选数据
         checkedCategoryList: [{
-          name: '是否特种机型',
-          categoryName: null,
-          categoryCode: null
-        }, {
           name: '品牌',
           categoryName: null,
           categoryCode: null
@@ -195,18 +172,11 @@
           'brandCd': '',
           'offerModelId': ''
         },
-        isSpecialList: [{
-          isSpecialName: '是',
-          isSpecial: 'Y'
-        }, {
-          isSpecialName: '否',
-          isSpecial: 'N'
-        }],
-        checkedSpecialIndex: null,
         brandList: [],
         checkedBrandIndex: null,
         modelList: [],
         checkedModelIndex: null,
+        provinceList: [],
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -227,21 +197,8 @@
       changeFoldScreen() {
         this.isFoldScreen = !this.isFoldScreen;
       },
-      checkedSpecialModel(val, index) {
-        if (this.checkedSpecialIndex !== index) {
-          this.checkedSpecialIndex = index;
-          this.checkedCategoryList.map((item) => {
-            if (item.name === '是否特种机型') {
-              item.categoryName = val.isSpecialName;
-              item.categoryCode = val.isSpecial;
-            }
-          });
-          this.categoryItem.isSpecial = val.isSpecial;
-          this.queryOpmOfferAllotList();
-        } else {
-          this.delCategoryItem('是否特种机型');
-          this.categoryItem.isSpecial = '';
-        }
+      changeProvinceModel(){
+        this.isFoldProvince = !this.isFoldProvince;
       },
       checkedBrand(val, index) {
         if (this.checkedBrandIndex !== index) {
@@ -284,10 +241,7 @@
         this.checkedCategoryList.push(val);
       },
       delCategoryItem(val) {
-        if (val === '是否特种机型') {
-          this.checkedSpecialIndex = null;
-          this.categoryItem.isSpecial = '';
-        } else if (val === '品牌') {
+        if (val === '品牌') {
           this.checkedBrandIndex = null;
           this.checkedModelIndex = null;
           this.modelList = [];
@@ -335,7 +289,10 @@
     components: {
       InputWithSelect,
       Breadcrumb,
-      TitlePlate
+      TitlePlate,
+      Table,
+      DeviceInfo,
+      Pagination
     }
   }
 </script>
