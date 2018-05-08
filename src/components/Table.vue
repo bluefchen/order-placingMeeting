@@ -111,8 +111,24 @@
     .el-table th.is-leaf {
       background-color: #f5f4f4;
       color: #000;
-      font-weight: 700;
+      font-weight: 800;
       text-align: center;
+    }
+
+    .text-link {
+      color: #e52941;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .text-tag-danger {
+      color: #e52941;
+      font-weight: 800;
+    }
+
+    .text-tag-stress {
+      color: #000;
+      font-weight: 800;
     }
 
     .delete-btn {

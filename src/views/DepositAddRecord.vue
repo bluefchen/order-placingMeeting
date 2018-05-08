@@ -106,7 +106,7 @@
           width: 95,
           render: function (h, params) {
             return h({
-              template: '<span style="color:#e52941; cursor:pointer;" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
+              template: '<span class="text-link" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
               data: function () {
                 return {
                   opmOrderNo: params.row.opmOrderNo,
