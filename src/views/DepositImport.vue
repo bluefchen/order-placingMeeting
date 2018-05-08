@@ -97,7 +97,7 @@
           width: 100,
           render: function (h, params) {
             return h({
-              template: '<p class="text-link">{{depositAmount}}</p>',
+              template: '<p class="text-tag-danger">{{depositAmount}}</p>',
               data: function () {
                 return {
                   depositAmount: params.row.depositAmount
