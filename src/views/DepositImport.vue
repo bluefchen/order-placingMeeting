@@ -44,7 +44,7 @@
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',
-          width: 105         
+          width: 105
         }, {
           label: '零售商',
           prop: 'retailerName',
@@ -97,7 +97,7 @@
           width: 100,
           render: function (h, params) {
             return h({
-              template: '<p class="red">{{depositAmount}}</p>',
+              template: '<p class="text-link">{{depositAmount}}</p>',
               data: function () {
                 return {
                   depositAmount: params.row.depositAmount
@@ -203,5 +203,5 @@
     margin: 20px 0;
     text-align: center;
   }
-  
+
 </style>

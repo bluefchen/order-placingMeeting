@@ -175,7 +175,7 @@
           prop: '',
           render: (h, params) => {
             return h({
-              template: '<div><button class="updown-btn red">删除</button></div>'
+              template: '<div><button class="updown-btn">删除</button></div>'
             })
           }
         }],

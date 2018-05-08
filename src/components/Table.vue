@@ -1,8 +1,10 @@
 <template>
   <div class="v_table">
-    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small" :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange">
+    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small"
+              :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange">
       <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
-      <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width">
+      <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label"
+                       :width="column.width">
         <template slot-scope="scope">
           <table-row v-if="column.render" :index="index" :row="scope.row" :render="column.render"></table-row>
           <span v-else>
@@ -71,21 +73,22 @@
 </script>
 
 <style lang="less">
-    .table-radio{
-      &:after{
-        font-family: 'iconfont';
-        content: '\e74a';
-        display: block;
-        margin: 0 auto;
-        width: 25px;
-        height: 20px;
-        font-size: 24px;
-        color: #c5c4c4;
-      }
+  .table-radio {
+    &:after {
+      font-family: 'iconfont';
+      content: '\e74a';
+      display: block;
+      margin: 0 auto;
+      width: 25px;
+      height: 20px;
+      font-size: 24px;
+      color: #c5c4c4;
     }
-    .current-row{
-      .table-radio{
-      &:after{
+  }
+
+  .current-row {
+    .table-radio {
+      &:after {
         font-family: 'iconfont';
         content: '\e74b';
         display: block;
@@ -95,8 +98,8 @@
         font-size: 24px;
         color: #f41b1b;
       }
-      }
     }
+  }
 
   .v_table {
     .el-table, .el-table__expanded-cell {
@@ -108,34 +111,52 @@
     .el-table th.is-leaf {
       background-color: #f5f4f4;
       color: #000;
-      font-weight: 700;
+      font-weight: 800;
       text-align: center;
     }
 
-    .delete-btn {
-      padding: 0;
-      color: #ff0000;
-      font-size: 12px;
-      &:hover {
-        color: #ff0000;
-        text-decoration: underline;
-      }
-    }
-    .updown-btn {
-      padding: 2px 5px;
-      border: 0;
+    .text-link {
+      color: #e52941;
       text-decoration: underline;
       cursor: pointer;
     }
 
-    .updown-btn:hover {
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
+    .text-tag-danger {
+      color: #e52941;
+      font-weight: 800;
     }
 
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
+    .text-tag-stress {
+      color: #000;
+      font-weight: 800;
+    }
+
+    .delete-btn {
+      padding: 2px 5px;
+      border: 1px solid transparent;
+      color: #ff0000;
+      font-size: 12px;
+      &:hover {
+        border: 1px solid #f82134;
+        border-radius: 3px;
+        color: #ff0000;
+        text-decoration: underline;
+      }
+    }
+
+    .updown-btn {
+      padding: 2px 5px;
+      border: 1px solid transparent;
+      color: #ff0000;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+      &:hover {
+        border: 1px solid #f82134;
+        border-radius: 3px;
+        color: #e52941;
+        text-decoration: underline;
+      }
     }
   }
 </style>

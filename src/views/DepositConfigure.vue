@@ -144,7 +144,7 @@ export default {
         prop: 'depositAmount',
         render: function (h, params) {
           return h({
-            template: '<p class="red">¥{{depositAmount}}</p>',
+            template: '<p class="text-link">¥{{depositAmount}}</p>',
             data: function () {
               return {
                 depositAmount: params.row.depositAmount
@@ -344,7 +344,7 @@ export default {
     color: #e52941;
     line-height: 34px;
     margin-left: 40px;
-    font-weight: 700;
+    font-weight: 800;
   }
   .el-icon-percent::before{
     color: #151515;

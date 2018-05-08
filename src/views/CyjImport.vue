@@ -59,14 +59,14 @@
           width: 200,
           render: function (h, params) {
             return h({
-              template: '<p class="red">{{payDepositAmount}}</p>',
+              template: '<p class="text-link">{{payDepositAmount}}</p>',
               data: function () {
                 return {
                   payDepositAmount: params.row.payDepositAmount
                 }
               }
             })
-          }    
+          }
         }, {
           label: '校验结果',
           prop: 'isSuccess',
