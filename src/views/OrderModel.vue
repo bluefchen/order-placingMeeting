@@ -136,6 +136,16 @@
         }, {
           label: '上架数量',
           prop: 'offerQty',
+          render: function (h, params) {
+            return h({
+              template: '<span class="text-tag-stress">{{offerQty}}</span>',
+              data: function () {
+                return {
+                  offerQty: params.row.offerQty
+                }
+              }
+            })
+          }
         }],
         tableData: [],
         //分类选择
@@ -310,7 +320,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .vue_roder-model {
     /*中间背景图片*/
     .img-bg {

@@ -149,7 +149,7 @@
           prop: 'offerQty',
           render: function (h, params) {
             return h({
-              template: '<b>{{offerQty}}</b>',
+              template: '<span class="text-tag-stress">{{offerQty}}</span>',
               data: function () {
                 return {
                   offerQty: params.row.offerQty
@@ -162,7 +162,7 @@
           prop: 'assignQty',
           render: function (h, params) {
             return h({
-              template: '<b>{{assignQty}}</b>',
+              template: '<span class="text-tag-danger">{{assignQty}}</span>',
               data: function () {
                 return {
                   assignQty: params.row.assignQty
