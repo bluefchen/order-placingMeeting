@@ -149,7 +149,7 @@
           prop: 'offerQty',
           render: function (h, params) {
             return h({
-              template: '<b>{{offerQty}}</b>',
+              template: '<span class="text-tag-stress">{{offerQty}}</span>',
               data: function () {
                 return {
                   offerQty: params.row.offerQty
@@ -162,7 +162,7 @@
           prop: 'assignQty',
           render: function (h, params) {
             return h({
-              template: '<b>{{assignQty}}</b>',
+              template: '<span class="text-tag-danger">{{assignQty}}</span>',
               data: function () {
                 return {
                   assignQty: params.row.assignQty
@@ -356,12 +356,27 @@
         this.queryOpmOfferAllotList();
       },
       deleteOpmOfferAllot(val, index){
-        this.$post('/orderPlacingMeetingController/deleteOpmOfferAllot', {
-          opmOaId: val.opmOaId
-        }).then((rsp) => {
-          console.log('删除成功！');
+        this.$confirm('确定要删除该机型吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$post('/orderPlacingMeetingController/deleteOpmOfferAllot', {
+            opmOaId: val.opmOaId
+          }).then((rsp) => {
+            console.log('删除成功！');
+          });
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.queryOpmOfferAllotList(this.currentPage);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
         });
-        this.queryOpmOfferAllotList(this.currentPage);
       }
     },
     components: {
