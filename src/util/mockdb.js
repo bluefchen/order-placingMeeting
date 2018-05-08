@@ -69,7 +69,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
     'totalSize|1-99': 1,
@@ -95,7 +95,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
     'totalSize|1-99': 1,
@@ -345,9 +345,9 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   error: null,
   'data|5-10': [{
     'id': '@id',
-    'name': '@city',
-    'parentId': '@id',
-    'areaLevel|1': ['1', '2', '3', '4']
+    'name': '@province()',
+    'parentId': '',
+    'areaLevel': ''
   }]
 });
 
