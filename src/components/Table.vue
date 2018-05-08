@@ -1,10 +1,9 @@
 <template>
   <div class="v_table">
     <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small"
-              :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange">
+              :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange" tooltip-effect="light">
       <el-table-column v-if="isSelection" type="selection" width="55"></el-table-column>
-      <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label"
-                       :width="column.width">
+      <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <table-row v-if="column.render" :index="index" :row="scope.row" :render="column.render"></table-row>
           <span v-else>

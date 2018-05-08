@@ -99,12 +99,6 @@ body {
   font-size: 12px;
 }
 
-.el-table .cell {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 .el-icon-money::before{
   content:'\e611';
   font-family: iconfont;
