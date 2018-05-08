@@ -59,10 +59,16 @@
         <div class="category-list fn-left" :class="{fold: isFoldProvince}">
             <span class="category-item" :class="{'hover': checkedProvinceIndex===index}" v-for="(item, index) in provinceList" :key="index" @click="checkedProvince(item, index)">{{item.name}}</span>
         </div>
-        <a href="javascript:;" @click="changeProvinceModel" v-show="isFoldProvince" class="category-more fn-right">更多 <i
+        <a href="javascript:;" @click="changeProvince" v-show="isFoldProvince" class="category-more fn-right">更多 <i
           class="iconfont">&#xe608;</i></a>
-        <a href="javascript:;" @click="changeProvinceModel" v-show="!isFoldProvince" class="category-pick-up fn-right">收起 <i
+        <a href="javascript:;" @click="changeProvince" v-show="!isFoldProvince" class="category-pick-up fn-right">收起 <i
           class="iconfont">&#xe607;</i></a>
+      </div>
+      <div class="queries-category fn-clear">
+        <span class="category-label fn-left">供货商：</span>
+        <div style="width: 100px; height: 27px;">
+          <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+        </div>
       </div>
     </div>
 
@@ -86,6 +92,7 @@
   import Table from '@/components/Table';
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'specialModel',
@@ -94,6 +101,9 @@
         this.brandList = rsp;
       });
       this.queryOpmOfferAllotList();
+      this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
+        this.provinceList = rsp;
+      });
     },
     data() {
       return {
@@ -137,9 +147,29 @@
         }, {
           label: '上架数量',
           prop: 'offerQty',
+          render: function (h, params) {
+            return h({
+              template: '<b>{{offerQty}}</b>',
+              data: function () {
+                return {
+                  offerQty: params.row.offerQty
+                }
+              }
+            })
+          }
         }, {
           label: '分配量（台）',
           prop: 'assignQty',
+          render: function (h, params) {
+            return h({
+              template: '<b>{{assignQty}}</b>',
+              data: function () {
+                return {
+                  assignQty: params.row.assignQty
+                }
+              }
+            })
+          }
         }, {
           label: '操作',
           prop: '',
@@ -164,19 +194,25 @@
           name: '型号',
           categoryName: null,
           categoryCode: null
+        }, {
+          name: '省份',
+          categoryName: null,
+          categoryCode: null
         }],
         categoryItem: {
           'isCentman': '',
           'offerNameOrCode': '',
           'isSpecial': '',
           'brandCd': '',
-          'offerModelId': ''
+          'offerModelId': '',
+          'commonRegionId': ''
         },
         brandList: [],
         checkedBrandIndex: null,
         modelList: [],
         checkedModelIndex: null,
         provinceList: [],
+        checkedProvinceIndex: null,
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -197,7 +233,7 @@
       changeFoldScreen() {
         this.isFoldScreen = !this.isFoldScreen;
       },
-      changeProvinceModel(){
+      changeProvince(){
         this.isFoldProvince = !this.isFoldProvince;
       },
       checkedBrand(val, index) {
@@ -237,6 +273,22 @@
           this.delCategoryItem('型号');
         }
       },
+      checkedProvince(val, index){
+        if(this.checkedProvinceIndex !== index){
+          this.checkedProvinceIndex = index;
+
+          this.checkedCategoryList.map((item) => {
+            if (item.name === '省份') {
+              item.categoryName = val.name;
+              item.categoryCode = val.id;
+            }
+          });
+          this.categoryItem.commonRegionId = val.id;
+          this.queryOpmOfferAllotList();
+        } else {
+          this.delCategoryItem('省份');
+        }
+      },
       addCategoryItem(val) {
         this.checkedCategoryList.push(val);
       },
@@ -256,6 +308,9 @@
         } else if (val === '型号') {
           this.checkedModelIndex = null;
           this.categoryItem.offerModelId = '';
+        } else if(val === '省份') {
+          this.checkedProvinceIndex = null;
+          this.categoryItem.commonRegionId = '';
         }
         this.checkedCategoryList.map((item) => {
           if (item.name === val) {
@@ -284,6 +339,9 @@
       },
       pageChanged(curPage) {
         this.queryOpmOfferAllotList(curPage);
+      },
+      selectSupplier(val){
+        console.log(val);
       }
     },
     components: {
@@ -292,12 +350,13 @@
       TitlePlate,
       Table,
       DeviceInfo,
-      Pagination
+      Pagination,
+      ChooseMerchants
     }
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .special-model{
     /*中间背景图片*/
     .img-bg {
@@ -513,7 +572,11 @@
     }
     .model-list-table {
       margin-bottom: 20px;
-      .el-table__header {
+      .number-stores{
+        color: #000;
+      }
+
+      .el-table__header{
         border: 1px solid #dcdcdc;
         table-layout: inherit;
       }
