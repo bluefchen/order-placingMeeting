@@ -23,6 +23,7 @@ const PolicyList = () => import('@/views/PolicyList');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
+const LoginIn = () => import('@/views/LoginIn');
 
 Vue.use(Router);
 
@@ -197,6 +198,13 @@ export default new Router({
       component: Order,
       meta: {
         title: '基础数据维护'
+      }
+    }, {
+      path: '/loginIn',
+      name: 'loginIn',
+      component: LoginIn,
+      meta: {
+        title: '登陆页'
       }
     }
   ]

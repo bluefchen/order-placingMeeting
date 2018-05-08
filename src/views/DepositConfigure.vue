@@ -29,58 +29,52 @@
           <div class="first-step" v-show="!editshow">
             <ul class="selections fn-clear">
               <label class="select-wrds fn-left">定金模式：</label>
-              <div class="fn-left" v-show="step === 1 || step === 2 || step === 3">
-                <li class="select-sp fn-left" :class="step === 1 || depositInfoList.depositType === 1?'on':''"
-                    @click="selectMode(1)">全额付款
-                </li>
-                <li class="select-sp fn-left" :class="step === 2 || depositInfoList.depositType === 2?'on':''"
-                    @click="selectMode(2)">定金
-                </li>
-                <li class="select-sp fn-left" :class="step === 3 || depositInfoList.depositType === 3?'on':''"
-                    @click="selectMode(3)">诚意金
-                </li>
+              <div class="fn-left" v-show="step !== 0">
+                <li class="select-sp fn-left" :class="step === 1?'on':''" @click="selectMode(1)">全额付款</li>
+                <li class="select-sp fn-left" :class="step === 2?'on':''" @click="selectMode(2)">定金</li>
+                <li class="select-sp fn-left" :class="step === 3?'on':''" @click="selectMode(3)">诚意金</li>
               </div>
-              <div class="qb fn-left" v-show="step === 4">
+              <div class="qb fn-left" v-show="stepdone === 1">
                 <p class="fir-wrds fn-left">全额付款</p>
-                <el-button class="edit-btn fn-left" @click="selectMode(1)"><i class="iconfont">&#xe738;</i> 修改
+                <el-button class="edit-btn fn-left" @click="selectEditMode(1)"><i class="iconfont">&#xe738;</i> 修改
                 </el-button>
               </div>
-              <div class="dj fn-left" v-show="step === 5">
+              <div class="dj fn-left" v-show="stepdone === 2">
                 <p class="fir-wrds fn-left">定金</p>
-                <el-button class="edit-btn fn-left" @click="selectMode(2)"><i class="iconfont">&#xe738;</i> 修改
+                <el-button class="edit-btn fn-left" @click="selectEditMode(2)"><i class="iconfont">&#xe738;</i> 修改
                 </el-button>
               </div>
-              <div class="cyj fn-left" v-show="step === 6">
+              <div class="cyj fn-left" v-show="stepdone === 3">
                 <p class="fir-wrds fn-left">诚意金</p>
-                <el-button class="edit-btn fn-left" @click="selectMode(3)"><i class="iconfont">&#xe738;</i> 修改
+                <el-button class="edit-btn fn-left" @click="selectEditMode(3)"><i class="iconfont">&#xe738;</i> 修改
                 </el-button>
               </div>
             </ul>
             <div class="steps">
               <!-- 定金 -->
-              <div class="second-step fn-clear" v-show="step === 2 || step === 5">
+              <div class="second-step fn-clear" v-show="step === 2 || stepdone === 2">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" v-show="step === 2"
-                       suffixIcon="el-icon-percent"/>
-                <p class="sec-done fn-left" v-show="step === 5">{{depositInfoList.depositProportion}}%</p>
+                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent"
+                       v-show="step === 2"/>
+                <p class="sec-done fn-left" v-show="stepdone === 2">{{depositInfoList.depositProportion}}%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
               <!-- 诚意金 -->
-              <div class="third-step" v-show="step === 3 || step === 6">
+              <div class="third-step" v-show="step === 3 || stepdone === 3">
                 <div class="model-list-table">
                   <div class="order-titl fn-clear">
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
                   <Table :tableTitle="tableTitle" :tableData="tableData" v-show="step === 3"/>
-                  <Table :tableTitle="tableTitleDone" :tableData="tableData" v-show="step === 6"/>
+                  <Table :tableTitle="tableTitleDone" :tableData="tableData" v-show="stepdone === 3"/>
                 </div>
               </div>
             </div>
             <div class="confirm-btn" v-show="step === 1 || step === 2 || step === 3">
-              <el-button class="confirm" @click="confirm(4, 1)" v-show="step === 1">确定</el-button>
-              <el-button class="confirm" @click="confirm(5, 2)" v-show="step === 2">确定</el-button>
-              <el-button class="confirm" @click="confirm(6, 3)" v-show="step === 3">确定</el-button>
+              <el-button class="confirm" @click="confirm(1)" v-show="step === 1">确定</el-button>
+              <el-button class="confirm" @click="confirm(2)" v-show="step === 2">确定</el-button>
+              <el-button class="confirm" @click="confirm(3)" v-show="step === 3">确定</el-button>
             </div>
           </div>
         </div>
@@ -95,7 +89,6 @@
   import Table from '@/components/Table';
   import Input from '@/components/Input';
 
-
   export default {
     name: 'DepositConfigure',
     created() {
@@ -104,6 +97,7 @@
     data() {
       return {
         step: 1,
+        stepdone: 0,
         editshow: true,
         depositInfoList: [], //查询返回的数据
         opmRetailerUpate: [], //诚意金修改后要提交的数据
@@ -161,6 +155,7 @@
                 }
               }
             })
+
           }
         }],
       }
@@ -171,10 +166,12 @@
       },
       selectMode(index) {
         this.step = index;
-        this.depositInfoList.depositType = index;
       },
-      confirm(index, type) {
+      selectEditMode(index) {
         this.step = index;
+        this.stepdone = 0;
+      },
+      confirm(type) {
         let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
         opmRetailerDepositList.map((item) => {
           let obj = {
@@ -191,15 +188,19 @@
           opmRetailerDepositList: this.opmRetailerUpate
         }).then((rsp) => {
           this.$message.success('修改配置成功！');
-          this.queryOpmDepositInfo();
+          // this.queryOpmDepositInfo();
+          this.step = 0;
+          this.stepdone = type;
         })
-      },
+      }
+      ,
       queryOpmDepositInfo(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmDepositInfo', {
           opMeetingId: '订货会ID'
         }).then((rsp) => {
           this.depositInfoList = rsp;
+          this.step = this.depositInfoList.depositType;
           this.tableData = rsp.opmRetailerDepositList;
         })
       }

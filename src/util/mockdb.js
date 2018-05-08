@@ -293,6 +293,16 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   }
 });
 
+//23、删除特种机型分配信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOpmOfferAllot'), {
+  rsphead: 's',
+  success: true, //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
+
 //24、批量导入新增机型数据解析
 Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList'), {
   rsphead: 's',
@@ -343,7 +353,7 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   code: null,
   msg: null, //失败信息
   error: null,
-  'data|5-10': [{
+  'data|30': [{
     'id': '@id',
     'name': '@province()',
     'parentId': '',
@@ -714,12 +724,12 @@ Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'
       'payDepositAmount|1-1000': 100,
       'depositAmount|1-1000': 100,
       'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
-      'resultMsg': '@cword()' //校验信息
+      'resultMsg': '@cword(8, 10)' //校验信息
     }]
   }
 });
 
-// 45、批量导入新增机型
+// 47、批量导入新增机型
 Mock.mock(new RegExp('/opmDepositController/batchInsertOpmRetailerDeposit'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -728,3 +738,46 @@ Mock.mock(new RegExp('/opmDepositController/batchInsertOpmRetailerDeposit'), {
   error: null,
   data: null
 });
+
+// 48、查询政策列表列表
+Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalCnt|1-100': 100, //总记录条数
+    'successCnt|1-100': 100, //成功条数
+    'failCnt|1-100': 1, //失败条数
+    'rows|10':  [{
+      'opMeetingId':'@id',
+      'policyName': '@cword(4, 6)',
+      'policyType|+1': [],
+      'policyTypeName|+1':[],
+      'content': '@cword(4, 6)',
+      'offerCodes': '@id',
+      'offerNames': '@cword(4, 6)',
+      'discountTypeName': '@cword(4, 6)',
+      'quantity|1-1000': 100,
+      'discountValue|1-10': 1,
+      'amount|1-1000': 100,
+      'discountValue2|1-10': 1,
+      'partyId': '@id',
+      'createDt': '@date',
+      'statusCd|+1':[1000, 1001, 1002],
+      'statusCdName|+1': ['待审批', '已生效', '失效']
+    }]
+  }
+});
+
+//49、删除政策信息
+Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
+
