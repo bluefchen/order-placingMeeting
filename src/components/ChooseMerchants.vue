@@ -246,7 +246,7 @@
           this.$emit('selectOptions', this.selectionChangeList.supplierId);
         }else{
           this.$emit('selectOptions', this.selectionChangeList.retailerId);
-        };
+        }
         this.isShow = false;
       },
       visibleChange(val) {
