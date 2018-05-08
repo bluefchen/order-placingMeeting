@@ -21,7 +21,8 @@
       <!-- 搜索 -->
       <div class="box-1200 search">
         <InputWithSelect @search="search"/>
-        <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
+        <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
+          v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
 
       <!-- 条件搜索 -->
@@ -30,7 +31,7 @@
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">订单号：</label>
-              <Input type="text" class="condition-input" />
+              <Input type="text" class="condition-input"/>
             </div>
           </el-col>
           <el-col :span="6">
@@ -40,17 +41,17 @@
             </div>
           </el-col>
           <el-col :span="9">
-              <div class="condition-iterm">
-                <label class="label-wrds">订购起止日期：</label>
-                <el-date-picker
-                  v-model="depositRecord.orderDate"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  value-format="yyyy-MM-dd">
-                </el-date-picker>
-              </div>
+            <div class="condition-iterm">
+              <label class="label-wrds">订购起止日期：</label>
+              <el-date-picker
+                v-model="depositRecord.orderDate"
+                type="datetimerange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </div>
           </el-col>
           <el-col :span="3">
             <div class="condition-iterm">
@@ -105,7 +106,7 @@
           width: 95,
           render: function (h, params) {
             return h({
-              template: '<span class="red router" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
+              template: '<span style="color:#e52941; cursor:pointer;" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
               data: function () {
                 return {
                   opmOrderNo: params.row.opmOrderNo,
@@ -113,7 +114,7 @@
                 }
               },
               methods: {
-                orderDetail(item){
+                orderDetail(item) {
                   localStorage.setItem(item.opmOrderId, JSON.stringify(item));
                   this.$router.push({
                     path: '/order/orderFormDetail',
@@ -202,10 +203,10 @@
         this.depositRecord.offerNameOrCode = obj.value;
         this.queryOpmDepositList();
       },
-      showMoreCondition(){
+      showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      queryOpmDepositList(curPage, pageSize){
+      queryOpmDepositList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmDepositList', {
           opMeetingId: '订货会ID',
@@ -226,7 +227,7 @@
       pageChanged(curPage) {
         this.queryOpmDepositList(curPage);
       },
-      depositImport(){
+      depositImport() {
         this.$router.push({
           path: '/order/depositImport'
         });
@@ -272,19 +273,22 @@
       }
     }
   }
+
   /*中间背景图片*/
   .my-location {
     height: 30px;
     line-height: 30px;
     background-color: #f6f6f6;
   }
+
   .red {
     color: #f82134;
   }
+
   .search {
     position: relative;
     margin: 10px auto;
-    .category-more{
+    .category-more {
       position: absolute;
       top: 0px;
       left: 500px;
@@ -294,15 +298,15 @@
   }
 
   /* 条件搜索 */
-  .condition-search{
+  .condition-search {
     display: flex;
     height: 72px;
-    margin: 10px auto  14px;
+    margin: 10px auto 14px;
     border: 1px solid #dfdfdf;
-    .condition-iterm{
+    .condition-iterm {
       position: relative;
       margin: 20px 0 0 0;
-      .label-wrds{
+      .label-wrds {
         position: absolute;
         top: 0;
         left: 0;
@@ -311,14 +315,14 @@
         font-size: 14px;
         text-align: right;
       }
-      .condition-input{
+      .condition-input {
         width: calc(100% - 20px - 100px);
         height: 24px;
         padding: 3px 10px;
         margin-left: 100px;
         border: 1px solid #e5e5e5;
       }
-      .btns{
+      .btns {
         left: 20px;
         line-height: 31px;
         padding: 0 10px;
@@ -326,18 +330,22 @@
       }
     }
   }
+
   .el-row {
     width: 100%;
   }
-  .el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner{
+
+  .el-date-editor--datetimerange.el-input, .el-date-editor--datetimerange.el-input__inner {
     width: calc(100% - 110px);
   }
-  .el-range-editor.el-input__inner{
+
+  .el-range-editor.el-input__inner {
     margin-left: 110px;
     height: 32px;
     line-height: 30px;
     border-radius: 0;
   }
+
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;
@@ -349,16 +357,18 @@
     text-decoration: none;
     cursor: pointer;
   }
+
   .category-more:active,
   .category-more:focus,
   .category-more:hover {
     color: #f82134;
   }
+
   .category-more .iconfont {
     font-size: 12px;
   }
 
-  .tabs-list{
+  .tabs-list {
     margin: 0 auto;
     padding: 0 0 20px;
     .result-header {
@@ -384,18 +394,18 @@
     }
   }
 
-  .btns{
+  .btns {
     position: absolute;
     top: 0;
-    right:0;
+    right: 0;
     padding: 0 20px;
-    border:0;
+    border: 0;
     background-color: #fa0000;
-    color:#fff;
+    color: #fff;
     font-size: 12px;
     border-radius: 3px;
     line-height: 28px;
-    &:hover{
+    &:hover {
       background-color: #e20606;
     }
   }
