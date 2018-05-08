@@ -18,63 +18,67 @@
         </div>
       </div>
 
-      <!-- 修改 -->
       <div class="provin box-1200">
         <p class="pro-left">当前省份： <span>江苏省</span></p>
         <div class="provin-edit">
-          <div class="fn-clear" v-show="editshow">
-            <p class="pro-mid fn-left">定金模式：<span>{{depositInfoList.depositTypeName}}</span></p>
-            <el-button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</el-button>
-          </div>
-          <div class="first-step" v-show="!editshow">
+          <!-- 默认模式 -->
+          <div class="default" v-if="editshow">
             <ul class="selections fn-clear">
               <label class="select-wrds fn-left">定金模式：</label>
-              <div class="fn-left" v-show="step !== 0">
-                <li class="select-sp fn-left" :class="step === 1?'on':''" @click="selectMode(1)">全额付款</li>
-                <li class="select-sp fn-left" :class="step === 2?'on':''" @click="selectMode(2)">定金</li>
-                <li class="select-sp fn-left" :class="step === 3?'on':''" @click="selectMode(3)">诚意金</li>
-              </div>
-              <div class="qb fn-left" v-show="stepdone === 1">
-                <p class="fir-wrds fn-left">全额付款</p>
-                <el-button class="edit-btn fn-left" @click="selectEditMode(1)"><i class="iconfont">&#xe738;</i> 修改
-                </el-button>
-              </div>
-              <div class="dj fn-left" v-show="stepdone === 2">
-                <p class="fir-wrds fn-left">定金</p>
-                <el-button class="edit-btn fn-left" @click="selectEditMode(2)"><i class="iconfont">&#xe738;</i> 修改
-                </el-button>
-              </div>
-              <div class="cyj fn-left" v-show="stepdone === 3">
-                <p class="fir-wrds fn-left">诚意金</p>
-                <el-button class="edit-btn fn-left" @click="selectEditMode(3)"><i class="iconfont">&#xe738;</i> 修改
-                </el-button>
+              <div class="fn-left">
+                <p class="fir-wrds fn-left">{{depositInfoList.depositTypeName}}</p>
+                <el-button class="edit-btn fn-left" @click="edit(depositType)"><i class="iconfont">&#xe738;</i> 修改</el-button>
               </div>
             </ul>
             <div class="steps">
               <!-- 定金 -->
-              <div class="second-step fn-clear" v-show="step === 2 || stepdone === 2">
+              <div class="second-step fn-clear" v-show="depositType == 2">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent"
-                       v-show="step === 2"/>
-                <p class="sec-done fn-left" v-show="stepdone === 2">{{depositInfoList.depositProportion}}%</p>
+                <p class="sec-done fn-left">{{depositInfoList.depositProportion}}%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
               <!-- 诚意金 -->
-              <div class="third-step" v-show="step === 3 || stepdone === 3">
+              <div class="third-step" v-show="depositType == 3">
                 <div class="model-list-table">
                   <div class="order-titl fn-clear">
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
                     <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
                   </div>
-                  <Table :tableTitle="tableTitle" :tableData="tableData" v-show="step === 3"/>
-                  <Table :tableTitle="tableTitleDone" :tableData="tableData" v-show="stepdone === 3"/>
+                  <Table :tableTitle="tableTitleDone" :tableData="tableData"/>
                 </div>
               </div>
             </div>
-            <div class="confirm-btn" v-show="step === 1 || step === 2 || step === 3">
-              <el-button class="confirm" @click="confirm(1)" v-show="step === 1">确定</el-button>
-              <el-button class="confirm" @click="confirm(2)" v-show="step === 2">确定</el-button>
-              <el-button class="confirm" @click="confirm(3)" v-show="step === 3">确定</el-button>
+          </div>
+          <!-- 修改模式 -->
+          <div class="first-step" v-else>
+            <ul class="selections fn-clear">
+              <label class="select-wrds fn-left">定金模式：</label>
+              <div class="fn-left">
+                <li class="select-sp fn-left" :class="depositType === 1?'on':''" @click="selectMode(1)">全额付款</li>
+                <li class="select-sp fn-left" :class="depositType === 2?'on':''" @click="selectMode(2)">定金</li>
+                <li class="select-sp fn-left" :class="depositType === 3?'on':''" @click="selectMode(3)">诚意金</li>
+              </div>
+            </ul>
+            <div class="steps">
+              <!-- 定金 -->
+              <div class="second-step fn-clear" v-show="depositType == 2">
+                <label class="select-wrds fn-left">定金比例配置：</label>
+                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent" />
+                <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
+              </div>
+              <!-- 诚意金 -->
+              <div class="third-step" v-show="depositType == 3">
+                <div class="model-list-table">
+                  <div class="order-titl fn-clear">
+                    <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
+                    <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                  </div>
+                  <Table :tableTitle="tableTitle" :tableData="tableData"/>
+                </div>
+              </div>
+            </div>
+            <div class="confirm-btn">
+              <el-button class="confirm" @click="confirm(depositType)">确定</el-button>            
             </div>
           </div>
         </div>
@@ -96,9 +100,8 @@
     },
     data() {
       return {
-        step: 1,
-        stepdone: 0,
         editshow: true,
+        depositType: '',
         depositInfoList: [], //查询返回的数据
         opmRetailerUpate: [], //诚意金修改后要提交的数据
         tableTitle: [{
@@ -167,14 +170,10 @@
         this.tableData[index] = row;
       },
       edit() {
-        this.editshow = !this.editshow;
+        this.editshow = false;
       },
       selectMode(index) {
-        this.step = index;
-      },
-      selectEditMode(index) {
-        this.step = index;
-        this.stepdone = 0;
+        this.depositType = index;
       },
       confirm(type) {
         let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
@@ -194,8 +193,7 @@
         }).then((rsp) => {
           this.$message.success('修改配置成功！');
           this.queryOpmDepositInfo();
-          // this.step = 0;
-          // this.stepdone = type;
+          this.editshow = true;
         })
       }
       ,
@@ -204,7 +202,7 @@
           opMeetingId: '订货会ID'
         }).then((rsp) => {
           this.depositInfoList = rsp;
-          this.step = this.depositInfoList.depositType || 1;
+          this.depositType = this.depositInfoList.depositType;
           this.tableData = rsp.opmRetailerDepositList;
         })
       }
@@ -284,7 +282,7 @@
     .edit-btn {
       height: 25px;
       padding: 0 12px;
-      margin: 22px 0 0 0;
+      margin: 5px 0 0 0;
       line-height: 24px;
       color: #e52840;
       border: 1px solid #e52840;
@@ -311,15 +309,7 @@
         background-color: #e52840;
         border: 0;
       }
-    }
-    .fir-wrds {
-      width: 250px;
-      line-height: 34px;
-      margin-left: 40px;
-    }
-    .edit-btn {
-      margin-top: 5px;
-    }
+    }    
   }
 
   .steps {
@@ -351,6 +341,11 @@
         background: url('../assets/images/selected-icon.png') right bottom no-repeat;
         color: #f01d1d;
       }
+    }
+    .fir-wrds {
+      width: 250px;
+      line-height: 34px;
+      margin-left: 40px;
     }
   }
 
