@@ -293,6 +293,16 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   }
 });
 
+//23、删除特种机型分配信息接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOpmOfferAllot'), {
+  rsphead: 's',
+  success: true, //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
+
 //24、批量导入新增机型数据解析
 Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList'), {
   rsphead: 's',
@@ -343,7 +353,7 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   code: null,
   msg: null, //失败信息
   error: null,
-  'data|5-10': [{
+  'data|30': [{
     'id': '@id',
     'name': '@province()',
     'parentId': '',
