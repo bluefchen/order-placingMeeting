@@ -30,7 +30,7 @@
             <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
           </div>
         </div>
-        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -53,10 +53,6 @@
           policyName: ''
         },
         tableTitle: [{
-          label: '序号',
-          prop: 'orderNum',
-          width: 100,
-        }, {
           label: '政策名称',
           prop: 'policyName',
           render: (h, params) => {
@@ -88,15 +84,19 @@
           width: 120,
           render: function (h, params) {
             return h({
-              template: '<el-button type="text" @click="deleteInfo(row)" class="delete-btn">删除</el-button>',
+              template: '<el-button type="text" @click="deleteOpmPolicy(policyId)" class="delete-btn">删除</el-button>',
               data: function () {
                 return {
-                  data: params.row
+                  policyId: params.row.policyId
                 }
               },
               methods: {
-                deleteInfo(row) {
-                  console.log(row)
+                deleteOpmPolicy(id) {
+                  this.$post('/opmPolicyController/deleteOpmPolicy', {
+                    policyId: id
+                  }).then((rsp) => {
+                    this.queryOpmPolicyList();
+                  })
                 }
               },
             })
