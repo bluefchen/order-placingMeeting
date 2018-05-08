@@ -182,7 +182,7 @@
           width: 100,
           render: function (h, params) {
             return h({
-              template: '<p class="red">{{depositAmount}}</p>',
+              template: '<p class="text-link">{{depositAmount}}</p>',
               data: function () {
                 return {
                   depositAmount: params.row.depositAmount
