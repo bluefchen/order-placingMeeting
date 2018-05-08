@@ -601,6 +601,8 @@
     .selection-supplier{
         width: 240px;
         padding-top: 3px;
+        padding-left: 20px;
+        display: flex;
       }
     .model-list-table {
       margin-bottom: 20px;

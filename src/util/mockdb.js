@@ -781,3 +781,12 @@ Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
   data: null
 });
 
+//49、政策导入数据
+Mock.mock(new RegExp('/opmPolicyController/batchInsertOpmPolicy'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
