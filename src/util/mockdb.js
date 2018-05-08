@@ -69,7 +69,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
     'totalSize|1-99': 1,
@@ -95,7 +95,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
     'totalSize|1-99': 1,
@@ -254,6 +254,45 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchDeleteOpmOffer'), {
   data: null
 });
 
+//22、查询特种机型分配量列表接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|30-99': 1, 
+    'rows|5-10': [{
+      'opmOaId':'@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(3, 5)',
+      'brandCd': '@id',
+      'brandName': '@cword(3, 5)',
+      'offerModelId': '@id',
+      'offerModelName': '@word(5, 10)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'offerQty|1-100': 1,
+      'commonReginId': '@id',
+      'commonRegionName': '@city',
+      'supplierId': '@id',
+      'supplierName': '@cword(3, 5)',
+      'assignQty|1-99': 1,
+      'offerPic': {
+        'offerPicId': '@id',
+        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl2': '@url',
+        'offerPicUrl3': '@url',
+        'offerPicUrl4': '@url',
+        'offerPicUrl5': '@url',
+        'offerPicUrl6': '@url'
+      }
+    }]
+  }
+});
+
 //24、批量导入新增机型数据解析
 Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList'), {
   rsphead: 's',
@@ -306,9 +345,9 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   error: null,
   'data|5-10': [{
     'id': '@id',
-    'name': '@city',
-    'parentId': '@id',
-    'areaLevel|1': ['1', '2', '3', '4']
+    'name': '@province()',
+    'parentId': '',
+    'areaLevel': ''
   }]
 });
 
@@ -731,3 +770,4 @@ Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
   error: null,
   data: null
 });
+

@@ -21,7 +21,7 @@
 
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
-      <InputWithSelect class="fn-left" :search="search"/>
+      <InputWithSelect class="fn-left" @search="search"/>
       <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                             class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
@@ -36,7 +36,7 @@
         </div>
         <div class="condition-iterm wid30">
           <label class="label-wrds">零售商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.retailerId">
+          <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
         </div>
         <div class="condition-iterm wid40">
           <label class="label-wrds">订购起止日期：</label>
@@ -54,7 +54,7 @@
         </div>
         <div class="condition-iterm wid30">
           <label class="label-wrds">供应商名称：</label>
-          <input type="text" class="condition-input" v-model="orderQueryData.supplierId">
+          <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
         </div>
         <div class="condition-iterm wid40">
           <el-button @click="queryOpmOrderSubmit">查询</el-button>
@@ -119,6 +119,7 @@
   import Table from '@/components/Table';
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'PreferentialPolicySettlement',
@@ -127,6 +128,7 @@
     },
     data() {
       return {
+        isShow: false,
 
         paymentStatusList: [{ //付款状态列表
           value: 1000,
@@ -160,7 +162,7 @@
       search(obj) {
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit()
+        this.queryOpmOrderSubmit();
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -206,6 +208,12 @@
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
+      },
+      selectRetailer(val){
+        console.log(val, 'selectRetailer');
+      },
+      selectSupplier(val){
+        console.log(val, 'selectSupplier');
       }
     },
     components: {
@@ -214,7 +222,8 @@
       TitlePlate,
       Table,
       DeviceInfo,
-      Pagination
+      Pagination,
+      ChooseMerchants
     }
   }
 </script>

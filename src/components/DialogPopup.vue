@@ -2,7 +2,6 @@
   <div>
     <el-dialog
       :visible.sync="dialogVisible"
-      :width="width"
       :close-on-click-modal="false"
       center>
       <div slot="title">
@@ -20,10 +19,6 @@
   export default {
     name: 'DialogPopup',
     props: {
-      width: {
-        type: String,
-        default: '60%'
-      },
       title: {
         type: String,
         required: true
@@ -51,6 +46,9 @@
 </script>
 
 <style lang="less">
+  .el-dialog {
+    width: 680px;
+  }
   .el-dialog__header {
     width: 100%;
     height: 40px;

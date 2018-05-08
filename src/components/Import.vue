@@ -100,7 +100,7 @@
     }
     .num {
       color: #f82134;
-      font-weight: 700;
+      font-weight: 800;
     }
     .result-icon {
       width: 20px;
@@ -120,7 +120,7 @@
     .el-table th.is-leaf {
       background-color: #f5f4f4;
       color: #000;
-      font-weight: 700;
+      font-weight: 800;
       text-align: center;
     }
   }
