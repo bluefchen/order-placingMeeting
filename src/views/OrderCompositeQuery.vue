@@ -39,7 +39,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">零售商名称：</label>
-            <Input class="condition-input" :value.sync="orderQueryData.retailerId"/>
+            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
           </div>
         </el-col>
         <el-col :span="8">
@@ -59,12 +59,12 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">供应商名称：</label>
-            <Input class="condition-input" :value.sync="orderQueryData.supplierId"/>
+            <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
           </div>
         </el-col>
         <el-col :span="8">
           <div class="condition-iterm">
-            <el-button type="success" size="small" @click="queryOpmOrderSubmit">查询</el-button>
+            <el-button type="success" size="small" @click="queryOpmOrderSubmit()">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -128,6 +128,7 @@
   import Table from '@/components/Table';
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'OrderCompositeQuery',
@@ -168,6 +169,12 @@
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
         this.queryOpmOrderSubmit()
+      },
+      selectRetailer(val){
+          this.orderQueryData.retailerId = val;
+      },
+      selectSupplier(val){
+          this.orderQueryData.supplierId = val;
       },
       queryOpmOrderSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
@@ -222,7 +229,8 @@
       TitlePlate,
       Table,
       DeviceInfo,
-      Pagination
+      Pagination,
+      ChooseMerchants
     }
   }
 </script>

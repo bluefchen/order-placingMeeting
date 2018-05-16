@@ -241,11 +241,11 @@
         this.selectionChangeList = val;
       },
       saveChange(){
-        this.checkedOption = this.selectionChangeList;
+        this.checkedOption = this.selectionChangeList ? this.selectionChangeList : {};
         if(this.title === '供应商'){
-          this.$emit('selectOptions', this.selectionChangeList.supplierId);
+          this.$emit('selectOptions', this.checkedOption.supplierId);
         }else{
-          this.$emit('selectOptions', this.selectionChangeList.retailerId);
+          this.$emit('selectOptions', this.checkedOption.retailerId);
         }
         this.isShow = false;
       },
