@@ -29,19 +29,30 @@
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
-      <div class="condition-iterm wid30">
-        <label class="label-wrds">订单号：</label>
-        <input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo">
-      </div>
+
+
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">订单号：</label>
+            <input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo">
+          </div>
+        </el-col>
+    <el-col :span="8">
       <div class="condition-iterm wid30">
         <label class="label-wrds">零售商名称：</label>
         <input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
       </div>
-      <div class="condition-iterm wid40">
-        <label class="label-wrds">订购起止日期：</label>
-        <el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange"
-                        range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-      </div>
+    </el-col>
+  <el-col :span="8">
+    <div class="condition-iterm wid40">
+      <label class="label-wrds">订购起止日期：</label>
+      <el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange"
+                      range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+    </div>
+  </el-col>
+      </el-row>
+
     </div>
 
     <div class="box-1200 tabs-list">

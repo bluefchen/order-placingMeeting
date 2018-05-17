@@ -163,6 +163,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
       'salePrice|1-100.1-2': 1,
       'offerQty|1-100': 1,
       'isSpecial|1': ['Y', 'N'],
+      'supplierId': '@id',
+      'supplierName': '@cword(3, 5)',
       'offerPic': {
         'offerPicId': '@id',
         'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
