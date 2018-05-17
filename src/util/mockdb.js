@@ -764,6 +764,7 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
       'amount|1-1000': 100,
       'discountValue2|1-10': 1,
       'partyId': '@id',
+      'partyName': '@cname',
       'createDt': '@date',
       'statusCd|+1':[1000, 1001, 1002],
       'statusCdName|+1': ['待审批', '已生效', '失效']
