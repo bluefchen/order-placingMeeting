@@ -134,6 +134,9 @@
             })
           }
         }, {
+            label: '供货商',
+            prop: 'supplierName'
+        }, {
           label: '上架数量',
           prop: 'offerQty',
           render: function (h, params) {

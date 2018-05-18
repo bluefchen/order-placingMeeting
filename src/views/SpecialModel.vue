@@ -694,7 +694,7 @@
 
     .updown-btn {
       padding: 2px 5px;
-      border: 0;
+      border: 1px solid #fff;
       text-decoration: underline;
     }
 
