@@ -14,8 +14,7 @@
           <el-col :span="6">
             <div class="form-group">
               <label>所属省市：</label>
-              <Cascader/>
-              <!--<el-cascader :options="regionsList" @change="handleChange" :props="props"></el-cascader>-->
+              <Cascader @change="handleChange"/>
             </div>
           </el-col>
           <el-col :span="6">
@@ -77,6 +76,7 @@
         dialogTitle: '',
         isShowSupplierType: true,
         checkedOption: {},
+        sdfadf: '',
 
         supplierTypeList: [{ //供货商类型列表
           value: 1001,
@@ -253,7 +253,7 @@
         this.isShow = val;
       },
       handleChange(val){
-        this.orderQueryData.commonRegionId = val[val.length - 1];
+        this.orderQueryData.commonRegionId = val;
       },
       handleSearch(curPage, pageSize){
         if(this.title === '供应商'){

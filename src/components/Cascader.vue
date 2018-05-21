@@ -3,6 +3,7 @@
     :options="options"
     @active-item-change="handleItemChange"
     :props="props"
+    @change="handleChange"
   ></el-cascader>
 </template>
 
@@ -18,7 +19,7 @@
       return {
         areaList: [],
         props: {
-          value: 'label',
+          value: 'areaId',
           children: 'cities'
         }
       }
@@ -38,10 +39,9 @@
     },
     methods: {
       handleItemChange(val) {
-        debugger;
-        if (val.id && !val.cities.length) {
+        if (val) {
           this.$post('/commonCfgController/getCommonRegionTreeList', {
-            commonRegionId: val.id
+            commonRegionId: val
           }).then((rsp) => {
             let arr = [];
             _.forEach(rsp, (item) => {
@@ -50,9 +50,17 @@
                 areaId: item.id
               })
             });
-            val.cities = arr;
+
+            _.forEach(this.options, (item) => {
+              if(item.areaId == val){
+                item.cities = arr;
+              }
+            });
           });
         }
+      },
+      handleChange(item){
+        this.$emit('change', item[item.length - 1]);
       }
     }
   }
