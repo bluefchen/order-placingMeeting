@@ -24,6 +24,7 @@ const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
 const LoginIn = () => import('@/views/LoginIn');
+const Preview = () => import('@/views/Preview');
 
 Vue.use(Router);
 
@@ -193,11 +194,11 @@ export default new Router({
         }
       ]
     }, {
-      path: '/page2',
-      name: 'page2',
-      component: Order,
+      path: '/preview',
+      name: 'preview',
+      component: Preview,
       meta: {
-        title: '基础数据维护'
+        title: '预览DEMO'
       }
     }, {
       path: '/loginIn',

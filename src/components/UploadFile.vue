@@ -74,7 +74,7 @@
         //   params: {
         //     key: ''
         //   },
-        //   responseType: 'arraybuffer'
+        //   responseType: 'blob'
         // }).then((response) => {
         //   //创建一个blob对象,file的一种
         //   let blob = new Blob([response.data], {type: 'application/vnd.ms-excel;charset=UTF-8'});
