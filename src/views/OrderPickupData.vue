@@ -35,22 +35,24 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">订单号：</label>
-            <input type="text" class="condition-input" v-model="orderDeliveryData.opmOrderNo">
+            <Input class="condition-input" :value.sync="orderDeliveryData.opmOrderNo"/>
           </div>
         </el-col>
-    <el-col :span="8">
-      <div class="condition-iterm wid30">
-        <label class="label-wrds">零售商名称：</label>
-        <input type="text" class="condition-input" v-model="orderDeliveryData.retailerId">
-      </div>
-    </el-col>
-  <el-col :span="8">
-    <div class="condition-iterm wid40">
-      <label class="label-wrds">订购起止日期：</label>
-      <el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange"
-                      range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-    </div>
-  </el-col>
+        <el-col :span="8">
+          <div class="condition-iterm">
+            <label class="label-wrds">零售商名称：</label>
+            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+            <!-- <input type="text" class="condition-input" v-model="orderDeliveryData.retailerId"> -->
+          </div>
+        </el-col>
+      <el-col :span="8">
+        <div class="condition-iterm">
+          <label class="label-wrds">订购起止日期：</label>
+          <DatePicker class="condition-input" :value.sync="orderDeliveryData.dateValue"/>
+          <!--<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange"-->
+                          <!--range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
+        </div>
+      </el-col>
       </el-row>
 
     </div>
@@ -111,6 +113,9 @@
   import Table from '@/components/Table';
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
+  import DatePicker from '@/components/DatePicker';
+  import ChooseMerchants from '@/components/ChooseMerchants';
+  import Input from '@/components/Input';
 
   export default {
     name: 'OrderPickupData',
@@ -138,6 +143,9 @@
         this.orderDeliveryData.isCentman = obj.type;
         this.orderDeliveryData.offerNameOrCode = obj.value;
         this.qryOpmOrderPickupRecordList()
+      },
+      selectRetailer(val){
+          this.orderDeliveryData.retailerId = val;
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -180,7 +188,10 @@
       TitlePlate,
       Table,
       DeviceInfo,
-      Pagination
+      Pagination,
+      DatePicker,
+      ChooseMerchants,
+      Input
     }
   }
 </script>
@@ -220,37 +231,24 @@
       margin: 10px auto;
     }
     .condition-search {
-      display: flex;
+      display: block;
       height: 72px;
       margin: 18px auto 22px;
+      padding: 10px;
       border: 1px solid #dfdfdf;
     }
     .condition-iterm {
-      position: relative;
-      margin: 20px 30px 0 0;
-    }
-    .condition-iterm .label-wrds {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 110px;
-      line-height: 32px;
-      font-size: 14px;
-      text-align: right;
-    }
-    .condition-input {
-      width: calc(100% - 20px - 110px);
-      height: 24px;
-      padding: 3px 10px;
-      margin-left: 110px;
-      border: 1px solid #e5e5e5;
-    }
-    .condition-input:hover {
-      border-color: #c0c4cc;
-    }
-
-    .condition-input:focus {
-      border-color: #ff7a7a;
+      display: flex;
+      margin: 10px 0px 0 0;
+      .label-wrds {
+        width: 110px;
+        line-height: 32px;
+        font-size: 14px;
+        text-align: right;
+      }
+      .condition-input {
+        flex: 1 0 0;
+      }
     }
     .wid30 {
       width: 30%;
