@@ -25,6 +25,8 @@ const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
 const LoginIn = () => import('@/views/LoginIn');
 const Preview = () => import('@/views/Preview');
+const TerminalMaintain = () => import('@/views/TerminalMaintain');
+const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
 
 Vue.use(Router);
 
@@ -206,6 +208,20 @@ export default new Router({
       component: LoginIn,
       meta: {
         title: '登陆页'
+      }
+    }, {
+      path: '/TerminalMaintain',
+      name: 'terminalMaintain',
+      component: TerminalMaintain,
+      meta: {
+        title: '终端维护'
+      }
+    }, {
+      path: '/AddTerminalMaintain',
+      name: 'addTerminalMaintain',
+      component: AddTerminalMaintain,
+      meta: {
+        title: '新增/修改商品'
       }
     }
   ]
