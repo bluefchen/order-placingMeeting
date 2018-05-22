@@ -72,7 +72,7 @@
           <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe678;</i> 批量下架</router-link>
         </div>
       </div>
-      <Table :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
