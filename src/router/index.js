@@ -27,6 +27,7 @@ const LoginIn = () => import('@/views/LoginIn');
 const Preview = () => import('@/views/Preview');
 const TerminalMaintain = () => import('@/views/TerminalMaintain');
 const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
+const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
 
 Vue.use(Router);
 
@@ -222,6 +223,13 @@ export default new Router({
       component: AddTerminalMaintain,
       meta: {
         title: '新增/修改商品'
+      }
+    }, {
+      path: '/DetailTerminalMaintain',
+      name: 'detailTerminalMaintain',
+      component: DetailTerminalMaintain,
+      meta: {
+        title: '详情或预览'
       }
     }
   ]

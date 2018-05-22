@@ -460,7 +460,7 @@
         background: #fafafa;
         vertical-align: top;
         padding: 20px;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
       }
       .result-table-content{
@@ -471,7 +471,7 @@
           .content-label {
             width: 110px;
             line-height: 32px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             color: #646466;
           }
