@@ -6,7 +6,7 @@
     <div class="slide">
       <div class="slide-left fn-left" @click="scrollLeft"><img src="@/assets/images/icon-btn-left.png" alt=""></div>
       <div class="slide-center fn-left">
-        <ul :class="{'animate':animate}">
+        <ul :class="{'animate-left': animateLeft==true, 'animate-right': animateRight==true}">
           <li v-for="(item, index) in imgList" @click="checkedUrl(item, index)" :class="{'checked': index == checkedIndex}">
             <img :src="item" alt="" width="100">
           </li>
@@ -41,7 +41,8 @@
         url: '',
         bigUrl: '',
         checkedIndex: '',
-        animate: false,
+        animateLeft: false,
+        animateRight: false
       }
     },
     methods: {
@@ -51,28 +52,44 @@
         this.checkedIndex = index;
       },
       scrollLeft(){
-        if(this.imgList.length > 4 ){
-          this.animate = true;
+        if(this.imgList.length > 4){
           this.imgList.push(this.imgList[0]);
-          this.imgList.shift();
-          this.animate= false;
+          this.animateLeft = true;
+          setTimeout(() => {
+            this.imgList.shift();
+            this.animateLeft= false;
+            if(this.checkedIndex != 0){
+              this.checkedIndex--
+            };
+            this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
+          }, 500)
+        }else{
+          if(this.checkedIndex != 0){
+            this.checkedIndex--
+          };
+          this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
         };
-        if(this.checkedIndex != 0){
-          this.checkedIndex--
-        };
-        this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
       },
       scrollRight(){
         if(this.imgList.length > 4){
-          this.animate = true;
-          var item = this.imgList.pop();
-          this.imgList.unshift(item);
-          this.animate= false;
+          this.animateRight = true;
+          setTimeout(() => {
+              var item = this.imgList.pop();
+              this.imgList.unshift(item);
+              this.animateRight= false;
+              if(this.checkedIndex != 3 && this.checkedIndex < (this.imgList.length - 1)){
+                this.checkedIndex++
+              };
+              this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
+            
+          }, 500)
+        }else{
+          if(this.checkedIndex != 3 && this.checkedIndex < (this.imgList.length - 1)){
+            this.checkedIndex++
+          };
+          this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
         };
-        if(this.checkedIndex != 3 && this.checkedIndex < (this.imgList.length - 1)){
-          this.checkedIndex++
-        };
-        this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
+        
       }
     },
     components: {
@@ -82,7 +99,6 @@
 </script>
 
 <style scoped lang="less">
-
   .pic-zoom {
     width: 380px;
     height: 390px;
@@ -130,6 +146,14 @@
         li.checked{
           border: 2px solid #f00;
         }
+      }
+      ul.animate-left{
+        transition: all 0.5s;
+        left: -82px;
+      }
+      ul.animate-right{
+        transition: all 0.5s;
+        left: 82px;
       }
     }
   }
