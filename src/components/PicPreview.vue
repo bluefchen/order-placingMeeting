@@ -4,15 +4,15 @@
       <PicZoom :url="url" :bigUrl="bigUrl"/>
     </div>
     <div class="slide">
-      <div class="slide-left fn-left" @click="scrollLeft"><img src="@/assets/images/icon-btn-left.png" alt=""></div>
+      <button class="slide-left fn-left" @click="scrollLeft" :disabled="animateLeft"><img src="@/assets/images/icon-btn-left.png" alt=""></button>
       <div class="slide-center fn-left">
         <ul :class="{'animate-left': animateLeft==true, 'animate-right': animateRight==true}">
-          <li v-for="(item, index) in imgList" @click="checkedUrl(item, index)" :class="{'checked': index == checkedIndex}">
-            <img :src="item" alt="" width="100">
+          <li v-for="(item, index) in imgList" @click="checkedUrl(item, index)" :class="{'checked': index == checkedIndex}" v-show="index > showIndex - 1 && index < showIndex + 6">
+            <img :src="item" alt="">
           </li>
         </ul>
       </div>
-      <div class="slide-right fn-right" @click="scrollRight"><img src="@/assets/images/icon-btn-right.png" alt=""></div>
+      <button class="slide-right fn-right" @click="scrollRight" :disabled="animateRight"><img src="@/assets/images/icon-btn-right.png" alt=""></button>
     </div>
   </div>
 </template>
@@ -23,7 +23,16 @@
   export default {
     name: 'PicPreview',
     created() {
-      this.checkedUrl(this.imgList[0], 0);
+      var imgItem = this.imgList.pop();
+      this.imgList.unshift(imgItem);
+      this.imgList.push(imgItem);
+
+      if(this.imgList.length > 4){
+        this.checkedIndex = 1;
+      }else{
+        this.checkedIndex = 1;
+      };
+      this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
     },
     data() {
       return {
@@ -37,12 +46,15 @@
           'http://img12.360buyimg.com/n1/s450x450_jfs/t17086/355/1787289240/85381/8ed3a44/5ad86285Nc411d600.jpg'
         ,
           'http://img14.360buyimg.com/n1/s450x450_jfs/t17494/75/1869981719/216755/afe6bf7/5ad87250N8b8f157e.jpg'
+        ,
+          'http://img10.360buyimg.com/n1/s450x450_jfs/t18076/23/1790973070/197564/1c7e24b3/5ad87379N59492ad3.jpg'
         ],
         url: '',
         bigUrl: '',
         checkedIndex: '',
         animateLeft: false,
-        animateRight: false
+        animateRight: false,
+        showIndex: 0,
       }
     },
     methods: {
@@ -52,44 +64,22 @@
         this.checkedIndex = index;
       },
       scrollLeft(){
-        if(this.imgList.length > 4){
-          this.imgList.push(this.imgList[0]);
+        if(this.showIndex > 0){
           this.animateLeft = true;
           setTimeout(() => {
-            this.imgList.shift();
-            this.animateLeft= false;
-            if(this.checkedIndex != 0){
-              this.checkedIndex--
-            };
-            this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
+            this.showIndex = this.showIndex - 1;
+            this.animateLeft = false;
           }, 500)
-        }else{
-          if(this.checkedIndex != 0){
-            this.checkedIndex--
-          };
-          this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
         };
       },
       scrollRight(){
-        if(this.imgList.length > 4){
+        if(this.showIndex + 5 < this.imgList.length){
           this.animateRight = true;
           setTimeout(() => {
-              var item = this.imgList.pop();
-              this.imgList.unshift(item);
-              this.animateRight= false;
-              if(this.checkedIndex != 3 && this.checkedIndex < (this.imgList.length - 1)){
-                this.checkedIndex++
-              };
-              this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
-            
+            this.showIndex = this.showIndex + 1;
+            this.animateRight= false;
           }, 500)
-        }else{
-          if(this.checkedIndex != 3 && this.checkedIndex < (this.imgList.length - 1)){
-            this.checkedIndex++
-          };
-          this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
         };
-        
       }
     },
     components: {
@@ -108,9 +98,13 @@
     margin-top: 20px;
     width: 100%;
     .slide-left, .slide-right{
+      position: relative;
       width: 19px;
       height: 72px;
+      background: none;
+      border: none;
       line-height: 72px;
+      z-index: 999;
       cursor: pointer;
       img{
         vertical-align: middle;
@@ -124,9 +118,9 @@
       overflow: hidden;
       ul{
         position: absolute;
-        left: 0;
+        left: -82px;
         top: 0;
-        width: 130%;
+        width: 160%;
         height: 72px;
         li{
           float: left;
@@ -149,11 +143,11 @@
       }
       ul.animate-left{
         transition: all 0.5s;
-        left: -82px;
+        left: 0px;
       }
       ul.animate-right{
         transition: all 0.5s;
-        left: 82px;
+        left: -164px;
       }
     }
   }
