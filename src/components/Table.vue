@@ -106,6 +106,28 @@
   }
 
   .v_table {
+    
+    .is-focus{
+      .el-checkbox__inner{
+        border-color: #f41b1b;
+      }
+    }
+
+    .el-checkbox__inner{
+      &:hover{
+        border-color: #f41b1b;
+      }
+    }
+
+    .el-checkbox__input{
+      &.is-checked, &.is-indeterminate{
+        .el-checkbox__inner{
+          background-color: #f41b1b;
+          border-color: #f41b1b;
+        }
+      }
+    }
+
     .el-table, .el-table__expanded-cell {
       width: 1200px;
       margin: 0 auto;
