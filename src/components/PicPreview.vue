@@ -28,10 +28,12 @@
     name: 'PicPreview',
     created() {
       //取图片列表最后一项，放到数组最前面。ul往左偏移一项显示，防止点击左右按钮切换时候出现突然显示问题。自动选择index为1的项
-      var imgItem = this.imgList.pop();
-      this.imgList.unshift(imgItem);
-      this.imgList.push(imgItem);
-      this.checkedUrl(this.imgList[1], 1);
+      if(this.imgList.length){
+        var imgItem = this.imgList.pop();
+        this.imgList.unshift(imgItem);
+        this.imgList.push(imgItem);
+        this.checkedUrl(this.imgList[1], 1);
+      };
     },
     data() {
       return {
