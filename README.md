@@ -38,8 +38,9 @@ npm run build --report
 
 
 ## 问题记录
-1、input输入框只能输入数字；
-2、导出、下载后台返回stream流；
-3、地区选择联动组件；
+- 1、input输入框只能输入数字；
+- 2、导出、下载后台返回blob；
+- 3、地区选择联动组件；
+- 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
 
 
