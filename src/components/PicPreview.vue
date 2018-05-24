@@ -3,16 +3,20 @@
     <div class="pic-zoom">
       <PicZoom :url="url" :bigUrl="bigUrl"/>
     </div>
-    <div class="slide">
-      <button class="slide-left fn-left" @click="scrollLeft" :disabled="animateLeft"><img src="@/assets/images/icon-btn-left.png" alt=""></button>
+    <div class="slide fn-clear">
+      <button class="slide-left fn-left" @click="scrollLeft" :disabled="animateLeft">
+        <img src="@/assets/images/icon-btn-left.png">
+      </button>
       <div class="slide-center fn-left">
-        <ul :class="{'animate-left': animateLeft==true, 'animate-right': animateRight==true}">
-          <li v-for="(item, index) in imgList" @click="checkedUrl(item, index)" :class="{'checked': index == checkedIndex}" v-show="index > showIndex - 1 && index < showIndex + 6">
+        <ul :class="{'animate-left': animateLeft, 'animate-right': animateRight}">
+          <li v-for="(item, index) in imgList" v-on:mouseover="checkedUrl(item, index)" :class="{'checked': index === checkedIndex}" v-show="index >= showMinIndex && index <= showMaxIndex">
             <img :src="item" alt="">
           </li>
         </ul>
       </div>
-      <button class="slide-right fn-right" @click="scrollRight" :disabled="animateRight"><img src="@/assets/images/icon-btn-right.png" alt=""></button>
+      <button class="slide-right fn-right" @click="scrollRight" :disabled="animateRight">
+        <img src="@/assets/images/icon-btn-right.png">
+      </button>
     </div>
   </div>
 </template>
@@ -23,16 +27,13 @@
   export default {
     name: 'PicPreview',
     created() {
-      var imgItem = this.imgList.pop();
-      this.imgList.unshift(imgItem);
-      this.imgList.push(imgItem);
-
-      if(this.imgList.length > 4){
-        this.checkedIndex = 1;
-      }else{
-        this.checkedIndex = 1;
+      //取图片列表最后一项，放到数组最前面。ul往左偏移一项显示，防止点击左右按钮切换时候出现突然显示问题。自动选择index为1的项
+      if(this.imgList.length){
+        var imgItem = this.imgList.pop();
+        this.imgList.unshift(imgItem);
+        this.imgList.push(imgItem);
+        this.checkedUrl(this.imgList[1], 1);
       };
-      this.checkedUrl(this.imgList[this.checkedIndex], this.checkedIndex);
     },
     data() {
       return {
@@ -52,9 +53,11 @@
         url: '',
         bigUrl: '',
         checkedIndex: '',
-        animateLeft: false,
-        animateRight: false,
-        showIndex: 0,
+        animateLeft: false, //往左切换的动画样式
+        animateRight: false, //向右切换的动画样式
+        showMinIndex: 0, //显示的最小索引值
+        showMaxIndex: 5, //显示的最大索引值
+        showIndexLength: 5 //显示的最大和最小索引值的数差
       }
     },
     methods: {
@@ -64,19 +67,21 @@
         this.checkedIndex = index;
       },
       scrollLeft(){
-        if(this.showIndex > 0){
+        if(this.showMinIndex > 0){
           this.animateLeft = true;
           setTimeout(() => {
-            this.showIndex = this.showIndex - 1;
+            this.showMinIndex = this.showMinIndex - 1;
+            this.showMaxIndex = this.showMaxIndex - 1;
             this.animateLeft = false;
           }, 500)
         };
       },
       scrollRight(){
-        if(this.showIndex + 5 < this.imgList.length){
+        if(this.showMinIndex + this.showIndexLength < this.imgList.length){
           this.animateRight = true;
           setTimeout(() => {
-            this.showIndex = this.showIndex + 1;
+            this.showMinIndex = this.showMinIndex + 1;
+            this.showMaxIndex = this.showMaxIndex + 1;
             this.animateRight= false;
           }, 500)
         };
@@ -136,19 +141,20 @@
             max-width: 100%;
             max-height: 100%;
           }
+          &.checked{
+            border: 2px solid #f00;
+          }
         }
-        li.checked{
-          border: 2px solid #f00;
+        &.animate-left{
+          transition: all 0.5s;
+          left: 0;
+        }
+        &.animate-right{
+          transition: all 0.5s;
+          left: -164px;
         }
       }
-      ul.animate-left{
-        transition: all 0.5s;
-        left: 0px;
-      }
-      ul.animate-right{
-        transition: all 0.5s;
-        left: -164px;
-      }
+
     }
   }
 </style>
