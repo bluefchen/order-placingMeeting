@@ -30,6 +30,7 @@ const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
 const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
 const OrderManage = () => import('@/views/OrderManage');
 const OrderManageIndex = () => import('@/views/OrderManageIndex');
+const SupplierDataMaintain = () => import('@/views/SupplierDataMaintain');
 
 Vue.use(Router);
 
@@ -246,6 +247,13 @@ export default new Router({
         component: OrderManageIndex,
         meta: {
           title: '首页-订购会管理'
+        }
+      },{
+        path: 'SupplierDataMaintain',
+        name: 'supplierDataMaintain',
+        component: SupplierDataMaintain,
+        meta: {
+          title: '供应商资料维护'
         }
       }]
     }
