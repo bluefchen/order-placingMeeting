@@ -92,6 +92,13 @@
                     </div>
                   </li>
                   <li>
+                    <img src="@/assets/images/vivo-logo.png" alt="">
+                    <div class="img-btn">
+                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
+                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
+                    </div>
+                  </li>
+                  <li class="btn-upload">
                     <img src="@/assets/images/icon-add.png" alt="">
                   </li>
                 </ul>
@@ -402,6 +409,9 @@
               color: #fff;
               text-decoration: none;
             }
+          }
+          &.btn-upload{
+            cursor: pointer;
           }
         }
       }
