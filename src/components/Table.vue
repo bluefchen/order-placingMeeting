@@ -109,21 +109,46 @@
     
     .is-focus{
       .el-checkbox__inner{
-        border-color: #f41b1b;
+        border-color: #fa0000;
       }
     }
 
     .el-checkbox__inner{
       &:hover{
-        border-color: #f41b1b;
+        border-color: #fa0000;
       }
+      &:after{
+        border: 2px solid #f00;
+        border-left: 0;
+        border-top: 0;
+        left: 4px;
+        top: 0px;
+      };
     }
 
     .el-checkbox__input{
       &.is-checked, &.is-indeterminate{
         .el-checkbox__inner{
-          background-color: #f41b1b;
-          border-color: #f41b1b;
+          background-color: #fff;
+          border-color: #fa0000;
+        }
+      }
+    }
+
+    .el-checkbox__input{
+      &.is-indeterminate{
+        .el-checkbox__inner{
+          background-color: #fff;
+          border-color: #fa0000;
+        }
+      }
+    }
+
+    .el-checkbox__input{
+      &.is-indeterminate {
+        .el-checkbox__inner::before {
+          background-color: #f00;
+          height: 3px;
         }
       }
     }
