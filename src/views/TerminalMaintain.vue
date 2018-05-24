@@ -599,22 +599,24 @@
       .table tbody tr:hover {
         background-color: #f9f9f9;
       }
-    }
-
-    .updown-btn {
-      margin: 0 3px;
-      padding: 2px 5px;
-      border: 0;
-      text-decoration: underline;
-      &:hover{
-        border: 1px solid #f82134;
-        border-radius: 3px;
-        text-decoration: none;
+      .updown-btn {
+        margin: 0 3px;
+        padding: 2px 5px;
+        border: 1px solid #fff;
+        text-decoration: underline;
+        &:hover{
+          border: 1px solid #f82134;
+          border-radius: 3px;
+          text-decoration: none;
+        }
       }
-    }
-
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
+      .updown-btn{ 
+        &.green{
+          &:hover {
+            border: 1px solid #46b02e;
+          }
+        }
+      }
     }
 
     .queries-title span:first-child .arrows {
