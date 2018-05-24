@@ -28,6 +28,8 @@ const Preview = () => import('@/views/Preview');
 const TerminalMaintain = () => import('@/views/TerminalMaintain');
 const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
 const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
+const OrderManage = () => import('@/views/OrderManage');
+const OrderManageIndex = () => import('@/views/OrderManageIndex');
 
 Vue.use(Router);
 
@@ -231,6 +233,21 @@ export default new Router({
       meta: {
         title: '详情或预览'
       }
+    }, {
+      path: '/OrderManage',
+      name: 'orderManage',
+      component: OrderManage,
+      meta: {
+        title: '订购会管理'
+      },
+      children: [{
+        path: 'OrderManageIndex',
+        name: 'orderManageIndex',
+        component: OrderManageIndex,
+        meta: {
+          title: '首页-订购会管理'
+        }
+      }]
     }
   ]
 })
