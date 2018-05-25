@@ -23,7 +23,6 @@ const PolicyList = () => import('@/views/PolicyList');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
-const LoginIn = () => import('@/views/LoginIn');
 const Preview = () => import('@/views/Preview');
 const TerminalMaintain = () => import('@/views/TerminalMaintain');
 const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
@@ -205,13 +204,6 @@ export default new Router({
       component: Preview,
       meta: {
         title: '预览DEMO'
-      }
-    }, {
-      path: '/loginIn',
-      name: 'loginIn',
-      component: LoginIn,
-      meta: {
-        title: '登陆页'
       }
     }, {
       path: '/TerminalMaintain',
