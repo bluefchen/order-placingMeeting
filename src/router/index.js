@@ -201,27 +201,6 @@ export default new Router({
         },
       }]
     }, {
-      path: '/TerminalMaintain',
-      name: 'terminalMaintain',
-      component: TerminalMaintain,
-      meta: {
-        title: '终端维护'
-      }
-    }, {
-      path: '/AddTerminalMaintain',
-      name: 'addTerminalMaintain',
-      component: AddTerminalMaintain,
-      meta: {
-        title: '新增/修改商品'
-      }
-    }, {
-      path: '/DetailTerminalMaintain',
-      name: 'detailTerminalMaintain',
-      component: DetailTerminalMaintain,
-      meta: {
-        title: '详情或预览'
-      }
-    }, {
       path: '/OrderManage',
       name: 'orderManage',
       component: OrderManage,
@@ -234,6 +213,27 @@ export default new Router({
         component: OrderManageIndex,
         meta: {
           title: '首页-订购会管理'
+        }
+      }, {
+        path: 'TerminalMaintain',
+        name: 'terminalMaintain',
+        component: TerminalMaintain,
+        meta: {
+          title: '终端维护'
+        }
+      }, {
+        path: 'AddTerminalMaintain',
+        name: 'addTerminalMaintain',
+        component: AddTerminalMaintain,
+        meta: {
+          title: '新增/修改商品'
+        }
+      }, {
+        path: 'DetailTerminalMaintain',
+        name: 'detailTerminalMaintain',
+        component: DetailTerminalMaintain,
+        meta: {
+          title: '详情或预览'
         }
       }, {
         path: 'SupplierDataMaintain',
