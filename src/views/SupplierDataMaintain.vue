@@ -13,7 +13,7 @@
         <TitlePlate title="供应商资料维护列表"/>
       </div>
       <div class="search fn-clear">  
-        <InputWithSelect class="fn-left" @search="search"/>
+        <InputWithSelect class="fn-left" @search="search" :isHideSelect="true" />
         <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                               class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>

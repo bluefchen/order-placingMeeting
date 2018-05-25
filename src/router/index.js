@@ -29,6 +29,8 @@ const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
 const OrderManage = () => import('@/views/OrderManage');
 const OrderManageIndex = () => import('@/views/OrderManageIndex');
 const SupplierDataMaintain = () => import('@/views/SupplierDataMaintain');
+const AddSupplierData = () => import('@/views/AddSupplierData');
+const DetailsSupplierData = () => import('@/views/DetailsSupplierData');
 
 Vue.use(Router);
 
@@ -235,7 +237,21 @@ export default new Router({
         name: 'supplierDataMaintain',
         component: SupplierDataMaintain,
         meta: {
-          title: '供应商资料维护'
+          title: '供货商资料维护'
+        }
+      }, {
+        path: 'AddSupplierData',
+        name: 'addSupplierData',
+        component: AddSupplierData,
+        meta: {
+          title: '新增供货商'
+        }
+      }, {
+        path: 'DetailsSupplierData',
+        name: 'detailsSupplierData',
+        component: DetailsSupplierData,
+        meta: {
+          title: '供货商详情'
         }
       }]
     }

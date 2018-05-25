@@ -1,7 +1,7 @@
 <template>
   <div class="v_input-with-select">
     <el-input placeholder="输入终端编码或名称搜索" v-model="input" class="input-with-select" size="small">
-      <el-select v-model="select" slot="prepend" placeholder="请选择">
+      <el-select v-model="select" slot="prepend" placeholder="请选择" v-if="!isHideSelect">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -29,6 +29,9 @@
             value: 'N'
           }]
         }
+      },
+      isHideSelect: {
+        type: Boolean //是否隐藏下拉框
       }
     },
     data() {
