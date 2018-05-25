@@ -23,8 +23,6 @@ const PolicyList = () => import('@/views/PolicyList');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
-const LoginIn = () => import('@/views/LoginIn');
-const Preview = () => import('@/views/Preview');
 const TerminalMaintain = () => import('@/views/TerminalMaintain');
 const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
 const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
@@ -49,170 +47,154 @@ export default new Router({
       meta: {
         title: '订购会'
       },
-      children: [
-        {
-          path: 'orderIndex',
-          name: 'orderIndex',
-          component: OrderIndex,
-          meta: {
-            title: '首页-订购会'
-          },
-        }, {
-          path: 'orderModel',
-          name: 'orderModel',
-          component: OrderModel,
-          meta: {
-            title: '机型管理-订购会'
-          },
-        }, {
-          path: 'specialModel',
-          name: 'specialModel',
-          component: SpecialModel,
-          meta: {
-            title: '特种机型分配量维护'
-          },
-        }, {
-          path: 'importModelAdd',
-          name: 'importModelAdd',
-          component: ImportModelAdd,
-          meta: {
-            title: '机型导入新增'
-          },
-        }, {
-          path: 'importModelDel',
-          name: 'importModelDel',
-          component: ImportModelDel,
-          meta: {
-            title: '机型导入新增'
-          },
-        }, {
-          path: 'importSpecialModel',
-          name: 'importSpecialModel',
-          component: ImportSpecialModel,
-          meta: {
-            title: '特种机型导入新增'
-          },
-        }, {
-          path: 'importPickupAdd',
-          name: 'importPickupAdd',
-          component: ImportPickupAdd,
-          meta: {
-            title: '订单批量导入'
-          },
-        }, {
-          path: 'orderPickupData',
-          name: 'orderPickupData',
-          component: OrderPickupData,
-          meta: {
-            title: '订单提货数据维护'
-          },
-        }, {
-          path: 'orderPickupGoodsConfirm',
-          name: 'orderPickupGoodsConfirm',
-          component: OrderPickupGoodsConfirm,
-          meta: {
-            title: '订单提货确认'
-          },
-        }, {
-          path: 'depositConfigure',
-          name: 'depositConfigure',
-          component: DepositConfigure,
-          meta: {
-            title: '定金配置'
-          },
-        }, {
-          path: 'orderFormDetail',
-          name: 'orderFormDetail',
-          component: OrderFormDetail,
-          meta: {
-            title: '订单详情'
-          },
-        }, {
-          path: 'depositAddRecord',
-          name: 'depositAddRecord',
-          component: DepositAddRecord,
-          meta: {
-            title: '定金补录'
-          },
-        },  {
-          path: 'depositImport',
-          name: 'depositImport',
-          component: DepositImport,
-          meta: {
-            title: '定金导入'
-          },
-        },{
-          path: 'cyjDepositAddRecord',
-          name: 'cyjDepositAddRecord',
-          component: CyjDepositAddRecord,
-          meta: {
-            title: '诚意金补录'
-          },
-        }, {
-          path: 'cyjImport',
-          name: 'cyjImport',
-          component: CyjImport,
-          meta: {
-            title: '诚意金导入'
-          },
-        }, {
-          path: 'policyManage',
-          name: 'policyManage',
-          component: PolicyManage,
-          meta: {
-            title: '政策投入'
-          },
-        }, {
-          path: 'importPolicyAdd',
-          name: 'importPolicyAdd',
-          component: ImportPolicyAdd,
-          meta: {
-            title: '上传政策'
-          },
-        }, {
-          path: 'policyList',
-          name: 'policyList',
-          component: PolicyList,
-          meta: {
-            title: '政策列表'
-          },
-        }, {
-          path: 'orderCompositeQuery',
-          name: 'orderCompositeQuery',
-          component: OrderCompositeQuery,
-          meta: {
-            title: '订单综合查询'
-          },
-        }, {
-          path: 'orderdetail',
-          name: 'orderdetail',
-          component: Orderdetail,
-          meta: {
-            title: '订单详情'
-          },
-        }, {
-          path: 'preferentialPolicySettlement',
-          name: 'preferentialPolicySettlement',
-          component: PreferentialPolicySettlement,
-          meta: {
-            title: '优惠政策结算'
-          },
-        }
-      ]
-    }, {
-      path: '/preview',
-      name: 'preview',
-      component: Preview,
-      meta: {
-        title: '预览DEMO'
-      }
-    }, {
-      path: '/loginIn',
-      name: 'loginIn',
-      component: LoginIn,
-      meta: {
-        title: '登陆页'
-      }
+      children: [{
+        path: 'orderIndex',
+        name: 'orderIndex',
+        component: OrderIndex,
+        meta: {
+          title: '首页-订购会'
+        },
+      }, {
+        path: 'orderModel',
+        name: 'orderModel',
+        component: OrderModel,
+        meta: {
+          title: '机型管理-订购会'
+        },
+      }, {
+        path: 'specialModel',
+        name: 'specialModel',
+        component: SpecialModel,
+        meta: {
+          title: '特种机型分配量维护'
+        },
+      }, {
+        path: 'importModelAdd',
+        name: 'importModelAdd',
+        component: ImportModelAdd,
+        meta: {
+          title: '机型导入新增'
+        },
+      }, {
+        path: 'importModelDel',
+        name: 'importModelDel',
+        component: ImportModelDel,
+        meta: {
+          title: '机型导入新增'
+        },
+      }, {
+        path: 'importSpecialModel',
+        name: 'importSpecialModel',
+        component: ImportSpecialModel,
+        meta: {
+          title: '特种机型导入新增'
+        },
+      }, {
+        path: 'importPickupAdd',
+        name: 'importPickupAdd',
+        component: ImportPickupAdd,
+        meta: {
+          title: '订单批量导入'
+        },
+      }, {
+        path: 'orderPickupData',
+        name: 'orderPickupData',
+        component: OrderPickupData,
+        meta: {
+          title: '订单提货数据维护'
+        },
+      }, {
+        path: 'orderPickupGoodsConfirm',
+        name: 'orderPickupGoodsConfirm',
+        component: OrderPickupGoodsConfirm,
+        meta: {
+          title: '订单提货确认'
+        },
+      }, {
+        path: 'depositConfigure',
+        name: 'depositConfigure',
+        component: DepositConfigure,
+        meta: {
+          title: '定金配置'
+        },
+      }, {
+        path: 'orderFormDetail',
+        name: 'orderFormDetail',
+        component: OrderFormDetail,
+        meta: {
+          title: '订单详情'
+        },
+      }, {
+        path: 'depositAddRecord',
+        name: 'depositAddRecord',
+        component: DepositAddRecord,
+        meta: {
+          title: '定金补录'
+        },
+      }, {
+        path: 'depositImport',
+        name: 'depositImport',
+        component: DepositImport,
+        meta: {
+          title: '定金导入'
+        },
+      }, {
+        path: 'cyjDepositAddRecord',
+        name: 'cyjDepositAddRecord',
+        component: CyjDepositAddRecord,
+        meta: {
+          title: '诚意金补录'
+        },
+      }, {
+        path: 'cyjImport',
+        name: 'cyjImport',
+        component: CyjImport,
+        meta: {
+          title: '诚意金导入'
+        },
+      }, {
+        path: 'policyManage',
+        name: 'policyManage',
+        component: PolicyManage,
+        meta: {
+          title: '政策投入'
+        },
+      }, {
+        path: 'importPolicyAdd',
+        name: 'importPolicyAdd',
+        component: ImportPolicyAdd,
+        meta: {
+          title: '上传政策'
+        },
+      }, {
+        path: 'policyList',
+        name: 'policyList',
+        component: PolicyList,
+        meta: {
+          title: '政策列表'
+        },
+      }, {
+        path: 'orderCompositeQuery',
+        name: 'orderCompositeQuery',
+        component: OrderCompositeQuery,
+        meta: {
+          title: '订单综合查询'
+        },
+      }, {
+        path: 'orderdetail',
+        name: 'orderdetail',
+        component: Orderdetail,
+        meta: {
+          title: '订单详情'
+        },
+      }, {
+        path: 'preferentialPolicySettlement',
+        name: 'preferentialPolicySettlement',
+        component: PreferentialPolicySettlement,
+        meta: {
+          title: '优惠政策结算'
+        },
+      }]
     }, {
       path: '/TerminalMaintain',
       name: 'terminalMaintain',
@@ -248,7 +230,7 @@ export default new Router({
         meta: {
           title: '首页-订购会管理'
         }
-      },{
+      }, {
         path: 'SupplierDataMaintain',
         name: 'supplierDataMaintain',
         component: SupplierDataMaintain,
