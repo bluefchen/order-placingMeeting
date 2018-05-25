@@ -58,23 +58,356 @@
       </div>
       <div class="maintain-list fn-clear">
         <ul>
-          <li>
-            <div></div>
+          <li class="checked">
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
           <li>
-            <div></div>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
           <li>
-            <div></div>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
           <li>
-            <div></div>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
           <li>
-            <div></div>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
           <li>
-            <div></div>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
+          </li>
+          <li>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
+          </li>
+          <li>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
+          </li>
+          <li>
+            <div class="miantain-item-header">
+              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
+            </div>
+            <div class="miantain-item-content">
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">供应商编码：<span>10101</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">类型：<span>直供网</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">联系人：<span>王小二</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
+                </el-col>
+              </el-row>
+            </div> 
+            <div class="miantain-item-footer">
+              <div class="miantain-item-type">状态：<span>有效</span></div>
+              <div class="miantain-item-btn">
+                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
+                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
+                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
+              </div>  
+            </div>
           </li>
         </ul>
       </div>
@@ -197,7 +530,7 @@
     .img-bg {
       width: 100%;
       height: 401px;
-      background: #fff;
+      background: #6e42ef;
     }
     .img-bg .info {
       width: 1200px;
@@ -310,6 +643,83 @@
           width: 384px;
           height: 173px;
           border: 1px solid #ededed;
+          .miantain-item-header{
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 39px;
+            background: #fafafa;
+            color: #b3b3b3;
+            border-bottom: 1px solid #edeeee;
+            font-size: 14px;
+            line-height: 39px;
+            .iconfont{
+              font-size: 24px;
+              color: #f35260;
+              margin-left: 8px;
+            }
+            a{
+              color: #f83e4c;
+              text-decoration: underline;
+            }
+            &:after{
+              position: absolute;
+              right: 0;
+              top: 0;
+              content: '';
+              width: 34px;
+              height: 34px;
+              color: #d1d1d1;
+              background: url('../assets/images/icon-check.png') no-repeat right top;
+              text-align: center;
+              line-height: 34px;
+              cursor: pointer;
+            }
+          }
+          .miantain-item-content{
+            padding: 5px 14px 0;
+            height: 89px;
+            background: #fff;
+            line-height: 28px;
+          }
+          .miantain-item-footer{
+            display: flex;
+            height: 38px;
+            background: #fafafa;
+            border-top: 1px solid #edeeee;
+            line-height: 38px;
+            justify-content: space-between;
+            .miantain-item-type{
+              height: 28px;
+              margin-top: 5px;
+              padding-right: 20px;
+              margin-left: 14px;
+              border-right: 1px solid #d5d5d5;
+              line-height: 28px;
+              span{
+                color: #51be3d;
+              }
+            }
+            .miantain-item-btn{
+              a{
+                padding: 0 17px;
+                color: #848484;
+                text-decoration: none;
+              }
+              .miantain-item-edit{
+                border-left: 1px solid #e6e6e6;
+                border-right: 1px solid #e6e6e6;
+              }
+            }
+          }
+          &.checked{
+            border: 1px solid #f82134;
+            .miantain-item-header{
+              &:after{
+                background: url('../assets/images/icon-checked.png') no-repeat right top;
+              }
+            }
+          }
         }
       }
     }
