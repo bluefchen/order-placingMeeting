@@ -2,18 +2,18 @@
   <div class="vue_details-supplier">
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="供货商详情"/>
+        <TitlePlate class="fn-left" title="零售商详情"/>
       </div>
       <div class="supplier-info-box fn-clear">
         <div class="supplier-img fn-left">
-          <img src="@/assets/images/supplier.jpg" alt="供货商">
+          <img src="@/assets/images/retailer.jpg" alt="零售商">
         </div>
         <div class="supplier-info fn-right">
           <div class="supplier-info-list">
             <el-row :gutter="20">
               <el-col :span="12">
                 <div class="condition-item">
-                  <label class="label-wrds">供货商名称：</label>
+                  <label class="label-wrds">零售商名称：</label>
                   <p class="condition-input"><b>赛格数码科技有限公司</b></p>
                 </div>
               </el-col>
@@ -27,7 +27,7 @@
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
-                  <label class="label-wrds">供货商类型：</label>
+                  <label class="label-wrds">零售商类型：</label>
                   <p class="condition-input">省代</p>
                 </div>
               </el-col>
@@ -81,7 +81,7 @@
   import Select from '@/components/Select';
 
   export default {
-    name: 'DetailsSupplierData',
+    name: 'DetailsSetailerData',
     created() {
     },
     data() {

@@ -10,7 +10,7 @@
     <!-- 搜索 -->
     <div class="box-1200">
       <div class="title-plate">  
-        <TitlePlate title="供货商资料维护列表"/>
+        <TitlePlate title="零售商资料维护列表"/>
       </div>
       <div class="search fn-clear">  
         <InputWithSelect class="fn-left" @search="search" :isHideSelect="true" />
@@ -25,13 +25,13 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds">供货商类型：</label>
+            <label class="label-wrds">零售商类型：</label>
             <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds">供货商状态：</label>
+            <label class="label-wrds">零售商状态：</label>
             <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
@@ -50,7 +50,7 @@
           <label for="checkAll">全选</label>
         </div>    
         <div class="buttons fn-right">
-          <button class="btns"><i class="iconfont">&#xe642;</i> 新增供货商</button>
+          <button class="btns"><i class="iconfont">&#xe642;</i> 新增零售商</button>
           <button class="btns"><i class="iconfont">&#xe6bd;</i> 批量激活</button>
           <button class="btns"><i class="iconfont">&#xe60c;</i> 批量冻结</button>
           <button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</button>
@@ -65,7 +65,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -104,7 +104,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -143,7 +143,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -182,7 +182,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -221,7 +221,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -260,7 +260,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -299,7 +299,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -338,7 +338,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -377,7 +377,7 @@
             <div class="miantain-item-content">
               <el-row :gutter="20">
                 <el-col :span="12">
-                  <p class="label-wrds">供货商编码：<span>10101</span></p>
+                  <p class="label-wrds">零售商编码：<span>10101</span></p>
                 </el-col>
                 <el-col :span="12">
                   <p class="label-wrds">类型：<span>直供网</span></p>
@@ -429,7 +429,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
-    name: 'SupplierDataMaintain',
+    name: 'SetailerDataMaintain',
     created() {
       this.queryOpmOrderSubmit();
     },

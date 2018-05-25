@@ -31,6 +31,9 @@ const OrderManageIndex = () => import('@/views/OrderManageIndex');
 const SupplierDataMaintain = () => import('@/views/SupplierDataMaintain');
 const AddSupplierData = () => import('@/views/AddSupplierData');
 const DetailsSupplierData = () => import('@/views/DetailsSupplierData');
+const SetailerDataMaintain = () => import('@/views/SetailerDataMaintain');
+const AddSetailerData = () => import('@/views/AddSetailerData');
+const DetailsSetailerData = () => import('@/views/DetailsSetailerData');
 
 Vue.use(Router);
 
@@ -244,7 +247,7 @@ export default new Router({
         name: 'addSupplierData',
         component: AddSupplierData,
         meta: {
-          title: '新增供货商'
+          title: '新增/修改供货商'
         }
       }, {
         path: 'DetailsSupplierData',
@@ -252,6 +255,27 @@ export default new Router({
         component: DetailsSupplierData,
         meta: {
           title: '供货商详情'
+        }
+      }, {
+        path: 'SetailerDataMaintain',
+        name: 'setailerDataMaintain',
+        component: SetailerDataMaintain,
+        meta: {
+          title: '零售商资料维护'
+        }
+      }, {
+        path: 'AddSetailerData',
+        name: 'addSetailerData',
+        component: AddSetailerData,
+        meta: {
+          title: '新增/修改零售商'
+        }
+      }, {
+        path: 'DetailsSetailerData',
+        name: 'detailsSetailerData',
+        component: DetailsSetailerData,
+        meta: {
+          title: '零售商详情'
         }
       }]
     }
