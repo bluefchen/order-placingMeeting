@@ -9,6 +9,7 @@
           <li>基础数据维护</li>
           <li>系统维护</li>
         </ul>
+        <!-- <OrderManageMenu class="fn-left" /> -->
         <div class="user fn-right">
           <div class="select-info"><span class="iconfont">&#xe671;</span>&nbsp;<span class="name">运营商A先生，您好！</span><i class="iconfont">&#xe655;</i></div>
           <a href="javasript:void(0)">退出</a>
@@ -22,6 +23,8 @@
 
 <script>
 
+  import OrderManageMenu from '@/components/OrderManageMenu';
+
   export default {
     name: 'OrderManage',
     created() {
@@ -30,6 +33,7 @@
       return {};
     },
     components: {
+      OrderManageMenu
     }
   }
 </script>
