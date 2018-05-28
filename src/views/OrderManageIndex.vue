@@ -114,7 +114,7 @@
           value: 1002,
           label: '已付款'
         }],
-        
+
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -213,7 +213,7 @@
         background: #fff;
       }
       .img-bg .info {
-        width: 1200px;
+        /*width: 1200px;*/
         height: 401px;
         margin: 0 auto;
         background: #6e42ef url('../assets/images/manage-bg.jpg') no-repeat right bottom;
