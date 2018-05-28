@@ -290,6 +290,7 @@
         background: #6e42ef;
       }
       .img-bg .info {
+        width: 1200px;
         height: 401px;
         margin: 0 auto;
         background: #6e42ef url('../assets/images/manage-bg.jpg') no-repeat right bottom;
