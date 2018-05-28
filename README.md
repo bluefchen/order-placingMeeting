@@ -21,7 +21,7 @@ npm run build --report
 ## 组件名称字典
 
 - **Breadcrumb** 我的位置
-- **DeviceInfo** 终端展示
+- **DeviceInfo** 终端展示[社采、集采、特等]
 - **Import** 文件导入
 - **InputWithSelect** 搜索
 - **OrderMenu** 订购会导航菜单
@@ -35,6 +35,8 @@ npm run build --report
 - **UploadFile** 上传文件
 - **DialogPopup** 弹框
 - **ButtonWithDialog** 表格内按钮+弹框
+- **ChooseMerchant** 零售商搜索或供应商搜索
+- **Cascader** 地区选择
 
 
 ## 问题记录

@@ -29,8 +29,6 @@
 
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
-
-
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">

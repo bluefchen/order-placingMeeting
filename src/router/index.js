@@ -34,6 +34,10 @@ const DetailsSupplierData = () => import('@/views/DetailsSupplierData');
 const SetailerDataMaintain = () => import('@/views/SetailerDataMaintain');
 const AddSetailerData = () => import('@/views/AddSetailerData');
 const DetailsSetailerData = () => import('@/views/DetailsSetailerData');
+const UsermanManage = () => import('@/views/UsermanManage');
+const AddUserman= () => import('@/views/AddUserman');
+const DetailUserman= () => import('@/views/DetailUserman');
+
 
 Vue.use(Router);
 
@@ -276,6 +280,27 @@ export default new Router({
         component: DetailsSetailerData,
         meta: {
           title: '零售商详情'
+        }
+      }, {
+        path: 'UsermanManage',
+        name: 'usermanManage',
+        component: UsermanManage,
+        meta: {
+          title: '用户管理'
+        }
+      }, {
+        path: 'AddUserman',
+        name: 'addUserman',
+        component: AddUserman,
+        meta: {
+          title: '新增账户'
+        }
+      }, {
+        path: 'DetailUserman',
+        name: 'detailUserman',
+        component: DetailUserman,
+        meta: {
+          title: '账户详情'
         }
       }]
     }

@@ -37,20 +37,13 @@
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
-              <!-- <input type="text" class="condition-input" v-model="depositRecord.retailerId"> -->
+              <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
           <el-col :span="9">
             <div class="condition-iterm">
               <label class="label-wrds">订购起止日期：</label>
-              <el-date-picker
-                v-model="depositRecord.orderDate"
-                type="datetimerange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
+              <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
             </div>
           </el-col>
           <el-col :span="3">
@@ -77,10 +70,12 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import TitlePlate from '@/components/TitlePlate';
-  import Input from '@/components/Input';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import Pagination from '@/components/Pagination';
+  import DatePicker from '@/components/DatePicker';
+  import ChooseMerchants from '@/components/ChooseMerchants';
+  import Input from '@/components/Input';
 
   export default {
     name: 'DepositAddRecord',
@@ -213,6 +208,9 @@
         this.depositRecord.offerNameOrCode = obj.value;
         this.queryOpmDepositList();
       },
+      selectRetailer(val){
+        this.depositRecord.retailerId = val;
+      },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
@@ -249,7 +247,10 @@
       Table,
       TitlePlate,
       Breadcrumb,
-      Pagination
+      Pagination,
+      DatePicker,
+      ChooseMerchants,
+      Input
     }
   }
 </script>
@@ -317,25 +318,19 @@
       width: 100%;
     }
     .condition-iterm{
-      position: relative;
-      margin: 20px 0 0 0;
+      display: flex;
+      margin: 10px 0px 0 0;
       .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
+        width: 110px;
         line-height: 32px;
         font-size: 14px;
         text-align: right;
       }
-      .condition-input{
-        height: 24px;
-        padding: 3px 10px;
-        margin-left: 100px;
-        border: 1px solid #e5e5e5;
+      .condition-input {
+        flex: 1 0 0;
       }
       .btns {
-        left: 20px;
+        position: relative;
         line-height: 31px;
         padding: 0 10px;
         font-size: 14px;
