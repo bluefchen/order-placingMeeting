@@ -35,8 +35,10 @@ const SetailerDataMaintain = () => import('@/views/SetailerDataMaintain');
 const AddSetailerData = () => import('@/views/AddSetailerData');
 const DetailsSetailerData = () => import('@/views/DetailsSetailerData');
 const UsermanManage = () => import('@/views/UsermanManage');
-const AddUserman= () => import('@/views/AddUserman');
-const DetailUserman= () => import('@/views/DetailUserman');
+const AddUserman = () => import('@/views/AddUserman');
+const DetailUserman = () => import('@/views/DetailUserman');
+const RoleManage = () => import('@/views/RoleManage');
+
 
 
 Vue.use(Router);
@@ -301,6 +303,13 @@ export default new Router({
         component: DetailUserman,
         meta: {
           title: '账户详情'
+        }
+      }, {
+        path: 'RoleManage',
+        name: 'roleManage',
+        component: RoleManage,
+        meta: {
+          title: '角色管理'
         }
       }]
     }

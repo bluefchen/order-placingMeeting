@@ -45,4 +45,8 @@ npm run build --report
 - 3、地区选择联动组件；
 - 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
 
-
+页面
+- **UsermanManage** 用户管理
+- **AddUserman** 新增用户
+- **DetailUserman** 用户详情
+- **RoleManage**角色管理
