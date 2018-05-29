@@ -48,7 +48,7 @@
           </el-col>
           <el-col :span="3">
             <div class="condition-iterm">
-              <el-button class="btns" @click="queryOpmDepositList">定金付款查询</el-button>
+              <el-button class="btns" @click="queryOpmDepositList()">定金付款查询</el-button>
             </div>
           </el-col>
         </el-row>

@@ -42,7 +42,8 @@
             <div class="condition-item">
               <!-- 当为管理人员时*存在 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Cascader @change="handleChange"/>
+              <!--<Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>-->
             </div>
           </el-col>
         </el-row>
@@ -85,6 +86,7 @@
   import Input from '@/components/Input';
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
+  import Cascader from '@/components/Cascader';
 
   export default {
     name: 'AddSupplierData',
@@ -114,6 +116,9 @@
       visibleChange(val) {
         this.dialogVisible = val;
       },
+      handleChange(val){
+        this.orderQueryData.commonRegionId = val;
+      },
       uploadData(data) {
         this.totalCnt = data.totalCnt;
         this.successCnt = data.successCnt;
@@ -129,7 +134,8 @@
       TitlePlate,
       Input,
       Select,
-      ChooseMerchants
+      ChooseMerchants,
+      Cascader
     }
   }
 </script>

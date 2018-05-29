@@ -67,7 +67,6 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
@@ -223,7 +222,6 @@
       InputWithSelect,
       TitlePlate,
       Table,
-      DeviceInfo,
       Pagination,
       ChooseMerchants,
       Input,
@@ -254,7 +252,12 @@
     .search {
       margin: 10px auto;
     }
-
+    .condition-search {
+      display: block;
+      margin: 18px auto 22px;
+      padding: 10px;
+      border: 1px solid #dfdfdf;
+    }
     .condition-iterm {
       display: flex;
       margin: 10px 0;
@@ -303,7 +306,7 @@
     .el-input__icon{
       line-height: 32px;
     }
-
+    /*输入框*/
     .el-range-editor.el-input__inner {
       height: 32px;
     }
@@ -313,12 +316,6 @@
     .el-input__inner {
       border-radius: 0;
     }
-    .my-location {
-      height: 30px;
-      line-height: 30px;
-      background-color: #f6f6f6;
-    }
-
     .tabs-list {
       margin: 0 auto 20px;
     }
@@ -326,28 +323,6 @@
       height: 28px;
       margin: 15px 0 8px;
       line-height: 28px;
-    }
-
-    .li-list {
-      margin-top: 16px;
-      border: 1px solid #e0e0e0;
-    }
-    .p-line {
-      height: 35px;
-      line-height: 35px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #e0e0e0;
-      .date-color {
-        color: #807e7e;
-      }
-      span {
-        width: calc(33% - 20px);
-        padding: 0 10px;
-        b {
-          margin-right: 15px;
-        }
-      ;
-      }
     }
     .buttons .btns {
       position:relative;
@@ -363,43 +338,8 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
-    .updown-btn {
-      padding: 2px 5px;
-      border: 0;
-      text-decoration: underline;
-    }
-    .updown-btn:hover {
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
-    }
     .red {
       color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
-    }
-    .p-line span {
-      color: #aaa;
-    }
-    .p-line span b {
-      color: #333;
-    }
-    .condition-search {
-      display: block;
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
     }
     .btns {
       position: absolute;
