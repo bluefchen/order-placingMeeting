@@ -253,7 +253,7 @@
     },
     data() {
       return {
-        content: '<h2>I am Example</h2>',
+        content: '<h2>data中content的内容</h2>',
         editorOption: {},
         orderQueryData: {},
         brandList: [{
