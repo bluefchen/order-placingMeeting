@@ -399,7 +399,6 @@
 </script>
 
 <style lang="less">
-  @import 'https://cdn.quilljs.com/1.3.6/quill.snow.css';
 
   .vue_add-supplier {
     .text-right {
