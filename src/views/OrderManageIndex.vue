@@ -9,54 +9,119 @@
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="订购会列表"/>
-        <div class="fn-right">
-          订购会状态：
-          <el-select v-model="value" placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+        <div class="order-type">
+          <div class="order-type-text">订购会状态：</div>
+          <div class="condition-input">
+            <el-select v-model="orderQueryData.orderType" placeholder="请选择">
+              <el-option
+                v-for="item in orderTypeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
         </div>
       </div>
+
+      <div class="search fn-clear">
+        <div class="fn-left search-input">
+          <input type="text" placeholder="输入订货会名称搜索"><button class="search-btn fn-right">确定</button>
+        </div>
+        <div class="fn-right search-query">
+          <button><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
+        </div>
+      </div>
+
       <table width="100%" cellspacing="0" cellpadding="0" class="table">
         <thead>
         <tr>
-          <th width="30%">终端名称</th>
-          <th width="15%">终端品牌</th>
-          <th width="15%">终端型号</th>
-          <th width="8%">终端价格</th>
-          <th width="8%">订购数量</th>
-          <th width="8%">实付金额</th>
-          <th width="8%">付款状态</th>
-          <th width="8%">操作</th>
+          <th width="40%">订购会名称</th>
+          <th width="11%">省份</th>
+          <th width="11%">参与供货商</th>
+          <th width="11%">参与零售商</th>
+          <th width="11%">订购会状态</th>
+          <th width="16%">操作</th>
         </tr>
         </thead>
       </table>
       <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in qryOpmOrderList" :key="index">
+        <li class="li-list">
           <p class="p-line fn-clear">
-            <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
-            <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
-            <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
+            <span class="fn-left date-color">订购会编码：100092830</span>
+            <span class="fn-right text-right">
+              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
+            </span>
           </p>
           <div class="tabs fn-clear">
-            <dl class="fn-left wid30">
-              <div class="pd5">
-                <DeviceInfo :data="item"/>
+            <dl class="dll wid40 fn-left">
+              <div class="device-wrap fn-clear">
+                <div class="device-pic fn-left">
+                  <img src="@/assets/images/brand-img.jpg" alt="">
+                </div>
+                <div class="device-info fn-right">
+                  <p class="name">2018夏季VIVO品牌新品订购会</p>
+                  <p class="date">2018/04/10-2018/04/11</p>
+                </div>
               </div>
             </dl>
-            <dl class="dll wid15 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid15 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid8 fn-left"><b>¥ {{item.salePrice}}</b></dl>
-            <dl class="dll wid8 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid8 fn-left"><b>--</b></dl>
-            <dl class="dll wid8 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
-            <dl class="dll wid8 fn-left">
-              <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
+            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
+            <dl class="dll wid11 fn-left"><p>210家</p></dl>
+            <dl class="dll wid11 fn-left"><p>189家</p></dl>
+            <dl class="dll wid11 fn-left"><p class="device-type not-start">未开始</p></dl>
+            <dl class="dll wid16 fn-left">
+              <button class="updown-btn">编辑订购会</button>
             </dl>
+          </div>
+        </li>
+        <li class="li-list">
+          <p class="p-line fn-clear">
+            <span class="fn-left date-color">订购会编码：100092831</span>
+            <span class="fn-right text-right">
+              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
+            </span>
+          </p>
+          <div class="tabs fn-clear">
+            <dl class="dll wid40 fn-left">
+              <div class="device-wrap fn-clear">
+                <div class="device-pic fn-left">
+                  <img src="@/assets/images/brand-img.jpg" alt="">
+                </div>
+                <div class="device-info fn-right">
+                  <p class="name">2018夏季VIVO品牌新品订购会</p>
+                  <p class="date">2018/04/10-2018/04/11</p>
+                </div>
+              </div>
+            </dl>
+            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
+            <dl class="dll wid11 fn-left"><p>210家</p></dl>
+            <dl class="dll wid11 fn-left"><p>189家</p></dl>
+            <dl class="dll wid11 fn-left"><p class="device-type underway">进行中</p></dl>
+          </div>
+        </li>
+        <li class="li-list">
+          <p class="p-line fn-clear">
+            <span class="fn-left date-color">订购会编码：100092832</span>
+            <span class="fn-right text-right">
+              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
+            </span>
+          </p>
+          <div class="tabs fn-clear">
+            <dl class="dll wid40 fn-left">
+              <div class="device-wrap fn-clear">
+                <div class="device-pic fn-left">
+                  <img src="@/assets/images/brand-img.jpg" alt="">
+                </div>
+                <div class="device-info fn-right">
+                  <p class="name">2018夏季VIVO品牌新品订购会</p>
+                  <p class="date">2018/04/10-2018/04/11</p>
+                </div>
+              </div>
+            </dl>
+            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
+            <dl class="dll wid11 fn-left"><p>210家</p></dl>
+            <dl class="dll wid11 fn-left"><p>189家</p></dl>
+            <dl class="dll wid11 fn-left"><p class="device-type done">已结束</p></dl>
           </div>
         </li>
       </ul>
@@ -115,6 +180,17 @@
           label: '已付款'
         }],
 
+        orderTypeList: [{
+          value: 1000,
+          label: '未开始'
+        },{
+          value: 1001,
+          label: '进行中'
+        },{
+          value: 1002,
+          label: '已结束'
+        }],
+        
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -123,7 +199,8 @@
           retailerId: '',
           dateValue: [],
           supplierId: '',
-          statusCd: ''
+          statusCd: '',
+          orderType: '',
         },
         isShowMoreCondition: false, //是否显示更多条件
         total: 0, //列表总数
@@ -204,16 +281,16 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .order_manage-index {
       /*中间背景图片*/
       .img-bg {
         width: 100%;
         height: 401px;
-        background: #fff;
+        background: #6e42ef;
       }
       .img-bg .info {
-        /*width: 1200px;*/
+        width: 1200px;
         height: 401px;
         margin: 0 auto;
         background: #6e42ef url('../assets/images/manage-bg.jpg') no-repeat right bottom;
@@ -224,44 +301,65 @@
       /* 条件搜索 */
       .search {
         margin: 10px auto;
-      }
-      .condition-query {
-        display: block;
-        margin: 20px auto;
-        padding: 10px;
-        border: 1px solid #dfdfdf;
-        .condition-iterm {
-          display: flex;
-          margin: 10px 0;
-          .label-wrds {
-            width: 100px;
-            line-height: 32px;
-            font-size: 14px;
-            text-align: right;
-          }
-          .condition-input {
-            flex: 1 0 0;
+        height: 28px;
+        .search-input{
+          width: 310px;
+          height: 26px;
+          input{
+            width: 238px;
+            height: 26px;
+            padding: 0 5px;
+            line-height: 26px;
+            border: 1px solid #d0d0d0;
+            &:hover {
+              border-color: #c0c4cc;
+              & + .search-btn{
+                width: 60px;
+                height: 28px;
+                background: #f8f8f8;
+                border: none;
+                border: 1px solid #c0c4cc;
+                border-left: none;
+                cursor: pointer;
+              }
+            }
+            &:focus {
+              border-color: #ff7a7a;
+              & + .search-btn{
+                width: 60px;
+                height: 28px;
+                background: #f8f8f8;
+                border: none;
+                border: 1px solid #ff7a7a;
+                border-left: none;
+                cursor: pointer;
+              }
+            }
+            & + .search-btn{
+              width: 60px;
+              height: 28px;
+              background: #f8f8f8;
+              border: none;
+              border: 1px solid #d5d5d5;
+              border-left: none;
+              cursor: pointer;
+            }
           }
         }
-      }
-      .category-more {
-        height: 22px;
-        margin: 7px 0 0 20px;
-        padding: 0 5px;
-        line-height: 22px;
-        background-color: #fff;
-        border: 0;
-        color: #333;
-        text-decoration: none;
-        cursor: pointer;
-      }
-      .category-more:active,
-      .category-more:focus,
-      .category-more:hover {
-        color: #f82134;
-      }
-      .category-more .iconfont {
-        font-size: 12px;
+        
+        .search-query{
+          button{
+            width: 92px;
+            height: 28px;
+            background: #fa0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            span{
+              vertical-align: middle;
+            }
+          }
+        }
       }
       /* 条件搜索 */
 
@@ -285,11 +383,45 @@
         margin: 0 auto 20px;
       }
       .order-titl {
+        position: relative;
         height: 28px;
         margin: 15px 0;
         line-height: 28px;
         padding-bottom: 3px;
         border-bottom: 2px solid #e5e5e5;
+        .order-type{
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          width: 162px;
+          height: 21px;
+          border: 1px solid #e5e5e5;
+          border-bottom: none;
+          display: flex;
+          .order-type-text{
+            width: 83px;
+            height: 21px;
+            background: #f5f5f5;
+            border-right: 1px solid #e5e5e5;
+            text-align: right;
+            line-height: 22px;
+          }
+          .condition-input {
+            flex: 1 0 0;
+            height: 21px;
+            line-height: 21px;
+            .el-input__inner{
+              height: 21px;
+              padding-right: 15px;
+              border: none;
+              line-height: 21px;
+              font-size: 12px;
+            }
+            .el-input__suffix{
+              right: 0;
+            }
+          }
+        }
       }
 
       .buttons .btns {
@@ -324,6 +456,9 @@
       .li-list {
         margin-top: 16px;
         border: 1px solid #e0e0e0;
+        &:hover{
+          border: 1px solid #f00;
+        }
       }
       .p-line {
         height: 35px;
@@ -333,7 +468,23 @@
         .date-color {
           color: #807e7e;
         }
-      ;
+        .btn-del{
+          background: none;
+          border: none;
+          cursor: pointer;
+          .iconfont{
+            color: #8f8f8f;
+            font-size: 16px;
+            padding: 0;
+          }
+          &:hover{
+            .iconfont{
+              color: #f82134;
+              font-size: 16px;
+              padding: 0;
+            }
+          }
+        }
         span {
           width: calc(33% - 20px);
           padding: 0 10px;
@@ -351,28 +502,52 @@
         line-height: 90px;
         text-align: center;
       }
-      .wid30 {
-        width: 30%;
+      .wid40 {
+        width: 40%;
       }
-      .wid15 {
-        width: 15%;
+      .wid16 {
+        width: 16%;
       }
-      .wid8 {
-        width: 8%;
+      .wid11 {
+        width: 11%;
       }
+
+      .device-type{
+        margin: 21px auto 0;
+        width: 44px;
+        height: 44px;
+        line-height: 44px;
+        border: 2px solid;
+        border-radius: 50%;
+        &.not-start{
+          background: #ffecec;
+          border-color: #f00;
+          color: #f00;
+        }
+        &.underway{
+          background: #eeffec;
+          border-color: #47c044;
+          color: #47c044;
+        }
+        &.done{
+          background: #f8f8f8;
+          border-color: #bcbcbc;
+          color: #bcbcbc;
+        }
+      }
+
       .updown-btn {
         padding: 2px 5px;
-        border: 0;
-        text-decoration: underline;
+        background: #ffffff;
+        border: 1px solid #d9d9d9;
+        border-radius: 3px;
       }
       .updown-btn:hover {
+        color: #f82134;
         border: 1px solid #f82134;
         border-radius: 3px;
         text-decoration: none;
         cursor: pointer;
-      }
-      .updown-btn.green:hover {
-        border: 1px solid #46b02e;
       }
       .red {
         color: #f82134;
@@ -393,17 +568,74 @@
         color: #333;
       }
 
+      .device-wrap {
+        padding: 10px;
+        text-align: left;
+        .device-pic {
+          width: 85px;
+          height: 71px;
+          box-sizing: border-box;
+          border: 1px solid #e5e5e5;
+          img {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .device-info {
+          box-sizing: border-box;
+          width: calc(100% - 85px);
+          padding-top: 6px;
+          padding-left: 15px;
+          line-height: 30px;
+          color: #333;
+          .name{
+            height: 26px;
+            line-height: 26px;
+            color: #050505;
+            font-size: 14px;
+            &:hover {
+              color: #ed0000;
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
   }
 
-  .el-range-editor.is-active, .el-range-editor.is-active:hover {
+  .el-input__inner {
+    height: 20px;
+    line-height: 20px;
+}
+
+.el-input-group__prepend {
+  background-color: #f8f8f8;
+}
+
+.el-input-group__append {
+  background-color: #f82134;
+  border-color: #f82134;
+  color: #fff;
+}
+
+.el-input.is-active{
+  .el-input__inner{
     border-color: #ff7a7a;
+    &:focus {
+      border-color: #ff7a7a;
+    }
   }
+}
 
-  .el-date-table td.end-date span, .el-date-table td.start-date span {
-    background-color: #ff7a7a;
-  }
+.el-select-dropdown {
+  border: none;
+}
 
-  .el-date-table td.today span, .el-date-table td.available:hover {
-    color: #ff7a7a;
-  }
+.el-select-dropdown__item.selected {
+  color: #fff;
+  font-weight: normal;
+  background-color: #f13939;
+}
 </style>
