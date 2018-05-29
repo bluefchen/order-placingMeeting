@@ -94,10 +94,7 @@
                 <div class="editor">
                   <quill-editor ref="myTextEditor"
                     v-model="content"
-                    :config="editorOption"
-                    @blur="onEditorBlur($event)"
-                    @focus="onEditorFocus($event)"
-                    @ready="onEditorReady($event)">
+                    :config="editorOption">
                   </quill-editor>
                 </div>
               </div>
@@ -355,6 +352,7 @@
     methods: {
       next() {
         this.active ++;
+        console.log(this.content);
       },
       previous() {
         this.active --;
@@ -370,19 +368,6 @@
       },
       handleChange(val){
         console.log(val);
-      },
-
-      onEditorBlur(editor) {
-        console.log('editor blur!', editor)
-      },
-      onEditorFocus(editor) {
-        console.log('editor focus!', editor)
-      },
-      onEditorReady(editor) {
-        console.log('editor ready!', editor)
-      },
-      onEditorChange({ editor, html, text }) {
-        this.content = html
       }
     },
     components: {
