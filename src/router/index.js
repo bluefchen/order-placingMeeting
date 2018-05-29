@@ -28,6 +28,7 @@ const AddTerminalMaintain = () => import('@/views/AddTerminalMaintain');
 const DetailTerminalMaintain = () => import('@/views/DetailTerminalMaintain');
 const OrderManage = () => import('@/views/OrderManage');
 const OrderManageIndex = () => import('@/views/OrderManageIndex');
+const OrderConfig = () => import('@/views/OrderConfig');
 const SupplierDataMaintain = () => import('@/views/SupplierDataMaintain');
 const AddSupplierData = () => import('@/views/AddSupplierData');
 const DetailsSupplierData = () => import('@/views/DetailsSupplierData');
@@ -217,6 +218,13 @@ export default new Router({
         component: OrderManageIndex,
         meta: {
           title: '首页-订购会管理'
+        }
+      }, {
+        path: 'OrderConfig',
+        name: 'orderConfig',
+        component: OrderConfig,
+        meta: {
+          title: '订购会配置'
         }
       }, {
         path: 'TerminalMaintain',
