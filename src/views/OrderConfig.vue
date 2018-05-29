@@ -89,8 +89,17 @@
           </el-row>
           <el-row :gutter="0">
             <el-col :span="18" :offset="2">
-              <div class="condition-item">
+              <div class="condition-item editor-box">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会描述：</label>
+                <div class="editor">
+                  <quill-editor ref="myTextEditor"
+                    v-model="content"
+                    :config="editorOption"
+                    @blur="onEditorBlur($event)"
+                    @focus="onEditorFocus($event)"
+                    @ready="onEditorReady($event)">
+                  </quill-editor>
+                </div>
               </div>
             </el-col>
           </el-row>
@@ -224,7 +233,6 @@
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button class="btns" @click="next">下一步</button>
     </div>
-
   </div>
 </template>
 
@@ -236,6 +244,7 @@
   import AddMerchants from '@/components/AddMerchants';
   import Table from '@/components/Table';
   import Cascader from '@/components/Cascader';
+  import { quillEditor } from 'vue-quill-editor';
 
 
   export default {
@@ -244,6 +253,8 @@
     },
     data() {
       return {
+        content: '<h2>I am Example</h2>',
+        editorOption: {},
         orderQueryData: {},
         brandList: [{
           value: '1001',
@@ -359,6 +370,19 @@
       },
       handleChange(val){
         console.log(val);
+      },
+
+      onEditorBlur(editor) {
+        console.log('editor blur!', editor)
+      },
+      onEditorFocus(editor) {
+        console.log('editor focus!', editor)
+      },
+      onEditorReady(editor) {
+        console.log('editor ready!', editor)
+      },
+      onEditorChange({ editor, html, text }) {
+        this.content = html
       }
     },
     components: {
@@ -368,12 +392,14 @@
       DatePicker,
       AddMerchants,
       Table,
-      Cascader
+      Cascader,
+      quillEditor
     }
   }
 </script>
 
 <style lang="less">
+  @import 'https://cdn.quilljs.com/1.3.6/quill.snow.css';
 
   .vue_add-supplier {
     .text-right {
@@ -496,6 +522,15 @@
         .el-input__icon{
           line-height: 32px;
         }
+      }
+      .editor{
+        flex: 1;
+        .quill-editor{
+          height: 200px;
+        }
+      }
+      &.editor-box{
+        height: 270px;
       }
     }
 
