@@ -16,6 +16,36 @@ Mock.mock(new RegExp('/api/data'), {
   }
 });
 
+//1、订货会列表查询接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingList'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'totalSize|1-99': 10, 
+    'rows|5-10': [{
+        'opMeetingId': '@id', 
+        'opMeetingNo': '@id', 
+        'opmName': '@cword(4, 12)', 
+        'opmAddr': '@cword(8, 16)', 
+        'startDt': '@date()',
+        'endDt': '@date()',
+        'commonRegionId': '@id', 
+        'commonRegionName': '@province',
+        'statusCd|1': ['1000', '1001', '1002'],
+        'discription': '@cword(10,20)',
+        'logoUrl|1': ['/assets/images/telephone1.jpg', '/assets/images/telephone2.jpg', '/assets/images/telephone3.jpg', '/assets/images/telephone4.jpg'],
+        'depositRecordEnddt': '@date()',
+        'pickupRecordEnddt': '@date()',
+        'statusDt': '@date()',
+        'supplierCnt|1-100': 11,
+        'retailerCnt|1-100': 11
+    }]
+  }
+});
+
 //4、关联的供应商信息接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
   rsphead: 's',
@@ -113,6 +143,19 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
         'retailerFax': /\d{5,9}\-/
     }]
 
+  }
+});
+
+//8、删除订货会接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOrderPlacingMeeting'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 
