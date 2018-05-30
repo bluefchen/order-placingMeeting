@@ -4,12 +4,7 @@
     <div class="toper">
       <div class="box-1200 top-header fn-clear">
         <img src="@/assets/images/big-logo.png" class="fn-left">
-        <ul class="iterms fn-left">
-          <li>订货会管理</li>
-          <li>基础数据维护</li>
-          <li>系统维护</li>
-        </ul>
-        <!-- <OrderManageMenu class="fn-left" /> -->
+        <OrderManageMenu class="fn-left mange-menu" />
         <div class="user fn-right">
           <div class="select-info"><span class="iconfont">&#xe671;</span>&nbsp;<span class="name">运营商A先生，您好！</span><i class="iconfont">&#xe655;</i></div>
           <a href="javasript:void(0)">退出</a>
@@ -44,6 +39,9 @@
     width: 100%;
     background: #f60e0e;
     border-bottom: 2px solid #ee0404;
+    .mange-menu{
+      margin: 17px 0 0 34px;
+    }
   }
 
   .top-header {
