@@ -37,6 +37,7 @@ npm run build --report
 - **ButtonWithDialog** 表格内按钮+弹框
 - **ChooseMerchant** 零售商搜索或供应商搜索
 - **Cascader** 地区选择
+- **AddRelevantPerson** 添加相关人员
 
 
 ## 问题记录

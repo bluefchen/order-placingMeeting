@@ -212,4 +212,13 @@
       }
     }
   }
+  /*真实姓名*/
+  .role-man{
+    text-align: left;
+    .iconfont{
+      margin: 0 15px;
+      color: #f7626f;
+      font-size: 18px;
+    }
+  }
 </style>
