@@ -45,7 +45,9 @@ npm run build --report
 - 2、导出、下载后台返回blob；
 - 3、地区选择联动组件；
 - 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
-	cnpm install vue-quill-editor --save
+	cnpm install vue-quill-editor --save；
+- 5、routerLink地址全部小写；
+- 6、详情预览界面文字总体感觉别扭；
 
 页面
 - **UsermanManage** 用户管理
