@@ -141,7 +141,7 @@
       border: 1px solid #dfdfdf;
       .supplier-img{
         position: relative;
-        background: #fff;
+        background: #fbfbfb;
         min-height: 370px;
         height: 100%;
         width: 296px;

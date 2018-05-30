@@ -32,25 +32,25 @@
       return {
         tableTitle: [{
           label: '角色名称',
-          prop: 'isCentman',
-          width: 160,
+          prop: 'roleName',
+          width: 260,
           render: (h, params) => {
             return h({
-              template: '<div class="role-man"><img v-bind:src="data.imgSrc"><span></span></div>',
+              template: '<div class="role-man"><img v-bind:src="imgSrc" alt=""><span>{{roleName}}</span></div>',
               data() {
                 return {
-                  data: params.row
+                  roleName: params.row.roleName,
+                  imgSrc: params.row.imgSrc
                 }
               }
             });
           }
         },{
           label: '角色说明',
-          prop: 'retailerName',
-          width: 140
+          prop: 'roleInstrd'
         }, {
           label: '操作',
-          width: 160,
+          width: 260,
           render: function (h, params) {
             return h({
               template: '<div><el-button type="text" @click="modifyRole(roleInfo)" class="delete-btn">编辑</el-button></div>',
@@ -62,7 +62,7 @@
               methods: {
                 modifyRole(item) {
                   this.$router.push({
-                    path: '/orderManage/modifyRole',
+                    path: '/orderManage/addRole',
                     query: {
                       usermanInfo: item
                     }
@@ -72,7 +72,11 @@
             })
           }
         }],
-        tableData: [{}],//查询返回的数据
+        tableData: [{
+          imgSrc: '',
+          roleName: '供货商',
+          roleInstrd: '供货商有部分配置管理及订单查询功能政策投入XXXXXXXXXXXXXXXXXXXXXXXX'
+        }],//查询返回的数据
         usermanList: [{
           value: 1000,
           label: '未交定金'
@@ -94,7 +98,7 @@
       queryRole() {
         this.$post('/opmOrderController/queryOpmOrderList', {
         }).then((rsp) => {
-          this.tableData = rsp.rows;
+          // this.tableData = rsp.rows;
         })
       }
     },
@@ -130,6 +134,9 @@
       margin: 15px 0 8px;
       line-height: 28px;
     }
+    .el-table tbody tr{
+      height: 74px;
+    }
     .buttons .btns {
       position:relative;
       padding: 0 12px;
@@ -146,15 +153,6 @@
     }
     .red {
       color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
     }
 
     .btns {
@@ -173,7 +171,13 @@
       }
     }
     .role-man{
-
+      text-align: left;
+    }
+    .role-man img{
+      width: 50px;
+      height: 50px;
+      border-radius:50px;
+      margin:0 20px 0 32px;
     }
   }
 

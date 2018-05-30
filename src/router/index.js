@@ -39,6 +39,7 @@ const UsermanManage = () => import('@/views/UsermanManage');
 const AddUserman = () => import('@/views/AddUserman');
 const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
+const AddRole = () => import('@/views/AddRole');
 
 
 
@@ -318,6 +319,13 @@ export default new Router({
         component: RoleManage,
         meta: {
           title: '角色管理'
+        }
+      }, {
+        path: 'AddRole',
+        name: 'addRole',
+        component: AddRole,
+        meta: {
+          title: '新增角色'
         }
       }]
     }
