@@ -57,15 +57,16 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
     'totalSize|1-100': 1,
     'rows|10': [{
       supplierId: '@id', //供应商ID
+      supplierCode: '@id', //供应商编码
       province: '@province()', //供应商省份
       city: '@city()', //供应商地市
-      supplierName: '@cword()', //供应商名称
+      supplierName: '@cword(3,6)', //供应商名称
       supplierType: '', //供应商类型
-      supplierTypeName: '@cword()', //供应商类型名称
+      supplierTypeName: '@cword(3,6)', //供应商类型名称
       linkMan: '@cname()', //联系人
-      linkNbr: '', //联系电话
-      supplierPhone: '', //公司电话
-      supplierFax: '' //公司传真
+      linkNbr: /\d{5,10}/, //联系电话
+      supplierPhone: /\d{5,10}/, //公司电话
+      supplierFax: /\d{5,10}/ //公司传真
     }]
   }
 });
