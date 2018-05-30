@@ -16,7 +16,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
+            <label class="label-wrds">用户类型：</label>
             <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
           </div>
         </el-col>
@@ -40,10 +40,8 @@
             <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
           </div>
         </el-col>
-        <el-col :span="8">
-        </el-col>
-        <el-col :span="8">
-          <el-button slot="append" @click="search()">查询</el-button>
+        <el-col :span="16">
+          <el-button class="query-btns fn-right" @click="search()">查询</el-button>
         </el-col>
       </el-row>
     </div>
@@ -57,7 +55,7 @@
           <el-button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
         </div>
       </div>
-      <Table :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" @currentChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -81,12 +79,20 @@
     data() {
       return {
         tableTitle: [{
-          label: '选择',
-          width: 50
-        },{
           label: '真实姓名',
           prop: 'retailerName',
-          width: 140
+          width: 126,
+          render: (h, params) => {
+            return h({
+              template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
+              data() {
+                return {
+                  roleName: params.row.roleName,
+                  imgSrc: params.row.imgSrc
+                }
+              }
+            });
+          }
         }, {
           label: '用户账号',
           prop: 'offerCode',
@@ -95,16 +101,16 @@
           label: '用户类型',
           prop: 'isCentman',
           width: 120,
-          // render: (h, params) => {
-          //   return h({
-          //     template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
-          //     data() {
-          //       return {
-          //         data: params
-          //       }
-          //     }
-          //   });
-          // }
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
         }, {
           label: '手机号码',
           prop: 'supplierName',
@@ -116,14 +122,13 @@
         }, {
           label: '归属商户',
           prop: 'offerQty',
-          width: 120
         }, {
           label: '状态',
           prop: 'totalAmount',
-          width: 80
+          width: 54
         }, {
           label: '操作',
-          // width: 120,
+          width: 190,
           render: function (h, params) {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanList)" class="delete-btn">冻结</el-button>' +
@@ -181,6 +186,9 @@
         // this.orderQueryData.isCentman = obj.type;
         // this.orderQueryData.offerNameOrCode = obj.value;
         // this.queryOpmOrderSubmit();
+      },
+      selectionChange(val){
+        this.selectionChangeList = val;
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -354,6 +362,25 @@
       line-height: 28px;
       &:hover {
         background-color: #e20606;
+      }
+    }
+    .query-btns{
+      position: relative;
+      padding: 0 35px;
+      margin:  11px 0 0 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 30px;
+    }
+    .role-man{
+      text-align: left;
+      .iconfont{
+        margin: 0 15px 0 5px;
+        color: #f7626f;
+        font-size: 18px;
       }
     }
   }

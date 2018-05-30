@@ -37,6 +37,7 @@ npm run build --report
 - **ButtonWithDialog** 表格内按钮+弹框
 - **ChooseMerchant** 零售商搜索或供应商搜索
 - **Cascader** 地区选择
+- **AddMerchants** 添加零售商搜索或供应商
 
 
 ## 问题记录
@@ -44,10 +45,15 @@ npm run build --report
 - 2、导出、下载后台返回blob；
 - 3、地区选择联动组件；
 - 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
-	cnpm install vue-quill-editor --save
+	cnpm install vue-quill-editor --save；
+- 5、routerLink地址全部小写；
+- 6、详情预览界面文字总体感觉别扭；
+
 
 页面
 - **UsermanManage** 用户管理
 - **AddUserman** 新增用户
 - **DetailUserman** 用户详情
 - **RoleManage**角色管理
+- **Addrole**新增角色
+- **AddRelevantPerson** 添加相关人员

@@ -4,12 +4,14 @@
       <p class="p-title"><i class="iconfont">&#xe609;</i> 新增角色</p>
       <div class="role-setup">
         <ul class="role-change fn-clear">
-          <li class="fn-left on">角色编辑</li>
-          <li class="fn-left disabled">管理菜单</li>
-          <li class="fn-left disabled">管理人员</li>
+          <li class="fn-left" :class="{'on': showEdit === 1}" @click="changeEdit(1)">角色编辑</li>
+          <li class="fn-left disabled" v-show="!roleMan">管理菜单</li>
+          <li class="fn-left" :class="{'on': showEdit === 2}" v-show="roleMan"  @click="changeEdit(2)">管理菜单</li>
+          <li class="fn-left disabled" v-show="!roleMan">管理人员</li>
+          <li class="fn-left" :class="{'on': showEdit === 3}" v-show="roleMan" @click="changeEdit(3)">管理人员</li>
         </ul>
         <!-- 角色编辑 -->
-        <div class="role-setup-info"  style="display: none">
+        <div class="role-setup-info"  v-show="showEdit === 1">
           <div class="terminal-info-box">
             <el-row :gutter="20">
               <el-col :span="8" :offset="2">
@@ -34,7 +36,7 @@
           </div>
         </div>
         <!-- 管理菜单 -->
-        <div class="role-setup-info" style="display: none">
+        <div class="role-setup-info" v-show="showEdit === 2">
           <div class="role-list">
               <div class="tree-left">
                 <TitlePlate title="菜单列表"/>
@@ -63,11 +65,11 @@
           </div>
         </div>
         <!-- 管理人员 -->
-        <div class="role-setup-info">
+        <div class="role-setup-info" v-show="showEdit === 3">
           <div class="order-titl fn-clear">
             <TitlePlate class="fn-left" title="已有角色人员管理列表"/>
             <div class="buttons fn-right">
-              <el-button class="btns" @click="addRole"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
+              <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
             </div>
           </div>
           <Table :tableTitle="tableTitle" :tableData="tableData"/>
@@ -88,6 +90,7 @@
   import Input from '@/components/Input';
   import Pagination from '@/components/Pagination';
 
+
   export default {
     name: 'AddRole',
     created() {
@@ -98,6 +101,8 @@
           roleName:'',
           roleInstrd: '',
         },
+        roleMan:'111',
+        showEdit: 1,
         tableTitle: [{
           label: '真实姓名',
           prop: 'roleName',
@@ -234,11 +239,13 @@
       }
     },
     methods: {
-      addRole() {
+      addRelevantPerson() {
         this.$router.push({
-          path: '/orderManage/addRole',
-
+          path: '/orderManage/addRelevantPerson',
         });
+      },
+      changeEdit(val){
+        this.showEdit = val;
       },
       pageChanged(curPage) {
         this.queryOpmDepositList(curPage);
@@ -253,7 +260,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped lang="less">
   .add-role {
     .p-title{
       height: 60px;
@@ -279,6 +286,7 @@
       border-right: 1px solid #dfdfdf;
       font-size: 14px;
       text-align: center;
+      cursor: pointer;
     }
     .role-change li.on{
       position: relative;
@@ -295,6 +303,7 @@
     }
     .role-change li.disabled{
       color: #bbb;
+      cursor: none;
     }
     .terminal-info-box{
       margin-top: 32px;
