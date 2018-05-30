@@ -21,7 +21,7 @@
             <el-col :span="8" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right">订货会编码：</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opMeetingNo"/>
               </div>
             </el-col>
           </el-row>
@@ -29,7 +29,7 @@
             <el-col :span="16" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会名称：</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmName"/>
               </div>
             </el-col>
           </el-row>
@@ -37,13 +37,13 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <Cascader @change="handleChange"/>
+                <Cascader @change="selectAddress"/>
               </div>
             </el-col>
             <el-col :span="10">
               <div class="condition-item">
                 <label class="label-address">--</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmAddr"/>
               </div>
             </el-col>
           </el-row>
@@ -51,7 +51,7 @@
             <el-col :span="10" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 活动起止日期：</label>
-                <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
+                <DatePicker class="condition-input" :value.sync="orderPlacingMeeting.dateValue" :change="onChange" />
               </div>
             </el-col>
           </el-row>
@@ -60,7 +60,7 @@
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 定金补录截止日期：</label>
                 <el-date-picker
-                  v-model="value1"
+                  v-model="orderPlacingMeeting.depositRecordEnddt"
                   type="date"
                   size="small"
                   placeholder="选择日期">
@@ -71,7 +71,7 @@
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 提货上报截止日期：</label>
                 <el-date-picker
-                  v-model="value2"
+                  v-model="orderPlacingMeeting.pickupRecordEnddt"
                   type="date"
                   size="small"
                   placeholder="选择日期">
@@ -83,6 +83,7 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会logo上传：</label>
+                <div class="condition-upload"><img :src="orderPlacingMeeting.logoUrl" alt=""></div>
                 <div class="condition-upload"><img src="@/assets/images/icon-add.png" alt=""></div>
               </div>
             </el-col>
@@ -92,9 +93,8 @@
               <div class="condition-item editor-box">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会描述：</label>
                 <div class="editor">
-                  <quill-editor ref="myTextEditor"
-                    v-model="content"
-                    :config="editorOption">
+                  <quill-editor ref="textEditor"
+                    v-model="orderPlacingMeeting.discription">
                   </quill-editor>
                 </div>
               </div>
@@ -116,13 +116,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会名称：</label>
-                    <p><b>2018夏季VIVO品牌新品发布会</b></p>
+                    <p><b>{{orderPlacingMeeting.opmName}}</b></p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会编码：</label>
-                    <p>DHH000001</p>
+                    <p>{{orderPlacingMeeting.opMeetingNo}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -130,13 +130,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">活动起止日期：</label>
-                    <p>2018-04-17 至 2018-04-18</p>
+                    <p>{{orderPlacingMeeting.dateValue[0]}} 至 {{orderPlacingMeeting.dateValue[1]}}</p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会地址：</label>
-                    <p>XX市XXXXXXXXXXX街XXX路XX号</p>
+                    <p>{{orderPlacingMeeting.opmAddr}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -150,7 +150,7 @@
             <div class="remark fn-right"><span>备注：</span>可先提交，事后到订货会管理再去补充完整信息资料</div>
           </div>
           <div class="add-roder-table">
-            <Table :table-title="supplier.tableTitle" :table-data="supplier.tableData"/>
+            <Table :table-title="supplierList.tableTitle" :table-data="supplierList.tableData"/>
           </div>
         </div>
       </div>
@@ -202,7 +202,7 @@
             <div class="remark fn-right"><span>备注：</span>可先提交，事后到订货会管理再去补充完整信息资料</div>
           </div>
           <div class="add-roder-table">
-            <Table :table-title="supplier.tableTitle" :table-data="supplier.tableData"/>
+            <Table :table-title="supplierList.tableTitle" :table-data="supplierList.tableData"/>
           </div>
         </div>
       </div>
@@ -226,7 +226,7 @@
       </div>
     </div>
     <div class="foot-btn" v-show="active !== 4">
-      <button v-show="active === 1" class="btns">保&nbsp;存</button>
+      <button v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button class="btns" @click="next">下一步</button>
     </div>
@@ -248,9 +248,13 @@
     name: 'OrderConfig',
     created() {
 
-      this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
-      if(this.orderPickGoodsInfo.opMeetingId){
-        this.title = '编辑订购会'
+      this.opMeetingInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
+      if(this.opMeetingInfo.opMeetingId){
+        this.title = '编辑订购会';
+        this.orderPlacingMeeting = this.opMeetingInfo;
+        this.orderPlacingMeeting.dateValue = [this.opMeetingInfo.startDt, this.opMeetingInfo.endDt];
+        this.qryOpmSupplierList();
+        this.qryOpmRetailerList();
       }else{
         this.title = '新增订购会'
       };
@@ -258,27 +262,17 @@
     },
     data() {
       return {
-        title: '',
-        content: '',
-        editorOption: {},
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
-        dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-        value1: '',
-        value2: '',
         active: 1,
-        supplier: {
+        title: '',
+
+        orderPlacingMeeting: {
+          dateValue: []
+        },
+
+        opmSupplierList: [],
+        opmRetailerList: [],
+
+        supplierList: {
           tableTitle: [{
             label: '省份',
             prop: 'province',
@@ -307,51 +301,22 @@
             label: '操作',
             render: (h, params) => {
               return h({
-                template: '<div><button @click="delSupplier(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
+                template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
                 data: function(){
                   return {
                     param: params
                   }
                 },
                 methods: {
-                  delSupplier: (val, index) => {
-                    this.delSupplier(val, index);
+                  delItem: (val, index) => {
+                    console.log(params);
+                    // this.delSupplier(val, index);
                   }
                 }
               })
             }
           }],
-          tableData: [{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
-          },{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
-          },{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
-          }]
+          tableData: []
         }
       }
     },
@@ -363,6 +328,31 @@
       previous() {
         this.active --;
       },
+      orderSave() {
+        console.log(this.orderPlacingMeeting)
+      },
+      selectAddress(val){
+        this.orderPlacingMeeting.commonRegionId = val;
+      },
+      qryOpmSupplierList (){
+        this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'pageSize': 10,
+            'curPage': 1
+        }).then((rsp) => {
+          this.supplierList.tableData = rsp.rows;
+        });
+      },
+      qryOpmRetailerList(){
+        this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'pageSize': 10,
+            'curPage': 1
+        }).then((rsp) => {
+          this.opmRetailerList = rsp.rows;
+        });
+      },
+
       selectRetailer(val){
           this.orderQueryData.retailerId = val;
       },
@@ -370,10 +360,17 @@
           this.orderQueryData.supplierId = val;
       },
       delSupplier(val, index){
-        console.log(val, index);
+        this.supplierList.tableData.splice(index, 1);
       },
-      handleChange(val){
-        console.log(val);
+
+      onChange(){
+
+      }
+
+    },
+    filters: {
+      dateFilter: function (value) {
+        // return FormatDate.FormatDate(value, 'yyyy-MM-dd')
       }
     },
     components: {
@@ -494,6 +491,7 @@
       .condition-upload{
         width: 163px;
         height: 86px;
+        margin-right: 10px;
         background: #fcfcfc;
         border: 1px solid #dedede;
         text-align: center;
@@ -660,6 +658,10 @@
     }
     //步骤条
 
+  }
+  .el-date-table td.current:not(.disabled) span {
+      color: #fff;
+      background-color: #ff7a7a;
   }
 
 </style>
