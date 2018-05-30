@@ -90,7 +90,7 @@
   import TitlePlate from '@/components/TitlePlate';
   import Input from '@/components/Input';
   import Pagination from '@/components/Pagination';
-  import AddRelevantPerson from "../components/AddRelevantPerson";
+  // import AddRelevantPerson from "@/components/AddRelevantPerson";
 
 
   export default {
@@ -255,7 +255,7 @@
       }
     },
     components: {
-      AddRelevantPerson,
+      // AddRelevantPerson,
       Table,
       TitlePlate,
       Input,
