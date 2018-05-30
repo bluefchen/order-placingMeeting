@@ -57,7 +57,7 @@
           <el-button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
         </div>
       </div>
-      <Table :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" @currentChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -81,12 +81,20 @@
     data() {
       return {
         tableTitle: [{
-          label: '选择',
-          width: 50
-        },{
           label: '真实姓名',
           prop: 'retailerName',
-          width: 140
+          width: 140,
+          render: (h, params) => {
+            return h({
+              template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
+              data() {
+                return {
+                  roleName: params.row.roleName,
+                  imgSrc: params.row.imgSrc
+                }
+              }
+            });
+          }
         }, {
           label: '用户账号',
           prop: 'offerCode',
@@ -95,16 +103,16 @@
           label: '用户类型',
           prop: 'isCentman',
           width: 120,
-          // render: (h, params) => {
-          //   return h({
-          //     template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
-          //     data() {
-          //       return {
-          //         data: params
-          //       }
-          //     }
-          //   });
-          // }
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
         }, {
           label: '手机号码',
           prop: 'supplierName',
@@ -136,6 +144,9 @@
                 }
               },
               methods: {
+                selectionChange(val){
+                  this.selectionChangeList = val;
+                },
                 modifyUserman(item) {
                   this.$router.push({
                     path: '/orderManage/modifyUserman',
@@ -354,6 +365,14 @@
       line-height: 28px;
       &:hover {
         background-color: #e20606;
+      }
+    }
+    .role-man{
+      text-align: left;
+      .iconfont{
+        margin: 0 15px 0 5px;
+        color: #f7626f;
+        font-size: 18px;
       }
     }
   }
