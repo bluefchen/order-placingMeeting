@@ -142,18 +142,17 @@
       compileOrder(title, item){
         if(title === '新增'){
           this.$router.push({
-            path: '/orderManage/OrderConfig'
+            path: '/orderManage/orderConfig'
           });
         }else{
           localStorage.setItem(item.opMeetingId, JSON.stringify(item));
           this.$router.push({
-            path: '/orderManage/OrderConfig',
+            path: '/orderManage/orderConfig',
             query: {
               opMeetingId: item.opMeetingId
             }
           });
         }
-
       },
       delOrder(item){
         this.$confirm('确定要删除该订货会吗?', '提示', {

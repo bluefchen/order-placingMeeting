@@ -1,17 +1,17 @@
 <template>
   <div class="v_order-manage-menu">
     <el-menu :default-active="$route.path" mode="horizontal" router>
-      <el-menu-item index="/orderManage/OrderManageIndex">订购会管理</el-menu-item>
-      <el-submenu index="/orderManage/TerminalMaintain">
+      <el-menu-item index="/orderManage/orderManageIndex">订购会管理</el-menu-item>
+      <el-submenu index="/orderManage/terminalMaintain">
         <template slot="title">基础数据维护</template>
-        <el-menu-item index="/orderManage/TerminalMaintain">终端维护</el-menu-item>
-        <el-menu-item index="/orderManage/SupplierDataMaintain">供货商资料维护</el-menu-item>
-        <el-menu-item index="/orderManage/SetailerDataMaintain">零售商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/terminalMaintain">终端维护</el-menu-item>
+        <el-menu-item index="/orderManage/supplierDataMaintain">供货商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/setailerDataMaintain">零售商资料维护</el-menu-item>
       </el-submenu>
-      <el-submenu index="/orderManage/UsermanManage">
+      <el-submenu index="/orderManage/usermanManage">
         <template slot="title">系统维护</template>
-        <el-menu-item index="/orderManage/UsermanManage">用户管理</el-menu-item>
-        <el-menu-item index="/orderManage/RoleManage">角色管理</el-menu-item>
+        <el-menu-item index="/orderManage/usermanManage">用户管理</el-menu-item>
+        <el-menu-item index="/orderManage/roleManage">角色管理</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
