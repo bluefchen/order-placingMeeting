@@ -161,9 +161,6 @@
           label: '省份',
           prop: 'province',
         },{
-          label: '地市',
-          prop: 'city',
-        },{
           label: '供应商编码',
           prop: 'supplierCode',
         },{
@@ -199,9 +196,6 @@
         },{
           label: '省份',
           prop: 'province',
-        },{
-          label: '地市',
-          prop: 'city',
         },{
           label: '零售商编码',
           prop: 'retailerCode',

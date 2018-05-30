@@ -52,10 +52,6 @@
             prop: 'province',
             width: 140
           }, {
-            label: '地市',
-            prop: 'city',
-            width: 140
-          }, {
             label: '供应商名称',
             prop: 'supplierName'
           }, {
@@ -88,10 +84,6 @@
           tableTitle: [{
             label: '省份',
             prop: 'province',
-            width: 140
-          }, {
-            label: '地市',
-            prop: 'city',
             width: 140
           }, {
             label: '零售商名称',

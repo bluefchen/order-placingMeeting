@@ -12,7 +12,7 @@
           <el-step title="选择零售商" description=""></el-step>
           <el-step title="完成" description=""></el-step>
         </el-steps>
-      </div> 
+      </div>
     </div>
     <div v-show="active === 1">
       <div class="box-1200">
@@ -273,9 +273,6 @@
           tableTitle: [{
             label: '省份',
             prop: 'province',
-          },{
-            label: '地市',
-            prop: 'city',
           },{
             label: '供货商编码',
             prop: 'supplierCode',
