@@ -40,6 +40,7 @@ const AddUserman = () => import('@/views/AddUserman');
 const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
 const TerminalQuery = () => import('@/views/TerminalQuery');
+const AddRole = () => import('@/views/AddRole');
 
 Vue.use(Router);
 
@@ -324,6 +325,13 @@ export default new Router({
         component: RoleManage,
         meta: {
           title: '角色管理'
+        }
+      }, {
+        path: 'AddRole',
+        name: 'addRole',
+        component: AddRole,
+        meta: {
+          title: '新增角色'
         }
       }]
     }

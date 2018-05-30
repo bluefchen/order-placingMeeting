@@ -43,7 +43,6 @@
               <!-- 当为管理人员时*存在 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
               <Cascader @change="handleChange"/>
-              <!--<Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>-->
             </div>
           </el-col>
         </el-row>
@@ -60,6 +59,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 密码：</label>
+              <!-- 密码输入框 -->
               <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
             </div>
           </el-col>
@@ -74,7 +74,7 @@
         </el-row>
       </div>
       <div class="foot-btn">
-        <button class="btns">保&nbsp;持</button>
+        <button class="btns">保&nbsp;存</button>
         <button class="btns">取&nbsp;消</button>
       </div>
     </div>

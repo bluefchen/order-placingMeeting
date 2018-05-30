@@ -27,7 +27,7 @@
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">优惠政策列表</div>
         </div>
-        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
     </div>
   </div>
@@ -49,10 +49,6 @@
         //表格的数据
         isSelection: true,
         tableTitle: [{
-          label: '序号',
-          prop: 'orderNum',
-          width: 100,
-        }, {
           label: '政策名称',
           prop: 'policyName',
           render: (h, params) => {
@@ -91,7 +87,6 @@
           }
         }],
         tableData: [{
-          orderNum: '1',
           policyName: 'VIVO',
           policyModel: '普惠机型',
           policyDate: '2018-04-04',
