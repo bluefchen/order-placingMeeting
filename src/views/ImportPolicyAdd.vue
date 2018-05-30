@@ -20,11 +20,16 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <Import :url="url" :tableTitle="tableTitle" ref="importComponent"/>
-      </div>
-
-      <div class="bottom-btns">
-        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
+        <div class="file-import">
+          <UploadFile :url="url" @callback="uploadData"/>
+        </div>
+        <div class="import-result-box">
+          <div class="success">
+            <p class="title">上传政策成功，等待集团审批！</p>
+            <p class="sub-title">您可到 <router-link class="btns" to="/order/policyManage">政策投入</router-link> 查看您制定的政策</p>
+            <el-button size="small" type="success" @click="jumpLink">政策投入</el-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +37,7 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
-  import Import from '@/components/Import';
+  import UploadFile from '@/components/UploadFile';
 
   export default {
     name: 'ImportModelAdd',
@@ -41,117 +46,21 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList',
-        tableTitle: [{
-          label: '终端编码',
-          prop: 'offerCode',
-          width: 160
-        }, {
-          label: '终端名称',
-          prop: 'offerName',
-          width: 120
-        }, {
-          label: '终端品牌',
-          prop: 'brandName',
-          width: 100
-        }, {
-          label: '终端型号',
-          prop: 'offerModelName',
-          width: 140
-        }, {
-          label: '产品类型',
-          prop: 'isCentman',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
-        }, {
-          label: '终端价格',
-          prop: 'costPrice',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<span>￥{{data.row.costPrice}}</span>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
-        }, {
-          label: '是否特种机型',
-          prop: 'isSpecial',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
-        }, {
-          label: '数量',
-          prop: 'offerQty',
-          width: 100
-        }, {
-          label: '校验结果',
-          prop: 'isSuccess',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
-        }, {
-          label: '校验信息',
-          prop: 'resultMsg'
-        }]
+        tableData: []
       }
     },
     methods: {
-      batchInsertOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
-        if (!tableData.length) {
-          this.$message.warning('导入数据不能为空');
-          return;
-        }
-        let tableDataIsSueccess = [];
-        _.each(tableData, (item) => {
-          if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: '订购会ID',
-              ...item
-            })
-          }
-        });
-        console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
-          tableDataIsSueccess
-        }).then(rsp => {
-          this.$router.push({path: '/order/policyManage'});
-          // this.$message.success('导入新增数据成功');
-          console.log('19、批量导入新增机型接口：', rsp);
-        })
+      uploadData(data) {
+        this.tableData = data.rows;
+        console.log('导入文件返回的数据：', data);
+      },
+      jumpLink() {
+        this.$router.push({path: '/order/policyManage'});
       }
     },
     components: {
       Breadcrumb,
-      Import
+      UploadFile
     }
   }
 </script>
@@ -195,9 +104,30 @@
     background-color: #f6f6f6;
   }
 
-  /*底部按钮*/
-  .bottom-btns {
-    margin: 20px 0;
-    text-align: center;
+  .file-import {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fcfcfc;
+    border: 1px solid #e8e8e8;
+  }
+
+  .import-result-box {
+    width: 100%;
+    margin: 20px auto 0;
+    background: #f5fff8;
+    border: 1px solid #e4f0e7;
+
+    .success {
+      width: 330px;
+      min-height: 110px;
+      margin: 0 auto;
+      padding-left: 110px;
+      background: url(../assets/images/icon-success.png) no-repeat 0 0;
+      .import-text {
+        color: #000;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
   }
 </style>
