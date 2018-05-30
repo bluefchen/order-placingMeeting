@@ -39,8 +39,7 @@ const UsermanManage = () => import('@/views/UsermanManage');
 const AddUserman = () => import('@/views/AddUserman');
 const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
-
-
+const TerminalQuery = () => import('@/views/TerminalQuery');
 
 Vue.use(Router);
 
@@ -205,6 +204,13 @@ export default new Router({
         component: PreferentialPolicySettlement,
         meta: {
           title: '优惠政策结算'
+        },
+      }, {
+        path: 'terminalQuery',
+        name: 'terminalQuery',
+        component: TerminalQuery,
+        meta: {
+          title: '终端查询'
         },
       }]
     }, {

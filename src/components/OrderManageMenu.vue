@@ -3,19 +3,19 @@
 
     <el-menu :default-active="$route.path" mode="horizontal" router>
       <el-menu-item index="">订购会管理</el-menu-item>
-      <el-submenu index="/OrderManage/orderModel">
+      <el-submenu index="/orderManage/orderModel">
         <template slot="title">基础数据维护</template>
-        <el-menu-item index="/OrderManage/orderModel">终端维护</el-menu-item>
-        <el-menu-item index="/OrderManage/importModelAdd">供货商资料维护</el-menu-item>
-        <el-menu-item index="/OrderManage/importModelAdd">零售商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/orderModel">终端维护</el-menu-item>
+        <el-menu-item index="/orderManage/importModelAdd">供货商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/importModelAdd">零售商资料维护</el-menu-item>
       </el-submenu>
-      <el-submenu index="/OrderManage/orderPickupData">
+      <el-submenu index="/orderManage/orderPickupData">
         <template slot="title">系统维护</template>
-        <el-menu-item index="/OrderManage/importPickupAdd">用户管理</el-menu-item>
-        <el-menu-item index="/OrderManage/importPickupAdd">角色管理</el-menu-item>
+        <el-menu-item index="/orderManage/importPickupAdd">用户管理</el-menu-item>
+        <el-menu-item index="/orderManage/importPickupAdd">角色管理</el-menu-item>
       </el-submenu>
     </el-menu>
-    
+
   </div>
 </template>
 
