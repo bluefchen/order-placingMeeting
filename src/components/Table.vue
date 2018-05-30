@@ -187,11 +187,12 @@
       border: 1px solid transparent;
       color: #ff0000;
       font-size: 12px;
+      text-decoration: underline;
       &:hover {
         border: 1px solid #f82134;
         border-radius: 3px;
         color: #ff0000;
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
 
@@ -202,11 +203,12 @@
       font-size: 12px;
       text-decoration: underline;
       cursor: pointer;
+      text-decoration: underline;
       &:hover {
         border: 1px solid #f82134;
         border-radius: 3px;
         color: #e52941;
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
   }
