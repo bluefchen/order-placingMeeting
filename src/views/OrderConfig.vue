@@ -2,7 +2,7 @@
   <div class="vue_add-supplier">
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="新增订购会"/>
+        <TitlePlate class="fn-left" :title="title"/>
       </div>
 
       <div class="step-box">
@@ -247,10 +247,19 @@
   export default {
     name: 'OrderConfig',
     created() {
+
+      this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
+      if(this.orderPickGoodsInfo.opMeetingId){
+        this.title = '编辑订购会'
+      }else{
+        this.title = '新增订购会'
+      };
+
     },
     data() {
       return {
-        content: '<h2>data中content的内容</h2>',
+        title: '',
+        content: '',
         editorOption: {},
         orderQueryData: {},
         brandList: [{
