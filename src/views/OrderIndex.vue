@@ -52,32 +52,28 @@
             prop: 'province',
             width: 140
           }, {
-            label: '地市',
-            prop: 'city',
-            width: 140
-          }, {
             label: '供应商名称',
             prop: 'supplierName'
           }, {
             label: '供应商类型',
             prop: 'supplierTypeName',
-            width: 120
+            width: 140
           }, {
             label: '联系人',
             prop: 'linkMan',
-            width: 120
+            width: 140
           }, {
             label: '联系电话',
             prop: 'linkNbr',
-            width: 120
+            width: 140
           }, {
             label: '公司电话',
             prop: 'supplierPhone',
-            width: 120
+            width: 140
           }, {
             label: '公司传真',
             prop: 'supplierFax',
-            width: 120
+            width: 140
           }],
           tableData: [],
           pageSize: 0,
@@ -90,32 +86,28 @@
             prop: 'province',
             width: 140
           }, {
-            label: '地市',
-            prop: 'city',
-            width: 140
-          }, {
             label: '零售商名称',
             prop: 'retailerName'
           }, {
             label: '零售商类型',
             prop: 'retailerTypeName',
-            width: 120
+            width: 140
           }, {
             label: '联系人',
             prop: 'linkMan',
-            width: 120
+            width: 140
           }, {
             label: '联系电话',
             prop: 'linkNbr',
-            width: 120
+            width: 140
           }, {
             label: '公司电话',
             prop: 'retailerPhone',
-            width: 120
+            width: 140
           }, {
             label: '公司传真',
             prop: 'retailerFax',
-            width: 120
+            width: 140
           }],
           tableData: [],
           pageSize: 0,
