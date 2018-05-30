@@ -274,9 +274,6 @@
             label: '省份',
             prop: 'province',
           },{
-            label: '地市',
-            prop: 'city',
-          },{
             label: '供货商编码',
             prop: 'supplierCode',
           },{

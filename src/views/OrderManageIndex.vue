@@ -11,25 +11,23 @@
         <TitlePlate class="fn-left" title="订购会列表"/>
         <div class="order-type">
           <div class="order-type-text">订购会状态：</div>
-          <div class="condition-input">
-            <el-select v-model="orderQueryData.orderType" placeholder="请选择">
+          <el-select class="condition-input" v-model="orderQueryData.statusCd" placeholder="请选择">
               <el-option
                 v-for="item in orderTypeList"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
-            </el-select>
-          </div>
+          </el-select>
         </div>
       </div>
 
       <div class="search fn-clear">
         <div class="fn-left search-input">
-          <input type="text" placeholder="输入订货会名称搜索"><button class="search-btn fn-right">确定</button>
+          <input type="text" v-model="orderQueryData.opmName" placeholder="输入订货会名称搜索"><button class="search-btn fn-right" @click="queryOrderPlacingMeetingList()">确定</button>
         </div>
         <div class="fn-right search-query">
-          <button><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
+          <button @click="compileOrder('新增')"><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
         </div>
       </div>
 
@@ -46,82 +44,32 @@
         </thead>
       </table>
       <ul class="ul-tab">
-        <li class="li-list">
+        <li class="li-list" v-for="(item, index) in orderPlacingMeetingList">
           <p class="p-line fn-clear">
-            <span class="fn-left date-color">订购会编码：100092830</span>
+            <span class="fn-left date-color">订购会编码：{{item.opMeetingNo}}</span>
             <span class="fn-right text-right">
-              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
+              <button class="btn-del" @click="delOrder(item)"><span class="iconfont">&#xe610;</span></button>
             </span>
           </p>
           <div class="tabs fn-clear">
             <dl class="dll wid40 fn-left">
-              <div class="device-wrap fn-clear">
+              <div class="device-wrap fn-clear" @click="detailOrder(item)">
                 <div class="device-pic fn-left">
-                  <img src="@/assets/images/brand-img.jpg" alt="">
+                  <img :src="item.logoUrl" alt="">
                 </div>
                 <div class="device-info fn-right">
-                  <p class="name">2018夏季VIVO品牌新品订购会</p>
-                  <p class="date">2018/04/10-2018/04/11</p>
+                  <p class="name">{{item.opmName}}</p>
+                  <p class="date">{{item.startDt}}-{{item.endDt}}</p>
                 </div>
               </div>
             </dl>
-            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
-            <dl class="dll wid11 fn-left"><p>210家</p></dl>
-            <dl class="dll wid11 fn-left"><p>189家</p></dl>
-            <dl class="dll wid11 fn-left"><p class="device-type not-start">未开始</p></dl>
+            <dl class="dll wid11 fn-left"><p>{{item.commonRegionName}}</p></dl>
+            <dl class="dll wid11 fn-left"><p>{{item.supplierCnt}}家</p></dl>
+            <dl class="dll wid11 fn-left"><p>{{item.retailerCnt}}家</p></dl>
+            <dl class="dll wid11 fn-left"><p class="device-type" :class="{'not-start':item.statusCd === '1000', 'underway':item.statusCd === '1001', 'done':item.statusCd === '1002'}">{{item.statusCd | statusCdFilter}}</p></dl>
             <dl class="dll wid16 fn-left">
-              <button class="updown-btn">编辑订购会</button>
+              <button class="updown-btn" @click="compileOrder('修改', item)">编辑订购会</button>
             </dl>
-          </div>
-        </li>
-        <li class="li-list">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color">订购会编码：100092831</span>
-            <span class="fn-right text-right">
-              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
-            </span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="dll wid40 fn-left">
-              <div class="device-wrap fn-clear">
-                <div class="device-pic fn-left">
-                  <img src="@/assets/images/brand-img.jpg" alt="">
-                </div>
-                <div class="device-info fn-right">
-                  <p class="name">2018夏季VIVO品牌新品订购会</p>
-                  <p class="date">2018/04/10-2018/04/11</p>
-                </div>
-              </div>
-            </dl>
-            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
-            <dl class="dll wid11 fn-left"><p>210家</p></dl>
-            <dl class="dll wid11 fn-left"><p>189家</p></dl>
-            <dl class="dll wid11 fn-left"><p class="device-type underway">进行中</p></dl>
-          </div>
-        </li>
-        <li class="li-list">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color">订购会编码：100092832</span>
-            <span class="fn-right text-right">
-              <button class="btn-del"><span class="iconfont">&#xe610;</span></button>
-            </span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="dll wid40 fn-left">
-              <div class="device-wrap fn-clear">
-                <div class="device-pic fn-left">
-                  <img src="@/assets/images/brand-img.jpg" alt="">
-                </div>
-                <div class="device-info fn-right">
-                  <p class="name">2018夏季VIVO品牌新品订购会</p>
-                  <p class="date">2018/04/10-2018/04/11</p>
-                </div>
-              </div>
-            </dl>
-            <dl class="dll wid11 fn-left"><p>江苏省</p></dl>
-            <dl class="dll wid11 fn-left"><p>210家</p></dl>
-            <dl class="dll wid11 fn-left"><p>189家</p></dl>
-            <dl class="dll wid11 fn-left"><p class="device-type done">已结束</p></dl>
           </div>
         </li>
       </ul>
@@ -132,54 +80,17 @@
 </template>
 
 <script>
-  import Breadcrumb from '@/components/Breadcrumb';
-  import Input from '@/components/Input';
-  import Select from '@/components/Select';
-  import DatePicker from '@/components/DatePicker';
-  import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
-  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.queryOpmOrderSubmit();
+      this.queryOrderPlacingMeetingList();
     },
     data() {
       return {
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '',
-
-
-        paymentStatusList: [{ //付款状态列表
-          value: 1000,
-          label: '未交定金'
-        }, {
-          value: 1001,
-          label: '已交定金'
-        }, {
-          value: 1002,
-          label: '已付款'
-        }],
-
         orderTypeList: [{
           value: 1000,
           label: '未开始'
@@ -190,93 +101,103 @@
           value: 1002,
           label: '已结束'
         }],
-        
-        qryOpmOrderList: [], //查询返回的数据
+
         orderQueryData: {
-          isCentman: '',
-          offerNameOrCode: '',
-          opmOrderNo: '',
-          retailerId: '',
-          dateValue: [],
-          supplierId: '',
-          statusCd: '',
-          orderType: '',
+          opmName: '', 
+          statusCd: ''
         },
-        isShowMoreCondition: false, //是否显示更多条件
+
+        orderPlacingMeetingList: [],
+
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
       }
     },
     methods: {
-      search(obj) {
-        this.orderQueryData.isCentman = obj.type;
-        this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit();
-      },
-      showMoreCondition() {
-        this.isShowMoreCondition = !this.isShowMoreCondition;
-      },
-      queryOpmOrderSubmit(curPage, pageSize) {
-        this.$post('/opmOrderController/queryOpmOrderList', {
-          opMeetingId: '订货会ID',
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
+      queryOrderPlacingMeetingList(curPage, pageSize) {
+        this.currentPage = curPage || 1;
+        this.$post('/orderPlacingMeetingController/queryOrderPlacingMeetingList', {
+          opmName: this.orderQueryData.opmName,
           statusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.qryOpmOrderList = rsp.rows;
+          this.orderPlacingMeetingList = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
-      orderdetail(item) {
-        localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+      pageChanged(curPage) {
+        this.queryOrderPlacingMeetingList(curPage);
+      },
+      detailOrder(item){
+        localStorage.setItem(item.opMeetingId, JSON.stringify(item));
         this.$router.push({
-          path: '/order/Orderdetail',
+          path: '/order/orderIndex',
           query: {
-            opmOrderId: item.opmOrderId
+            opMeetingId: item.opMeetingId
           }
         });
       },
-      pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+      compileOrder(title, item){
+        if(title === '新增'){
+          this.$router.push({
+            path: '/orderManage/OrderConfig'
+          });
+        }else{
+          localStorage.setItem(item.opMeetingId, JSON.stringify(item));
+          this.$router.push({
+            path: '/orderManage/OrderConfig',
+            query: {
+              opMeetingId: item.opMeetingId
+            }
+          });
+        }
+
       },
-      selectRetailer(val){
-        this.orderQueryData.retailerId = val;
-      },
-      selectSupplier(val){
-        this.orderQueryData.supplierId = val;
-      },
-      exportOpmOrder(){
-        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
-          statusCd: this.orderQueryData.statusCd,
-        })));
+      delOrder(item){
+        this.$confirm('确定要删除该订货会吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
+            opMeetingId: item.opMeetingId
+          }).then((rsp) => {
+            console.log(rsp.resultMsg, rsp.resultCode);
+          });
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.queryOrderPlacingMeetingList(this.currentPage);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });    
+        });
       }
     },
     components: {
-      Breadcrumb,
-      Input,
-      Select,
-      DatePicker,
-      InputWithSelect,
       TitlePlate,
       Table,
-      DeviceInfo,
-      Pagination,
-      ChooseMerchants
+      Pagination
+    },
+    filters: {
+      statusCdFilter: function (value) {
+        switch(value){
+          case '1000':
+            return '未开始';
+            break;
+          case '1001':
+            return '进行中';
+            break;
+          case '1002':
+            return '已结束';
+            break;
+        }
+      }
     }
   }
 </script>
@@ -419,6 +340,9 @@
             }
             .el-input__suffix{
               right: 0;
+            }
+            input{
+              vertical-align: top;
             }
           }
         }
@@ -571,6 +495,7 @@
       .device-wrap {
         padding: 10px;
         text-align: left;
+        cursor: pointer;
         .device-pic {
           width: 85px;
           height: 71px;
@@ -594,6 +519,7 @@
             line-height: 26px;
             color: #050505;
             font-size: 14px;
+            font-weight: bold;
             &:hover {
               color: #ed0000;
               text-decoration: underline;
