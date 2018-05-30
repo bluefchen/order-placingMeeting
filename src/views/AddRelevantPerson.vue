@@ -1,18 +1,14 @@
 <template>
-  <div class="add-relevant">
-
-    <button class="btn-add" type="success" @click="isShow = true"><span class="iconfont">&#xe6a8;</span> 添加{{title}}</button>
-
-    <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
-      <div slot="content" class="pop-cnt">
-        <!-- 搜索 -->
-        <div class="box-1200 search fn-clear">
-          <InputWithSelect class="fn-left" @search="search"/>
-          <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
-            v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-        </div>
-        <!-- 条件搜索 -->
-        <div class="condition-search" v-show="isShowMoreCondition">
+  <div class="add-relevant box-1200">
+    <!-- 搜索 -->
+    <div class="search fn-clear">
+      <el-input placeholder="输入用户帐号或手机号查询" class="input-with-select fn-left" size="small">
+        <el-button slot="append" @click="Search()">搜 索</el-button>
+      </el-input>
+      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
+    </div>
+    <!-- 条件搜索 -->
+    <div class="condition-search" v-show="isShowMoreCondition">
           <el-row :gutter="20">
             <el-col :span="7">
               <div class="condition-iterm">
@@ -33,28 +29,25 @@
               </div>
             </el-col>
             <el-col :span="3">
-              <el-button class="btns" @click="search()">查询</el-button>
+              <el-button class="query-btns" @click="search()">查询</el-button>
             </el-col>
           </el-row>
         </div>
-        <Table :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
-        <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
-      </div>
-      <div slot="footer">
-        <el-button type="success" @click="saveChange">保存</el-button>
-        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
-      </div>
-    </DialogPopup>
+    <p class="p-title"><i class="iconfont">&#xe609;</i> 选择添加角色人员列表</p>
+    <Table :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
+    <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+    <div class="foot-btn">
+      <button class="btns">保&nbsp;持</button>
+      <button class="btns">取&nbsp;消</button>
+    </div>
   </div>
 </template>
 
 <script>
-  import DialogPopup from '@/components/DialogPopup';
   import Cascader from '@/components/Cascader';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
-  import InputWithSelect from '@/components/InputWithSelect';
   import Select from '@/components/Select';
 
   export default {
@@ -92,8 +85,8 @@
         },
         tableTitle: [{
           label: '真实姓名',
-          prop: 'retailerName',
-          width: 130,
+          prop: 'roleName',
+          width: 160,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
@@ -108,11 +101,11 @@
         }, {
           label: '用户账号',
           prop: 'offerCode',
-          width: 120
+          width: 170
         }, {
           label: '用户类型',
           prop: 'isCentman',
-          width: 120,
+          width: 160,
           render: (h, params) => {
             return h({
               template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
@@ -126,21 +119,22 @@
         }, {
           label: '手机号码',
           prop: 'supplierName',
-          width: 120
+          width: 160
         }, {
           label: '归属省份',
           prop: '',
-          width: 120
+          width: 160
         }, {
           label: '归属商户',
           prop: 'offerQty',
         }],
         tableData: [{
-
+          roleName:'wwe',
+          supplierName:'111',
         }],//查询返回的数据
         usermanData: [],
         isShowMoreCondition: false, //是否显示更多条件
-        total: 0, //列表总数
+        total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
       }
@@ -193,18 +187,15 @@
           this.total = rsp.totalSize;
         })
       },
-
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
       }
     },
     components: {
-      DialogPopup,
       Cascader,
       Table,
       Pagination,
       ChooseMerchants,
-      InputWithSelect,
       Select
     }
   }
@@ -213,24 +204,17 @@
 <style lang="less">
 
   .add-relevant{
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 0px;
-    flex: 1 0 0;
-    .btn-add{
-      position:relative;
-      padding: 0 12px;
-      margin-left: 2px;
-      border: 0;
-      background-color: #fa0000;
-      color: #fff;
-      font-size: 12px;
-      border-radius: 3px;
-      line-height: 28px;
+    /*-webkit-box-flex: 1;*/
+    /*-ms-flex: 1 0 0px;*/
+    /*flex: 1 0 0;*/
+    .p-title{
+      margin: 20px 0 10px;
+      font-size: 18px;
+      font-weight: 800;
     }
-    .dialog-choose-merchants {
-      .el-dialog {
-        width: 880px;
-      }
+    .p-title i{
+      font-size: 18px;
+      color: #ea2525;
     }
     /* 条件搜索 */
     .search {
@@ -239,6 +223,7 @@
     .condition-search {
       display: block;
       margin: 0 auto 10px;
+      padding: 10px 0;
       border: 1px solid #dfdfdf;
     }
     .condition-iterm {
@@ -253,6 +238,27 @@
       .condition-input {
         flex: 1 0 0;
       }
+    }
+    /*搜索框*/
+    .input-with-select {
+      width: 480px;
+    }
+    .el-input-group__append, .el-input-group__prepend {
+      border-radius: 0;
+    }
+
+    .input-with-select .el-input-group__prepend {
+      background-color: #f8f8f8;
+    }
+
+    .input-with-select .el-input-group__append {
+      background-color: #f82134;
+      border-color: #f82134;
+      color: #fff;
+    }
+
+    .el-input.is-active .el-input__inner, .el-input__inner:focus {
+      border-color: #ff7a7a;
     }
 
     .category-more {
@@ -288,7 +294,8 @@
     .el-input__icon{
       line-height: 32px;
     }
-    /*输入框*/
+
+    /*搜索条件输入框*/
     .el-range-editor.el-input__inner {
       height: 32px;
     }
@@ -298,94 +305,7 @@
     .el-input__inner {
       border-radius: 0;
     }
-    .form-group{
-      border: 1px solid #d0d0d0;
-      width: 100%;
-      position: relative;
-      label{
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 90px;
-        height: 27px;
-        line-height: 27px;
-        text-align: center;
-        background: #f8f8f8;
-        border-right: 1px solid #d0d0d0;
-      }
-      .condition-select{
-        width: calc(100% - 91px);
-        height: 27px;
-        margin-left: 91px;
-        .el-input{
-          width: 100%;
-        }
-        .el-input__inner{
-          height: 27px;
-          line-height: 27px;
-          border-radius: 0;
-          border: none;
-          vertical-align: top;
-          &:focus{
-            border-color: #ff7a7a;
-          }
-          &:hover{
-            border-color: #c0c4cc;
-          }
-        }
-      }
-      .el-cascader{
-        margin-left: 91px;
-        width: calc(100% - 91px);
-        height: 27px;
-        .el-input__inner{
-          height: 27px;
-          line-height: 27px;
-          vertical-align: top;
-          border-radius: 0;
-          border: none;
-        }
-      }
-    }
-    .el-input-group--append .el-input__inner{
-      border-radius: 0;
-      height: 29px;
-      line-height: 29px;
-    }
-    .el-cascader-menu__item:focus:not(:active), .el-cascader-menu__item:hover {
-      background-color: #f5f7fa;
-    }
-    .v_pagination .el-pagination{
-      margin-top: 10px;
-    }
-    .el-dialog--center .el-dialog__body{
-      padding: 10px 20px 5px 20px;
-      line-height: 27px;
-    }
-    .el-icon-arrow-down:before{
-      font-family: 'iconfont';
-      content: "\e614";
-      font-size: 14px;
-      color: #aaa;
-    }
-    .el-icon-arrow-up:before{
-      color: #aaa;
-    }
-    .v_table .el-table th.is-leaf{
-      background: #efefef;
-    }
-    .el-table td, .el-table th.is-leaf{
-      border-color: #e6e6e6;
-      height: 33px;
-    }
-    .el-table--small td, .el-table--small th{
-      padding: 0;
-    }
-    .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
-      color: #fff;
-      font-weight: normal;
-      background-color: #f13939;
-    }
+
     .role-man{
       text-align: left;
       .iconfont{
@@ -394,16 +314,38 @@
         font-size: 18px;
       }
     }
-    .btns{
+    .query-btns{
       position: relative;
-      padding: 0 12px;
+      padding: 0 35px;
       margin:  11px 0 0 2px;
       border: 0;
       background-color: #fa0000;
       color: #fff;
       font-size: 12px;
       border-radius: 3px;
-      line-height: 28px;
+      line-height: 30px;
+    }
+    .foot-btn{
+      width: 100%;
+      padding: 24px 0;
+      border-top: none;
+      text-align: center;
+      .btns {
+        display: inline-block;
+        padding: 3px 30px;
+        margin: 0 10px;
+        border: 0;
+        background-color: #fa0000;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 3px;
+        line-height: 28px;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+          background-color: #e20606;
+        }
+      }
     }
   }
 

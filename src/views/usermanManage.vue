@@ -16,7 +16,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
+            <label class="label-wrds">用户类型：</label>
             <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
           </div>
         </el-col>
@@ -40,10 +40,8 @@
             <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
           </div>
         </el-col>
-        <el-col :span="8">
-        </el-col>
-        <el-col :span="8">
-          <el-button slot="append" @click="search()">查询</el-button>
+        <el-col :span="16">
+          <el-button class="query-btns fn-right" @click="search()">查询</el-button>
         </el-col>
       </el-row>
     </div>
@@ -83,7 +81,7 @@
         tableTitle: [{
           label: '真实姓名',
           prop: 'retailerName',
-          width: 140,
+          width: 126,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
@@ -124,14 +122,13 @@
         }, {
           label: '归属商户',
           prop: 'offerQty',
-          width: 120
         }, {
           label: '状态',
           prop: 'totalAmount',
-          width: 80
+          width: 54
         }, {
           label: '操作',
-          // width: 120,
+          width: 190,
           render: function (h, params) {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanList)" class="delete-btn">冻结</el-button>' +
@@ -144,9 +141,6 @@
                 }
               },
               methods: {
-                selectionChange(val){
-                  this.selectionChangeList = val;
-                },
                 modifyUserman(item) {
                   this.$router.push({
                     path: '/orderManage/modifyUserman',
@@ -192,6 +186,9 @@
         // this.orderQueryData.isCentman = obj.type;
         // this.orderQueryData.offerNameOrCode = obj.value;
         // this.queryOpmOrderSubmit();
+      },
+      selectionChange(val){
+        this.selectionChangeList = val;
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -366,6 +363,17 @@
       &:hover {
         background-color: #e20606;
       }
+    }
+    .query-btns{
+      position: relative;
+      padding: 0 35px;
+      margin:  11px 0 0 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 30px;
     }
     .role-man{
       text-align: left;

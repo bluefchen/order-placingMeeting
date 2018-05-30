@@ -41,6 +41,7 @@ const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
 const TerminalQuery = () => import('@/views/TerminalQuery');
 const AddRole = () => import('@/views/AddRole');
+const AddRelevantPerson = () => import('@/views/AddRelevantPerson');
 
 Vue.use(Router);
 
@@ -330,6 +331,13 @@ export default new Router({
         path: 'addRole',
         name: 'addRole',
         component: AddRole,
+        meta: {
+          title: '新增角色'
+        }
+      }, {
+        path: 'addRelevantPerson',
+        name: 'addRelevantPerson',
+        component: AddRelevantPerson,
         meta: {
           title: '新增角色'
         }

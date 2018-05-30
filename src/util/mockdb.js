@@ -21,18 +21,18 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
-    'totalSize|1-99': 10, 
+    'totalSize|1-99': 10,
     'rows|5-10': [{
-        'opMeetingId': '@id', 
-        'opMeetingNo': '@id', 
-        'opmName': '@cword(4, 12)', 
-        'opmAddr': '@cword(8, 16)', 
+        'opMeetingId': '@id',
+        'opMeetingNo': '@id',
+        'opmName': '@cword(4, 12)',
+        'opmAddr': '@cword(8, 16)',
         'startDt': '@date()',
         'endDt': '@date()',
-        'commonRegionId': '@id', 
+        'commonRegionId': '@id',
         'commonRegionName': '@province',
         'statusCd|1': ['1000', '1001', '1002'],
         'discription': '@cword(10,20)',
@@ -307,7 +307,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|30-99': 1, 
+    'totalSize|30-99': 1,
     'rows|5-10': [{
       'opmOaId':'@id',
       'offerId': '@id',
@@ -844,7 +844,7 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize ': '12', 
+    'totalSize ': '12',
     'rows': [{
       'opmOrderId':'@id',
       'opMeetingId':'@id',
@@ -881,5 +881,29 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
         'offerPicUrl6':''
       }
     }]
+  }
+});
+//63、冻结用户
+Mock.mock(new RegExp('/systemUserController/freezeSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//64、激活用户
+Mock.mock(new RegExp('/systemUserController/unfreezeSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
   }
 });

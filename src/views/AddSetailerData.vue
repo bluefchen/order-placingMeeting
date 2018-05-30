@@ -65,7 +65,7 @@
         </el-row>
       </div>
       <div class="foot-btn">
-        <button class="btns">保&nbsp;持</button>
+        <button class="btns">保&nbsp;存</button>
         <button class="btns">取&nbsp;消</button>
       </div>
     </div>
