@@ -215,119 +215,119 @@ export default new Router({
         },
       }]
     }, {
-      path: '/OrderManage',
+      path: '/orderManage',
       name: 'orderManage',
       component: OrderManage,
       meta: {
         title: '订购会管理'
       },
       children: [{
-        path: 'OrderManageIndex',
+        path: 'orderManageIndex',
         name: 'orderManageIndex',
         component: OrderManageIndex,
         meta: {
           title: '首页-订购会管理'
         }
       }, {
-        path: 'OrderConfig',
+        path: 'orderConfig',
         name: 'orderConfig',
         component: OrderConfig,
         meta: {
           title: '订购会配置'
         }
       }, {
-        path: 'TerminalMaintain',
+        path: 'terminalMaintain',
         name: 'terminalMaintain',
         component: TerminalMaintain,
         meta: {
           title: '终端维护'
         }
       }, {
-        path: 'AddTerminalMaintain',
+        path: 'addTerminalMaintain',
         name: 'addTerminalMaintain',
         component: AddTerminalMaintain,
         meta: {
           title: '新增/修改商品'
         }
       }, {
-        path: 'DetailTerminalMaintain',
+        path: 'detailTerminalMaintain',
         name: 'detailTerminalMaintain',
         component: DetailTerminalMaintain,
         meta: {
           title: '详情或预览'
         }
       }, {
-        path: 'SupplierDataMaintain',
+        path: 'supplierDataMaintain',
         name: 'supplierDataMaintain',
         component: SupplierDataMaintain,
         meta: {
           title: '供货商资料维护'
         }
       }, {
-        path: 'AddSupplierData',
+        path: 'addSupplierData',
         name: 'addSupplierData',
         component: AddSupplierData,
         meta: {
           title: '新增/修改供货商'
         }
       }, {
-        path: 'DetailsSupplierData',
+        path: 'detailsSupplierData',
         name: 'detailsSupplierData',
         component: DetailsSupplierData,
         meta: {
           title: '供货商详情'
         }
       }, {
-        path: 'SetailerDataMaintain',
+        path: 'setailerDataMaintain',
         name: 'setailerDataMaintain',
         component: SetailerDataMaintain,
         meta: {
           title: '零售商资料维护'
         }
       }, {
-        path: 'AddSetailerData',
+        path: 'addSetailerData',
         name: 'addSetailerData',
         component: AddSetailerData,
         meta: {
           title: '新增/修改零售商'
         }
       }, {
-        path: 'DetailsSetailerData',
+        path: 'detailsSetailerData',
         name: 'detailsSetailerData',
         component: DetailsSetailerData,
         meta: {
           title: '零售商详情'
         }
       }, {
-        path: 'UsermanManage',
+        path: 'usermanManage',
         name: 'usermanManage',
         component: UsermanManage,
         meta: {
           title: '用户管理'
         }
       }, {
-        path: 'AddUserman',
+        path: 'addUserman',
         name: 'addUserman',
         component: AddUserman,
         meta: {
           title: '新增账户'
         }
       }, {
-        path: 'DetailUserman',
+        path: 'detailUserman',
         name: 'detailUserman',
         component: DetailUserman,
         meta: {
           title: '账户详情'
         }
       }, {
-        path: 'RoleManage',
+        path: 'roleManage',
         name: 'roleManage',
         component: RoleManage,
         meta: {
           title: '角色管理'
         }
       }, {
-        path: 'AddRole',
+        path: 'addRole',
         name: 'addRole',
         component: AddRole,
         meta: {

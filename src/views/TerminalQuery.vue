@@ -81,18 +81,16 @@
           <th width="32%">终端名称</th>
           <th width="17%">终端品牌</th>
           <th width="17%">终端型号</th>
-          <th width="11%">订购数量</th>
-          <th width="10%">提货数量</th>
+          <th width="11%">终端价格</th>
+          <th width="10%">上架数量</th>
           <th width="13%">操作</th>
         </tr>
         </thead>
       </table>
       <ul class="ul-tab">
         <li class="li-list" v-for="(item, index) in tableData" :key="index">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
-            <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
-            <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
+          <p class="p-line text-right">
+            <span>供货商：{{item.supplierName}}</span>
           </p>
           <div class="tabs fn-clear">
             <dl class="fn-left wid32">
@@ -105,7 +103,7 @@
             <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
             <dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
             <dl class="dll wid13 fn-left">
-              <button @click="editDeliveryData(item)" class="updown-btn red">编辑</button>
+              <button @click="editDeliveryData(item)" class="updown-btn red">商品详情</button>
             </dl>
           </div>
         </li>
@@ -300,7 +298,7 @@
       editDeliveryData(item) {
         localStorage.setItem(item.opmOrderId, JSON.stringify(item));
         this.$router.push({
-          path: '/order/orderPickupGoodsConfirm',
+          path: '/orderManage/detailTerminalMaintain',
           query: {
             opmOrderId: item.opmOrderId
           }
