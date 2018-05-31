@@ -59,14 +59,7 @@
       }
     },
     created() {
-      this.dialogTitle = this.dialog + this.title;
-      // if(this.title === '供货商'){
-      //   this.tableTitle = this.tableSupplierTitle;
-      //   this.isShowSupplierType = true;
-      // }else if(this.title === '零售商'){
-      //   this.tableTitle = this.tableRetailerTitle;
-      //   this.isShowSupplierType = false;
-      // }
+
       // this.handleSearch();
     },
     data() {

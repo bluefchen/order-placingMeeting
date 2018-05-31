@@ -177,7 +177,7 @@
                 //修改
                 modifyUserman(item) {
                   this.$router.push({
-                    path: '/orderManage/modifyUserman',
+                    path: '/orderManage/addUserman',
                     query: {
                       usermanInfo: item
                     }
@@ -211,7 +211,7 @@
                 //详情
                 usermanDetail(item) {
                   this.$router.push({
-                    path: '/orderManage/DetailUserman',
+                    path: '/orderManage/detailUserman',
                     query: {
                       usermanInfo: item
                     }
@@ -237,9 +237,9 @@
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      //选择零售商活供应商
+      //选择零售商或供应商
       selectRetailer(val){
-        this.usermanData.retailerId = val;
+        this.usermanData.relaId = val;
       },
       //多选
       selectionChange(val){

@@ -1004,7 +1004,7 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
 	    'systemUserCode': '@id',
       'name': '@cname',
       'linktelenumber': '19899992222',
-	    'remark': '@cword(9-16)',
+	    'remark': '@cword(9)',
       'stautsCd|+1': [1000, 1001, 1002],
       'statusCdName|+1': ['有效', '冻结', '无效']
     }]
@@ -1020,7 +1020,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   data: [{
     'postRoleId': '@id',
     'name': '@cname',
-    'description': '@cword(5-10)'
+    'description': '@cword(10)'
   }]
 });
 //70、	保存角色接口
@@ -1044,7 +1044,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   error: null,
   'data|8': [{
     'systemMenuId': '@id',
-    'systemMenuName': '@cword(4-7)',
+    'systemMenuName': '@cword(6)',
     'subSysMenuId': '@id',
     'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
     'sysModularId': '@id',
@@ -1061,7 +1061,7 @@ Mock.mock(new RegExp('/systemUserController/queryRoleShortuctMenu'), {
   'data|8': [{
     'postRoleId': '@id',
     'systemMenuId': '@id',
-    'systemMenuName': '@cword(4-7)',
+    'systemMenuName': '@cword(7)',
     'subSysMenuId': '@id',
     'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
     'sysModularId': '@id',
@@ -1089,7 +1089,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
 	    'systemUserCode': '@id',
 	    'name': '@cname',
 	    'linktelenumber': '13788823232',
-	    'remark': '@cword(5-11)',
+	    'remark': '@cword(11)',
 	    'stautsCd|+1': [1000, 1001, 1002],
 	    'statusCdName|+1': ['有效', '冻结', '无效']
     }]
