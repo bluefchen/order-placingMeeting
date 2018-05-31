@@ -311,7 +311,7 @@ export default new Router({
         name: 'addUserman',
         component: AddUserman,
         meta: {
-          title: '新增账户'
+          title: '新增/修改账户'
         }
       }, {
         path: 'detailUserman',
@@ -332,14 +332,14 @@ export default new Router({
         name: 'addRole',
         component: AddRole,
         meta: {
-          title: '新增角色'
+          title: '新增/修改角色'
         }
       }, {
         path: 'addRelevantPerson',
         name: 'addRelevantPerson',
         component: AddRelevantPerson,
         meta: {
-          title: '新增角色'
+          title: '添加相关人员'
         }
       }]
     }

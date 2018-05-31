@@ -45,6 +45,7 @@
   export default {
     name: 'PolicyManage',
     created() {
+
     },
     data() {
       return {
