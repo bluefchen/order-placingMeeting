@@ -46,6 +46,32 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
   }
 });
 
+//2、新增订货会接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/insertOrderPlacingMeeting'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
+//3、修改订货会接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateOrderPlacingMeeting'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
 //4、关联的供应商信息接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
   rsphead: 's',

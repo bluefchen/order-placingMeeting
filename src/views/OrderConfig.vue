@@ -127,6 +127,19 @@
           </el-row>
         </div>
       </div>
+      <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
+        <div slot="content" class="pop-cnt">
+          <div class="import-result-box fn-clear">
+            <div class="success">
+              <img src="@/assets/images/icon-success.png" class="suc-img">
+              订货会基本信息保存成功！
+            </div>
+          </div>
+        </div>
+        <div slot="footer">
+          <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
+        </div>
+      </DialogPopup>
     </div>
     <div v-show="active === 2">
       <div class="box-1200">
@@ -253,7 +266,7 @@
     <div class="foot-btn" v-show="active !== 4">
       <button v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
-      <button v-show="active === 3" class="btns" @click="next">完成</button>
+      <button v-show="active === 3" class="btns" @click="finish">完成</button>
       <button v-show="active !== 3" class="btns" @click="next">下一步</button>
     </div>
   </div>
@@ -267,6 +280,7 @@
   import AddMerchants from '@/components/AddMerchants';
   import Table from '@/components/Table';
   import Cascader from '@/components/Cascader';
+  import DialogPopup from '@/components/DialogPopup';
   import { quillEditor } from 'vue-quill-editor';
 
 
@@ -310,6 +324,9 @@
                 }
             }
         },
+        dialogVisible: false,
+        dislogTitle: '保存',
+
         active: 1,
         title: '',
 
@@ -420,6 +437,9 @@
       previous() {
         this.active --;
       },
+      visibleChange(val) {
+        this.dialogVisible = val;
+      },
       selectAddress(code, name){
         this.orderPlacingMeeting.commonRegionId = code;
         this.orderPlacingMeeting.commonRegionName = name;
@@ -468,7 +488,6 @@
       delRetailer(val, index){
         this.retailerList.tableData.splice(index, 1);
       },
-
       //图片上传
       handleAvatarSuccess(res, file) {
         this.orderPlacingMeeting.logoUrl = URL.createObjectURL(file.raw);
@@ -490,9 +509,53 @@
         // }
         // return isJPG && isLt2M;
       },
-
+      orderSubmit() {
+        if(this.title === '新增订购会'){
+          //新增
+          this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
+            'opmName': this.orderPlacingMeeting.opmName, 
+            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('新增成功！');
+          });
+        }else{
+          //修改
+          this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId, 
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
+            'opmName': this.orderPlacingMeeting.opmName, 
+            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('修改成功！');
+          });
+        }
+      },
       orderSave() {
-        console.log(this.orderPlacingMeeting)
+        this.orderSubmit();
+        this.visibleChange(true);
+      },
+      finish() {
+        this.orderSubmit();
+        this.next();
       }
     },
     components: {
@@ -503,7 +566,8 @@
       AddMerchants,
       Table,
       Cascader,
-      quillEditor
+      quillEditor,
+      DialogPopup
     }
   }
 </script>
@@ -789,6 +853,28 @@
       }
     }
     //步骤条
+
+    .dialog-choose-merchants {
+      .el-dialog {
+        width: 550px;
+        padding: 50px 0;
+      }
+      .el-dialog__header{
+        display: none;
+      }
+      .el-dialog__footer{
+        background: none;
+        border: none;
+      }
+      .success{
+        display: flex;
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;
+      }
+    }
 
   }
   .el-date-table td.current:not(.disabled) span {
