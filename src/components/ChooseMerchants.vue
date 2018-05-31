@@ -60,7 +60,7 @@
       }
     },
     created() {
-      this.dialogTitle = this.dialog + this.title;
+      // this.dialogTitle = this.dialog + this.title;
       if(this.title === '供应商'){
         this.tableTitle = this.tableSupplierTitle;
         this.isShowSupplierType = true;
@@ -73,7 +73,7 @@
     data() {
       return {
         dialog: '选择添加',
-        dialogTitle: '',
+        // dialogTitle: '',
         isShowSupplierType: true,
         checkedOption: {},
         sdfadf: '',
@@ -278,6 +278,11 @@
       },
       pageChanged(curPage) {
         this.handleSearch(curPage);
+      }
+    },
+    computed:{
+      dialogTitle:function() {
+          return this.dialog + this.title;
       }
     },
     components: {

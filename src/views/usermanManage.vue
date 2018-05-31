@@ -13,12 +13,12 @@
       <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
     <!-- 条件搜索 -->
-    <div class=" box-1200 condition-search" v-show="isShowMoreCondition">
+    <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">用户类型：</label>
-            <Select class="condition-input" :value.sync="usermanData.userTypeName" :options="usermanList"/>
+            <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -30,8 +30,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">所属商户：</label>
-            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" v-if="usermanData.userType === 1000" />
-            <ChooseMerchants title="供应商" @selectOptions="selectRetailer" v-else-if="usermanData.userType === 1001"/>
+            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
           </div>
         </el-col>
       </el-row>
@@ -52,12 +51,12 @@
         <TitlePlate class="fn-left" title="用户管理列表"/>
         <div class="buttons fn-right">
           <el-button class="btns" @click="addUserman()"><i class="iconfont">&#xe642;</i> 新增账号</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe6bd;</i> 批量激活</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe60c;</i> 批量冻结</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
+          <el-button class="btns" @click="batchActivateUserman()"><i class="iconfont">&#xe6bd;</i> 批量激活</el-button>
+          <el-button class="btns" @click="batchFreezeUserman()"><i class="iconfont">&#xe60c;</i> 批量冻结</el-button>
+          <el-button class="btns" @click="batchDeleteUserman()"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
         </div>
       </div>
-      <Table :isSelection="true" @currentChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" @selectionChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -80,21 +79,21 @@
     data() {
       return {
         usermanList: [{
-          userType: 1000,
-          userTypeName: '零售商'
+          value: 1000,
+          label: '零售商'
         }, {
-          userType: 1001,
-          userTypeName: '供应商'
+          value: 1001,
+          label: '供应商'
         }],
         statusList:[{
-          statusCd: 1000,
-          statusName: '有效'
+          value: 1000,
+          label: '有效'
         },{
-          statusCd: 1001,
-          statusName: '冻结'
+          value: 1001,
+          label: '冻结'
         },{
-          statusCd: 1002,
-          statusName: '无效'
+          value: 1002,
+          label: '无效'
         }],
         usermanData: {
           codeOrPhone:'',
@@ -151,7 +150,7 @@
           width: 54,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.stautsCd === 1000">有效</span><span v-else-if="data.row.stautsCd === 1001">冻结</span><span v-else-if="data.row.stautsCd === 1002">无效</span></div>',
+              template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">冻结</span><span v-else-if="data.row.stautsCd == 1002">无效</span></div>',
               data() {
                 return {
                   data: params
@@ -164,16 +163,18 @@
           width: 190,
           render: function (h, params) {
             return h({
-              template: '<div><el-button type="text" @click="freezeUserman(usermanList)" class="delete-btn">冻结</el-button>' +
-              '<el-button type="text" @click="modifyUserman(usermanList)" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteOpmPolicy(usermanList)" class="delete-btn">删除</el-button>'+
-              '<el-button type="text" @click="usermanDetail(usermanList)" class="delete-btn">详情</el-button></div>',
+              template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>'+
+              '<el-button type="text" @click="modifyUserman(usermanInfo)" class="delete-btn">修改</el-button>' +
+              '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>'+
+              '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
               data: function () {
                 return {
-                  usermanList: params.row
+                  usermanInfo: params.row
                 }
               },
               methods: {
+                //修改
                 modifyUserman(item) {
                   this.$router.push({
                     path: '/orderManage/modifyUserman',
@@ -182,6 +183,32 @@
                     }
                   });
                 },
+                //冻结
+                freezeUserman(item){
+                  this.$post('/systemUserController/freezeSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('冻结成功！');
+                    // this.queryUsermanSubmit();
+                  })
+                },
+                //激活
+                activateUserman(item){
+                  this.$post('/systemUserController/unfreezeSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('激活成功！');
+                  })
+                },
+                //删除
+                deleteUserman(item){
+                  this.$post('/systemUserController/deleteSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('删除成功！');
+                  })
+                },
+                //详情
                 usermanDetail(item) {
                   this.$router.push({
                     path: '/orderManage/DetailUserman',
@@ -195,7 +222,7 @@
           }
         }],
         tableData: [],//查询返回的数据
-
+        selectionChangeList:[],//多选的数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
@@ -206,22 +233,78 @@
       usermanSearch() {
         this.queryUsermanSubmit();
       },
-      selectionChange(val){
-        this.selectionChangeList = val;
-      },
+      //展示更多
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
+      //选择零售商活供应商
+      selectRetailer(val){
+        this.usermanData.retailerId = val;
+      },
+      //多选
+      selectionChange(val){
+        this.selectionChangeList = val;
+      },
+      //选择地区
       handleChange(val){
         this.usermanData.commonRegionId = val;
       },
+      //新增
       addUserman(){
         this.$router.push({
           path: '/orderManage/addUserman',
         });
       },
-      selectRetailer(val){
-          this.usermanData.retailerId = val;
+      //批量激活
+      batchActivateUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/unfreezeSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('激活成功！');
+          this.queryUsermanSubmit();
+        })
+      },
+      //批量冻结
+      batchFreezeUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/freezeSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('冻结成功！');
+          this.queryUsermanSubmit();
+        })
+      },
+      //批量删除
+      batchDeleteUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/deleteSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('删除成功！');
+          this.queryUsermanSubmit();
+        })
       },
       queryUsermanSubmit(curPage, pageSize) {
         this.$post('/systemUserController/querySystemUserList', {
@@ -239,6 +322,15 @@
       },
       pageChanged(curPage) {
         this.queryUsermanSubmit(curPage);
+      }
+    },
+    computed:{
+      merchantsTitle:function() {
+        if(this.usermanData.userType == 1000){
+          return '零售商';
+        }else{
+          return '供应商';
+        }
       }
     },
     components: {

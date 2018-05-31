@@ -957,15 +957,15 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
       'partyId': '@id',
       'commonRegionId': '@id',
 	    'commonRegionName': '@province',
-      'userType': '',
+      'userType|+1': [1000, 1001],
 	    'relaId': '@id',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',
       'name': '@cname',
       'linktelenumber': '19899992222',
 	    'remark': '@cword(9-16)',
-      'stautsCd': '',
-      'statusCdName': ''
+      'stautsCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['有效', '冻结', '无效']
     }]
   }
 });
@@ -1049,8 +1049,8 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
 	    'name': '@cname',
 	    'linktelenumber': '13788823232',
 	    'remark': '@cword(5-11)',
-	    'stautsCd': '',
-	    'statusCdName': ''
+	    'stautsCd|+1': [1000, 1001, 1002],
+	    'statusCdName|+1': ['有效', '冻结', '无效']
     }]
   }
 });
