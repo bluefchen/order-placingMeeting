@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户类型：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
             </div>
           </el-col>
         </el-row>
@@ -17,7 +17,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户账号：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.opmOrderNo"/>
             </div>
           </el-col>
         </el-row>
@@ -25,7 +25,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 真实姓名：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.opmOrderNo"/>
             </div>
           </el-col>
         </el-row>
@@ -33,7 +33,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 手机号码：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.opmOrderNo"/>
             </div>
           </el-col>
         </el-row>
@@ -51,7 +51,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants title="零售商" @selectOptions="selectSupplier"/>
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
             </div>
           </el-col>
         </el-row>
@@ -95,12 +95,12 @@
     data() {
       return {
         orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
+        usermanList: [{
+          value: 1000,
+          label: '零售商'
         },{
-          value: '1002',
-          label: 'oppo'
+          value: 1001,
+          label: '供应商'
         }],
         dialogVisible: false,
         dislogTitle: '导入',
@@ -190,6 +190,22 @@
       }
       .condition-input {
         flex: 1 0 0;
+      }
+      .el-input__inner{
+        height: 32px;
+        line-height: 32px;
+        border-radius: 0;
+      }
+      .el-cascader{
+        flex: 1 0 0;
+        line-height: 32px;
+        .el-input__icon{
+          line-height: 32px;
+        }
+      }
+      .el-textarea__inner{
+        border-radius: 0;
+        resize:none;
       }
     }
     .foot-btn{
