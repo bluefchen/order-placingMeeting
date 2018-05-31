@@ -51,7 +51,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants title="零售商" @selectOptions="selectSupplier"/>
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
             </div>
           </el-col>
         </el-row>
@@ -95,12 +95,12 @@
     data() {
       return {
         orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
+        usermanList: [{
+          value: 1000,
+          label: '零售商'
         },{
-          value: '1002',
-          label: 'oppo'
+          value: 1001,
+          label: '供应商'
         }],
         dialogVisible: false,
         dislogTitle: '导入',
