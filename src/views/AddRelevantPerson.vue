@@ -256,7 +256,6 @@
       border-color: #f82134;
       color: #fff;
     }
-
     .el-input.is-active .el-input__inner, .el-input__inner:focus {
       border-color: #ff7a7a;
     }

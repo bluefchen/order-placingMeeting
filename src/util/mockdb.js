@@ -908,3 +908,173 @@ Mock.mock(new RegExp('/systemUserController/unfreezeSystemUser'), {
     "resultCode": "0"
   }
 });
+//65、	删除用户接口
+Mock.mock(new RegExp('/systemUserController/deleteSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//66、	新增用户接口
+Mock.mock(new RegExp('/systemUserController/addSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//67、	修改用户接口
+Mock.mock(new RegExp('/systemUserController/updateSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//68、用户列表查询
+Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize |1-100': 100, //总记录条数
+    'rows|10':  [{
+      'partyId': '@id',
+      'commonRegionId': '@id',
+	    'commonRegionName': '@province',
+      'userType': '',
+	    'relaId': '@id',
+	    'relaName': '@cword(5)',
+	    'systemUserCode': '@id',
+      'name': '@cname',
+      'linktelenumber': '19899992222',
+	    'remark': '@cword(9-16)',
+      'stautsCd': '',
+      'statusCdName': ''
+    }]
+  }
+});
+//69、角色列表查询接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: [{
+    'postRoleId': '@id',
+    'name': '@cname',
+    'description': '@cword(5-10)'
+  }]
+});
+//70、	保存角色接口
+Mock.mock(new RegExp('/systemUserController/savePostRole'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//71、	查询所有菜单接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  'data|8': [{
+    'systemMenuId': '@id',
+    'systemMenuName': '@cword(4-7)',
+    'subSysMenuId': '@id',
+    'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
+    'sysModularId': '@id',
+    'isLastNode|+1': ['Y', 'N']
+  }]
+});
+//72、	查询已关联菜单接口
+Mock.mock(new RegExp('/systemUserController/queryRoleShortuctMenu'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  'data|8': [{
+    'postRoleId': '@id',
+    'systemMenuId': '@id',
+    'systemMenuName': '@cword(4-7)',
+    'subSysMenuId': '@id',
+    'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
+    'sysModularId': '@id',
+    'isLastNode|+1': ['Y', 'N']
+  }]
+});
+//73、	查询角色关联用户接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize |1-100': 100, //总记录条数
+    'rows|10':  [{
+      'userRoleId': '@id',
+      'postRoleId': '@id',
+	    'partyId': '@id',
+	    'commonRegionId': '@id',
+      'commonRegionName': '@province',
+	    'userType': '',
+      'relaId': '@id',
+	    'relaName': '@cword(5)',
+	    'systemUserCode': '@id',
+	    'name': '@cname',
+	    'linktelenumber': '13788823232',
+	    'remark': '@cword(5-11)',
+	    'stautsCd': '',
+	    'statusCdName': ''
+    }]
+  }
+});
+//74、	删除关联关系
+Mock.mock(new RegExp('/systemUserController/deletePostRoleRelaUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//75、新增关联关系
+Mock.mock(new RegExp('/systemUserController/addPostRoleRelaUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
