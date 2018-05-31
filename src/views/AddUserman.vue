@@ -44,7 +44,7 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader @change="handleChange"/>
+              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
@@ -53,7 +53,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
             </div>
           </el-col>
         </el-row>
@@ -101,6 +101,7 @@
     },
     data() {
       return {
+        level: 'province',
         usermanData: {
           userType: 1000,
           manageUserType: 1000,
