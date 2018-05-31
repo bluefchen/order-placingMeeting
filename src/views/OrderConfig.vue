@@ -37,7 +37,7 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <Cascader @change="selectAddress"/>
+                <Cascader @change="selectAddress" :level="level" :regionId="orderPlacingMeeting.commonRegionId" />
               </div>
             </el-col>
             <el-col :span="10">
@@ -51,7 +51,25 @@
             <el-col :span="10" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 活动起止日期：</label>
-                <DatePicker class="condition-input" :value.sync="orderPlacingMeeting.dateValue" :change="onChange" />
+                <el-date-picker
+                  class="condition-input"
+                  v-model="orderPlacingMeeting.startDt"
+                  type="date"
+                  size="small"
+                  :picker-options="pickerBeginDateBefore"
+                  format="yyyy-MM-dd"
+                  placeholder="">
+                </el-date-picker>
+                <div class="date-text">至</div>
+                <el-date-picker
+                  class="condition-input"
+                  v-model="orderPlacingMeeting.endDt"
+                  type="date"
+                  size="small"
+                  format="yyyy-MM-dd"
+                  :picker-options="pickerBeginDateAfter"
+                  placeholder="">
+                </el-date-picker>
               </div>
             </el-col>
           </el-row>
@@ -83,8 +101,15 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会logo上传：</label>
-                <div class="condition-upload"><img :src="orderPlacingMeeting.logoUrl" alt=""></div>
-                <div class="condition-upload"><img src="@/assets/images/icon-add.png" alt=""></div>
+                <el-upload
+                  class="condition-upload"
+                  action="/commonCfgController/upload"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
+                  <div v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></div>
+                </el-upload>
               </div>
             </el-col>
           </el-row>
@@ -130,7 +155,7 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">活动起止日期：</label>
-                    <p>{{orderPlacingMeeting.dateValue[0]}} 至 {{orderPlacingMeeting.dateValue[1]}}</p>
+                    <p>{{orderPlacingMeeting.startDt}} 至 {{orderPlacingMeeting.endDt}}</p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
@@ -168,13 +193,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会名称：</label>
-                    <p><b>2018夏季VIVO品牌新品发布会</b></p>
+                    <p><b>{{orderPlacingMeeting.opmName}}</b></p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会编码：</label>
-                    <p>DHH000001</p>
+                    <p>{{orderPlacingMeeting.opMeetingNo}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -182,27 +207,27 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">活动起止日期：</label>
-                    <p>2018-04-17 至 2018-04-18</p>
+                    <p>{{orderPlacingMeeting.startDt}} 至 {{orderPlacingMeeting.endDt}}</p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会地址：</label>
-                    <p>XX市XXXXXXXXXXX街XXX路XX号</p>
+                    <p>{{orderPlacingMeeting.opmAddr}}</p>
                   </div>
                 </el-col>
               </el-row>
             </div>
           </div>
           <div class="add-supplier">
-            <AddMerchants title="零售商" @selectOptions="selectSupplier" />
+            <AddMerchants title="零售商" @selectOptions="selectRetailer" />
           </div>
           <div class="add-order-title">
             <div class="title fn-left">已添加零售商：</div>
             <div class="remark fn-right"><span>备注：</span>可先提交，事后到订货会管理再去补充完整信息资料</div>
           </div>
           <div class="add-roder-table">
-            <Table :table-title="supplierList.tableTitle" :table-data="supplierList.tableData"/>
+            <Table :table-title="retailerList.tableTitle" :table-data="retailerList.tableData"/>
           </div>
         </div>
       </div>
@@ -228,7 +253,8 @@
     <div class="foot-btn" v-show="active !== 4">
       <button v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
-      <button class="btns" @click="next">下一步</button>
+      <button v-show="active === 3" class="btns" @click="next">完成</button>
+      <button v-show="active !== 3" class="btns" @click="next">下一步</button>
     </div>
   </div>
 </template>
@@ -248,30 +274,52 @@
     name: 'OrderConfig',
     created() {
 
+      this.$post('/commonCfgController/getCommonRegionTreeList', {
+        commonRegionId: ''
+      }).then((rsp) => {
+        this.commonRegionList = rsp;
+      });
+
       this.opMeetingInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
       if(this.opMeetingInfo.opMeetingId){
         this.title = '编辑订购会';
         this.orderPlacingMeeting = this.opMeetingInfo;
-        this.orderPlacingMeeting.dateValue = [this.opMeetingInfo.startDt, this.opMeetingInfo.endDt];
+        this.orderPlacingMeeting.commonRegionId = '1000003'; //测试地区用，最后需要删除
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
       }else{
-        this.title = '新增订购会'
+        this.title = '新增订购会';
       };
 
     },
     data() {
       return {
-        active: 2,
+        pickerBeginDateBefore:{
+            disabledDate: (time) => {
+                let beginDateVal = this.orderPlacingMeeting.endDt;
+                if (beginDateVal) {
+                    return time.getTime() > beginDateVal;
+                }
+            }
+        },
+        pickerBeginDateAfter:{
+            disabledDate: (time) => {
+                let beginDateVal = this.orderPlacingMeeting.startDt;
+                if (beginDateVal) {
+                    return time.getTime() < beginDateVal;
+                }
+            }
+        },
+        active: 1,
         title: '',
 
+        level: 'province',
         orderPlacingMeeting: {
-          dateValue: []
+          logoUrl: ''
         },
-
         opmSupplierList: [],
         opmRetailerList: [],
-
+        //供货商列表
         supplierList: {
           tableTitle: [{
             label: '省份',
@@ -316,22 +364,65 @@
             }
           }],
           tableData: []
+        },
+        //零售商列表
+        retailerList: {
+          tableTitle: [{
+            label: '省份',
+            prop: 'province',
+          },{
+            label: '零售商编码',
+            prop: 'retailerCode',
+          },{
+            label: '零售商名称',
+            prop: 'retailerName',
+          },{
+            label: '零售商类型',
+            prop: 'retailerTypeName',
+          },{
+            label: '联系人',
+            prop: 'linkMan',
+          },{
+            label: '联系电话',
+            prop: 'linkNbr',
+          },{
+            label: '公司电话',
+            prop: 'retailerPhone',
+          },{
+            label: '公司传真',
+            prop: 'retailerFax',
+          },{
+            label: '操作',
+            render: (h, params) => {
+              return h({
+                template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
+                data: function(){
+                  return {
+                    param: params
+                  }
+                },
+                methods: {
+                  delItem: (val, index) => {
+                    this.delRetailer(val, index);
+                  }
+                }
+              })
+            }
+          }],
+          tableData: []
         }
       }
     },
     methods: {
       next() {
         this.active ++;
-        console.log(this.content);
       },
       previous() {
         this.active --;
       },
-      orderSave() {
-        console.log(this.orderPlacingMeeting)
-      },
-      selectAddress(val){
-        this.orderPlacingMeeting.commonRegionId = val;
+      selectAddress(code, name){
+        this.orderPlacingMeeting.commonRegionId = code;
+        this.orderPlacingMeeting.commonRegionName = name;
       },
       qryOpmSupplierList (){
         this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
@@ -348,28 +439,60 @@
             'pageSize': 10,
             'curPage': 1
         }).then((rsp) => {
-          this.opmRetailerList = rsp.rows;
+          this.retailerList.tableData = rsp.rows;
         });
       },
-
       selectRetailer(val){
-          // this.orderQueryData.retailerId = val;
+        val.forEach((item, index) => {
+          var flag = this.retailerList.tableData.some((opt,index) =>{
+            return item.retailerId === opt.retailerId;
+          });
+          if(!flag){
+            this.retailerList.tableData.push(item);
+          };
+        })
       },
       selectSupplier(val){
-        debugger;
-          // this.orderQueryData.supplierId = val;
+        val.forEach((item, index) => {
+          var flag = this.supplierList.tableData.some((opt,index) =>{
+            return item.supplierId === opt.supplierId;
+          });
+          if(!flag){
+            this.supplierList.tableData.push(item);
+          };
+        })
       },
       delSupplier(val, index){
         this.supplierList.tableData.splice(index, 1);
       },
-      onChange(){
+      delRetailer(val, index){
+        this.retailerList.tableData.splice(index, 1);
+      },
 
-      }
+      //图片上传
+      handleAvatarSuccess(res, file) {
+        this.orderPlacingMeeting.logoUrl = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        var isImg;
+        if(file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/jpg'){
+          isImg = true;
+        }else{
+          isImg = false;
+        };
+        if (!isImg) {
+          this.$message.error('订购会logo只能是图片格式!');
+        }
+        return isImg;
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        // return isJPG && isLt2M;
+      },
 
-    },
-    filters: {
-      dateFilter: function (value) {
-        // return FormatDate.FormatDate(value, 'yyyy-MM-dd')
+      orderSave() {
+        console.log(this.orderPlacingMeeting)
       }
     },
     components: {
@@ -479,6 +602,11 @@
         line-height: 32px;
         font-size: 14px;
       }
+      .date-text{
+        width: 50px;
+        text-align: center;
+        line-height: 32px;
+      }
       .condition-input {
         flex: 1 0 0;
       }
@@ -498,6 +626,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 5px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
       .el-cascader{
         flex: 1;
@@ -661,6 +794,13 @@
   .el-date-table td.current:not(.disabled) span {
       color: #fff;
       background-color: #ff7a7a;
+  }
+  .el-date-table td.available:hover {
+    color: #ff7a7a;
+  }
+  .el-date-table td.today span {
+    color: #ff7a7a;
+    font-weight: 700;
   }
 
 </style>

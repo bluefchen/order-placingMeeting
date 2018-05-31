@@ -4,15 +4,27 @@
     @active-item-change="handleItemChange"
     :props="props"
     @change="handleChange"
+    v-model="selectedOpt"
   ></el-cascader>
 </template>
 
 <script>
   export default {
     name: 'Cascader',
+
+    props: {
+      level: {
+        type: String
+      },
+      regionId: {
+        type: String
+      }
+    },
+
     created() {
       this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
         this.areaList = rsp;
+        this.selectedOpt = [this.regionId]; //设置默认值
       });
     },
     data() {
@@ -21,18 +33,26 @@
         props: {
           value: 'areaId',
           children: 'cities'
-        }
+        },
+        selectedOpt: []
       }
     },
     computed: {
       options() {
         let arr = [];
         _.forEach(this.areaList, (item) => {
-          arr.push({
-            label: item.name,
-            areaId: item.id,
-            cities: []
-          })
+          if(this.level === 'province'){
+            arr.push({
+              label: item.name,
+              areaId: item.id
+            })
+          }else{
+            arr.push({
+              label: item.name,
+              areaId: item.id,
+              cities: []
+            })
+          }
         });
         return arr;
       }
@@ -56,11 +76,23 @@
                 item.cities = arr;
               }
             });
+
           });
         }
       },
       handleChange(item){
-        this.$emit('change', item[item.length - 1]);
+        if(this.level === 'province'){
+          var flag = {}
+          this.areaList.forEach( (opt,index) =>{
+            if(item[item.length - 1] === opt.id){
+              flag = opt;
+              return;
+            };
+          });
+          this.$emit('change', flag.id, flag.name);
+        }else{
+          this.$emit('change', item[item.length - 1]);
+        }
       }
     }
   }
