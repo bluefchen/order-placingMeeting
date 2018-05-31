@@ -81,16 +81,19 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
   data: {
     'totalSize|1-100': 1,
     'rows|10': [{
-      retailerId: '@id', //零售商ID
-      province: '@province()', //零售商省份
-      city: '@city()', //零售商地市
-      retailerName: '@cword()', //零售商名称
-      retailerType: '', //零售商类型
-      retailerTypeName: '@cword()', //零售商类型名称
-      linkMan: '@cname()', //联系人
-      linkNbr: '', //联系电话
-      retailerPhone: '', //公司电话
-      retailerFax: '' //公司传真
+      'retailerId': '@id', 
+      'retailerCode': '@id', 
+      'province': '@province()', 
+      'city': '@city()', 
+      'retailerName': '@cword(3,6)',
+      'retailerType': '', 
+      'retailerTypeName': '@cword(3,6)', 
+      'linkMan': '@cname()',
+      'linkNbr': /\d{5,10}/,
+      'retailerPhone': /\d{5,10}/,
+      'retailerFax': /\d{5,10}/,
+      'statusCd': '@id',
+      'statusCdName': '@cword(3,6)'
     }]
   }
 });
@@ -392,6 +395,18 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'),
   data: null
 });
 
+//27、附件上传接口
+Mock.mock(new RegExp('/commonCfgController/upload'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': false,
+  'data': {
+    'url':''
+  }
+});
+
 //29、地区查询接口
 Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   rsphead: 's',
@@ -400,7 +415,7 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   msg: null, //失败信息
   error: null,
   'data|30': [{
-    'id': '@id',
+    'id|1': ['1000001', '1000002', '1000003', '1000004', '1000005', '1000006', '1000007', '1000008', '1000009', '1000010'],
     'name': '@province()',
     'parentId': '',
     'areaLevel': ''
