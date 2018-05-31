@@ -6,7 +6,7 @@
       <el-table-column v-if="isSelection" type="selection" width="50"></el-table-column>
       <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <table-row v-if="column.render" :index="index" :row="scope.row" :render="column.render"></table-row>
+          <table-row v-if="column.render" :index="scope.$index" :row="scope.row" :render="column.render"></table-row>
           <span v-else>
             {{scope.row[column.prop]}}
           </span>

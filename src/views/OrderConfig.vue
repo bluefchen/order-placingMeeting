@@ -262,7 +262,7 @@
     },
     data() {
       return {
-        active: 1,
+        active: 2,
         title: '',
 
         orderPlacingMeeting: {
@@ -309,8 +309,7 @@
                 },
                 methods: {
                   delItem: (val, index) => {
-                    console.log(params);
-                    // this.delSupplier(val, index);
+                    this.delSupplier(val, index);
                   }
                 }
               })
@@ -354,15 +353,15 @@
       },
 
       selectRetailer(val){
-          this.orderQueryData.retailerId = val;
+          // this.orderQueryData.retailerId = val;
       },
       selectSupplier(val){
-          this.orderQueryData.supplierId = val;
+        debugger;
+          // this.orderQueryData.supplierId = val;
       },
       delSupplier(val, index){
         this.supplierList.tableData.splice(index, 1);
       },
-
       onChange(){
 
       }
