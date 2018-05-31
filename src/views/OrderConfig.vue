@@ -58,7 +58,8 @@
                   size="small"
                   :picker-options="pickerBeginDateBefore"
                   format="yyyy-MM-dd"
-                  placeholder="">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
                 <div class="date-text">至</div>
                 <el-date-picker
@@ -68,7 +69,8 @@
                   size="small"
                   format="yyyy-MM-dd"
                   :picker-options="pickerBeginDateAfter"
-                  placeholder="">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
               </div>
             </el-col>
@@ -81,7 +83,8 @@
                   v-model="orderPlacingMeeting.depositRecordEnddt"
                   type="date"
                   size="small"
-                  placeholder="选择日期">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
               </div>
             </el-col>
@@ -92,7 +95,8 @@
                   v-model="orderPlacingMeeting.pickupRecordEnddt"
                   type="date"
                   size="small"
-                  placeholder="选择日期">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
               </div>
             </el-col>
@@ -127,19 +131,21 @@
           </el-row>
         </div>
       </div>
-      <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
-        <div slot="content" class="pop-cnt">
-          <div class="import-result-box fn-clear">
-            <div class="success">
-              <img src="@/assets/images/icon-success.png" class="suc-img">
-              订货会基本信息保存成功！
+      <div class="dialog-save">
+        <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
+          <div slot="content" class="pop-cnt">
+            <div class="import-result-box fn-clear">
+              <div class="success">
+                <img src="@/assets/images/icon-success.png" class="suc-img">
+                订货会基本信息保存成功！
+              </div>
             </div>
           </div>
-        </div>
-        <div slot="footer">
-          <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
-        </div>
-      </DialogPopup>
+          <div slot="footer">
+            <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
+          </div>
+        </DialogPopup>
+      </div>
     </div>
     <div v-show="active === 2">
       <div class="box-1200">
@@ -264,7 +270,7 @@
       </div>
     </div>
     <div class="foot-btn" v-show="active !== 4">
-      <button v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
+      <button :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt" v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
       <button v-show="active !== 3" class="btns" @click="next">下一步</button>
@@ -751,6 +757,12 @@
         &:hover {
           background-color: #e20606;
         }
+        &:disabled{
+          opacity: 0.7;
+          &:hover {
+            background-color: #fa0000;
+          }
+        }
       }
     }
 
@@ -853,26 +865,27 @@
       }
     }
     //步骤条
-
-    .dialog-choose-merchants {
-      .el-dialog {
-        width: 550px;
-        padding: 50px 0;
-      }
-      .el-dialog__header{
-        display: none;
-      }
-      .el-dialog__footer{
-        background: none;
-        border: none;
-      }
-      .success{
-        display: flex;
-        color: #000;
-        font-size: 14px;
-        font-weight: bold;
-        justify-content: center;
-        align-items: center;
+    .dialog-save{
+      .dialog-choose-merchants {
+        .el-dialog {
+          width: 550px;
+          padding: 50px 0;
+        }
+        .el-dialog__header{
+          display: none;
+        }
+        .el-dialog__footer{
+          background: none;
+          border: none;
+        }
+        .success{
+          display: flex;
+          color: #000;
+          font-size: 14px;
+          font-weight: bold;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
 
