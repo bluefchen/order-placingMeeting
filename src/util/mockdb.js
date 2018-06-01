@@ -189,6 +189,70 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOrderPlacingMeeting')
   }
 });
 
+//9、查询终端产品列表接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null, 
+  error: null,
+  data: {
+    'totalSize|1-99': 10, 
+    'rows|5-10': [{
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(3,6)',
+      'brandCd':'@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId':'@id',
+      'offerModelName':'@word(3,6)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'statusCd|1': ['1001', '1002'],
+      'offerBaseParam':{
+        'listDt':'@date',
+        'termType':'',
+        'os':'@word(5,10)'
+      },
+      'offerScreenParam':{
+        'screenType':'@cword(3,6)',
+        'screenSize|1-10.1': 9.7,
+        'screenMaterial': '@cword(3,5)',
+        'resolutionRatio|1': ['720P', '1080P', '2K', '4K'],
+        'screenPiexl|1-99.1-1': 1,
+        'screenTech': '@cword(3,10)',
+        'frame|1': ['是','否'],
+        'otherParam': '@cword(10,20)'
+      },
+      'offerHardwardParam':{
+        'cpuModel': '@word(3,5)',
+        'cpuRate|1-10': 1,
+        'core|1-8': 2,
+        'gpuModel': '@word(3,6)',
+        'ram|1': [2, 4, 6, 8, 16],
+        'rom|1': [2, 4, 6, 8, 16],
+        'memoryType': '@word(3,6)',
+        'memoryCard': '@word(3,6)',
+        'extendedCapacity|1': [2, 4, 6, 8, 16],
+        'rearCamera': '@cword(6,12)',
+        'frontCamera': '@cword(6,12)',
+        'batteryCapacity|1000-9999': 1000,
+        'batteryType': '@word(3,10)',
+        'batteryCharge': '@word(2,10)',
+        'offerPic': {
+          'offerPicId': '@id',
+          'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+          'offerPicUrl2': '@url',
+          'offerPicUrl3': '@url',
+          'offerPicUrl4': '@url',
+          'offerPicUrl5': '@url',
+          'offerPicUrl6': '@url'
+        }
+      }
+    }]
+  }   
+});
+
 //10、查询终端品牌接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferBrandList'), {
   rsphead: 's',

@@ -2,14 +2,14 @@
   <div class="vue_terminal-maintain">
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="新增终端"/>
+        <TitlePlate class="fn-left" :title="title"/>
       </div>
       <div class="terminal-info-box">
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端编码：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="terminalMaintainInfo.offerCode"/>
             </div>
           </el-col>
         </el-row>
@@ -17,14 +17,16 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 产品类型：</label>
-              <input name="productType" type="radio" id="group"><label class="label-radio" for="group">集采</label>
-              <input name="productType" type="radio" id="social"><label class="label-radio" for="social">社采</label>
+              <el-radio-group v-model="terminalMaintainInfo.isCentman">
+                <el-radio :label="'Y'">集采</el-radio>
+                <el-radio :label="'N'">社采</el-radio>
+              </el-radio-group>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端名称：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="terminalMaintainInfo.offerName"/>
             </div>
           </el-col>
         </el-row>
@@ -32,13 +34,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端品牌：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Select class="condition-input" :value.sync="terminalMaintainInfo.brandName" :options="brandList"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端型号：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Select class="condition-input" :value.sync="terminalMaintainInfo.offerModelName" :options="brandList"/>
             </div>
           </el-col>
         </el-row>
@@ -46,7 +48,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端价格：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="terminalMaintainInfo.salePrice"/>
             </div>
           </el-col>
         </el-row>
@@ -56,51 +58,18 @@
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端图片上传：</label>
               <div class="upload-img-list fn-clear">
                 <ul>
-                  <li>
-                    <img src="@/assets/images/telephone1.jpg" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li>
-                    <img src="@/assets/images/telephone2.jpg" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li>
-                    <img src="@/assets/images/telephone3.jpg" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li>
-                    <img src="@/assets/images/telephone4.jpg" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li>
-                    <img src="@/assets/images/vivo-logo.png" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li>
-                    <img src="@/assets/images/vivo-logo.png" alt="">
-                    <div class="img-btn">
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe738;</span>编辑</a>
-                      <a href="javascript: void(0)"><span class="iconfont">&#xe610;</span>删除</a>
-                    </div>
-                  </li>
-                  <li class="btn-upload">
-                    <img src="@/assets/images/icon-add.png" alt="">
-                  </li>
+                  <el-upload
+                    action="/commonCfgController/upload"
+                    :file-list="offerPicList"
+                    list-type="picture-card"
+                    :limit= "6"
+                    :on-success="handleAvatarSuccess"
+                    :on-remove="handleRemove">
+                    <i class="el-icon-plus"></i>
+                  </el-upload>
+                  <el-dialog class="btn-upload" :visible.sync="imgBigVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
                 </ul>
                 <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
               </div>
@@ -124,15 +93,15 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">上市日期</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">手机类型</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.isCentman"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">操作系统</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.os"/>
                 </div>
               </div>
             </td>
@@ -145,39 +114,40 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">触摸屏类型</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏尺寸</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenSize"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏材质</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenMaterial"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏分辨率</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.resolutionRatio"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">屏幕像素密度</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenPiexl"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">屏幕技术</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenTech"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">窄边框</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.frame"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">屏幕占比</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <p>----缺少字段----</p>
+                  <!-- <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam"/> -->
                 </div>
                 <div class="content-item">
                   <label class="content-label">其他屏幕参数</label>
-                  <el-input type="textarea" v-model="orderQueryData.opmOrderNo"></el-input>
+                  <el-input type="textarea" v-model="terminalMaintainInfo.offerScreenParam.otherParam"></el-input>
                 </div>
               </div>
             </td>
@@ -190,55 +160,55 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">后置摄像头</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">前置摄像头</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">CPU型号</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.cpuModel"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">CPU频率</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.cpuRate"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">核心数</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.core"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">GPU型号</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.gpuModel"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">RAM容量</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.ram"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">存储类型</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.memoryType"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">存储卡</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.memoryCard"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">扩展容量</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.extendedCapacity"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池类型</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池容量</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCapacity"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池充电</label>
-                  <Input class="content-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCharge"/>
                 </div>
               </div>
             </td>
@@ -247,7 +217,7 @@
       </div>
     </div>
     <div class="foot-btn">
-        <button class="btns">保&nbsp;持</button>
+        <button class="btns" @click="showList">保&nbsp;持</button>
         <button class="btns">预&nbsp;览</button>
     </div>
 
@@ -282,10 +252,46 @@
   export default {
     name: 'AddTerminalMaintain',
     created() {
+      this.terminalMaintainInfo = JSON.parse(localStorage.getItem(this.$route.query.offerId));
+
+      if(this.terminalMaintainInfo.offerId){
+        this.title = '修改终端';
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
+        };
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl2){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl2})
+        };
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl3){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl3})
+        };
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl4){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl4})
+        };
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl5){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl5})
+        };
+        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6){
+          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6})
+        };
+      }else{
+        this.title = '新增终端';
+        this.terminalMaintainInfo = {};
+        this.terminalMaintainInfo.offerBaseParam = {};
+        this.terminalMaintainInfo.offerScreenParam = {};
+        this.terminalMaintainInfo.offerHardwardParam = {};
+      };
+
     },
     data() {
       return {
-        orderQueryData: {},
+        terminalMaintainInfo: {},
+        title: '',
+        offerPicList: [],
+        imgBigVisible: false,
+        dialogImageUrl: '',
+
+
         brandList: [{
           value: '1001',
           label: '苹果'
@@ -295,15 +301,24 @@
         }],
         dialogVisible: false,
         dislogTitle: '导入',
+
         totalCnt: 0,
         successCnt: 0,
         failCnt: 0,
         tableData: [],
+        imgUrl: require('../assets/images/icon-add.png'),
 
         url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
       }
     },
     methods: {
+      // 图片上传和删除
+      handleAvatarSuccess(res, file, fileList){
+        this.offerPicList = fileList
+      },
+      handleRemove(file, fileList) {
+        this.offerPicList = fileList
+      },
       visibleChange(val) {
         this.dialogVisible = val;
       },
@@ -313,6 +328,9 @@
         this.failCnt = data.failCnt;
         this.tableData = data.rows;
         console.log('导入文件返回的数据：', data);
+      },
+      showList(){
+        console.log(this.offerPicList)
       }
     },
     components: {
@@ -372,46 +390,48 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 775px;
-        li{
-          position: relative;
-          width: 90px;
-          height: 92px;
-          margin-right: 15px;
-          margin-bottom: 15px;
-          background: #fcfcfc;
-          border: 1px solid #dfdfdf;
+        div{
           display: flex;
-          justify-content: center;
-          align-items: center;
-          img{
-            max-width: 100%;
-            max-height: 100%;
+          ul{
+            li{
+              position: relative;
+              width: 90px;
+              height: 92px;
+              margin-right: 15px;
+              margin-bottom: 15px;
+              background: #fcfcfc;
+              border: 1px solid #dfdfdf;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              img{
+                max-width: 100%;
+                max-height: 100%;
+              }
+              &.btn-upload{
+                cursor: pointer;
+              }
+            }
           }
-          .img-btn{
-            position: absolute;
+          div{
+            position: relative;
+            width: 90px;
+            height: 92px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            background: #fcfcfc;
+            border: 1px solid #dfdfdf;
             display: flex;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 26px;
-            background: #000;
-            line-height: 26px;
-            opacity: 0.6;
-            a:last-child span{
-              border-left: 1px solid #fff;
-              padding-left: 3px;
+            justify-content: center;
+            align-items: center;
+            background: url('../assets/images/icon-add.png') #fcfcfc no-repeat center center;
+            img{
+              max-width: 100%;
+              max-height: 100%;
             }
-            a{
-              flex: 1;
-              text-align: center;
-              font-size: 12px;
-              color: #fff;
-              text-decoration: none;
+            i{
+              display: none;
             }
-          }
-          &.btn-upload{
-            cursor: pointer;
           }
         }
       }
@@ -499,6 +519,35 @@
         width: 110px;
         line-height: 32px;
         font-size: 14px;
+      }
+
+      .el-radio__input{
+        display: none;
+        & + .el-radio__label{
+          position: relative;
+          display: block;
+          width: 102px;
+          height: 32px;
+          padding: 0;
+          color: #f01919;
+          border: 1px solid #f01919;
+          text-align: center;
+          font-size: 14px;
+          line-height: 32px;
+          cursor: pointer;
+          border-radius: 3px;
+        }
+        &.is-checked + .el-radio__label{
+          &:after{
+            width: 30px;
+            height: 24px;
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background: url('../assets/images/selected-icon.png');
+          };
+        }
       }
       .condition-input {
         flex: 1 0 0;
