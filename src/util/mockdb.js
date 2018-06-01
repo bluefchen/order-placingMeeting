@@ -51,7 +51,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/insertOrderPlacingMeeting')
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
     'resultMsg': '成功',
@@ -64,7 +64,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateOrderPlacingMeeting')
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
     'resultMsg': '成功',
@@ -107,13 +107,13 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
   data: {
     'totalSize|1-100': 1,
     'rows|10': [{
-      'retailerId': '@id', 
-      'retailerCode': '@id', 
-      'province': '@province()', 
-      'city': '@city()', 
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'province': '@province()',
+      'city': '@city()',
       'retailerName': '@cword(3,6)',
-      'retailerType': '', 
-      'retailerTypeName': '@cword(3,6)', 
+      'retailerType': '',
+      'retailerTypeName': '@cword(3,6)',
       'linkMan': '@cname()',
       'linkNbr': /\d{5,10}/,
       'retailerPhone': /\d{5,10}/,
@@ -490,7 +490,7 @@ Mock.mock(new RegExp('/commonCfgController/upload'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': false,
   'data': {
     'url':''
@@ -1081,7 +1081,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   code: null,
   msg: null, //失败信息
   error: null,
-  data: [{
+  'data|5': [{
     'postRoleId': '@id',
     'name': '@cname',
     'description': '@cword(10)'
@@ -1095,12 +1095,13 @@ Mock.mock(new RegExp('/systemUserController/savePostRole'), {
   msg: null, //失败信息
   error: null,
   data: {
+    "postRoleId": '@id',
     "resultMsg": "成功",
     "resultCode": "0"
   }
 });
 //71、	查询所有菜单接口
-Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+Mock.mock(new RegExp('/systemUserController/querySystemMenuList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -1147,7 +1148,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
 	    'partyId': '@id',
 	    'commonRegionId': '@id',
       'commonRegionName': '@province',
-	    'userType': '',
+	    'userType|+1': [1000, 1001],
       'relaId': '@id',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',

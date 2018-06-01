@@ -5,10 +5,10 @@
       <div class="role-setup">
         <ul class="role-change fn-clear">
           <li class="fn-left" :class="{'on': showEdit === 1}" @click="changeEdit(1)">角色编辑</li>
-          <li class="fn-left disabled" v-show="!roleMan">管理菜单</li>
-          <li class="fn-left" :class="{'on': showEdit === 2}" v-show="roleMan"  @click="changeEdit(2)">管理菜单</li>
-          <li class="fn-left disabled" v-show="!roleMan">管理人员</li>
-          <li class="fn-left" :class="{'on': showEdit === 3}" v-show="roleMan" @click="changeEdit(3)">管理人员</li>
+          <li class="fn-left disabled" v-show="!roleData.postRoleId">管理菜单</li>
+          <li class="fn-left" :class="{'on': showEdit === 2}" v-show="roleData.postRoleId"  @click="changeEdit(2)">管理菜单</li>
+          <li class="fn-left disabled" v-show="!roleData.postRoleId">管理人员</li>
+          <li class="fn-left" :class="{'on': showEdit === 3}" v-show="roleData.postRoleId" @click="changeEdit(3)">管理人员</li>
         </ul>
         <!-- 角色编辑 -->
         <div class="role-setup-info"  v-show="showEdit === 1">
@@ -17,7 +17,7 @@
               <el-col :span="8" :offset="2">
                 <div class="condition-item">
                   <label class="label-wrds text-right"><span class="red-star">*</span> 角色名称：</label>
-                  <Input class="condition-input" :value.sync="roleData.roleName"/>
+                  <el-input class="condition-input" v-model="roleData.name"></el-input>
                 </div>
               </el-col>
             </el-row>
@@ -25,14 +25,14 @@
               <el-col :span="18" :offset="2">
                 <div class="condition-item">
                   <label class="label-wrds text-right"><span class="red-star">*</span> 角色说明：</label>
-                  <el-input class="condition-input" type="textarea" v-model="roleData.roleInstrd"></el-input>
+                  <el-input class="condition-input" type="textarea" v-model="roleData.description"></el-input>
                 </div>
               </el-col>
             </el-row>
           </div>
           <div class="foot-btn">
-            <button class="btns">保&nbsp;存</button>
-            <button class="btns">重 置</button>
+            <button class="btns" @click="roleAddSubmit" :disabled="!roleData.name || !roleData.description">保&nbsp;存</button>
+            <button class="btns" @click="roleReset">重 置</button>
           </div>
         </div>
         <!-- 管理菜单 -->
@@ -42,7 +42,7 @@
                 <TitlePlate title="菜单列表"/>
                 <div class="tree-info">
                   <el-tree
-                    :data="data2"
+                    :data="systemMenuList"
                     show-checkbox
                     node-key="id"
                     :default-expanded-keys="[2, 3]"
@@ -60,7 +60,7 @@
           </div>
 
           <div class="foot-btn">
-            <button class="btns">保&nbsp;存</button>
+            <button class="btns" >保&nbsp;存</button>
             <button class="btns">重 置</button>
           </div>
         </div>
@@ -94,77 +94,92 @@
   export default {
     name: 'AddRole',
     created() {
+      if(this.$route.query.roleInfo){
+        this.roleData = this.$route.query.roleInfo;
+        this.queryRoleShortuctMenu();
+        this.queryPostRoleRelaUserList();
+      }
+      this.querySystemMenuList();
     },
     data() {
       return {
         roleData:{
-          roleName:'',
-          roleInstrd: '',
+          name:'',
+          description: '',
+          postRoleId: ''
         },
-        roleMan:'111',
         showEdit: 1,
+        systemMenuList: [],//所有菜单列表
         tableTitle: [{
           label: '真实姓名',
-          prop: 'roleName',
+          prop: 'name',
           width: 176,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
               data() {
                 return {
-                  roleName: params.row.roleName,
-                  imgSrc: params.row.imgSrc
+                  roleName: params.row.name,
                 }
               }
             });
           }
         },{
           label: '用户帐号',
-          prop: 'roleInstrd',
+          prop: 'systemUserCode',
           width: 145
         },{
           label: '用户类型',
-          prop: 'roleInstrd',
-          width: 145
+          prop: 'userType',
+          width: 145,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
         },{
           label: '手机号码',
-          prop: 'roleInstrd',
+          prop: 'linktelenumber',
           width: 145
         },{
           label: '归属省份',
-          prop: 'roleInstrd',
+          prop: 'commonRegionName',
           width: 128
         },{
           label: '归属商户',
-          prop: 'roleInstrd'
+          prop: 'relaName'
         }, {
           label: '操作',
           width: 128,
           render: function (h, params) {
             return h({
-              template: '<div><el-button type="text" @click="modifyRole(roleInfo)" class="delete-btn">删除</el-button></div>',
+              template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data: function () {
                 return {
                   roleInfo: params.row
                 }
               },
               methods: {
-                modifyRole(item) {
-                  this.$router.push({
-                    path: '/orderManage/addRole',
-                    query: {
-                      usermanInfo: item
-                    }
+                deleteRelativeRole(item) {
+                  this.$post('/systemUserController/deletePostRoleRelaUser', {
+                    postRoleId: item.postRoleId,
+                    partyId: item.partyId
+                  }).then((rsp) => {
+                    this.$message.success('删除成功！');
+                    //刷新数据
+
                   });
                 }
               },
             })
           }
         }],
-        tableData: [{
-          roleName: '供货商',
-          roleInstrd: '供货商有部分配置管理及订单查询功能政策投入XXXXXXXXXXXXXXXXXXXXXXXX'
-        }],//查询返回的数据
+        tableData: [],//查询返回的数据
         data: [{
           label: '一级 1',
           children: [{
@@ -239,9 +254,64 @@
       }
     },
     methods: {
+      //角色新增/修改
+      roleAddSubmit(){
+        if(this.roleData.postRoleId){
+          this.$post('/systemUserController/savePostRole', {
+            postRoleId: this.roleData.postRoleId,
+            name: this.roleData.name,
+            description: this.roleData.description
+          }).then((rsp) => {
+            this.$message.success('修改成功！');
+          });
+        }else{
+          this.$post('/systemUserController/savePostRole', {
+            name: this.roleData.name,
+            description: this.roleData.description
+          }).then((rsp) => {
+            this.roleData.postRoleId = rsp.postRoleId;
+            this.$message.success('新增成功！');
+          });
+        }
+      },
+      //角色重置
+      roleReset(){
+        this.roleData = {
+          name: '',
+          description: ''
+        };
+      },
+      //查询所有菜单
+      querySystemMenuList(){
+        this.$post('/systemUserController/querySystemMenuList', {
+        }).then((rsp) => {
+          this.systemMenuList = rsp;
+        });
+      },
+      //查询已关联菜单
+      queryRoleShortuctMenu(){
+        this.$post('/systemUserController/queryRoleShortuctMenu', {
+          postRoleId: this.roleData.postRoleId,
+        }).then((rsp) => {
+          this.systemMenuList = rsp;
+        });
+      },
+      //查询角色关联用户接口
+      queryPostRoleRelaUserList(){
+        this.$post('/systemUserController/queryPostRoleRelaUserList', {
+          postRoleId: this.roleData.postRoleId,
+        }).then((rsp) => {
+          this.tableData = rsp.rows;
+          this.total = rsp.totalSize;
+        });
+      },
+      //添加相关人员
       addRelevantPerson() {
         this.$router.push({
           path: '/orderManage/addRelevantPerson',
+          query: {
+            postRoleId: this.roleData.postRoleId,
+          }
         });
       },
       changeEdit(val){
@@ -249,6 +319,14 @@
       },
       pageChanged(curPage) {
         this.queryOpmDepositList(curPage);
+      }
+    },
+    watch: {
+      'roleData.postRoleId': function () {
+        if(this.roleData.postRoleId){
+          this.queryRoleShortuctMenu();
+          this.queryPostRoleRelaUserList();
+        }
       }
     },
     components: {
@@ -303,7 +381,7 @@
     }
     .role-change li.disabled{
       color: #bbb;
-      cursor: none;
+      cursor: default;
     }
     .terminal-info-box{
       margin-top: 32px;
@@ -419,6 +497,11 @@
         text-decoration: none;
         &:hover {
           background-color: #e20606;
+        }
+        &:disabled{
+          color: #fff;
+          background-color: #f25555;
+          cursor: default;
         }
       }
     }
