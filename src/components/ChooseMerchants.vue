@@ -23,7 +23,7 @@
               <el-select v-if="isShowSupplierType" class="condition-select" v-model="orderQueryData.supplierType" placeholder="请选择">
                 <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
               </el-select>
-              <el-select v-if="!isShowSupplierType" class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择">
+              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择">
                 <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
               </el-select>
             </div>
@@ -60,7 +60,7 @@
       }
     },
     created() {
-      this.dialogTitle = this.dialog + this.title;
+      // this.dialogTitle = this.dialog + this.title;
       if(this.title === '供应商'){
         this.tableTitle = this.tableSupplierTitle;
         this.isShowSupplierType = true;
@@ -73,7 +73,7 @@
     data() {
       return {
         dialog: '选择添加',
-        dialogTitle: '',
+        // dialogTitle: '',
         isShowSupplierType: true,
         checkedOption: {},
         sdfadf: '',
@@ -218,7 +218,7 @@
           label: '公司传真',
           prop: 'retailerFax',
         }],
-
+        tableTitle: [],
         tableData: [],
         selectionChangeList: [],
 
@@ -279,6 +279,23 @@
       pageChanged(curPage) {
         this.handleSearch(curPage);
       }
+    },
+    computed:{
+      dialogTitle:function() {
+          return this.dialog + this.title;
+      }
+    },
+    watch:{
+      "title":function(){
+        if(this.title === '供应商'){
+          this.tableTitle = this.tableSupplierTitle;
+          this.isShowSupplierType = true;
+        }else if(this.title === '零售商'){
+          this.tableTitle = this.tableRetailerTitle;
+          this.isShowSupplierType = false;
+        }
+        this.handleSearch();
+      },
     },
     components: {
       DialogPopup,

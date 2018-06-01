@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户类型：</label>
-                  <p class="condition-input"><b>赛格数码科技有限公司</b></p>
+                  <p class="condition-input"><b>{{usermanData.userType}}</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -22,7 +22,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户账号：</label>
-                  <p class="condition-input">江苏</p>
+                  <p class="condition-input">{{usermanData.systemUserCode}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -30,13 +30,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">真实姓名：</label>
-                  <p class="condition-input">王小二</p>
+                  <p class="condition-input">{{usermanData.name}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">手机号码：</label>
-                  <p class="condition-input">18905174326</p>
+                  <p class="condition-input">{{usermanData.linktelenumber}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -44,14 +44,14 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p class="condition-input">025-55555555</p>
+                  <p class="condition-input">{{usermanData.commonRegionName}}</p>
                 </div>
               </el-col>
-              <!-- 当为管理人员时不存在 -->
+              <!-- 当为管理人员时，此项不存在 -->
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">归属商户：</label>
-                  <p class="condition-input">025-55555555</p>
+                  <p class="condition-input">{{usermanData.relaName}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -59,7 +59,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds text-right">备注：</label>
-                  <p class="condition-input">XXXXXXXXXX</p>
+                  <p class="condition-input">{{usermanData.remark}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -72,49 +72,20 @@
 
 <script>
   import TitlePlate from '@/components/TitlePlate';
-  import Input from '@/components/Input';
-  import Select from '@/components/Select';
 
   export default {
     name: 'DetailUserman',
     created() {
+      this.usermanData = this.$route.query.usermanInfo;
     },
     data() {
       return {
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
-        dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
       }
     },
     methods: {
-      visibleChange(val) {
-        this.dialogVisible = val;
-      },
-      uploadData(data) {
-        this.totalCnt = data.totalCnt;
-        this.successCnt = data.successCnt;
-        this.failCnt = data.failCnt;
-        this.tableData = data.rows;
-        console.log('导入文件返回的数据：', data);
-      }
     },
     components: {
       TitlePlate,
-      Input,
-      Select
     }
   }
 </script>

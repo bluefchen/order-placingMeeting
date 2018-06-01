@@ -37,7 +37,7 @@ npm run build --report
 - **ButtonWithDialog** 表格内按钮+弹框
 - **ChooseMerchant** 零售商搜索或供应商搜索
 - **Cascader** 地区选择
-- **AddRelevantPerson** 添加相关人员
+- **AddMerchants** 添加零售商搜索或供应商
 
 
 ## 问题记录
@@ -49,8 +49,11 @@ npm run build --report
 - 5、routerLink地址全部小写；
 - 6、详情预览界面文字总体感觉别扭；
 
+
 页面
 - **UsermanManage** 用户管理
 - **AddUserman** 新增用户
 - **DetailUserman** 用户详情
 - **RoleManage**角色管理
+- **Addrole**新增角色
+- **AddRelevantPerson** 添加相关人员

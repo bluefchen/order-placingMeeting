@@ -69,8 +69,7 @@
           <div class="order-titl fn-clear">
             <TitlePlate class="fn-left" title="已有角色人员管理列表"/>
             <div class="buttons fn-right">
-              <!--<AddRelevantPerson title="角色人员"  />-->
-              <el-button class="btns" @click="addRole"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
+              <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
             </div>
           </div>
           <Table :tableTitle="tableTitle" :tableData="tableData"/>
@@ -90,7 +89,6 @@
   import TitlePlate from '@/components/TitlePlate';
   import Input from '@/components/Input';
   import Pagination from '@/components/Pagination';
-  // import AddRelevantPerson from "@/components/AddRelevantPerson";
 
 
   export default {
@@ -241,10 +239,9 @@
       }
     },
     methods: {
-      addRole() {
+      addRelevantPerson() {
         this.$router.push({
-          path: '/orderManage/addRole',
-
+          path: '/orderManage/addRelevantPerson',
         });
       },
       changeEdit(val){
@@ -255,7 +252,6 @@
       }
     },
     components: {
-      // AddRelevantPerson,
       Table,
       TitlePlate,
       Input,

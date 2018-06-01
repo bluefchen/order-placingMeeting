@@ -9,7 +9,9 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户类型：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
+              <!--当身份为管理员时-->
+              <!--<Select class="condition-input" :value.sync="usermanData.manageUserType" :options="manageUserList"/>-->
             </div>
           </el-col>
         </el-row>
@@ -17,7 +19,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户账号：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.systemUserCode"/>
             </div>
           </el-col>
         </el-row>
@@ -25,7 +27,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 真实姓名：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.name"/>
             </div>
           </el-col>
         </el-row>
@@ -33,34 +35,34 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 手机号码：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
             </div>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <!-- 当为管理人员时*存在 -->
+              <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader @change="handleChange"/>
+              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <!-- 当为管理人员时不存在 -->
+          <!-- 当为管理人员时，此项不存在 -->
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants title="零售商" @selectOptions="selectSupplier"/>
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
             </div>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-item" v-if="!$route">
               <label class="label-wrds text-right"><span class="red-star">*</span> 密码：</label>
               <!-- 密码输入框 -->
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <el-input class="condition-input" type="password" v-model="usermanData.password"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -68,14 +70,16 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <el-input type="textarea" v-model="orderQueryData.opmOrderNo"></el-input>
+              <el-input type="textarea" v-model="usermanData.remark"></el-input>
             </div>
           </el-col>
         </el-row>
       </div>
       <div class="foot-btn">
-        <button class="btns">保&nbsp;存</button>
-        <button class="btns">取&nbsp;消</button>
+        <el-button class="btns" @click="addUsermanSubmit" :disabled="!usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
+        <!--当身份为管理人员时-->
+        <!--<el-button class="btns" @click="addUsermanSubmit" :disabled="!usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+        <el-button class="btns" >取&nbsp;消</el-button>
       </div>
     </div>
   </div>
@@ -91,44 +95,64 @@
   export default {
     name: 'AddSupplierData',
     created() {
+      if(this.$route){
+        this.usermanData = this.$route.query.usermanInfo;
+      }
     },
     data() {
       return {
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
+        level: 'province',
+        usermanData: {
+          userType: 1000,
+          manageUserType: 1000,
+          password: '',
+        },
+        usermanList: [{
+          value: 1000,
+          label: '零售商'
         },{
-          value: '1002',
-          label: 'oppo'
+          value: 1001,
+          label: '供应商'
         }],
-        dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
+        manageUserList:[{
+          value: 1000,
+          label: '管理人员'
+        }]
       }
     },
     methods: {
-      visibleChange(val) {
-        this.dialogVisible = val;
-      },
       handleChange(val){
-        this.orderQueryData.commonRegionId = val;
+        this.usermanData.commonRegionId = val;
       },
-      uploadData(data) {
-        this.totalCnt = data.totalCnt;
-        this.successCnt = data.successCnt;
-        this.failCnt = data.failCnt;
-        this.tableData = data.rows;
-        console.log('导入文件返回的数据：', data);
+      //选择零售商或供应商
+      selectRetailer(val){
+        this.usermanData.relaId = val;
       },
-      selectSupplier(val){
-        this.orderDeliveryData.retailerId = val;
-      },
+      addUsermanSubmit(){
+        //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
+        this.$post('/systemUserController/addSystemUser', {
+          commonRegionId: this.usermanData.commonRegionId,
+          userType: this.usermanData.userType,
+          relaId: this.usermanData.relaId,
+          systemUserCode: this.usermanData.systemUserCode,
+          password: this.usermanData.password,
+          name: this.usermanData.name,
+          linktelenumber: this.usermanData.linktelenumber,
+          remark: this.usermanData.remark,
+        }).then((rsp) => {
+          this.$message.success('添加成功！');
+          // 刷新页面还是跳转到usermanManage
+        })
+      }
+    },
+    computed:{
+      merchantsTitle:function() {
+        if(this.usermanData.userType == 1000){
+          return '零售商';
+        }else{
+          return '供应商';
+        }
+      }
     },
     components: {
       TitlePlate,
@@ -179,7 +203,6 @@
     .red-star{
       color: #f00;
     }
-
     .condition-item {
       display: flex;
       margin: 10px 0;
@@ -190,6 +213,30 @@
       }
       .condition-input {
         flex: 1 0 0;
+      }
+      .el-input__inner{
+        height: 32px;
+        line-height: 32px;
+        border-radius: 0;
+      }
+      .el-cascader{
+        flex: 1 0 0;
+        line-height: 32px;
+        .el-input__icon{
+          line-height: 32px;
+        }
+      }
+      .el-textarea__inner{
+        border-radius: 0;
+        resize:none;
+      }
+      .choose-merchants {
+        .choose-input-box {
+          .choose-input {
+            font-size: 14px;
+            color: #606266;
+          }
+        }
       }
     }
     .foot-btn{
@@ -213,6 +260,11 @@
         text-decoration: none;
         &:hover {
           background-color: #e20606;
+        }
+        &:disabled{
+          color: #fff;
+          background-color: #f25555;
+          cursor: default;
         }
       }
     }

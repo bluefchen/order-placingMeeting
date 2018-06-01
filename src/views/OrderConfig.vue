@@ -21,7 +21,7 @@
             <el-col :span="8" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right">订货会编码：</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opMeetingNo"/>
               </div>
             </el-col>
           </el-row>
@@ -29,7 +29,7 @@
             <el-col :span="16" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会名称：</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmName"/>
               </div>
             </el-col>
           </el-row>
@@ -37,13 +37,13 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <Cascader @change="handleChange"/>
+                <Cascader @change="selectAddress" :level="level" :regionId="orderPlacingMeeting.commonRegionId" />
               </div>
             </el-col>
             <el-col :span="10">
               <div class="condition-item">
                 <label class="label-address">--</label>
-                <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmAddr"/>
               </div>
             </el-col>
           </el-row>
@@ -51,7 +51,27 @@
             <el-col :span="10" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 活动起止日期：</label>
-                <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
+                <el-date-picker
+                  class="condition-input"
+                  v-model="orderPlacingMeeting.startDt"
+                  type="date"
+                  size="small"
+                  :picker-options="pickerBeginDateBefore"
+                  format="yyyy-MM-dd"
+                  placeholder="选择日期"
+                  :editable="false">
+                </el-date-picker>
+                <div class="date-text">至</div>
+                <el-date-picker
+                  class="condition-input"
+                  v-model="orderPlacingMeeting.endDt"
+                  type="date"
+                  size="small"
+                  format="yyyy-MM-dd"
+                  :picker-options="pickerBeginDateAfter"
+                  placeholder="选择日期"
+                  :editable="false">
+                </el-date-picker>
               </div>
             </el-col>
           </el-row>
@@ -60,10 +80,11 @@
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 定金补录截止日期：</label>
                 <el-date-picker
-                  v-model="value1"
+                  v-model="orderPlacingMeeting.depositRecordEnddt"
                   type="date"
                   size="small"
-                  placeholder="选择日期">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
               </div>
             </el-col>
@@ -71,10 +92,11 @@
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 提货上报截止日期：</label>
                 <el-date-picker
-                  v-model="value2"
+                  v-model="orderPlacingMeeting.pickupRecordEnddt"
                   type="date"
                   size="small"
-                  placeholder="选择日期">
+                  placeholder="选择日期"
+                  :editable="false">
                 </el-date-picker>
               </div>
             </el-col>
@@ -83,7 +105,15 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会logo上传：</label>
-                <div class="condition-upload"><img src="@/assets/images/icon-add.png" alt=""></div>
+                <el-upload
+                  class="condition-upload"
+                  action="/commonCfgController/upload"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
+                  <div v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></div>
+                </el-upload>
               </div>
             </el-col>
           </el-row>
@@ -92,15 +122,29 @@
               <div class="condition-item editor-box">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会描述：</label>
                 <div class="editor">
-                  <quill-editor ref="myTextEditor"
-                    v-model="content"
-                    :config="editorOption">
+                  <quill-editor ref="textEditor"
+                    v-model="orderPlacingMeeting.discription">
                   </quill-editor>
                 </div>
               </div>
             </el-col>
           </el-row>
         </div>
+      </div>
+      <div class="dialog-save">
+        <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
+          <div slot="content" class="pop-cnt">
+            <div class="import-result-box fn-clear">
+              <div class="success">
+                <img src="@/assets/images/icon-success.png" class="suc-img">
+                订货会基本信息保存成功！
+              </div>
+            </div>
+          </div>
+          <div slot="footer">
+            <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
+          </div>
+        </DialogPopup>
       </div>
     </div>
     <div v-show="active === 2">
@@ -116,13 +160,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会名称：</label>
-                    <p><b>2018夏季VIVO品牌新品发布会</b></p>
+                    <p><b>{{orderPlacingMeeting.opmName}}</b></p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会编码：</label>
-                    <p>DHH000001</p>
+                    <p>{{orderPlacingMeeting.opMeetingNo}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -130,13 +174,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">活动起止日期：</label>
-                    <p>2018-04-17 至 2018-04-18</p>
+                    <p>{{orderPlacingMeeting.startDt}} 至 {{orderPlacingMeeting.endDt}}</p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会地址：</label>
-                    <p>XX市XXXXXXXXXXX街XXX路XX号</p>
+                    <p>{{orderPlacingMeeting.opmAddr}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -150,7 +194,7 @@
             <div class="remark fn-right"><span>备注：</span>可先提交，事后到订货会管理再去补充完整信息资料</div>
           </div>
           <div class="add-roder-table">
-            <Table :table-title="supplier.tableTitle" :table-data="supplier.tableData"/>
+            <Table :table-title="supplierList.tableTitle" :table-data="supplierList.tableData"/>
           </div>
         </div>
       </div>
@@ -168,13 +212,13 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会名称：</label>
-                    <p><b>2018夏季VIVO品牌新品发布会</b></p>
+                    <p><b>{{orderPlacingMeeting.opmName}}</b></p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会编码：</label>
-                    <p>DHH000001</p>
+                    <p>{{orderPlacingMeeting.opMeetingNo}}</p>
                   </div>
                 </el-col>
               </el-row>
@@ -182,27 +226,27 @@
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">活动起止日期：</label>
-                    <p>2018-04-17 至 2018-04-18</p>
+                    <p>{{orderPlacingMeeting.startDt}} 至 {{orderPlacingMeeting.endDt}}</p>
                   </div>
                 </el-col>
                 <el-col :span="8" :offset="2">
                   <div class="order-info-item">
                     <label class="label-info-title text-right">订货会地址：</label>
-                    <p>XX市XXXXXXXXXXX街XXX路XX号</p>
+                    <p>{{orderPlacingMeeting.opmAddr}}</p>
                   </div>
                 </el-col>
               </el-row>
             </div>
           </div>
           <div class="add-supplier">
-            <AddMerchants title="零售商" @selectOptions="selectSupplier" />
+            <AddMerchants title="零售商" @selectOptions="selectRetailer" />
           </div>
           <div class="add-order-title">
             <div class="title fn-left">已添加零售商：</div>
             <div class="remark fn-right"><span>备注：</span>可先提交，事后到订货会管理再去补充完整信息资料</div>
           </div>
           <div class="add-roder-table">
-            <Table :table-title="supplier.tableTitle" :table-data="supplier.tableData"/>
+            <Table :table-title="retailerList.tableTitle" :table-data="retailerList.tableData"/>
           </div>
         </div>
       </div>
@@ -226,9 +270,10 @@
       </div>
     </div>
     <div class="foot-btn" v-show="active !== 4">
-      <button v-show="active === 1" class="btns">保&nbsp;存</button>
+      <button :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt" v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
-      <button class="btns" @click="next">下一步</button>
+      <button v-show="active === 3" class="btns" @click="finish">完成</button>
+      <button v-show="active !== 3" class="btns" @click="next">下一步</button>
     </div>
   </div>
 </template>
@@ -241,6 +286,7 @@
   import AddMerchants from '@/components/AddMerchants';
   import Table from '@/components/Table';
   import Cascader from '@/components/Cascader';
+  import DialogPopup from '@/components/DialogPopup';
   import { quillEditor } from 'vue-quill-editor';
 
 
@@ -248,37 +294,56 @@
     name: 'OrderConfig',
     created() {
 
-      this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
-      if(this.orderPickGoodsInfo.opMeetingId){
-        this.title = '编辑订购会'
+      this.$post('/commonCfgController/getCommonRegionTreeList', {
+        commonRegionId: ''
+      }).then((rsp) => {
+        this.commonRegionList = rsp;
+      });
+
+      this.opMeetingInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
+      if(this.opMeetingInfo.opMeetingId){
+        this.title = '编辑订购会';
+        this.orderPlacingMeeting = this.opMeetingInfo;
+        this.orderPlacingMeeting.commonRegionId = '1000003'; //测试地区用，最后需要删除
+        this.qryOpmSupplierList();
+        this.qryOpmRetailerList();
       }else{
-        this.title = '新增订购会'
+        this.title = '新增订购会';
       };
 
     },
     data() {
       return {
-        title: '',
-        content: '',
-        editorOption: {},
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
+        pickerBeginDateBefore:{
+            disabledDate: (time) => {
+                let beginDateVal = this.orderPlacingMeeting.endDt;
+                if (beginDateVal) {
+                    return time.getTime() > beginDateVal;
+                }
+            }
+        },
+        pickerBeginDateAfter:{
+            disabledDate: (time) => {
+                let beginDateVal = this.orderPlacingMeeting.startDt;
+                if (beginDateVal) {
+                    return time.getTime() < beginDateVal;
+                }
+            }
+        },
         dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-        value1: '',
-        value2: '',
+        dislogTitle: '保存',
+
         active: 1,
-        supplier: {
+        title: '',
+
+        level: 'province',
+        orderPlacingMeeting: {
+          logoUrl: ''
+        },
+        opmSupplierList: [],
+        opmRetailerList: [],
+        //供货商列表
+        supplierList: {
           tableTitle: [{
             label: '省份',
             prop: 'province',
@@ -307,73 +372,196 @@
             label: '操作',
             render: (h, params) => {
               return h({
-                template: '<div><button @click="delSupplier(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
+                template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
                 data: function(){
                   return {
                     param: params
                   }
                 },
                 methods: {
-                  delSupplier: (val, index) => {
+                  delItem: (val, index) => {
                     this.delSupplier(val, index);
                   }
                 }
               })
             }
           }],
-          tableData: [{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
+          tableData: []
+        },
+        //零售商列表
+        retailerList: {
+          tableTitle: [{
+            label: '省份',
+            prop: 'province',
           },{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
+            label: '零售商编码',
+            prop: 'retailerCode',
           },{
-            province: '江苏省',
-            city: '南京市',
-            supplierCode: '1000013',
-            supplierName: '供货商AAAAA',
-            supplierTypeName: '省代',
-            linkMan: '王小明',
-            linkNbr: '18012345678',
-            supplierPhone: '025-58000000',
-            supplierFax: '025-58000000'
-          }]
+            label: '零售商名称',
+            prop: 'retailerName',
+          },{
+            label: '零售商类型',
+            prop: 'retailerTypeName',
+          },{
+            label: '联系人',
+            prop: 'linkMan',
+          },{
+            label: '联系电话',
+            prop: 'linkNbr',
+          },{
+            label: '公司电话',
+            prop: 'retailerPhone',
+          },{
+            label: '公司传真',
+            prop: 'retailerFax',
+          },{
+            label: '操作',
+            render: (h, params) => {
+              return h({
+                template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
+                data: function(){
+                  return {
+                    param: params
+                  }
+                },
+                methods: {
+                  delItem: (val, index) => {
+                    this.delRetailer(val, index);
+                  }
+                }
+              })
+            }
+          }],
+          tableData: []
         }
       }
     },
     methods: {
       next() {
         this.active ++;
-        console.log(this.content);
       },
       previous() {
         this.active --;
       },
+      visibleChange(val) {
+        this.dialogVisible = val;
+      },
+      selectAddress(code, name){
+        this.orderPlacingMeeting.commonRegionId = code;
+        this.orderPlacingMeeting.commonRegionName = name;
+      },
+      qryOpmSupplierList (){
+        this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'pageSize': 10,
+            'curPage': 1
+        }).then((rsp) => {
+          this.supplierList.tableData = rsp.rows;
+        });
+      },
+      qryOpmRetailerList(){
+        this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'pageSize': 10,
+            'curPage': 1
+        }).then((rsp) => {
+          this.retailerList.tableData = rsp.rows;
+        });
+      },
       selectRetailer(val){
-          this.orderQueryData.retailerId = val;
+        val.forEach((item, index) => {
+          var flag = this.retailerList.tableData.some((opt,index) =>{
+            return item.retailerId === opt.retailerId;
+          });
+          if(!flag){
+            this.retailerList.tableData.push(item);
+          };
+        })
       },
       selectSupplier(val){
-          this.orderQueryData.supplierId = val;
+        val.forEach((item, index) => {
+          var flag = this.supplierList.tableData.some((opt,index) =>{
+            return item.supplierId === opt.supplierId;
+          });
+          if(!flag){
+            this.supplierList.tableData.push(item);
+          };
+        })
       },
       delSupplier(val, index){
-        console.log(val, index);
+        this.supplierList.tableData.splice(index, 1);
       },
-      handleChange(val){
-        console.log(val);
+      delRetailer(val, index){
+        this.retailerList.tableData.splice(index, 1);
+      },
+      //图片上传
+      handleAvatarSuccess(res, file) {
+        this.orderPlacingMeeting.logoUrl = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        var isImg;
+        if(file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/jpg'){
+          isImg = true;
+        }else{
+          isImg = false;
+        };
+        if (!isImg) {
+          this.$message.error('订购会logo只能是图片格式!');
+        }
+        return isImg;
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        // return isJPG && isLt2M;
+      },
+      orderSubmit() {
+        if(this.title === '新增订购会'){
+          //新增
+          this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
+            'opmName': this.orderPlacingMeeting.opmName, 
+            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('新增成功！');
+          });
+        }else{
+          //修改
+          this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId, 
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
+            'opmName': this.orderPlacingMeeting.opmName, 
+            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('修改成功！');
+          });
+        }
+      },
+      orderSave() {
+        this.orderSubmit();
+        this.visibleChange(true);
+      },
+      finish() {
+        this.orderSubmit();
+        this.next();
       }
     },
     components: {
@@ -384,7 +572,8 @@
       AddMerchants,
       Table,
       Cascader,
-      quillEditor
+      quillEditor,
+      DialogPopup
     }
   }
 </script>
@@ -483,6 +672,11 @@
         line-height: 32px;
         font-size: 14px;
       }
+      .date-text{
+        width: 50px;
+        text-align: center;
+        line-height: 32px;
+      }
       .condition-input {
         flex: 1 0 0;
       }
@@ -494,6 +688,7 @@
       .condition-upload{
         width: 163px;
         height: 86px;
+        margin-right: 10px;
         background: #fcfcfc;
         border: 1px solid #dedede;
         text-align: center;
@@ -501,6 +696,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 5px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
       .el-cascader{
         flex: 1;
@@ -556,6 +756,12 @@
         text-decoration: none;
         &:hover {
           background-color: #e20606;
+        }
+        &:disabled{
+          opacity: 0.7;
+          &:hover {
+            background-color: #fa0000;
+          }
         }
       }
     }
@@ -659,7 +865,41 @@
       }
     }
     //步骤条
+    .dialog-save{
+      .dialog-choose-merchants {
+        .el-dialog {
+          width: 550px;
+          padding: 50px 0;
+        }
+        .el-dialog__header{
+          display: none;
+        }
+        .el-dialog__footer{
+          background: none;
+          border: none;
+        }
+        .success{
+          display: flex;
+          color: #000;
+          font-size: 14px;
+          font-weight: bold;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
 
+  }
+  .el-date-table td.current:not(.disabled) span {
+      color: #fff;
+      background-color: #ff7a7a;
+  }
+  .el-date-table td.available:hover {
+    color: #ff7a7a;
+  }
+  .el-date-table td.today span {
+    color: #ff7a7a;
+    font-weight: 700;
   }
 
 </style>

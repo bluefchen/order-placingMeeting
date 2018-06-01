@@ -6,18 +6,19 @@
     </div>
     <!-- 中间背景图片 -->
     <!-- 搜索 -->
-    <div class="box-1200 search fn-clear">
-      <InputWithSelect class="fn-left" @search="search"/>
-      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
-          v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
+    <div class="search  box-1200 fn-clear">
+      <el-input placeholder="输入用户帐号或手机号查询" v-model="usermanData.codeOrPhone" class="input-with-select fn-left" size="small">
+        <el-button slot="append" @click="usermanSearch()">搜 索</el-button>
+      </el-input>
+      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
-            <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
+            <label class="label-wrds">用户类型：</label>
+            <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -29,7 +30,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">所属商户：</label>
-            <ChooseMerchants title="供应商" @selectOptions="selectRetailer" />
+            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
           </div>
         </el-col>
       </el-row>
@@ -37,13 +38,11 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">用户状态：</label>
-            <Select class="condition-input" :value.sync="usermanData.userId" :options="usermanList"/>
+            <Select class="condition-input" :value.sync="usermanData.statusCd" :options="statusList"/>
           </div>
         </el-col>
-        <el-col :span="8">
-        </el-col>
-        <el-col :span="8">
-          <el-button slot="append" @click="search()">查询</el-button>
+        <el-col :span="16">
+          <el-button class="query-btns fn-right" @click="usermanSearch()">查询</el-button>
         </el-col>
       </el-row>
     </div>
@@ -52,19 +51,18 @@
         <TitlePlate class="fn-left" title="用户管理列表"/>
         <div class="buttons fn-right">
           <el-button class="btns" @click="addUserman()"><i class="iconfont">&#xe642;</i> 新增账号</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe6bd;</i> 批量激活</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe60c;</i> 批量冻结</el-button>
-          <el-button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
+          <el-button class="btns" @click="batchActivateUserman()"><i class="iconfont">&#xe6bd;</i> 批量激活</el-button>
+          <el-button class="btns" @click="batchFreezeUserman()"><i class="iconfont">&#xe60c;</i> 批量冻结</el-button>
+          <el-button class="btns" @click="batchDeleteUserman()"><i class="iconfont">&#xe610;</i> 批量删除</el-button>
         </div>
       </div>
-      <Table :isSelection="true" @currentChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" @selectionChange="selectionChange" :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
 </template>
 
 <script>
-  import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
@@ -76,36 +74,58 @@
   export default {
     name: 'UsermanManage',
     created() {
-      this.queryOpmOrderSubmit();
+      this.queryUsermanSubmit();
     },
     data() {
       return {
+        usermanList: [{
+          value: 1000,
+          label: '零售商'
+        }, {
+          value: 1001,
+          label: '供应商'
+        }],
+        statusList:[{
+          value: 1000,
+          label: '有效'
+        },{
+          value: 1001,
+          label: '冻结'
+        },{
+          value: 1002,
+          label: '无效'
+        }],
+        usermanData: {
+          codeOrPhone:'',
+          userType: 1000,
+          statusCd: 1000,
+          retailerId: '',
+        },
         tableTitle: [{
           label: '真实姓名',
-          prop: 'retailerName',
-          width: 140,
+          prop: 'name',
+          width: 126,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
               data() {
                 return {
-                  roleName: params.row.roleName,
-                  imgSrc: params.row.imgSrc
+                  roleName: params.row.name,
                 }
               }
             });
           }
         }, {
           label: '用户账号',
-          prop: 'offerCode',
+          prop: 'systemUserCode',
           width: 120
         }, {
           label: '用户类型',
-          prop: 'isCentman',
+          prop: 'userType',
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
               data() {
                 return {
                   data: params
@@ -115,49 +135,83 @@
           }
         }, {
           label: '手机号码',
-          prop: 'supplierName',
+          prop: 'linktelenumber',
           width: 120
         }, {
           label: '归属省份',
-          prop: '',
+          prop: 'commonRegionName',
           width: 120
         }, {
           label: '归属商户',
-          prop: 'offerQty',
-          width: 120
+          prop: 'relaName',
         }, {
           label: '状态',
-          prop: 'totalAmount',
-          width: 80
+          prop: 'stautsCd',
+          width: 54,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">冻结</span><span v-else-if="data.row.stautsCd == 1002">无效</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
         }, {
           label: '操作',
-          // width: 120,
+          width: 190,
           render: function (h, params) {
             return h({
-              template: '<div><el-button type="text" @click="freezeUserman(usermanList)" class="delete-btn">冻结</el-button>' +
-              '<el-button type="text" @click="modifyUserman(usermanList)" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteOpmPolicy(usermanList)" class="delete-btn">删除</el-button>'+
-              '<el-button type="text" @click="usermanDetail(usermanList)" class="delete-btn">详情</el-button></div>',
+              template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>'+
+              '<el-button type="text" @click="modifyUserman(usermanInfo)" class="delete-btn">修改</el-button>' +
+              '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>'+
+              '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
               data: function () {
                 return {
-                  usermanList: params.row
+                  usermanInfo: params.row
                 }
               },
               methods: {
-                selectionChange(val){
-                  this.selectionChangeList = val;
-                },
+                //修改
                 modifyUserman(item) {
                   this.$router.push({
-                    path: '/orderManage/modifyUserman',
+                    path: '/orderManage/addUserman',
                     query: {
                       usermanInfo: item
                     }
                   });
                 },
+                //冻结
+                freezeUserman(item){
+                  this.$post('/systemUserController/freezeSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('冻结成功！');
+                    // this.queryUsermanSubmit();
+                  })
+                },
+                //激活
+                activateUserman(item){
+                  this.$post('/systemUserController/unfreezeSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('激活成功！');
+                  })
+                },
+                //删除
+                deleteUserman(item){
+                  this.$post('/systemUserController/deleteSystemUser', {
+                    partyIds: [item.partyId],
+                  }).then((rsp) => {
+                    this.$message.success('删除成功！');
+                  })
+                },
+                //详情
                 usermanDetail(item) {
                   this.$router.push({
-                    path: '/orderManage/DetailUserman',
+                    path: '/orderManage/detailUserman',
                     query: {
                       usermanInfo: item
                     }
@@ -167,20 +221,8 @@
             })
           }
         }],
-        tableData: [{
-
-        }],//查询返回的数据
-        usermanList: [{
-          value: 1000,
-          label: '未交定金'
-        }, {
-          value: 1001,
-          label: '已交定金'
-        }, {
-          value: 1002,
-          label: '已付款'
-        }],
-        usermanData: [],
+        tableData: [],//查询返回的数据
+        selectionChangeList:[],//多选的数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
@@ -188,49 +230,110 @@
       }
     },
     methods: {
-      search(obj) {
-        // this.orderQueryData.isCentman = obj.type;
-        // this.orderQueryData.offerNameOrCode = obj.value;
-        // this.queryOpmOrderSubmit();
+      usermanSearch() {
+        this.queryUsermanSubmit();
       },
+      //展示更多
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      handleChange(val){
-        this.orderQueryData.commonRegionId = val;
+      //选择零售商或供应商
+      selectRetailer(val){
+        this.usermanData.relaId = val;
       },
+      //多选
+      selectionChange(val){
+        this.selectionChangeList = val;
+      },
+      //选择地区
+      handleChange(val){
+        this.usermanData.commonRegionId = val;
+      },
+      //新增
       addUserman(){
         this.$router.push({
           path: '/orderManage/addUserman',
         });
       },
-      queryOpmOrderSubmit(curPage, pageSize) {
-        this.$post('/opmOrderController/queryOpmOrderList', {
-          // opMeetingId: '订货会ID',
-          // isCentman: this.orderQueryData.isCentman,
-          // offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          // opmOrderNo: this.orderQueryData.opmOrderNo,
-          // supplierId: this.orderQueryData.supplierId,
-          // retailerId: this.orderQueryData.retailerId,
-          // fromDate: this.orderQueryData.dateValue[0],
-          // toDate: this.orderQueryData.dateValue[1],
-          // statusCd: this.orderQueryData.statusCd,
+      //批量激活
+      batchActivateUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/unfreezeSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('激活成功！');
+          this.queryUsermanSubmit();
+        })
+      },
+      //批量冻结
+      batchFreezeUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/freezeSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('冻结成功！');
+          this.queryUsermanSubmit();
+        })
+      },
+      //批量删除
+      batchDeleteUserman(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/deleteSystemUser', {
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('删除成功！');
+          this.queryUsermanSubmit();
+        })
+      },
+      queryUsermanSubmit(curPage, pageSize) {
+        this.$post('/systemUserController/querySystemUserList', {
+          codeOrPhone: this.usermanData.opmOrderNo,
+          commonRegionId: this.usermanData.commonRegionId,
+          userType: this.usermanData.userType,
+          relaId: this.usermanData.relaId,
+          statusCd: this.usermanData.statusCd,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.qryOpmOrderList = rsp.rows;
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
-      },
-      selectRetailer(val){
-        this.orderQueryData.retailerId = val;
+        this.queryUsermanSubmit(curPage);
+      }
+    },
+    computed:{
+      merchantsTitle:function() {
+        if(this.usermanData.userType == 1000){
+          return '零售商';
+        }else{
+          return '供应商';
+        }
       }
     },
     components: {
-      InputWithSelect,
       TitlePlate,
       Table,
       Pagination,
@@ -281,6 +384,26 @@
       .condition-input {
         flex: 1 0 0;
       }
+    }
+    /*搜索框*/
+    .input-with-select {
+      width: 480px;
+    }
+    .el-input-group__append, .el-input-group__prepend {
+      border-radius: 0;
+    }
+
+    .input-with-select .el-input-group__prepend {
+      background-color: #f8f8f8;
+    }
+
+    .input-with-select .el-input-group__append {
+      background-color: #f82134;
+      border-color: #f82134;
+      color: #fff;
+    }
+    .el-input.is-active .el-input__inner, .el-input__inner:focus {
+      border-color: #ff7a7a;
     }
 
     .category-more {
@@ -366,6 +489,17 @@
       &:hover {
         background-color: #e20606;
       }
+    }
+    .query-btns{
+      position: relative;
+      padding: 0 35px;
+      margin:  11px 0 0 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 30px;
     }
     .role-man{
       text-align: left;

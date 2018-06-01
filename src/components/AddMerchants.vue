@@ -30,7 +30,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" :border="true" :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" :border="true" :isSelection="true" @selectionChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
       <div slot="footer">
@@ -213,11 +213,11 @@
         this.selectionChangeList = val;
       },
       saveChange(){
-        this.checkedOption = this.selectionChangeList ? this.selectionChangeList : {};
+        this.checkedOption = this.selectionChangeList ? this.selectionChangeList : [];
         if(this.title === '供货商'){
-          this.$emit('selectOptions', this.checkedOption.supplierId);
+          this.$emit('selectOptions', this.checkedOption);
         }else{
-          this.$emit('selectOptions', this.checkedOption.retailerId);
+          this.$emit('selectOptions', this.checkedOption);
         }
         this.isShow = false;
       },

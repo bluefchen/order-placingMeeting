@@ -21,18 +21,18 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
-    'totalSize|1-99': 10, 
+    'totalSize|1-99': 10,
     'rows|5-10': [{
-        'opMeetingId': '@id', 
-        'opMeetingNo': '@id', 
-        'opmName': '@cword(4, 12)', 
-        'opmAddr': '@cword(8, 16)', 
+        'opMeetingId': '@id',
+        'opMeetingNo': '@id',
+        'opmName': '@cword(4, 12)',
+        'opmAddr': '@cword(8, 16)',
         'startDt': '@date()',
         'endDt': '@date()',
-        'commonRegionId': '@id', 
+        'commonRegionId': '@id',
         'commonRegionName': '@province',
         'statusCd|1': ['1000', '1001', '1002'],
         'discription': '@cword(10,20)',
@@ -43,6 +43,32 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
         'supplierCnt|1-100': 11,
         'retailerCnt|1-100': 11
     }]
+  }
+});
+
+//2、新增订货会接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/insertOrderPlacingMeeting'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
+//3、修改订货会接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateOrderPlacingMeeting'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': null,
+  'data': {
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 
@@ -57,15 +83,16 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
     'totalSize|1-100': 1,
     'rows|10': [{
       supplierId: '@id', //供应商ID
+      supplierCode: '@id', //供应商编码
       province: '@province()', //供应商省份
       city: '@city()', //供应商地市
-      supplierName: '@cword()', //供应商名称
+      supplierName: '@cword(3,6)', //供应商名称
       supplierType: '', //供应商类型
-      supplierTypeName: '@cword()', //供应商类型名称
+      supplierTypeName: '@cword(3,6)', //供应商类型名称
       linkMan: '@cname()', //联系人
-      linkNbr: '', //联系电话
-      supplierPhone: '', //公司电话
-      supplierFax: '' //公司传真
+      linkNbr: /\d{5,10}/, //联系电话
+      supplierPhone: /\d{5,10}/, //公司电话
+      supplierFax: /\d{5,10}/ //公司传真
     }]
   }
 });
@@ -80,16 +107,19 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
   data: {
     'totalSize|1-100': 1,
     'rows|10': [{
-      retailerId: '@id', //零售商ID
-      province: '@province()', //零售商省份
-      city: '@city()', //零售商地市
-      retailerName: '@cword()', //零售商名称
-      retailerType: '', //零售商类型
-      retailerTypeName: '@cword()', //零售商类型名称
-      linkMan: '@cname()', //联系人
-      linkNbr: '', //联系电话
-      retailerPhone: '', //公司电话
-      retailerFax: '' //公司传真
+      'retailerId': '@id', 
+      'retailerCode': '@id', 
+      'province': '@province()', 
+      'city': '@city()', 
+      'retailerName': '@cword(3,6)',
+      'retailerType': '', 
+      'retailerTypeName': '@cword(3,6)', 
+      'linkMan': '@cname()',
+      'linkNbr': /\d{5,10}/,
+      'retailerPhone': /\d{5,10}/,
+      'retailerFax': /\d{5,10}/,
+      'statusCd': '@id',
+      'statusCdName': '@cword(3,6)'
     }]
   }
 });
@@ -307,7 +337,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|30-99': 1, 
+    'totalSize|30-99': 1,
     'rows|5-10': [{
       'opmOaId':'@id',
       'offerId': '@id',
@@ -391,6 +421,18 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/batchInsertOpmOfferAllot'),
   data: null
 });
 
+//27、附件上传接口
+Mock.mock(new RegExp('/commonCfgController/upload'), {
+  'rsphead': 's',
+  'success': true,
+  'code': null,
+  'msg': null, 
+  'error': false,
+  'data': {
+    'url':''
+  }
+});
+
 //29、地区查询接口
 Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   rsphead: 's',
@@ -399,7 +441,7 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   msg: null, //失败信息
   error: null,
   'data|30': [{
-    'id': '@id',
+    'id|1': ['1000001', '1000002', '1000003', '1000004', '1000005', '1000006', '1000007', '1000008', '1000009', '1000010'],
     'name': '@province()',
     'parentId': '',
     'areaLevel': ''
@@ -844,7 +886,7 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize ': '12', 
+    'totalSize ': '12',
     'rows': [{
       'opmOrderId':'@id',
       'opMeetingId':'@id',
@@ -881,5 +923,199 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
         'offerPicUrl6':''
       }
     }]
+  }
+});
+//63、冻结用户
+Mock.mock(new RegExp('/systemUserController/freezeSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//64、激活用户
+Mock.mock(new RegExp('/systemUserController/unfreezeSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//65、	删除用户接口
+Mock.mock(new RegExp('/systemUserController/deleteSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//66、	新增用户接口
+Mock.mock(new RegExp('/systemUserController/addSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//67、	修改用户接口
+Mock.mock(new RegExp('/systemUserController/updateSystemUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//68、用户列表查询
+Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize |1-100': 100, //总记录条数
+    'rows|10':  [{
+      'partyId': '@id',
+      'commonRegionId': '@id',
+	    'commonRegionName': '@province',
+      'userType|+1': [1000, 1001],
+	    'relaId': '@id',
+	    'relaName': '@cword(5)',
+	    'systemUserCode': '@id',
+      'name': '@cname',
+      'linktelenumber': '19899992222',
+	    'remark': '@cword(9)',
+      'stautsCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['有效', '冻结', '无效']
+    }]
+  }
+});
+//69、角色列表查询接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: [{
+    'postRoleId': '@id',
+    'name': '@cname',
+    'description': '@cword(10)'
+  }]
+});
+//70、	保存角色接口
+Mock.mock(new RegExp('/systemUserController/savePostRole'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//71、	查询所有菜单接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  'data|8': [{
+    'systemMenuId': '@id',
+    'systemMenuName': '@cword(6)',
+    'subSysMenuId': '@id',
+    'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
+    'sysModularId': '@id',
+    'isLastNode|+1': ['Y', 'N']
+  }]
+});
+//72、	查询已关联菜单接口
+Mock.mock(new RegExp('/systemUserController/queryRoleShortuctMenu'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  'data|8': [{
+    'postRoleId': '@id',
+    'systemMenuId': '@id',
+    'systemMenuName': '@cword(7)',
+    'subSysMenuId': '@id',
+    'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
+    'sysModularId': '@id',
+    'isLastNode|+1': ['Y', 'N']
+  }]
+});
+//73、	查询角色关联用户接口
+Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize |1-100': 100, //总记录条数
+    'rows|10':  [{
+      'userRoleId': '@id',
+      'postRoleId': '@id',
+	    'partyId': '@id',
+	    'commonRegionId': '@id',
+      'commonRegionName': '@province',
+	    'userType': '',
+      'relaId': '@id',
+	    'relaName': '@cword(5)',
+	    'systemUserCode': '@id',
+	    'name': '@cname',
+	    'linktelenumber': '13788823232',
+	    'remark': '@cword(11)',
+	    'stautsCd|+1': [1000, 1001, 1002],
+	    'statusCdName|+1': ['有效', '冻结', '无效']
+    }]
+  }
+});
+//74、	删除关联关系
+Mock.mock(new RegExp('/systemUserController/deletePostRoleRelaUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//75、新增关联关系
+Mock.mock(new RegExp('/systemUserController/addPostRoleRelaUser'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
   }
 });
