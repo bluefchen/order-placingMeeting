@@ -57,6 +57,9 @@
       title: {
         type: String,
         require: true
+      },
+      selectionId: {
+        type: String
       }
     },
     created() {
@@ -69,6 +72,7 @@
         this.isShowSupplierType = false;
       }
       this.handleSearch();
+      this.selectionChangeList = [this.selectionId];
     },
     data() {
       return {
@@ -142,7 +146,7 @@
         props: {
           value: 'id',
           label: 'name',
-          children: 'children'
+          children: 'children',
         },
 
         searchInput: '',
