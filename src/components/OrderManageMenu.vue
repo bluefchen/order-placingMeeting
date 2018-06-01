@@ -54,6 +54,7 @@
           height: 28px;
           line-height: 28px;
           border: none;
+          border-radius: 50px;
         }
         &.is-opened, &:hover, &.is-active{
           background: #fff;
@@ -95,6 +96,10 @@
 
     .el-menu--horizontal > .el-submenu:focus .el-submenu__title, .el-menu--horizontal > .el-submenu:hover .el-submenu__title {
       color: #000;
+    }
+
+    .el-menu--horizontal>.el-submenu .el-submenu__title:hover, .el-submenu__title:focus, .el-submenu__title:hover{
+      border-radius: 50px;
     }
 
   }
