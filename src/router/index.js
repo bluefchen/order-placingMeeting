@@ -20,6 +20,7 @@ const CyjImport = () => import('@/views/CyjImport');
 const PolicyManage = () => import('@/views/PolicyManage');
 const ImportPolicyAdd = () => import('@/views/ImportPolicyAdd');
 const PolicyList = () => import('@/views/PolicyList');
+const PolicyExamine = () => import('@/views/PolicyExamine');
 const OrderCompositeQuery = () => import('@/views/OrderCompositeQuery');
 const Orderdetail = () => import('@/views/Orderdetail');
 const PreferentialPolicySettlement = () => import('@/views/PreferentialPolicySettlement');
@@ -185,6 +186,13 @@ export default new Router({
         component: PolicyList,
         meta: {
           title: '政策列表'
+        },
+      }, {
+        path: 'policyExamine',
+        name: 'policyExamine',
+        component: PolicyExamine,
+        meta: {
+          title: '政策审核'
         },
       }, {
         path: 'orderCompositeQuery',
