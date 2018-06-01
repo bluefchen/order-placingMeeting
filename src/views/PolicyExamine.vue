@@ -14,7 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['政策管理', '政策投入']"/>
+          <Breadcrumb :list="['政策管理', '政策审核']"/>
         </div>
       </div>
 
@@ -43,7 +43,7 @@
   import ButtonWithDialog from '@/components/ButtonWithDialog';
 
   export default {
-    name: 'PolicyManage',
+    name: 'PolicyExamine',
     created() {
       this.queryOpmPolicyList();
     },
@@ -85,14 +85,14 @@
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<el-button type="text" @click="deleteItem(policyId)" class="delete-btn">删除</el-button>',
+              template: '<el-button type="text" @click="examineItem(policyId)" class="delete-btn">审批</el-button>',
               data: function () {
                 return {
                   policyId: params.row.policyId
                 }
               },
               methods: {
-                deleteItem: (id) => {
+                examineItem: (id) => {
                   this.deleteOpmPolicy(id);
                 }
               },
