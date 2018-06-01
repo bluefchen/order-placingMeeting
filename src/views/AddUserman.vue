@@ -95,7 +95,7 @@
   export default {
     name: 'AddSupplierData',
     created() {
-      if(this.$route){
+      if(this.$route.query.usermanInfo){
         this.usermanData = this.$route.query.usermanInfo;
       }
     },
