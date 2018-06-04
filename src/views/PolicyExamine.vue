@@ -41,6 +41,7 @@
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import ButtonWithDialog from '@/components/ButtonWithDialog';
+  import ApprovePolicy from '@/components/ApprovePolicy';
 
   export default {
     name: 'PolicyExamine',
@@ -67,7 +68,7 @@
         }, {
           label: '政策机型',
           prop: 'offerNames',
-          width: 180,
+          width: 200,
         }, {
           label: '政策制定日期',
           prop: 'createDt',
@@ -84,19 +85,16 @@
           label: '操作',
           width: 120,
           render: (h, params) => {
-            return h({
-              template: '<el-button type="text" @click="examineItem(policyId)" class="delete-btn">审批</el-button>',
-              data: function () {
-                return {
-                  policyId: params.row.policyId
-                }
+            return h(ApprovePolicy, {
+              props: {
+                data: params.row
               },
-              methods: {
-                examineItem: (id) => {
-                  this.deleteOpmPolicy(id);
+              on: {
+                update: (data) => {
+                  this.queryOpmPolicyList();
                 }
-              },
-            })
+              }
+            });
           }
         }],
         tableData: [],
@@ -109,20 +107,13 @@
         this.policyManage.policyName = obj.value;
         this.queryOpmPolicyList();
       },
-      deleteOpmPolicy(id) {
-        this.queryOpmPolicyList();
-        this.$post('/opmPolicyController/deleteOpmPolicy', {
-          policyId: id
-        }).then((rsp) => {
-          this.queryOpmPolicyList();
-        })
-      },
       queryOpmPolicyList(curPage, pageSize) {
         this.$post('/opmPolicyController/queryOpmPolicyList', {
           opMeetingId: '订货会ID',
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
-          statusCd: ''
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
         })
@@ -132,7 +123,8 @@
       InputWithSelect,
       Table,
       Breadcrumb,
-      ButtonWithDialog
+      ButtonWithDialog,
+      ApprovePolicy
     }
   }
 </script>
