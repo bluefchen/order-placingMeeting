@@ -134,21 +134,21 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-        'supplierId': '@id',
-        'supplierCode': '@id',
-        'province': '@province',
-        'commonRegionId': '@id',
-        'city': '@city',
-        'supplierName': '@cword(4,6)',
-        'supplierType|1': ['1001', '1002', '1003', '1004'],
-        'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
-        'linkMan': '@cname',
-        'linkNbr': /\d{5,11}/,
-        'supplierPhone': /\d{5,9}\-/,
-        'supplierFax': /\d{5,9}\-/,
-        'statusCd|1': ['1000', '1001'],
-        'statusCdName|1': ['有效', '停用'],
-        'remarks': '@cword(10,20)'
+      'supplierId': '@id',
+      'supplierCode': '@id',
+      'province': '@province',
+      'commonRegionId': '@id',
+      'city': '@city',
+      'supplierName': '@cword(4,6)',
+      'supplierType|1': ['1001', '1002', '1003', '1004'],
+      'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
+      'linkMan': '@cname',
+      'linkNbr': /\d{5,11}/,
+      'supplierPhone': /\d{5,9}/,
+      'supplierFax': /\d{5,9}/,
+      'statusCd|1': ['1000', '1001'],
+      'statusCdName|1': ['有效', '停用'],
+      'remarks': '@cword(10,20)'
     }]
   }
 });
@@ -1135,11 +1135,11 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'rows|10': [{
       'partyId': '@id',
       'commonRegionId': '1000001',
-	    'commonRegionName': '@province',
+      'commonRegionName': '@province',
       'userType|+1': [1000, 1001],//用户类型
-	    'relaId': '1122',
-	    'relaName': '@cword(5)',
-	    'systemUserCode': '@id',
+      'relaId': '1122',
+      'relaName': '@cword(5)',
+      'systemUserCode': '@id',
       'name': '@cname',
       'linktelenumber': '19899992222',
       'remark': '@cword(9)',
