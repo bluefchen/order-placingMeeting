@@ -71,14 +71,11 @@
   }
 
   .approve {
-    .label-wrds {
-      font-size: 12px;
-    }
     .el-row {
       margin-bottom: 10px;
     }
-    .el-textarea {
-      vertical-align: top;
+    .label-wrds {
+      font-size: 12px;
     }
   }
 </style>

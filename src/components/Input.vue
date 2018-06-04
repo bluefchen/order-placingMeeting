@@ -67,4 +67,7 @@
       border-color: #ff7a7a;
     }
   }
+  .el-textarea {
+    vertical-align: top;
+  }
 </style>
