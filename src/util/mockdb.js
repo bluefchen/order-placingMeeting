@@ -26,22 +26,22 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
   'data': {
     'totalSize|1-99': 10,
     'rows|5-10': [{
-        'opMeetingId': '@id',
-        'opMeetingNo': '@id',
-        'opmName': '@cword(4, 12)',
-        'opmAddr': '@cword(8, 16)',
-        'startDt': '@date()',
-        'endDt': '@date()',
-        'commonRegionId': '@id',
-        'commonRegionName': '@province',
-        'statusCd|1': ['1000', '1001', '1002'],
-        'discription': '@cword(10,20)',
-        'logoUrl|1': ['/assets/images/telephone1.jpg', '/assets/images/telephone2.jpg', '/assets/images/telephone3.jpg', '/assets/images/telephone4.jpg'],
-        'depositRecordEnddt': '@date()',
-        'pickupRecordEnddt': '@date()',
-        'statusDt': '@date()',
-        'supplierCnt|1-100': 11,
-        'retailerCnt|1-100': 11
+      'opMeetingId': '@id',
+      'opMeetingNo': '@id',
+      'opmName': '@cword(4, 12)',
+      'opmAddr': '@cword(8, 16)',
+      'startDt': '@date()',
+      'endDt': '@date()',
+      'commonRegionId': '@id',
+      'commonRegionName': '@province',
+      'statusCd|1': ['1000', '1001', '1002'],
+      'discription': '@cword(10,20)',
+      'logoUrl|1': ['/assets/images/telephone1.jpg', '/assets/images/telephone2.jpg', '/assets/images/telephone3.jpg', '/assets/images/telephone4.jpg'],
+      'depositRecordEnddt': '@date()',
+      'pickupRecordEnddt': '@date()',
+      'statusDt': '@date()',
+      'supplierCnt|1-100': 11,
+      'retailerCnt|1-100': 11
     }]
   }
 });
@@ -134,17 +134,17 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-        'supplierId': '1122',
-        'supplierCode': '测试供应商',
-        'province': '@province',
-        'city': '@city',
-        'supplierName': '@cword(4,6)',
-        'supplierType|1': [1001, 1002, 1003, 1004],
-        'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
-        'linkMan': '@cname',
-        'linkNbr': /\d{5,11}/,
-        'supplierPhone': /\d{5,9}\-/,
-        'supplierFax': /\d{5,9}\-/
+      'supplierId': '1122',
+      'supplierCode': '@id',
+      'province': '@province',
+      'city': '@city',
+      'supplierName': '@cword(4,6)',
+      'supplierType|1': [1001, 1002, 1003, 1004],
+      'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
+      'linkMan': '@cname',
+      'linkNbr': /\d{5,11}/,
+      'supplierPhone': /\d{5,9}\-/,
+      'supplierFax': /\d{5,9}\-/
     }]
 
   }
@@ -160,17 +160,17 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-        'retailerId': '1122',
-        'retailerCode': '测试零售商',
-        'province': '@province',
-        'city': '@city',
-        'retailerName': '@cword(4,6)',
-        'retailerType|1': [1001, 1002, 1003],
-        'retailerTypeName|1': ['自营厅', '大连锁', '代理商'],
-        'linkMan': '@cname',
-        'linkNbr': /\d{5,11}/,
-        'retailerPhone': /\d{5,9}\-/,
-        'retailerFax': /\d{5,9}\-/
+      'retailerId': '1122',
+      'retailerCode': '@id',
+      'province': '@province',
+      'city': '@city',
+      'retailerName': '@cword(4,6)',
+      'retailerType|1': [1001, 1002, 1003],
+      'retailerTypeName|1': ['自营厅', '大连锁', '代理商'],
+      'linkMan': '@cname',
+      'linkNbr': /\d{5,11}/,
+      'retailerPhone': /\d{5,9}\-/,
+      'retailerFax': /\d{5,9}\-/
     }]
 
   }
@@ -199,32 +199,32 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
   data: {
     'totalSize|1-99': 10,
     'rows|5-10': [{
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(3,6)',
-      'brandCd':'@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(3,6)',
+      'brandCd': '@id',
       'brandName': '@cword(3,6)',
-      'offerModelId':'@id',
-      'offerModelName':'@word(3,6)',
+      'offerModelId': '@id',
+      'offerModelName': '@word(3,6)',
       'isCentman|1': ['Y', 'N'],
       'salePrice|1-100.1-2': 1,
       'statusCd|1': ['1001', '1002'],
-      'offerBaseParam':{
-        'listDt':'@date',
-        'termType':'',
-        'os':'@word(5,10)'
+      'offerBaseParam': {
+        'listDt': '@date',
+        'termType': '',
+        'os': '@word(5,10)'
       },
-      'offerScreenParam':{
-        'screenType':'@cword(3,6)',
+      'offerScreenParam': {
+        'screenType': '@cword(3,6)',
         'screenSize|1-10.1': 9.7,
         'screenMaterial': '@cword(3,5)',
         'resolutionRatio|1': ['720P', '1080P', '2K', '4K'],
         'screenPiexl|1-99.1-1': 1,
         'screenTech': '@cword(3,10)',
-        'frame|1': ['是','否'],
+        'frame|1': ['是', '否'],
         'otherParam': '@cword(10,20)'
       },
-      'offerHardwardParam':{
+      'offerHardwardParam': {
         'cpuModel': '@word(3,5)',
         'cpuRate|1-10': 1,
         'core|1-8': 2,
@@ -403,7 +403,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
   data: {
     'totalSize|30-99': 1,
     'rows|5-10': [{
-      'opmOaId':'@id',
+      'opmOaId': '@id',
       'offerId': '@id',
       'offerCode': '@id',
       'offerName': '@cword(3, 5)',
@@ -493,7 +493,7 @@ Mock.mock(new RegExp('/commonCfgController/upload'), {
   'msg': null,
   'error': false,
   'data': {
-    'url':''
+    'url': ''
   }
 });
 
@@ -681,7 +681,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'paymentStatusCdName|1': ['未交定金', '已交定金', '已付款'],
       'statusCd|1': [1000, 1001, 1002],
       'statusCdName|1': ['进行中', '已完成', '已撤销'],
-      'remarks':'@cword(15,30)',
+      'remarks': '@cword(15,30)',
       'offerPic': {
         'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
         'offerPicUrl2': '@url',
@@ -696,7 +696,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
   }
 });
 
-// 40、查询当前配置模式
+//40、查询当前配置模式
 Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
   'rsphead': 's',
   'success': true,
@@ -721,7 +721,7 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
   }
 });
 
-// 41、配置定金模式接口
+//41、配置定金模式接口
 Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
   'rsphead': 's',
   'success': true,
@@ -734,7 +734,7 @@ Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
   }
 });
 
-// 42、查询定金缴纳情况列表接口
+//42、查询定金缴纳情况列表接口
 Mock.mock(new RegExp('/opmDepositController/queryOpmDepositList'), {
   'rsphead': 's',
   'success': true,
@@ -744,45 +744,45 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositList'), {
   'data': {
     'totalSize|1-100': 1,
     'rows|5-10': [{
-      'opmOrderId':'@id',
-      'opMeetingId':'@id',
-      'opmOrderNo':'@id',
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(4, 6)',
-      'brandCd':'@id',
-      'brandName':'@cword(4, 6)',
-      'offerModelId':'@id',
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(4, 6)',
+      'brandCd': '@id',
+      'brandName': '@cword(4, 6)',
+      'offerModelId': '@id',
       'offerModelName': '@cword(4, 6)',
       'isCentman|1': ['Y', 'N'],
       'price|1-1000': 1000,
       'totalAmount|1-1000': 1000,
-      'supplierId':'@id',
-      'supplierName':'@cword(4, 6)',
-      'retailerId':'@id',
-      'retailerName':'@cword(4, 6)',
+      'supplierId': '@id',
+      'supplierName': '@cword(4, 6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(4, 6)',
       'offerQty|1-1000': 1000,
       'pickupGoodsAmount|1-1000': 1000,
       'depositProportion|1-100': 100,
       'depositAmount|1-1000': 1000,
       'paymentStatusCd|+1': [1000, 1001, 1002],
-      'paymentStatusCdName|+1':['未交定金', '已交定金', '已付款'],
-      'statusCd|+1':[1000, 1001, 1002],
-      'statusCdName|+1':['进行中', '已完成', '已撤销'],
-      'remarks':'@cword(4, 6)',
-      'offerPic':{
-        'offerPicId':'@id',
-        'offerPicUrl':'',
-        'offerPicUrl2':'',
-        'offerPicUrl3':'',
-        'offerPicUrl4':'',
-        'offerPicUrl5':'',
-        'offerPicUrl6':''
+      'paymentStatusCdName|+1': ['未交定金', '已交定金', '已付款'],
+      'statusCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['进行中', '已完成', '已撤销'],
+      'remarks': '@cword(4, 6)',
+      'offerPic': {
+        'offerPicId': '@id',
+        'offerPicUrl': '',
+        'offerPicUrl2': '',
+        'offerPicUrl3': '',
+        'offerPicUrl4': '',
+        'offerPicUrl5': '',
+        'offerPicUrl6': ''
       }
     }]
   }
 });
-// 43、批量导入定金缴纳数据解析接口
+//43、批量导入定金缴纳数据解析接口
 Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmDepositList'), {
   'rsphead': 's',
   'success': true,
@@ -792,38 +792,38 @@ Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmDepositList'), {
   'data': {
     'totalSize|1-100': 1,
     'rows|5-10': [{
-      'opmOrderId':'@id',
-      'opMeetingId':'@id',
-      'opmOrderNo':'@id',
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(4, 6)',
-      'brandCd':'@id',
-      'brandName':'@cword(4, 6)',
-      'offerModelId':'@id',
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(4, 6)',
+      'brandCd': '@id',
+      'brandName': '@cword(4, 6)',
+      'offerModelId': '@id',
       'offerModelName': '@cword(4, 6)',
       'isCentman|1': ['Y', 'N'],
       'price|1-1000': 1000,
       'totalAmount|1-1000': 1000,
-      'supplierId':'@id',
-      'supplierName':'@cword(4, 6)',
-      'retailerId':'@id',
-      'retailerName':'@cword(4, 6)',
+      'supplierId': '@id',
+      'supplierName': '@cword(4, 6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(4, 6)',
       'offerQty|1-1000': 1000,
       'pickupGoodsAmount|1-1000': 1000,
       'depositProportion|1-100': 100,
       'depositAmount|1-1000': 1000,
       'paymentStatusCd|+1': [1000, 1001, 1002],
-      'paymentStatusCdName|+1':['未交定金', '已交定金', '已付款'],
-      'statusCd|+1':[1000, 1001, 1002],
-      'statusCdName|+1':['进行中', '已完成', '已撤销'],
-      'remarks':'@cword(4, 6)',
+      'paymentStatusCdName|+1': ['未交定金', '已交定金', '已付款'],
+      'statusCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['进行中', '已完成', '已撤销'],
+      'remarks': '@cword(4, 6)',
       'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
       'resultMsg': '@cword()' //校验信息
     }]
   }
 });
-// 44、批量导入定金缴纳数据
+//44、批量导入定金缴纳数据
 Mock.mock(new RegExp('/opmDepositController/batchInsertOpmDeposit'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -832,7 +832,7 @@ Mock.mock(new RegExp('/opmDepositController/batchInsertOpmDeposit'), {
   error: null,
   data: null
 });
-// 45、查询诚意金缴纳情况列表接口
+//45、查询诚意金缴纳情况列表接口
 Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
   'rsphead': 's',
   'success': true,
@@ -842,10 +842,10 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
   'data': {
     'totalSize|1-100': 1,
     'rows|5-10': [{
-      'opMeetingId':'@id',
-      'retailerId':'@id',
-      'retailerCode':'@id',
-      'retailerName':'@cword(4, 6)',
+      'opMeetingId': '@id',
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'retailerName': '@cword(4, 6)',
       'retailerType|+1': [1001, 1002, 1003],
       'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
       'payDepositAmount|1-1000': 100,
@@ -854,7 +854,7 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
   }
 });
 
-// 46、导入诚意金数据解析
+//46、导入诚意金数据解析
 Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -866,10 +866,10 @@ Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'
     'successCnt|1-100': 100, //成功条数
     'failCnt|1-100': 1, //失败条数
     'rows|10': [{
-      'opMeetingId':'@id',
-      'retailerId':'@id',
-      'retailerCode':'@id',
-      'retailerName':'@cword(4, 6)',
+      'opMeetingId': '@id',
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'retailerName': '@cword(4, 6)',
       'retailerType|+1': [1001, 1002, 1003],
       'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
       'payDepositAmount|1-1000': 100,
@@ -880,7 +880,7 @@ Mock.mock(new RegExp('/opmDepositController/analyzeInsertOpmRetailerDepositList'
   }
 });
 
-// 47、批量导入新增机型
+//47、批量导入新增机型
 Mock.mock(new RegExp('/opmDepositController/batchInsertOpmRetailerDeposit'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -890,7 +890,7 @@ Mock.mock(new RegExp('/opmDepositController/batchInsertOpmRetailerDeposit'), {
   data: null
 });
 
-// 48、查询政策列表列表
+//48、查询政策列表列表
 Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -901,15 +901,16 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
     'totalCnt|1-100': 100, //总记录条数
     'successCnt|1-100': 100, //成功条数
     'failCnt|1-100': 1, //失败条数
-    'rows|10':  [{
-      'opMeetingId':'@id',
+    'rows|10': [{
+      'opMeetingId': '@id',
+      'policyId': '@id',
       'policyName': '@cword(4, 6)',
       'policyType|+1': [],
-      'policyTypeName|+1':[],
-      'content': '@cword(4, 6)',
+      'policyTypeName|+1': [],
+      'content': '@cword(80, 100)',
       'offerCodes': '@id',
       'offerNames': '@cword(4, 6)',
-      'discountTypeName': '@cword(4, 6)',
+      'discountTypeName': '@cword(10, 20)',
       'quantity|1-1000': 100,
       'discountValue|1-10': 1,
       'amount|1-1000': 100,
@@ -917,12 +918,11 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
       'partyId': '@id',
       'partyName': '@cname',
       'createDt': '@date',
-      'statusCd|+1':[1000, 1001, 1002],
+      'statusCd|+1': [1000, 1001, 1002],
       'statusCdName|+1': ['待审批', '已生效', '失效']
     }]
   }
 });
-
 //49、删除政策信息
 Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
   rsphead: 's',
@@ -932,7 +932,7 @@ Mock.mock(new RegExp('/opmPolicyController/deleteOpmPolicy'), {
   error: null,
   data: null
 });
-//49、政策导入数据
+//50、政策导入数据
 Mock.mock(new RegExp('/opmPolicyController/batchInsertOpmPolicy'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
@@ -941,7 +941,15 @@ Mock.mock(new RegExp('/opmPolicyController/batchInsertOpmPolicy'), {
   error: null,
   data: null
 });
-
+//51、政策审批接口
+Mock.mock(new RegExp('/opmPolicyController/approveOpmPolicy'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
 //52、优惠政策结算订单查询列表接口
 Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   rsphead: 's',
@@ -952,39 +960,39 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   data: {
     'totalSize ': '12',
     'rows': [{
-      'opmOrderId':'@id',
-      'opMeetingId':'@id',
-      'opmOrderNo':'@id',
-      'offerId':'@id',
-      'offerCode':'@id',
-      'offerName':'@cword(4, 6)',
-      'brandCd':'@id',
-      'brandName':'@cword(4, 6)',
-      'offerModelId':'@id',
-      'offerModelName':'@cword(4, 6)',
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(4, 6)',
+      'brandCd': '@id',
+      'brandName': '@cword(4, 6)',
+      'offerModelId': '@id',
+      'offerModelName': '@cword(4, 6)',
       'isCentman|1': ['Y', 'N'],
       'salePrice|1-100.1-2': 1,
-      'supplierId':'@id',
-      'supplierName':'@cword(4, 6)',
-      'retailerId':'@id',
-      'retailerName':'@cword(4, 6)',
+      'supplierId': '@id',
+      'supplierName': '@cword(4, 6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(4, 6)',
       'offerQty|1-1000': 1000,
       'pickupGoodsAmount|1-1000': 1000,
       'paymentStatusCd|+1': [1000, 1001, 1002],
-      'paymentStatusCdName|+1':['未交定金', '已交定金', '已付款'],
-      'statusCd|+1':[1000, 1001, 1002],
-      'statusCdName|+1':['进行中', '已完成', '已撤销'],
-      'remarks':'@cword(18, 30)',
-      'contents':['',''],
+      'paymentStatusCdName|+1': ['未交定金', '已交定金', '已付款'],
+      'statusCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['进行中', '已完成', '已撤销'],
+      'remarks': '@cword(18, 30)',
+      'contents': ['', ''],
       'discountAmount|1-1000': 1,
-      'offerPic':{
-        'offerPicId':'@id',
-        'offerPicUrl':'',
-        'offerPicUrl2':'',
-        'offerPicUrl3':'',
-        'offerPicUrl4':'',
-        'offerPicUrl5':'',
-        'offerPicUrl6':''
+      'offerPic': {
+        'offerPicId': '@id',
+        'offerPicUrl': '',
+        'offerPicUrl2': '',
+        'offerPicUrl3': '',
+        'offerPicUrl4': '',
+        'offerPicUrl5': '',
+        'offerPicUrl6': ''
       }
     }]
   }
@@ -1058,17 +1066,26 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
   error: null,
   data: {
     'totalSize |1-100': 100, //总记录条数
-    'rows|10':  [{
+    'rows|10': [{
       'partyId': '@id',
+<<<<<<< HEAD
       'commonRegionId': '1000001',
 	    'commonRegionName': '@province',
       'userType|+1': [1000, 1001],//用户类型
 	    'relaId': '1122',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',
+=======
+      'commonRegionId': '@id',
+      'commonRegionName': '@province',
+      'userType|+1': [1000, 1001],
+      'relaId': '@id',
+      'relaName': '@cword(5)',
+      'systemUserCode': '@id',
+>>>>>>> 636877d33deb3a827ecddffd63574abbc3926583
       'name': '@cname',
       'linktelenumber': '19899992222',
-	    'remark': '@cword(9)',
+      'remark': '@cword(9)',
       'stautsCd|+1': [1000, 1001, 1002],
       'statusCdName|+1': ['有效', '冻结', '无效']
     }]
@@ -1142,21 +1159,21 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   error: null,
   data: {
     'totalSize |1-100': 100, //总记录条数
-    'rows|10':  [{
+    'rows|10': [{
       'userRoleId': '@id',
       'postRoleId': '@id',
-	    'partyId': '@id',
-	    'commonRegionId': '@id',
+      'partyId': '@id',
+      'commonRegionId': '@id',
       'commonRegionName': '@province',
-	    'userType|+1': [1000, 1001],
+      'userType|+1': [1000, 1001],
       'relaId': '@id',
-	    'relaName': '@cword(5)',
-	    'systemUserCode': '@id',
-	    'name': '@cname',
-	    'linktelenumber': '13788823232',
-	    'remark': '@cword(11)',
-	    'stautsCd|+1': [1000, 1001, 1002],
-	    'statusCdName|+1': ['有效', '冻结', '无效']
+      'relaName': '@cword(5)',
+      'systemUserCode': '@id',
+      'name': '@cname',
+      'linktelenumber': '13788823232',
+      'remark': '@cword(11)',
+      'stautsCd|+1': [1000, 1001, 1002],
+      'statusCdName|+1': ['有效', '冻结', '无效']
     }]
   }
 });

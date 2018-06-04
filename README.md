@@ -46,8 +46,10 @@ npm run build --report
 - 3、地区选择联动组件；
 - 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
 	cnpm install vue-quill-editor --save；
-- 5、routerLink地址全部小写；
+- 5、routerLink地址首字母小写；
 - 6、详情预览界面文字总体感觉别扭；
+- 7、textarea替换成Input组件type="textarea"；
+- 8、接口51的入参policyId，在接口48中返回参数缺失（已在接口48返回参数中添加，待和开发确认）；
 
 
 页面

@@ -1,5 +1,6 @@
 <template>
   <el-input
+    :type="type"
     :placeholder="placeholder"
     :clearable="clearable"
     :disabled="disabled"
@@ -15,6 +16,10 @@
   export default {
     name: 'Input',
     props: {
+      type: {
+        type: String,
+        default: 'input'
+      },
       value: {
         type: [String, Number]
       },
@@ -54,12 +59,15 @@
 </script>
 
 <style lang="less">
-  .el-input__inner {
+  .el-input__inner, .el-textarea__inner {
     &:hover {
       border-color: #c0c4cc;
     }
     &:focus {
       border-color: #ff7a7a;
     }
+  }
+  .el-textarea {
+    vertical-align: top;
   }
 </style>
