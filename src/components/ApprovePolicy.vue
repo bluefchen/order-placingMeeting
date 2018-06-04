@@ -59,6 +59,7 @@
           statusCd: this.statusCd
         }).then((rsp) => {
           this.$message.success('优惠政策审批成功!');
+          this.$emit('update');
         });
       }
     },

@@ -88,6 +88,11 @@
             return h(ApprovePolicy, {
               props: {
                 data: params.row
+              },
+              on: {
+                update: (data) => {
+                  this.queryOpmPolicyList();
+                }
               }
             });
           }

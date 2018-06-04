@@ -7,9 +7,9 @@
       <p class="name" title="data.offerName">{{data.offerName}}</p>
       <p class="code">编码：{{data.offerCode}}</p>
       <p class="property">
-        <span v-if="data.isCentman == 'N'" class="sc">社采</span>
-        <span v-if="data.isCentman == 'Y'" class="jc">集采</span>
-        <span v-if="data.isSpecial == 'Y'" class="spec">特</span>
+        <span v-if="data.isCentman === 'N'" class="sc">社采</span>
+        <span v-if="data.isCentman === 'Y'" class="jc">集采</span>
+        <span v-if="data.isSpecial === 'Y'" class="spec">特</span>
         <ReductionPop/>
       </p>
     </div>
