@@ -134,7 +134,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-      'supplierId': '@id',
+      'supplierId': '1122',
       'supplierCode': '@id',
       'province': '@province',
       'city': '@city',
@@ -160,7 +160,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-      'retailerId': '@id',
+      'retailerId': '1122',
       'retailerCode': '@id',
       'province': '@province',
       'city': '@city',
@@ -1068,12 +1068,12 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'totalSize |1-100': 100, //总记录条数
     'rows|10': [{
       'partyId': '@id',
-      'commonRegionId': '@id',
-      'commonRegionName': '@province',
-      'userType|+1': [1000, 1001],
-      'relaId': '@id',
-      'relaName': '@cword(5)',
-      'systemUserCode': '@id',
+      'commonRegionId': '1000001',
+	    'commonRegionName': '@province',
+      'userType|+1': [1000, 1001],//用户类型
+	    'relaId': '1122',
+	    'relaName': '@cword(5)',
+	    'systemUserCode': '@id',
       'name': '@cname',
       'linktelenumber': '19899992222',
       'remark': '@cword(9)',
