@@ -3,15 +3,9 @@
     <el-button type="text" @click="isShow = true" class="hover-btn">{{title}}</el-button>
     <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
-        <p class="vivo">vivo</p>
-        <p class="p-ttl"><b>vivoX20系列,VIVOX09系列：</b></p>
-        <p class="cnt-info">订购数量100以上打<span class="red">九折</span>，订购数量200以下打<span
-          class="red">八折</span>，订购籽量满500打<span
-          class="red">六折</span></p>
-        <p class="p-ttl"><b>vivoXXX系列,VIVOOOOO系列：</b></p>
-        <p class="cnt-info">订购数量100以上打<span class="red">九五</span>折，订购数量200以下打<span
-          class="red">八五</span>折，订购籽量满500打<span
-          class="red">六五</span>折</p>
+        <p class="vivo">{{data.offerNames}}</p>
+        <p class="p-ttl"><b>{{data.discountTypeName}}</b></p>
+        <p class="cnt-info">{{data.content}}</p>
       </div>
       <div slot="footer">
         <el-button type="success" @click="isShow = false">关闭</el-button>
@@ -29,6 +23,9 @@
       title: {
         type: String,
         require: true
+      },
+      data: {
+        type: Object
       }
     },
     data() {
@@ -74,6 +71,7 @@
     }
     .cnt-info {
       margin: 0 0 16px 40px;
+      white-space: normal;
     }
   }
 </style>

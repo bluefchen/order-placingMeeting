@@ -17,7 +17,7 @@
         </el-row>
       </div>
       <div slot="footer">
-        <el-button type="success" @click="isShow = false">确定</el-button>
+        <el-button type="success" @click="approveOpmPolicy()">确定</el-button>
         <el-button type="success" @click="isShow = false">取消</el-button>
       </div>
     </DialogPopup>
@@ -31,7 +31,9 @@
 
   export default {
     name: 'ApprovePolicy',
-    props: {},
+    props: {
+      data: Object
+    },
     data() {
       return {
         isShow: false,
@@ -49,6 +51,15 @@
     methods: {
       visibleChange(val) {
         this.isShow = val;
+      },
+      approveOpmPolicy() {
+        this.isShow = false;
+        this.$post('/opmPolicyController/approveOpmPolicy', {
+          policyId: this.data.policyId,
+          statusCd: this.statusCd
+        }).then((rsp) => {
+          this.$message.success('优惠政策审批成功!');
+        });
       }
     },
     components: {

@@ -68,7 +68,7 @@
         }, {
           label: '政策机型',
           prop: 'offerNames',
-          width: 180,
+          width: 200,
         }, {
           label: '政策制定日期',
           prop: 'createDt',
@@ -102,20 +102,13 @@
         this.policyManage.policyName = obj.value;
         this.queryOpmPolicyList();
       },
-      deleteOpmPolicy(id) {
-        this.queryOpmPolicyList();
-        this.$post('/opmPolicyController/deleteOpmPolicy', {
-          policyId: id
-        }).then((rsp) => {
-          this.queryOpmPolicyList();
-        })
-      },
       queryOpmPolicyList(curPage, pageSize) {
         this.$post('/opmPolicyController/queryOpmPolicyList', {
           opMeetingId: '订货会ID',
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
-          statusCd: ''
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
         })
@@ -125,7 +118,8 @@
       InputWithSelect,
       Table,
       Breadcrumb,
-      ButtonWithDialog
+      ButtonWithDialog,
+      ApprovePolicy
     }
   }
 </script>
