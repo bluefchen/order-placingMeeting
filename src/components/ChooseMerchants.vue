@@ -58,8 +58,8 @@
         type: String,
         require: true
       },
-      selectionId: {
-        type: String
+      selectionFor: {
+        type: Object
       }
     },
     created() {
@@ -72,7 +72,15 @@
         this.isShowSupplierType = false;
       }
       this.handleSearch();
-      this.selectionChangeList = [this.selectionId];
+      if(this.selectionFor){
+        if(this.selectionFor.userType == 1000){
+          this.checkedOption.retailerId =  this.selectionFor.relaId;
+          this.checkedOption.retailerName = this.selectionFor.relaName;
+        }else{
+          this.checkedOption.supplierId =  this.selectionFor.relaId;
+          this.checkedOption.supplierName = this.selectionFor.relaName;
+        }
+      }
     },
     data() {
       return {

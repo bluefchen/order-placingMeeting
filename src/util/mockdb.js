@@ -134,8 +134,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-        'supplierId': '@id',
-        'supplierCode': '@id',
+        'supplierId': '1122',
+        'supplierCode': '测试供应商',
         'province': '@province',
         'city': '@city',
         'supplierName': '@cword(4,6)',
@@ -160,8 +160,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
   data: {
     'totalSize|1-99': 1,
     'rows|5-10': [{
-        'retailerId': '@id',
-        'retailerCode': '@id',
+        'retailerId': '1122',
+        'retailerCode': '测试零售商',
         'province': '@province',
         'city': '@city',
         'retailerName': '@cword(4,6)',
@@ -194,10 +194,10 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
   rsphead: 's',
   success: true,
   code: null,
-  msg: null, 
+  msg: null,
   error: null,
   data: {
-    'totalSize|1-99': 10, 
+    'totalSize|1-99': 10,
     'rows|5-10': [{
       'offerId':'@id',
       'offerCode':'@id',
@@ -250,7 +250,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
         }
       }
     }]
-  }   
+  }
 });
 
 //10、查询终端品牌接口
@@ -1060,10 +1060,10 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'totalSize |1-100': 100, //总记录条数
     'rows|10':  [{
       'partyId': '@id',
-      'commonRegionId': '@id',
+      'commonRegionId': '1000001',
 	    'commonRegionName': '@province',
-      'userType|+1': [1000, 1001],
-	    'relaId': '@id',
+      'userType|+1': [1000, 1001],//用户类型
+	    'relaId': '1122',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',
       'name': '@cname',

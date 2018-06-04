@@ -53,7 +53,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionId="usermanData.relaId" />
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" />
             </div>
           </el-col>
         </el-row>
@@ -76,10 +76,17 @@
         </el-row>
       </div>
       <div class="foot-btn">
-        <el-button class="btns" @click="addUsermanSubmit" :disabled="!usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
+        <div>
+          <el-button class="btns" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
+          <el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>
+          <el-button class="btns" >取&nbsp;消</el-button>
+        </div>
         <!--当身份为管理人员时-->
-        <!--<el-button class="btns" @click="addUsermanSubmit" :disabled="!usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
-        <el-button class="btns" >取&nbsp;消</el-button>
+        <!--<div>-->
+          <!--<el-button class="btns" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+          <!--<el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+          <!--<el-button class="btns" >取&nbsp;消</el-button>-->
+        <!--</div>-->
       </div>
     </div>
   </div>
@@ -107,6 +114,7 @@
           manageUserType: 1000,
           password: '',
         },
+        usermanSelect:{},
         usermanList: [{
           value: 1000,
           label: '零售商'
