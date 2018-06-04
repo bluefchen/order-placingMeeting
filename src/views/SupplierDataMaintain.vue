@@ -98,16 +98,13 @@
           value: '1004',
           label: '其他'
         }],
-        //供货商类型
+        //供货商状态
         supplierStatusList: [{
           value: '1000',
           label: '有效'
         },{
           value: '1001',
           label: '停用'
-        },{
-          value: '1002',
-          label: '无效'
         }],
 
         tableTitle: [{
@@ -268,6 +265,7 @@
           });
         }
       },
+
       freezeSupplier(val){
         this.$post('/orderPlacingMeetingController/freezeSupplier', {
           supplierIds: val

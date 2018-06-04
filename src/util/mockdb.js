@@ -174,9 +174,11 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
       'linkMan': '@cname',
       'linkNbr': /\d{5,11}/,
       'retailerPhone': /\d{5,9}\-/,
-      'retailerFax': /\d{5,9}\-/
+      'retailerFax': /\d{5,9}\-/,
+      'statusCd|1': ['1000', '1001'],
+      'statusCdName|1': ['有效', '停用'],
+      'remarks': '@cword(10,20)'
     }]
-
   }
 });
 
