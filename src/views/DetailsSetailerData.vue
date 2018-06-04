@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">零售商名称：</label>
-                  <p class="condition-input"><b>赛格数码科技有限公司</b></p>
+                  <p class="condition-input"><b>{{retailerInfo.retailerName}}</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -22,13 +22,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p class="condition-input">江苏</p>
+                  <p class="condition-input">{{retailerInfo.province}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">零售商类型：</label>
-                  <p class="condition-input">省代</p>
+                  <p class="condition-input">{{retailerInfo.retailerTypeName}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -36,13 +36,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人：</label>
-                  <p class="condition-input">王小二</p>
+                  <p class="condition-input">{{retailerInfo.linkMan}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人手机：</label>
-                  <p class="condition-input">18905174326</p>
+                  <p class="condition-input">{{retailerInfo.linkNbr}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -50,13 +50,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司电话：</label>
-                  <p class="condition-input">025-55555555</p>
+                  <p class="condition-input">{{retailerInfo.retailerPhone}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司传真：</label>
-                  <p class="condition-input">025-55555555</p>
+                  <p class="condition-input">{{retailerInfo.retailerFax}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -64,7 +64,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds text-right">备注：</label>
-                  <p class="condition-input">XXXXXXXXXX</p>
+                  <p class="condition-input">{{retailerInfo.remarks}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -81,6 +81,7 @@
   export default {
     name: 'DetailsSetailerData',
     created() {
+      this.retailerInfo = JSON.parse(localStorage.getItem(this.$route.query.retailerId));
     },
     data() {
       return {

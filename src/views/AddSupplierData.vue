@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <Cascader @change="handleChange" :regionId="supplierInfo.commonRegionId" :level="level" disabled="true"/>
+              <Cascader @change="handleChange" :regionId="supplierInfo.commonRegionId" :level="level"/>
             </div>
           </el-col>
         </el-row>
@@ -81,12 +81,6 @@
   export default {
     name: 'AddSupplierData',
     created() {
-
-      this.$post('/commonCfgController/getCommonRegionTreeList', {
-        commonRegionId: ''
-      }).then((rsp) => {
-        this.commonRegionList = rsp;
-      });
       this.supplierInfo = JSON.parse(localStorage.getItem(this.$route.query.supplierId));
       if(this.supplierInfo.supplierId){
         this.title = '修改供货商';
@@ -261,17 +255,28 @@
       }
     }
     .el-cascader{
-        flex: 1;
+      flex: 1;
+      line-height: 32px;
+      .el-input__inner{
+        height: 32px;
         line-height: 32px;
-        .el-input__inner{
-          height: 32px;
-          line-height: 32px;
-        }
-        .el-input__icon{
-          line-height: 32px;
-        }
       }
+      .el-input__icon{
+        line-height: 32px;
+      }
+    }
 
+  }
+  .el-input.is-active .el-input__inner, .el-input__inner:focus {
+    border-color: #ff7a7a;
+  }
+  .el-select-dropdown {
+    border: none;
+  }
+  .el-select-dropdown__item.selected {
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
   .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
     color: #fff;

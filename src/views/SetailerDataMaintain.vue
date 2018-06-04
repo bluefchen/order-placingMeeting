@@ -9,10 +9,7 @@
 
     <!-- 搜索 -->
     <div class="box-1200">
-      <div class="title-plate">  
-        <TitlePlate title="零售商资料维护列表"/>
-      </div>
-      <div class="search fn-clear">  
+      <div class="search fn-clear">
         <InputWithSelect class="fn-left" @search="search" :isHideSelect="true" />
         <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                               class="iconfont">&#xe607;</i><i
@@ -23,21 +20,27 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-query" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="6">
+          <div class="condition-iterm">
+            <label class="label-wrds">省份：</label>
+            <Cascader @change="selectAddress" :level="level" :regionId="orderQueryData.commonRegionId" />
+          </div>
+        </el-col>
+        <el-col :span="6">
           <div class="condition-iterm">
             <label class="label-wrds">零售商类型：</label>
-            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+            <Select class="condition-input" :value.sync="orderQueryData.type" :options="retailerTypeList"/>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6">
           <div class="condition-iterm">
             <label class="label-wrds">零售商状态：</label>
-            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="retailerStatusList"/>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6">
           <div class="condition-iterm">
-            <el-button type="success" size="small" @click="queryOpmOrderSubmit()">查询</el-button>
+            <el-button type="success" size="small" @click="qryRetailerList()">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -46,371 +49,16 @@
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <div class="fn-left btn-checkbox">
-          <input type="checkbox" id="checkAll">
-          <label for="checkAll">全选</label>
-        </div>    
+          <TitlePlate title="零售商资料维护列表"/>
+        </div>
         <div class="buttons fn-right">
-          <button class="btns"><i class="iconfont">&#xe642;</i> 新增零售商</button>
-          <button class="btns"><i class="iconfont">&#xe6bd;</i> 批量激活</button>
-          <button class="btns"><i class="iconfont">&#xe60c;</i> 批量冻结</button>
-          <button class="btns"><i class="iconfont">&#xe610;</i> 批量删除</button>
+          <button class="btns" @click="addRetailer('新增')"><i class="iconfont">&#xe642;</i> 新增零售商</button>
+          <button class="btns" @click="batchUnfreezeRetailer"><i class="iconfont">&#xe6bd;</i> 批量激活</button>
+          <button class="btns" @click="batchFreezeRetailer"><i class="iconfont">&#xe60c;</i> 批量冻结</button>
+          <button class="btns" @click="batchDeleteRetailer"><i class="iconfont">&#xe610;</i> 批量删除</button>
         </div>
       </div>
-      <div class="maintain-list fn-clear">
-        <ul>
-          <li class="checked">
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-          <li>
-            <div class="miantain-item-header">
-              <span class="iconfont">&#xe665;</span>【江苏省】<a href="javascript:void(0)">赛格数码科技有限公司</a>
-            </div>
-            <div class="miantain-item-content">
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">零售商编码：<span>10101</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">类型：<span>直供网</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">联系人：<span>王小二</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">联系电话：<span>18905174326</span></p>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <p class="label-wrds">公司电话：<span>025-55555555</span></p>
-                </el-col>
-                <el-col :span="12">
-                  <p class="label-wrds">公司传真：<span>025-55555555</span></p>
-                </el-col>
-              </el-row>
-            </div> 
-            <div class="miantain-item-footer">
-              <div class="miantain-item-type">状态：<span>有效</span></div>
-              <div class="miantain-item-btn">
-                <a href="javascript:void(0)"><span class="iconfont">&#xe60c;</span>&nbsp;冻结</a>
-                <a href="javascript:void(0)" class="miantain-item-edit"><span class="iconfont">&#xe738;</span>&nbsp;修改</a>
-                <a href="javascript:void(0)"><span class="iconfont">&#xe633;</span>&nbsp;删除</a>
-              </div>  
-            </div>
-          </li>
-        </ul>
-      </div>
+      <Table :isSelection="true" :table-title="tableTitle" :table-data="tableData" @selectionChange="selectionChange" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -427,36 +75,115 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
+  import Cascader from '@/components/Cascader';
 
   export default {
     name: 'SetailerDataMaintain',
     created() {
-      this.queryOpmOrderSubmit();
+      this.qryRetailerList();
     },
     data() {
       return {
-        paymentStatusList: [{ //付款状态列表
-          value: 1000,
-          label: '未交定金'
-        }, {
-          value: 1001,
-          label: '已交定金'
-        }, {
-          value: 1002,
-          label: '已付款'
+        //零售商类型
+        retailerTypeList: [{
+          value: '1001',
+          label: '自营厅'
+        },{
+          value: '1002',
+          label: '大连锁'
+        },{
+          value: '1003',
+          label: '代理商'
         }],
+        //零售商状态
+        retailerStatusList: [{
+          value: '1000',
+          label: '有效'
+        },{
+          value: '1001',
+          label: '停用'
+        }],
+
+        tableTitle: [{
+          label: '省份',
+          prop: 'province'
+        }, {
+          label: '零售商名称',
+          prop: 'retailerName',
+          width: 150
+        }, {
+          label: '零售商编码',
+          prop: 'retailerCode'
+        }, {
+          label: '零售商类型',
+          prop: 'retailerTypeName'
+        }, {
+          label: '联系人',
+          prop: 'linkMan',
+          width: 80
+        }, {
+          label: '联系电话',
+          prop: 'linkNbr'
+        }, {
+          label: '公司电话',
+          prop: 'retailerPhone'
+        }, {
+          label: '公司传真',
+          prop: 'retailerFax'
+        }, {
+          label: '状态',
+          prop: 'statusCdName',
+          width: 80
+        }, {
+          label: '操作',
+          prop: 'remarks',
+          width: 180,
+          render: (h, params) => {
+            return h({
+              template: `<div>
+                <button class="updown-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeRetailer([data.row.retailerId])">激活</button>
+                <button class="updown-btn" v-if="data.row.statusCd === '1000'" @click="freezeRetailer([data.row.retailerId])">冻结</button>
+                <button class="updown-btn" @click="addRetailer('修改', data.row)">修改</button>
+                <button class="updown-btn" @click="deleteRetailer([data.row.retailerId])">删除</button>
+                <button class="updown-btn" @click="detailRetailer(data.row)">详情</button>
+              </div>`,
+              data() {
+                return {
+                  data: params
+                }
+              },
+              methods: {
+                freezeRetailer: (val) => {
+                  this.freezeRetailer(val);
+                },
+                unfreezeRetailer: (val) => {
+                  this.unfreezeRetailer(val);
+                },
+                deleteRetailer: (val) => {
+                  this.deleteRetailer(val);
+                },
+                addRetailer: (title, val) => {
+                  this.addRetailer(title, val);
+                },
+                detailRetailer: (val) => {
+                  this.detailRetailer(val);
+                },
+              }
+            });
+          }
+        }],
+        tableData: [],
+        level: 'province',
         paymentCtatusCd: '', //付款状态CD
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
-          isCentman: '',
           offerNameOrCode: '',
-          opmOrderNo: '',
-          retailerId: '',
-          dateValue: [],
-          supplierId: '',
+          commonRegionId: '',
+          type: '',
           statusCd: ''
         },
         isShowMoreCondition: false, //是否显示更多条件
+        selectList: [],
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -466,46 +193,135 @@
       search(obj) {
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit()
+        this.qryRetailerList()
       },
-      selectRetailer(val){
-          this.orderQueryData.retailerId = val;
+      selectAddress(code, name){
+        this.orderQueryData.commonRegionId = code;
+        this.orderQueryData.commonRegionName = name;
       },
-      selectSupplier(val){
-          this.orderQueryData.supplierId = val;
-      },
-      queryOpmOrderSubmit(curPage, pageSize) {
+      qryRetailerList(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderList', {
-          opMeetingId: '订货会ID',
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
+        this.$post('/orderPlacingMeetingController/queryRetailerList', {
+          commonRegionId: this.orderQueryData.commonRegionId,
+          retailerNameorCode: this.orderQueryData.offerNameOrCode,
+          retailerType: this.orderQueryData.type,
           statusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.qryOpmOrderList = rsp.rows;
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
-      orderdetail(item) {
-        localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+      selectionChange(val){
+        this.selectList = val;
+      },
+      batchFreezeRetailer(){
+        var retailerList = [];
+        this.selectList.forEach((item, index) => {
+          if (item.statusCd === '1000') {
+            retailerList.push(item.retailerId)
+          }
+        });
+        if(retailerList.length){
+          this.freezeRetailer(retailerList);
+        }else{
+          this.$message({
+            message: '请选择需要冻结的零售商！',
+            type: 'warning'
+          });
+        }
+      },
+      batchUnfreezeRetailer(){
+        var retailerList = [];
+        this.selectList.forEach((item, index) => {
+          if (item.statusCd === '1001') {
+            retailerList.push(item.retailerId)
+          }
+        });
+        if(retailerList.length){
+          this.unfreezeRetailer(retailerList);
+        }else{
+          this.$message({
+            message: '请选择需要激活的零售商！',
+            type: 'warning'
+          });
+        }
+      },
+      batchDeleteRetailer(){
+        var retailerList = [];
+        this.selectList.forEach((item, index) => {
+          retailerList.push(item.retailerId);
+        });
+        if(retailerList.length){
+          this.deleteRetailer(retailerList);
+        }else{
+          this.$message({
+            message: '请选择需要删除的零售商！',
+            type: 'warning'
+          });
+        }
+      },
+      freezeRetailer(val){
+        this.$post('/orderPlacingMeetingController/freezeRetailer', {
+          retailerIds: val
+        }).then((rsp) => {
+          this.$message({
+            message: '冻结成功！',
+            type: 'success'
+          });
+          this.qryRetailerList(this.currentPage);
+        })
+      },
+      unfreezeRetailer(val){
+        this.$post('/orderPlacingMeetingController/unfreezeRetailer', {
+          retailerIds: val
+        }).then((rsp) => {
+          this.$message({
+            message: '激活成功！',
+            type: 'success'
+          });
+          this.qryRetailerList(this.currentPage);
+        })
+      },
+      deleteRetailer(val){
+        this.$post('/orderPlacingMeetingController/deleteRetailer', {
+          retailerIds: val
+        }).then((rsp) => {
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          });
+          this.qryRetailerList(this.currentPage);
+        })
+      },
+      addRetailer(title, val){
+        if(title === '新增'){
+          this.$router.push({
+            path: '/orderManage/AddSetailerData'
+          });
+        }else{
+          localStorage.setItem(val.retailerId, JSON.stringify(val));
+          this.$router.push({
+            path: '/orderManage/AddSetailerData',
+            query: {
+              retailerId: val.retailerId
+            }
+          });
+        }
+
+      },
+      detailRetailer(val){
+        localStorage.setItem(val.retailerId, JSON.stringify(val));
         this.$router.push({
-          path: '/order/Orderdetail',
+          path: '/orderManage/detailsSetailerData',
           query: {
-            opmOrderId: item.opmOrderId
+            retailerId: val.retailerId
           }
         });
       },
-      exportOpmOrder() {
-      },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+        this.qryRetailerList(curPage);
       }
     },
     components: {
@@ -518,12 +334,13 @@
       Table,
       DeviceInfo,
       Pagination,
-      ChooseMerchants
+      ChooseMerchants,
+      Cascader
     }
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .order_pickup-data {
 
     /*中间背景图片*/
@@ -547,7 +364,7 @@
       padding: 8px 0;
       border-bottom: 2px solid #e5e5e5;
     }
-    
+
     .btn-checkbox{
       input{
         display: none;
@@ -604,6 +421,17 @@
         }
       }
     }
+    .el-cascader{
+      flex: 1;
+      line-height: 32px;
+      .el-input__inner{
+        height: 32px;
+        line-height: 32px;
+      }
+      .el-input__icon{
+        line-height: 32px;
+      }
+    }
     /* 条件搜索 */
     .tabs-list {
       margin: 0 auto 20px;
@@ -628,101 +456,10 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
-
-    .maintain-list{
-      width: 100%;
-      overflow-x: hidden;
-      ul{
-        width: 104%;
-        li{
-          position: relative;
-          float: left;
-          display: inline-block;
-          margin-right: 20px;
-          margin-bottom: 20px;
-          width: 384px;
-          height: 173px;
-          border: 1px solid #ededed;
-          .miantain-item-header{
-            position: relative;
-            display: flex;
-            width: 100%;
-            height: 39px;
-            background: #fafafa;
-            color: #b3b3b3;
-            border-bottom: 1px solid #edeeee;
-            font-size: 14px;
-            line-height: 39px;
-            .iconfont{
-              font-size: 24px;
-              color: #f35260;
-              margin-left: 8px;
-            }
-            a{
-              color: #f83e4c;
-              text-decoration: underline;
-            }
-            &:after{
-              position: absolute;
-              right: 0;
-              top: 0;
-              content: '';
-              width: 34px;
-              height: 34px;
-              color: #d1d1d1;
-              background: url('../assets/images/icon-check.png') no-repeat right top;
-              text-align: center;
-              line-height: 34px;
-              cursor: pointer;
-            }
-          }
-          .miantain-item-content{
-            padding: 5px 14px 0;
-            height: 89px;
-            background: #fff;
-            line-height: 28px;
-          }
-          .miantain-item-footer{
-            display: flex;
-            height: 38px;
-            background: #fafafa;
-            border-top: 1px solid #edeeee;
-            line-height: 38px;
-            justify-content: space-between;
-            .miantain-item-type{
-              height: 28px;
-              margin-top: 5px;
-              padding-right: 20px;
-              margin-left: 14px;
-              border-right: 1px solid #d5d5d5;
-              line-height: 28px;
-              span{
-                color: #51be3d;
-              }
-            }
-            .miantain-item-btn{
-              a{
-                padding: 0 17px;
-                color: #848484;
-                text-decoration: none;
-              }
-              .miantain-item-edit{
-                border-left: 1px solid #e6e6e6;
-                border-right: 1px solid #e6e6e6;
-              }
-            }
-          }
-          &.checked{
-            border: 1px solid #f82134;
-            .miantain-item-header{
-              &:after{
-                background: url('../assets/images/icon-checked.png') no-repeat right top;
-              }
-            }
-          }
-        }
-      }
-    }
-
+  }
+  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
 </style>
