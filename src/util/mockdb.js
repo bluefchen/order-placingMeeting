@@ -1068,21 +1068,12 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'totalSize |1-100': 100, //总记录条数
     'rows|10': [{
       'partyId': '@id',
-<<<<<<< HEAD
       'commonRegionId': '1000001',
 	    'commonRegionName': '@province',
       'userType|+1': [1000, 1001],//用户类型
 	    'relaId': '1122',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',
-=======
-      'commonRegionId': '@id',
-      'commonRegionName': '@province',
-      'userType|+1': [1000, 1001],
-      'relaId': '@id',
-      'relaName': '@cword(5)',
-      'systemUserCode': '@id',
->>>>>>> 636877d33deb3a827ecddffd63574abbc3926583
       'name': '@cname',
       'linktelenumber': '19899992222',
       'remark': '@cword(9)',
