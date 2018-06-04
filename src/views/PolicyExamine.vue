@@ -41,6 +41,7 @@
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import ButtonWithDialog from '@/components/ButtonWithDialog';
+  import ApprovePolicy from '@/components/ApprovePolicy';
 
   export default {
     name: 'PolicyExamine',
@@ -84,19 +85,11 @@
           label: '操作',
           width: 120,
           render: (h, params) => {
-            return h({
-              template: '<el-button type="text" @click="examineItem(policyId)" class="delete-btn">审批</el-button>',
-              data: function () {
-                return {
-                  policyId: params.row.policyId
-                }
-              },
-              methods: {
-                examineItem: (id) => {
-                  this.deleteOpmPolicy(id);
-                }
-              },
-            })
+            return h(ApprovePolicy, {
+              props: {
+                data: params.row
+              }
+            });
           }
         }],
         tableData: [],
