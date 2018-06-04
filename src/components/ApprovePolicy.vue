@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="16" :offset="4">
             <label class="label-wrds">审批结果：</label>
-            <Select class="condition-input" :value.sync="status" :options="statusList"/>
+            <Select class="condition-input" :value.sync="statusCd" :options="statusList"/>
           </el-col>
         </el-row>
         <el-row>
@@ -35,7 +35,7 @@
     data() {
       return {
         isShow: false,
-        status: null,
+        statusCd: 1,
         statusList: [{
           label: '通过',
           value: 1
