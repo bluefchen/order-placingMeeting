@@ -29,8 +29,8 @@
       <div class="queries-category fn-clear">
         <span class="category-label fn-left">终端状态：</span>
         <div class="category-list fn-left">
-            <span class="category-item">上架</span>
-            <span class="category-item">下架</span>
+            <span class="category-item" :class="{'hover': checkedStatusCdIndex===index}"
+                  v-for="(opt, index) in statusCdList" :key="index" @click="checkedStatusCdType(opt, index)">{{opt.statusCdName}}</span>
         </div>
       </div>
       <div class="queries-category fn-clear">
@@ -62,9 +62,9 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="终端产品列表"/>
         <div class="buttons fn-right">
-          <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
-          <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe679;</i> 批量上架</router-link>
-          <router-link class="btns" to="/order/importModelAdd"><i class="iconfont">&#xe678;</i> 批量下架</router-link>
+          <router-link class="btns" to="/orderManage/addTerminalMaintain"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
+          <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
+          <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
         </div>
       </div>
       <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
@@ -87,7 +87,7 @@
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         this.brandList = rsp;
       });
-      this.queryOpMeetingOfferList();
+      this.queryOfferList();
     },
     data() {
       return {
@@ -99,7 +99,13 @@
           render: (h, params) => {
             return h(DeviceInfo, {
               props: {
-                data: params.row,
+                data: {
+                  offerName: params.row.offerName,
+                  offerCode: params.row.offerCode,
+                  isCentman: params.row.isCentman,
+                  offerPicId: params.row.offerHardwardParam.offerPic.offerPicId,
+                  offerPic: params.row.offerHardwardParam.offerPic
+                }
               }
             });
           }
@@ -124,21 +130,36 @@
           }
         }, {
             label: '终端状态',
-            prop: 'statusCd'
+            prop: 'statusCd',
+            render: function(h, params){
+              return h({
+                template: `<div>{{param.row.statusCd ==='1001' ? '上架' : '下架'}}</div>`,
+                data: function(){
+                  return {
+                    param: params
+                  }
+                }
+              })
+            }
         }, {
           label: '操作',
           prop: 'operation',
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
-              template: '<div><button class="updown-btn">上架</button><button class="updown-btn">修改</button><button @click="delOpmOfferAllot(param.row, param.index)" class="updown-btn">删除</button></div>',
+              template: `<div>
+              <button v-if="param.row.statusCd === '1002'" class="updown-btn green">上架</button>
+              <button v-if="param.row.statusCd === '1001'" class="updown-btn">下架</button>
+              <button @click="editTerminal(param.row, param.index)" class="updown-btn">修改</button>
+              <button class="updown-btn">删除</button>
+              </div>`,
               data: function(){
                 return {
                   param: params
                 }
               },
               methods: {
-                delOpmOfferAllot: (val, index) => {
-                  this.deleteOpmOfferAllot(val, index);
+                editTerminal: (val, index) => {
+                  this.editTerminalMaintain(val, index);
                 }
               }
             })
@@ -151,7 +172,7 @@
         isFoldScreen: false, //是否折叠更多筛选
         //筛选数据
         checkedCategoryList: [{
-          name: '是否特种机型',
+          name: '状态',
           categoryName: null,
           categoryCode: null
         }, {
@@ -166,18 +187,18 @@
         categoryItem: {
           'isCentman': '',
           'offerNameOrCode': '',
-          'isSpecial': '',
           'brandCd': '',
-          'offerModelId': ''
+          'offerModelId': '',
+          'statusCd': ''
         },
-        isSpecialList: [{
-          isSpecialName: '是',
-          isSpecial: 'Y'
+        statusCdList: [{
+          statusCdName: '上架',
+          statusCd: '1001'
         }, {
-          isSpecialName: '否',
-          isSpecial: 'N'
+          statusCdName: '下架',
+          statusCd: '1002'
         }],
-        checkedSpecialIndex: null,
+        checkedStatusCdIndex: null,
         brandList: [],
         checkedBrandIndex: null,
         modelList: [],
@@ -191,7 +212,7 @@
       search(obj) {
         this.categoryItem.isCentman = obj.type;
         this.categoryItem.offerNameOrCode = obj.value;
-        this.queryOpMeetingOfferList();
+        this.queryOfferList();
       },
       changeFoldBrand() {
         this.isFoldBrand = !this.isFoldBrand;
@@ -201,6 +222,17 @@
       },
       changeFoldScreen() {
         this.isFoldScreen = !this.isFoldScreen;
+      },
+      checkedStatusCdType(val, index) {
+        this.checkedStatusCdIndex = index;
+        this.checkedCategoryList.map((item) => {
+          if (item.name === '状态') {
+            item.categoryName = val.statusCdName;
+            item.categoryCode = val.statusCd;
+          }
+        });
+        this.categoryItem.statusCd = val.statusCd;
+        this.queryOfferList();
       },
       checkedBrand(val, index) {
         if (this.checkedBrandIndex !== index) {
@@ -219,7 +251,7 @@
           });
           this.categoryItem.brandCd = val.brandCd;
           this.categoryItem.offerModelId = '';
-          this.queryOpMeetingOfferList();
+          this.queryOfferList();
         } else {
           this.delCategoryItem('品牌');
         }
@@ -234,16 +266,16 @@
             }
           });
           this.categoryItem.offerModelId = val.offerModelId;
-          this.queryOpMeetingOfferList();
+          this.queryOfferList();
         } else {
           this.delCategoryItem('型号');
         }
       },
-      addCategoryItem(val) {
-        this.checkedCategoryList.push(val);
-      },
       delCategoryItem(val) {
-        if (val === '品牌') {
+        if (val === '状态') {
+          this.checkedStatusCdIndex = null;
+          this.categoryItem.statusCd = '';
+        } else  if (val === '品牌') {
           this.checkedBrandIndex = null;
           this.checkedModelIndex = null;
           this.modelList = [];
@@ -265,16 +297,13 @@
             item.categoryCode = null;
           }
         });
-        this.queryOpMeetingOfferList();
+        this.queryOfferList();
       },
-      queryOpMeetingOfferList(curPage, pageSize) {
+      queryOfferList(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/orderPlacingMeetingController/queryOpMeetingOfferList', {
-          opMeetingId: '订货会ID',
-          isCentman: this.categoryItem.isCentman,
-          offerNameOrCode: this.categoryItem.offerNameOrCode,
-          isSpecial: this.categoryItem.isSpecial,
-          brandCd: this.categoryItem.brandCd,
+        this.$post('/orderPlacingMeetingController/queryOfferList', {
+          offerNameOrCode: this.categoryItem.offerNameOrCode, 
+          brandCd: this.categoryItem.brandCd, 
           offerModelId: this.categoryItem.offerModelId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
@@ -284,7 +313,17 @@
         })
       },
       pageChanged(curPage) {
-        this.queryOpMeetingOfferList(curPage);
+        this.queryOfferList(curPage);
+      },
+      editTerminalMaintain(val, index){
+        localStorage.setItem(val.offerId, JSON.stringify(val));
+        this.$router.push({
+          path: '/orderManage/addTerminalMaintain',
+          query: {
+            offerId: val.offerId
+          }
+        });
+
       }
     },
     components: {
@@ -490,6 +529,7 @@
       border-radius: 3px;
       line-height: 28px;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .buttons .btns:hover {
@@ -582,6 +622,9 @@
         padding: 2px 5px;
         border: 1px solid #fff;
         text-decoration: underline;
+        &.green{
+          color: #46b02e;
+        }
         &:hover{
           border: 1px solid #f82134;
           border-radius: 3px;

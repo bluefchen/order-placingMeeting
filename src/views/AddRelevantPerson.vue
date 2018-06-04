@@ -2,42 +2,42 @@
   <div class="add-relevant box-1200">
     <!-- 搜索 -->
     <div class="search fn-clear">
-      <el-input placeholder="输入用户帐号或手机号查询" class="input-with-select fn-left" size="small">
-        <el-button slot="append" @click="Search()">搜 索</el-button>
+      <el-input placeholder="输入用户帐号或手机号查询" class="input-with-select fn-left" size="small" v-model="relevantData.codeOrPhone">
+        <el-button slot="append" @click="usermanSearch()">搜 索</el-button>
       </el-input>
       <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
     <!-- 条件搜索 -->
     <div class="condition-search" v-show="isShowMoreCondition">
-          <el-row :gutter="20">
-            <el-col :span="7">
-              <div class="condition-iterm">
-                <label class="label-wrds">用户类型：</label>
-                <Select class="condition-input" :value.sync="relevantData.userId" :options="usermanList"/>
-              </div>
-            </el-col>
-            <el-col :span="7">
-              <div class="condition-iterm">
-                <label class="label-wrds">所属省份：</label>
-                <Cascader @change="handleChange"/>
-              </div>
-            </el-col>
-            <el-col :span="7">
-              <div class="condition-iterm">
-                <label class="label-wrds">所属商户：</label>
-                <ChooseMerchants title="供应商" @selectOptions="selectRetailer" />
-              </div>
-            </el-col>
-            <el-col :span="3">
-              <el-button class="query-btns" @click="search()">查询</el-button>
-            </el-col>
-          </el-row>
-        </div>
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <div class="condition-iterm">
+            <label class="label-wrds">用户类型：</label>
+            <Select class="condition-input" :value.sync="relevantData.userType" :options="usermanList"/>
+          </div>
+        </el-col>
+        <el-col :span="7">
+          <div class="condition-iterm">
+            <label class="label-wrds">所属省份：</label>
+            <Cascader @change="handleChange"/>
+          </div>
+        </el-col>
+        <el-col :span="7">
+          <div class="condition-iterm">
+            <label class="label-wrds">所属商户：</label>
+            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
+          </div>
+        </el-col>
+        <el-col :span="3">
+          <el-button class="query-btns" @click="usermanSearch()">查询</el-button>
+        </el-col>
+      </el-row>
+    </div>
     <p class="p-title"><i class="iconfont">&#xe609;</i> 选择添加角色人员列表</p>
     <Table :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
     <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     <div class="foot-btn">
-      <button class="btns">保&nbsp;持</button>
+      <button class="btns" @click="addRelevantRoleSubmit">保&nbsp;持</button>
       <button class="btns">取&nbsp;消</button>
     </div>
   </div>
@@ -52,56 +52,47 @@
 
   export default {
     name: 'AddRelevantPerson',
-    props: {
-      title: {
-        type: String,
-        require: true
-      }
-    },
     created() {
-
-      // this.handleSearch();
     },
     data() {
       return {
-        isShow: false,
-        checkedOption: {},
-        usermanList: [{ //用户类型
-          value: 1001,
+        usermanList: [{
+          value: 1000,
           label: '零售商'
         }, {
-          value: 1002,
-          label: '供货商'
+          value: 1001,
+          label: '供应商'
         }],
         relevantData: {
-          userId: '',
+          codeOrPhone:'',
+          userType: 1000,
+          retailerId: '',
         },
         tableTitle: [{
           label: '真实姓名',
-          prop: 'roleName',
+          prop: 'name',
           width: 160,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
               data() {
                 return {
-                  roleName: params.row.roleName,
-                  imgSrc: params.row.imgSrc
+                  roleName: params.row.name,
                 }
               }
             });
           }
         }, {
           label: '用户账号',
-          prop: 'offerCode',
+          prop: 'systemUserCode',
           width: 170
         }, {
           label: '用户类型',
-          prop: 'isCentman',
+          prop: 'userType',
           width: 160,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
               data() {
                 return {
                   data: params
@@ -111,21 +102,17 @@
           }
         }, {
           label: '手机号码',
-          prop: 'supplierName',
+          prop: 'linktelenumber',
           width: 160
         }, {
           label: '归属省份',
-          prop: '',
+          prop: 'commonRegionName',
           width: 160
         }, {
           label: '归属商户',
-          prop: 'offerQty',
+          prop: 'relaName',
         }],
-        tableData: [{
-          roleName:'wwe',
-          supplierName:'111',
-        }],//查询返回的数据
-        usermanData: [],
+        tableData: [],//查询返回的数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
@@ -133,55 +120,73 @@
       }
     },
     methods: {
+      //查询
+      usermanSearch() {
+        this.queryUsermanSubmit();
+      },
+      //多选
       selectionChange(val){
         this.selectionChangeList = val;
       },
-      saveChange(){
-        this.checkedOption = this.selectionChangeList ? this.selectionChangeList : {};
-        if(this.title === '供货商'){
-          this.$emit('selectOptions', this.checkedOption.supplierId);
-        }else{
-          this.$emit('selectOptions', this.checkedOption.retailerId);
-        }
-        this.isShow = false;
-      },
-      search(obj) {
-        // this.orderQueryData.isCentman = obj.type;
-        // this.orderQueryData.offerNameOrCode = obj.value;
-        // this.queryOpmOrderSubmit();
-      },
+      //展示更多
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      visibleChange(val) {
-        this.isShow = val;
-      },
+      //选择地区
       handleChange(val){
-        // this.orderQueryData.commonRegionId = val;
+        this.relevantData.commonRegionId = val;
       },
+      //选择零售商或供应商
       selectRetailer(val){
-        this.orderQueryData.retailerId = val;
+        this.relevantData.relaId = val;
       },
-      queryOpmOrderSubmit(curPage, pageSize) {
-        this.$post('/opmOrderController/queryOpmOrderList', {
-          // opMeetingId: '订货会ID',
-          // isCentman: this.orderQueryData.isCentman,
-          // offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          // opmOrderNo: this.orderQueryData.opmOrderNo,
-          // supplierId: this.orderQueryData.supplierId,
-          // retailerId: this.orderQueryData.retailerId,
-          // fromDate: this.orderQueryData.dateValue[0],
-          // toDate: this.orderQueryData.dateValue[1],
-          // statusCd: this.orderQueryData.statusCd,
+      //调用查询接口
+      queryUsermanSubmit(curPage, pageSize) {
+        this.$post('/systemUserController/querySystemUserList', {
+          codeOrPhone: this.relevantData.opmOrderNo,
+          commonRegionId: this.relevantData.commonRegionId,
+          userType: this.relevantData.userType,
+          relaId: this.relevantData.relaId,
+          statusCd: '',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.qryOpmOrderList = rsp.rows;
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
+        })
+      },
+      //保存
+      addRelevantRoleSubmit(){
+        if(!this.selectionChangeList.length){
+          this.$message.warning('请至少选择一项进行操作！');
+          return;
+        }
+        let partyIds = [];
+        _.map(this.selectionChangeList, function (item) {
+          partyIds.push(item.partyId);
+        });
+        this.$post('/systemUserController/unfreezeSystemUser', {
+          postRoleId: this.$route.query.postRoleId,
+          partyIds: partyIds,
+        }).then((rsp) => {
+          this.$message.success('添加成功！');
+          //添加完之后跳回页面并刷新
+          this.$router.push({
+            path: '/orderManage/addRole'
+          });
         })
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
+      }
+    },
+    computed:{
+      merchantsTitle:function() {
+        if(this.relevantData.userType == 1000){
+          return '零售商';
+        }else{
+          return '供应商';
+        }
       }
     },
     components: {

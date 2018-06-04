@@ -21,7 +21,6 @@
 <script>
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'RoleManage',
@@ -32,25 +31,24 @@
       return {
         tableTitle: [{
           label: '角色名称',
-          prop: 'roleName',
-          width: 260,
+          prop: 'name',
+          width: 240,
           render: (h, params) => {
             return h({
-              template: '<div class="role-man"><img v-bind:src="imgSrc" alt=""><span>{{roleName}}</span></div>',
+              template: '<div class="role-man"><img src="../../static/img/roleman-img.png" alt=""><span>{{roleName}}</span></div>',
               data() {
                 return {
-                  roleName: params.row.roleName,
-                  imgSrc: params.row.imgSrc
+                  roleName: params.row.name
                 }
               }
             });
           }
         },{
           label: '角色说明',
-          prop: 'roleInstrd'
+          prop: 'description'
         }, {
           label: '操作',
-          width: 260,
+          width: 170,
           render: function (h, params) {
             return h({
               template: '<div><el-button type="text" @click="modifyRole(roleInfo)" class="delete-btn">编辑</el-button></div>',
@@ -64,7 +62,7 @@
                   this.$router.push({
                     path: '/orderManage/addRole',
                     query: {
-                      usermanInfo: item
+                      roleInfo: item
                     }
                   });
                 }
@@ -72,21 +70,7 @@
             })
           }
         }],
-        tableData: [{
-          imgSrc: '',
-          roleName: '供货商',
-          roleInstrd: '供货商有部分配置管理及订单查询功能政策投入XXXXXXXXXXXXXXXXXXXXXXXX'
-        }],//查询返回的数据
-        usermanList: [{
-          value: 1000,
-          label: '未交定金'
-        }, {
-          value: 1001,
-          label: '已交定金'
-        }, {
-          value: 1002,
-          label: '已付款'
-        }],
+        tableData: [],//查询返回的数据
       }
     },
     methods: {
@@ -96,16 +80,15 @@
         });
       },
       queryRole() {
-        this.$post('/opmOrderController/queryOpmOrderList', {
+        this.$post('/systemUserController/queryPostRoleList', {
         }).then((rsp) => {
-          // this.tableData = rsp.rows;
+          this.tableData = rsp;
         })
       }
     },
     components: {
       TitlePlate,
-      Table,
-      Pagination
+      Table
     }
   }
 </script>
@@ -176,8 +159,9 @@
     .role-man img{
       width: 50px;
       height: 50px;
-      border-radius:50px;
       margin:0 20px 0 32px;
+      vertical-align: middle;
+      border-radius:50px;
     }
   }
 

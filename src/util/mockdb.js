@@ -51,7 +51,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/insertOrderPlacingMeeting')
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
     'resultMsg': '成功',
@@ -64,7 +64,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateOrderPlacingMeeting')
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': null,
   'data': {
     'resultMsg': '成功',
@@ -107,13 +107,13 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
   data: {
     'totalSize|1-100': 1,
     'rows|10': [{
-      'retailerId': '@id', 
-      'retailerCode': '@id', 
-      'province': '@province()', 
-      'city': '@city()', 
+      'retailerId': '@id',
+      'retailerCode': '@id',
+      'province': '@province()',
+      'city': '@city()',
       'retailerName': '@cword(3,6)',
-      'retailerType': '', 
-      'retailerTypeName': '@cword(3,6)', 
+      'retailerType': '',
+      'retailerTypeName': '@cword(3,6)',
       'linkMan': '@cname()',
       'linkNbr': /\d{5,10}/,
       'retailerPhone': /\d{5,10}/,
@@ -187,6 +187,70 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOrderPlacingMeeting')
     'resultMsg': '成功',
     'resultCode': '0'
   }
+});
+
+//9、查询终端产品列表接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null, 
+  error: null,
+  data: {
+    'totalSize|1-99': 10, 
+    'rows|5-10': [{
+      'offerId':'@id',
+      'offerCode':'@id',
+      'offerName':'@cword(3,6)',
+      'brandCd':'@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId':'@id',
+      'offerModelName':'@word(3,6)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'statusCd|1': ['1001', '1002'],
+      'offerBaseParam':{
+        'listDt':'@date',
+        'termType':'',
+        'os':'@word(5,10)'
+      },
+      'offerScreenParam':{
+        'screenType':'@cword(3,6)',
+        'screenSize|1-10.1': 9.7,
+        'screenMaterial': '@cword(3,5)',
+        'resolutionRatio|1': ['720P', '1080P', '2K', '4K'],
+        'screenPiexl|1-99.1-1': 1,
+        'screenTech': '@cword(3,10)',
+        'frame|1': ['是','否'],
+        'otherParam': '@cword(10,20)'
+      },
+      'offerHardwardParam':{
+        'cpuModel': '@word(3,5)',
+        'cpuRate|1-10': 1,
+        'core|1-8': 2,
+        'gpuModel': '@word(3,6)',
+        'ram|1': [2, 4, 6, 8, 16],
+        'rom|1': [2, 4, 6, 8, 16],
+        'memoryType': '@word(3,6)',
+        'memoryCard': '@word(3,6)',
+        'extendedCapacity|1': [2, 4, 6, 8, 16],
+        'rearCamera': '@cword(6,12)',
+        'frontCamera': '@cword(6,12)',
+        'batteryCapacity|1000-9999': 1000,
+        'batteryType': '@word(3,10)',
+        'batteryCharge': '@word(2,10)',
+        'offerPic': {
+          'offerPicId': '@id',
+          'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+          'offerPicUrl2': '@url',
+          'offerPicUrl3': '@url',
+          'offerPicUrl4': '@url',
+          'offerPicUrl5': '@url',
+          'offerPicUrl6': '@url'
+        }
+      }
+    }]
+  }   
 });
 
 //10、查询终端品牌接口
@@ -426,7 +490,7 @@ Mock.mock(new RegExp('/commonCfgController/upload'), {
   'rsphead': 's',
   'success': true,
   'code': null,
-  'msg': null, 
+  'msg': null,
   'error': false,
   'data': {
     'url':''
@@ -1017,7 +1081,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   code: null,
   msg: null, //失败信息
   error: null,
-  data: [{
+  'data|5': [{
     'postRoleId': '@id',
     'name': '@cname',
     'description': '@cword(10)'
@@ -1031,12 +1095,13 @@ Mock.mock(new RegExp('/systemUserController/savePostRole'), {
   msg: null, //失败信息
   error: null,
   data: {
+    "postRoleId": '@id',
     "resultMsg": "成功",
     "resultCode": "0"
   }
 });
 //71、	查询所有菜单接口
-Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
+Mock.mock(new RegExp('/systemUserController/querySystemMenuList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -1083,7 +1148,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
 	    'partyId': '@id',
 	    'commonRegionId': '@id',
       'commonRegionName': '@province',
-	    'userType': '',
+	    'userType|+1': [1000, 1001],
       'relaId': '@id',
 	    'relaName': '@cword(5)',
 	    'systemUserCode': '@id',

@@ -53,7 +53,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionId="usermanData.relaId" />
             </div>
           </el-col>
         </el-row>
@@ -95,7 +95,7 @@
   export default {
     name: 'AddSupplierData',
     created() {
-      if(this.$route){
+      if(this.$route.query.usermanInfo){
         this.usermanData = this.$route.query.usermanInfo;
       }
     },
