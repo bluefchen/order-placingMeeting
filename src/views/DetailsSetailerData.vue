@@ -77,8 +77,6 @@
 
 <script>
   import TitlePlate from '@/components/TitlePlate';
-  import Input from '@/components/Input';
-  import Select from '@/components/Select';
 
   export default {
     name: 'DetailsSetailerData',
@@ -86,40 +84,12 @@
     },
     data() {
       return {
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
-        dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
       }
     },
     methods: {
-      visibleChange(val) {
-        this.dialogVisible = val;
-      },
-      uploadData(data) {
-        this.totalCnt = data.totalCnt;
-        this.successCnt = data.successCnt;
-        this.failCnt = data.failCnt;
-        this.tableData = data.rows;
-        console.log('导入文件返回的数据：', data);
-      }
     },
     components: {
-      TitlePlate,
-      Input,
-      Select
+      TitlePlate
     }
   }
 </script>

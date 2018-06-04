@@ -137,16 +137,19 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
         'supplierId': '@id',
         'supplierCode': '@id',
         'province': '@province',
+        'commonRegionId': '@id',
         'city': '@city',
         'supplierName': '@cword(4,6)',
-        'supplierType|1': [1001, 1002, 1003, 1004],
+        'supplierType|1': ['1001', '1002', '1003', '1004'],
         'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
         'linkMan': '@cname',
         'linkNbr': /\d{5,11}/,
         'supplierPhone': /\d{5,9}\-/,
-        'supplierFax': /\d{5,9}\-/
+        'supplierFax': /\d{5,9}\-/,
+        'statusCd|1': ['1000', '1001'],
+        'statusCdName|1': ['有效', '停用'],
+        'remarks': '@cword(10,20)'
     }]
-
   }
 });
 
@@ -163,6 +166,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
         'retailerId': '@id',
         'retailerCode': '@id',
         'province': '@province',
+        'commonRegionId': '@id',
         'city': '@city',
         'retailerName': '@cword(4,6)',
         'retailerType|1': [1001, 1002, 1003],
@@ -987,6 +991,66 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
         'offerPicUrl6':''
       }
     }]
+  }
+});
+//53、冻结供应商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/freezeSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//54、激活供应商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/unfreezeSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+//55、删除供应商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 56、新增供应商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/addSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 57、修改供应商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
   }
 });
 //63、冻结用户

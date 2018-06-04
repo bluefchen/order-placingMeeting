@@ -1,4 +1,4 @@
-0<template>
+<template>
   <div class="v_table">
     <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small"
               :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange" tooltip-effect="light">

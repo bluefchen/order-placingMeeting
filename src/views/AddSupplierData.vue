@@ -2,14 +2,14 @@
   <div class="vue_add-supplier">
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="新增/修改供货商"/>
+        <TitlePlate class="fn-left" :title="title"/>
       </div>
       <div class="terminal-info-box">
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Cascader @change="handleChange" :regionId="supplierInfo.commonRegionId" :level="level" disabled="true"/>
             </div>
           </el-col>
         </el-row>
@@ -17,13 +17,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 供货商名称：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="supplierInfo.supplierName"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 供货商类型：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Select class="condition-input" :value.sync="supplierInfo.supplierType" :options="supplierTypeList"/>
             </div>
           </el-col>
         </el-row>
@@ -31,13 +31,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="supplierInfo.linkMan"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人手机：</label>
-              <Select class="condition-input" :value.sync="orderQueryData.brandCd" :options="brandList"/>
+              <Input class="condition-input" :value.sync="supplierInfo.linkNbr"/>
             </div>
           </el-col>
         </el-row>
@@ -45,13 +45,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司电话：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="supplierInfo.supplierPhone"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司传真：</label>
-              <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+              <Input class="condition-input" :value.sync="supplierInfo.supplierFax"/>
             </div>
           </el-col>
         </el-row>
@@ -59,14 +59,14 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <el-input type="textarea" v-model="orderQueryData.opmOrderNo"></el-input>
+              <el-input type="textarea" v-model="supplierInfo.remarks"></el-input>
             </div>
           </el-col>
         </el-row>
       </div>
       <div class="foot-btn">
-        <button class="btns">保&nbsp;持</button>
-        <button class="btns">取&nbsp;消</button>
+        <button class="btns" :disabled="!supplierInfo.commonRegionId || !supplierInfo.supplierName || !supplierInfo.supplierType" @click="saveSupplierData">保&nbsp;存</button>
+        <button class="btns" @click="cancelSupplierData">取&nbsp;消</button>
       </div>
     </div>
   </div>
@@ -76,47 +76,105 @@
   import TitlePlate from '@/components/TitlePlate';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
+  import Cascader from '@/components/Cascader';
 
   export default {
     name: 'AddSupplierData',
     created() {
+
+      this.$post('/commonCfgController/getCommonRegionTreeList', {
+        commonRegionId: ''
+      }).then((rsp) => {
+        this.commonRegionList = rsp;
+      });
+      this.supplierInfo = JSON.parse(localStorage.getItem(this.$route.query.supplierId));
+      if(this.supplierInfo.supplierId){
+        this.title = '修改供货商';
+        this.supplierInfo.commonRegionId = '1000003'; //测试地区用，最后需要删除
+      }else{
+        this.title = '新增供货商';
+      };
     },
     data() {
       return {
-        orderQueryData: {},
-        brandList: [{
+        title: '',
+        supplierInfo: {},
+        level: 'province',
+        //供货商类型
+        supplierTypeList: [{
           value: '1001',
-          label: '苹果'
+          label: '厂商'
         },{
           value: '1002',
-          label: 'oppo'
+          label: '国代'
+        },{
+          value: '1003',
+          label: '省代'
+        },{
+          value: '1004',
+          label: '其他'
         }],
-        dialogVisible: false,
-        dislogTitle: '导入',
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
       }
     },
     methods: {
-      visibleChange(val) {
-        this.dialogVisible = val;
+      handleChange(val){
+        this.supplierInfo.commonRegionId = val;
       },
-      uploadData(data) {
-        this.totalCnt = data.totalCnt;
-        this.successCnt = data.successCnt;
-        this.failCnt = data.failCnt;
-        this.tableData = data.rows;
-        console.log('导入文件返回的数据：', data);
+      saveSupplierData(){
+        if(this.title === '修改供货商'){
+          this.$post('/orderPlacingMeetingController/updateSupplier', {
+            'supplierId': this.supplierInfo.supplierId, 
+            'commonRegionId': this.supplierInfo.commonRegionId, 
+            'supplierName': this.supplierInfo.supplierName,
+            'supplierType': this.supplierInfo.supplierType, 
+            'linkMan': this.supplierInfo.linkMan,
+            'linkNbr': this.supplierInfo.linkNbr,
+            'supplierPhone': this.supplierInfo.supplierPhone,
+            'supplierFax': this.supplierInfo.supplierFax,
+            'remarks': this.supplierInfo.remarks
+          }).then((rsp) => {
+            this.$alert('修改供货商成功！', '提示', {
+              confirmButtonText: '确定',
+              type: 'success'
+            }).then(() => {
+              this.$router.push({
+                path: '/orderManage/supplierDataMaintain'
+              });
+            });
+          })
+        }else{
+          this.$post('/orderPlacingMeetingController/addSupplier', {
+            'commonRegionId': this.supplierInfo.commonRegionId, 
+            'supplierName': this.supplierInfo.supplierName,
+            'supplierType': this.supplierInfo.supplierType, 
+            'linkMan': this.supplierInfo.linkMan,
+            'linkNbr': this.supplierInfo.linkNbr,
+            'supplierPhone': this.supplierInfo.supplierPhone,
+            'supplierFax': this.supplierInfo.supplierFax,
+            'remarks': this.supplierInfo.remarks
+          }).then((rsp) => {
+            this.$alert('新增供货商成功！', '提示', {
+              confirmButtonText: '确定',
+              type: 'success'
+            }).then(() => {
+              this.$router.push({
+                path: '/orderManage/supplierDataMaintain'
+              });
+            });
+          })
+        }
+      },
+      cancelSupplierData(){
+        this.$router.push({
+          path: '/orderManage/supplierDataMaintain'
+        });
       }
     },
     components: {
       TitlePlate,
       Input,
-      Select
+      Select,
+      Cascader
     }
   }
 </script>
@@ -195,9 +253,30 @@
         &:hover {
           background-color: #e20606;
         }
+        &:disabled{
+          color: #fff;
+          background-color: #f25555;
+          cursor: default;
+        }
       }
     }
+    .el-cascader{
+        flex: 1;
+        line-height: 32px;
+        .el-input__inner{
+          height: 32px;
+          line-height: 32px;
+        }
+        .el-input__icon{
+          line-height: 32px;
+        }
+      }
 
+  }
+  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
   }
 
 </style>

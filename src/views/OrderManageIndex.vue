@@ -103,7 +103,7 @@
         }],
 
         orderQueryData: {
-          opmName: '', 
+          opmName: '',
           statusCd: ''
         },
 
@@ -174,7 +174,7 @@
           this.$message({
             type: 'info',
             message: '已取消删除'
-          });    
+          });
         });
       }
     },
@@ -266,7 +266,7 @@
             }
           }
         }
-        
+
         .search-query{
           button{
             width: 92px;
@@ -313,7 +313,7 @@
           position: absolute;
           right: 0;
           bottom: 0;
-          width: 162px;
+          width: 165px;
           height: 21px;
           border: 1px solid #e5e5e5;
           border-bottom: none;
