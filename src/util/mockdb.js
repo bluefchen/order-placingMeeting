@@ -169,7 +169,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
       'commonRegionId': '@id',
       'city': '@city',
       'retailerName': '@cword(4,6)',
-      'retailerType|1': [1001, 1002, 1003],
+      'retailerType|1': ['1001', '1002', '1003'],
       'retailerTypeName|1': ['自营厅', '大连锁', '代理商'],
       'linkMan': '@cname',
       'linkNbr': /\d{5,11}/,
@@ -1053,6 +1053,66 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/addSupplier'), {
 });
 // 57、修改供应商接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/updateSupplier'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 58、冻结零售商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/freezeRetailer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 59、激活零售商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/unfreezeRetailer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 60、删除零售商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteRetailer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 61、新增零售商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/addRetailer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    "resultMsg": "成功",
+    "resultCode": "0"
+  }
+});
+// 62、修改零售商接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateRetailer'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
