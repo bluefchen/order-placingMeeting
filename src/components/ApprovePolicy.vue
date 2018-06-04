@@ -2,13 +2,17 @@
   <div>
     <el-button type="text" @click="isShow = true" class="hover-btn">审批</el-button>
     <DialogPopup :visible="isShow" title="审批" @visibleChange="visibleChange">
-      <div slot="content" class="pop-cnt">
+      <div slot="content" class="approve">
         <el-row>
           <el-col :span="16" :offset="4">
-            <div class="condition-iterm">
-              <label class="label-wrds">审批结果：</label>
-              <Select class="condition-input" :value.sync="orderQueryData" :options="paymentStatusList"/>
-            </div>
+            <label class="label-wrds">审批结果：</label>
+            <Select class="condition-input" :value.sync="status" :options="statusList"/>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16" :offset="4">
+            <label class="label-wrds">审批备注：</label>
+            <Input type="textarea" :value.sync="remark"/>
           </el-col>
         </el-row>
       </div>
@@ -22,6 +26,8 @@
 
 <script>
   import DialogPopup from '@/components/DialogPopup';
+  import Select from '@/components/Select';
+  import Input from '@/components/Input';
 
   export default {
     name: 'ApprovePolicy',
@@ -29,14 +35,15 @@
     data() {
       return {
         isShow: false,
-        orderQueryData: null,
-        paymentStatusList: [{
+        status: null,
+        statusList: [{
           label: '通过',
           value: 1
         }, {
           label: '不通过',
           value: 0
-        }]
+        }],
+        remark: ''
       }
     },
     methods: {
@@ -45,7 +52,9 @@
       }
     },
     components: {
-      DialogPopup
+      DialogPopup,
+      Select,
+      Input
     }
   }
 </script>
@@ -61,22 +70,15 @@
     }
   }
 
-  .pop-cnt {
-    .vivo {
-      width: 102px;
-      height: 28px;
-      margin-bottom: 16px;
-      line-height: 28px;
-      text-align: center;
-      background-color: #ff0000;
-      color: #fff;
-      border-radius: 14px;
+  .approve {
+    .label-wrds {
+      font-size: 12px;
     }
-    .p-ttl {
-      margin: 0 0 6px 8px;
+    .el-row {
+      margin-bottom: 10px;
     }
-    .cnt-info {
-      margin: 0 0 16px 40px;
+    .el-textarea {
+      vertical-align: top;
     }
   }
 </style>
