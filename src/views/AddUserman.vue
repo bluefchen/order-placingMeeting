@@ -19,7 +19,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户账号：</label>
-              <el-input class="condition-input" v-model="usermanData.systemUserCode" :disabled="modify"></el-input>
+              <Input class="condition-input" :value.sync="usermanData.systemUserCode" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -27,7 +27,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 真实姓名：</label>
-              <el-input class="condition-input" v-model="usermanData.name" :disabled="modify"></el-input>
+              <Input class="condition-input" :value.sync="usermanData.name" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -35,7 +35,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 手机号码：</label>
-              <el-input class="condition-input" v-model="usermanData.linktelenumber"></el-input>
+              <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
             </div>
           </el-col>
         </el-row>
@@ -44,7 +44,7 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId" :disabled="modify"/>
+              <Cascader :value.sync="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -61,8 +61,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item" v-if="!$route">
               <label class="label-wrds text-right"><span class="red-star">*</span> 密码：</label>
-              <!-- 密码输入框 -->
-              <el-input class="condition-input" type="password" v-model="usermanData.password"></el-input>
+              <Input class="condition-input" type="password" :value.sync="usermanData.password"/>
             </div>
           </el-col>
         </el-row>
@@ -70,7 +69,7 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <Input type="textarea" v-model="usermanData.remark" />
+              <Input type="textarea" :value.sync="usermanData.remark" />
             </div>
           </el-col>
         </el-row>
@@ -133,9 +132,6 @@
       }
     },
     methods: {
-      handleChange(val){
-        this.usermanData.commonRegionId = val;
-      },
       //选择零售商或供应商
       selectRetailer(val){
         this.usermanData.relaId = val;

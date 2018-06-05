@@ -19,7 +19,7 @@
         <el-col :span="7">
           <div class="condition-iterm">
             <label class="label-wrds">所属省份：</label>
-            <Cascader @change="handleChange"/>
+            <Cascader :value.sync="relevantData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="7">
@@ -131,10 +131,6 @@
       //展示更多
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
-      },
-      //选择地区
-      handleChange(val){
-        this.relevantData.commonRegionId = val;
       },
       //选择零售商或供应商
       selectRetailer(val){

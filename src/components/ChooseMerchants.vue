@@ -68,7 +68,8 @@
         type: Object
       },
       disabled: {
-        type: Boolean
+        type: Boolean,
+        default: false
       }
     },
     created() {
