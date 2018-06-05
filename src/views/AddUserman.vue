@@ -44,7 +44,7 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId"/>
+              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>

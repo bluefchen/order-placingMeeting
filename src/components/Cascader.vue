@@ -5,6 +5,7 @@
     :props="props"
     @change="handleChange"
     v-model="selectedOpt"
+    :disabled="disabled"
   ></el-cascader>
 </template>
 
@@ -17,6 +18,9 @@
       },
       regionId: {
         type: String
+      },
+      disabled: {
+        type: Boolean
       }
     },
     created() {
