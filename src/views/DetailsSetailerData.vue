@@ -22,7 +22,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p class="condition-input">{{retailerInfo.province}}</p>
+                  <p class="condition-input">{{retailerInfo.commonRegionName}}</p>
                 </div>
               </el-col>
               <el-col :span="12">

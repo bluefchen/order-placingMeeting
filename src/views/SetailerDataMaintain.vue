@@ -106,7 +106,7 @@
 
         tableTitle: [{
           label: '省份',
-          prop: 'province'
+          prop: 'commonRegionName'
         }, {
           label: '零售商名称',
           prop: 'retailerName',
