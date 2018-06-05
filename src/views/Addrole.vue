@@ -16,16 +16,16 @@
             <el-row :gutter="20">
               <el-col :span="8" :offset="2">
                 <div class="condition-item">
-                  <label class="label-wrds text-right"><span class="red-star">*</span> 角色名称：</label>
-                  <el-input class="condition-input" v-model="roleData.name"></el-input>
+                  <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
+                  <Input class="condition-input" :value.sync="roleData.name"/>
                 </div>
               </el-col>
             </el-row>
             <el-row :gutter="20">
               <el-col :span="18" :offset="2">
                 <div class="condition-item">
-                  <label class="label-wrds text-right"><span class="red-star">*</span> 角色说明：</label>
-                  <Input class="condition-input" type="textarea" v-model="roleData.description" />
+                  <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
+                  <Input class="condition-input" type="textarea" :value.sync="roleData.description" />
                 </div>
               </el-col>
             </el-row>
@@ -37,8 +37,8 @@
         </div>
         <!-- 管理菜单 -->
         <div class="role-setup-info" v-show="showEdit === 2">
-          <div class="role-list">
-              <div class="tree-left">
+          <div class="role-list fn-clear">
+              <div class="tree-left fn-left">
                 <TitlePlate title="菜单列表"/>
                 <div class="tree-info">
                   <el-tree
@@ -51,7 +51,7 @@
                   </el-tree>
                 </div>
               </div>
-              <div class="tree-left">
+              <div class="tree-left fn-left">
                 <TitlePlate title="已有菜单权限"/>
                 <div class="tree-info">
                   <el-tree :data="data" :props="defaultProps"></el-tree>
@@ -390,15 +390,19 @@
       color: #f00;
     }
     .condition-item {
-      display: flex;
+      position:relative;
       margin: 10px 0;
+      padding: 0 0 0 110px;
       .label-wrds {
+        position:absolute;
         width: 110px;
         line-height: 32px;
         font-size: 14px;
+        text-align: right;
+        left:0;
       }
       .condition-input {
-        flex: 1 0 0;
+        width: 100%;
       }
       .el-input__inner{
         border-radius: 0;
@@ -409,16 +413,12 @@
         border-radius: 0;
       }
     }
-    .text-right{
-      text-align: right;
-    }
     .role-list{
-      display: flex;
       margin: 22px 12px;
       border: 1px solid #e3e3e3;
       background: #f9f9f9;
       .tree-left{
-        width: 50%;
+        width: calc(50% - 1px);
         border-right: 1px solid #e3e3e3;
         &:last-child{
           border-right: 0;
