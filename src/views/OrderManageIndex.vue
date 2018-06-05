@@ -71,7 +71,8 @@
                                              :class="{'not-start':item.statusCd === '1000', 'underway':item.statusCd === '1001', 'done':item.statusCd === '1002'}">
               {{item.statusCd | statusCdFilter}}</p></dl>
             <dl class="dll wid16 fn-left">
-              <button class="updown-btn" v-show="item.statusCd === '1000'" @click="compileOrder('修改', item)">编辑订购会</button>
+              <button class="updown-btn" v-show="item.statusCd === '1000'" @click="compileOrder('修改', item)">编辑订购会
+              </button>
             </dl>
           </div>
         </li>
@@ -134,13 +135,8 @@
         this.queryOrderPlacingMeetingList(curPage);
       },
       detailOrder(item) {
-        localStorage.setItem(item.opMeetingId, JSON.stringify(item));
-        this.$router.push({
-          path: '/order/orderIndex',
-          query: {
-            opMeetingId: item.opMeetingId
-          }
-        });
+        localStorage.setItem('opMeeting', JSON.stringify(item));
+        this.$router.push({path: '/order/orderIndex'});
       },
       compileOrder(title, item) {
         if (title === '新增') {
@@ -148,13 +144,8 @@
             path: '/orderManage/orderConfig'
           });
         } else {
-          localStorage.setItem(item.opMeetingId, JSON.stringify(item));
-          this.$router.push({
-            path: '/orderManage/orderConfig',
-            query: {
-              opMeetingId: item.opMeetingId
-            }
-          });
+          localStorage.setItem('opMeeting', JSON.stringify(item));
+          this.$router.push({path: '/orderManage/orderConfig'});
         }
       },
       delOrder(item) {

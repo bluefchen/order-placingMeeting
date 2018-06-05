@@ -37,7 +37,7 @@
     <Table :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
     <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     <div class="foot-btn">
-      <button class="btns" @click="addRelevantRoleSubmit">保&nbsp;持</button>
+      <button class="btns" @click="addRelevantRoleSubmit">保&nbsp;存</button>
       <button class="btns">取&nbsp;消</button>
     </div>
   </div>

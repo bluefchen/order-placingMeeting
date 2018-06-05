@@ -36,11 +36,13 @@
   export default {
     name: 'OrderIndex',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
     },
     data() {
       return {
+        opMeetingInfo: '', //订货会基本信息
         supplierList: [], //关联供应商列表
         retailerList: [], //关联零售商列表
         pageSize: 10, //每页展示条数
@@ -119,7 +121,7 @@
     methods: {
       queryOpmSupplierList(curPage, pageSize) {
         this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -130,7 +132,7 @@
       },
       queryOpmRetailerList(curPage, pageSize) {
         this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
