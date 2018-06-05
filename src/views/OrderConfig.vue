@@ -304,7 +304,6 @@
       if(this.opMeetingInfo.opMeetingId){
         this.title = '编辑订购会';
         this.orderPlacingMeeting = this.opMeetingInfo;
-        this.orderPlacingMeeting.commonRegionId = '1000003'; //测试地区用，最后需要删除
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
       }else{
