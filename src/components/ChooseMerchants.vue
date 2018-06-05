@@ -178,7 +178,7 @@
           }
         }, {
           label: '省份',
-          prop: 'province',
+          prop: 'commonRegionName',
         }, {
           label: '供应商编码',
           prop: 'supplierCode',
