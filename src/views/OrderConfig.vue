@@ -327,7 +327,7 @@
         supplierList: {
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
           }, {
             label: '供货商编码',
             prop: 'supplierCode',
@@ -373,7 +373,7 @@
         retailerList: {
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
           }, {
             label: '零售商编码',
             prop: 'retailerCode',

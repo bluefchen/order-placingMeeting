@@ -147,7 +147,7 @@
                 </div>
                 <div class="content-item">
                   <label class="content-label">其他屏幕参数</label>
-                  <el-input type="textarea" v-model="terminalMaintainInfo.offerScreenParam.otherParam"></el-input>
+                  <Input type="textarea" v-model="terminalMaintainInfo.offerScreenParam.otherParam" />
                 </div>
               </div>
             </td>
@@ -348,14 +348,6 @@
   .vue_terminal-maintain {
     .el-textarea{
       flex: 1;
-      .el-textarea__inner{
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &:focus {
-          border-color: #ff7a7a;
-        }
-      }
     }
     .text-right {
       text-align: right;

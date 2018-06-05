@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="deposit-configure">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="confirm-btn">
-              <el-button class="confirm" @click="confirm(depositType)">确定</el-button>            
+              <el-button class="confirm" @click="confirm(depositType)">确定</el-button>
             </div>
           </div>
         </div>
@@ -218,194 +218,184 @@
 
 <style lang="less">
   @import "../assets/css/mixin";
-  /*中间背景图片*/
-  .img-bg {
-    width: 100%;
-    height: 200px;
-    background: #e4273f;
-    .info {
-      width: 1036px;
-      height: 200px;
-      margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
-      overflow: hidden;
-      .p-titl {
-        margin: 62px 0 0 0;
-        font-size: 22px;
-        color: #fcfdff;
-      }
-      .activity {
-        width: 306px;
-        margin: 10px 0 0 0;
-        line-height: 18px;
-        font-size: 12px;
-        color: #fcfdff;
-        text-align: center;
-      }
-    }
-  }
-
-  /*中间背景图片*/
-
-  .my-location {
-    height: 30px;
-    line-height: 30px;
-    background-color: #f6f6f6;
-  }
-
-  .provin {
-    margin: 28px auto;
-    font-size: 14px;
-    .pro-left {
-      position: relative;
-      width: 215px;
-      height: 38px;
-      line-height: 38px;
-      text-align: center;
-      background-color: #e4263e;
-      color: #fff;
-    }
-  }
-
-  .provin-edit {
-    width: 100%;
-    border: 1px solid #e8e8e8;
-    .pro-mid {
-      width: 354px;
-      height: 70px;
-      line-height: 70px;
-      margin-left: 109px;
-      span {
-        margin-left: 42px;
-      }
-    }
-    .edit-btn {
-      height: 25px;
-      padding: 0 12px;
-      margin: 5px 0 0 0;
-      line-height: 24px;
-      color: #e52840;
-      border: 1px solid #e52840;
-      border-radius: 3px;
-      &:hover {
-        background-color: #fff;
-      }
-    }
-  }
-
-  .first-step {
-    .confirm-btn {
+  .deposit-configure {
+    /*中间背景图片*/
+    .img-bg {
       width: 100%;
-      height: 54px;
-      background-color: #fafafa;
-      border-top: 1px solid #e8e8e8;
-      text-align: center;
-      .confirm {
-        height: 34px;
-        padding: 0 35px;
-        line-height: 34px;
+      height: 200px;
+      background: #e4273f;
+      .info {
+        width: 1036px;
+        height: 200px;
+        margin: 0 auto;
+        background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
+        overflow: hidden;
+        .p-titl {
+          margin: 62px 0 0 0;
+          font-size: 22px;
+          color: #fcfdff;
+        }
+        .activity {
+          width: 306px;
+          margin: 10px 0 0 0;
+          line-height: 18px;
+          font-size: 12px;
+          color: #fcfdff;
+          text-align: center;
+        }
+      }
+    }
+    /*中间背景图片*/
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+    .provin {
+      margin: 28px auto;
+      font-size: 14px;
+      .pro-left {
+        position: relative;
+        width: 215px;
+        height: 38px;
+        line-height: 38px;
+        text-align: center;
+        background-color: #e4263e;
         color: #fff;
-        margin-top: 10px;
-        background-color: #e52840;
-        border: 0;
-      }
-    }    
-  }
-
-  .steps {
-    min-height: 100px;
-    padding: 0 15px;
-  }
-
-  .select-wrds {
-    width: 180px;
-    line-height: 34px;
-    text-align: right;
-  }
-
-  .selections {
-    margin: 20px 0 0 15px;
-    font-size: 14px;
-    color: #151515;
-    .select-sp {
-      width: 114px;
-      height: 32px;
-      margin-left: 14px;
-      line-height: 32px;
-      border: 1px solid #dcdfe6;
-      text-align: center;
-      border-radius: 3px;
-      cursor: pointer;
-      &.on {
-        border: 1px solid #f01d1d;
-        background: url('../assets/images/selected-icon.png') right bottom no-repeat;
-        color: #f01d1d;
       }
     }
-    .fir-wrds {
-      width: 250px;
+    .provin-edit {
+      width: 100%;
+      border: 1px solid #e8e8e8;
+      .pro-mid {
+        width: 354px;
+        height: 70px;
+        line-height: 70px;
+        margin-left: 109px;
+        span {
+          margin-left: 42px;
+        }
+      }
+      .edit-btn {
+        height: 25px;
+        padding: 0 12px;
+        margin: 5px 0 0 0;
+        line-height: 24px;
+        color: #e52840;
+        border: 1px solid #e52840;
+        border-radius: 3px;
+        &:hover {
+          background-color: #fff;
+        }
+      }
+    }
+    .first-step {
+      .confirm-btn {
+        width: 100%;
+        height: 54px;
+        background-color: #fafafa;
+        border-top: 1px solid #e8e8e8;
+        text-align: center;
+        .confirm {
+          height: 34px;
+          padding: 0 35px;
+          line-height: 34px;
+          color: #fff;
+          margin-top: 10px;
+          background-color: #e52840;
+          border: 0;
+        }
+      }
+    }
+    .steps {
+      min-height: 100px;
+      padding: 0 15px;
+    }
+    .select-wrds {
+      width: 180px;
       line-height: 34px;
-      margin-left: 40px;
+      text-align: right;
     }
-  }
-
-  .second-step {
-    border-top: 1px dashed #e1e1e1;
-    padding-top: 20px;
-    margin-top: 20px;
-    .el-input {
-      width: 374px;
-    }
-    .sec-done {
-      width: 108px;
-      color: #e52941;
-      line-height: 34px;
-      margin-left: 40px;
-      font-weight: 700;
-    }
-    .el-icon-percent::before {
+    .selections {
+      margin: 20px 0 0 15px;
+      font-size: 14px;
       color: #151515;
-      font-weight: bold;
+      .select-sp {
+        width: 114px;
+        height: 32px;
+        margin-left: 14px;
+        line-height: 32px;
+        border: 1px solid #dcdfe6;
+        text-align: center;
+        border-radius: 3px;
+        cursor: pointer;
+        &.on {
+          border: 1px solid #f01d1d;
+          background: url('../assets/images/selected-icon.png') right bottom no-repeat;
+          color: #f01d1d;
+        }
+      }
+      .fir-wrds {
+        width: 250px;
+        line-height: 34px;
+        margin-left: 40px;
+      }
     }
-    .el-input--small .el-input__inner {
-      text-align: center;
-      color: #f01919;
-      font-weight: bold;
-    }
-  }
-
-  .warn-wrds {
-    line-height: 34px;
-    color: #fa0000;
-    margin-left: 20px;
-    font-size: 12px;
-  }
-
-  /* 第三步 */
-  .third-step {
-    border-top: 1px dashed #e1e1e1;
-    padding-top: 20px;
-    margin-top: 10px;
-    .model-list-table {
-      margin-bottom: 20px;
-    }
-    .order-titl {
-      margin-bottom: 5px;
-      .title {
-        font-size: 14px;
-        line-height: 20px;
+    .second-step {
+      border-top: 1px dashed #e1e1e1;
+      padding-top: 20px;
+      margin-top: 20px;
+      .el-input {
+        width: 374px;
+      }
+      .sec-done {
+        width: 108px;
+        color: #e52941;
+        line-height: 34px;
+        margin-left: 40px;
+        font-weight: 700;
+      }
+      .el-icon-percent::before {
+        color: #151515;
+        font-weight: bold;
+      }
+      .el-input--small .el-input__inner {
+        text-align: center;
+        color: #f01919;
+        font-weight: bold;
       }
     }
     .warn-wrds {
-      line-height: 20px;
+      line-height: 34px;
+      color: #fa0000;
+      margin-left: 20px;
+      font-size: 12px;
     }
-    .el-icon-money::before {
-      color: #f01919;
-    }
-    .el-input--mini .el-input__inner {
-      text-align: center;
-      color: #f01919;
+    /* 第三步 */
+    .third-step {
+      border-top: 1px dashed #e1e1e1;
+      padding-top: 20px;
+      margin-top: 10px;
+      .model-list-table {
+        margin-bottom: 20px;
+      }
+      .order-titl {
+        margin-bottom: 5px;
+        .title {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+      .warn-wrds {
+        line-height: 20px;
+      }
+      .el-icon-money::before {
+        color: #f01919;
+      }
+      .el-input--mini .el-input__inner {
+        text-align: center;
+        color: #f01919;
+      }
     }
   }
-
 </style>

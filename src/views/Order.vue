@@ -4,10 +4,15 @@
     <div class="toper">
       <div class="box-1200 top-header fn-clear">
         <img src="@/assets/images/small-logo.png" class="fn-left">
-        <ul class="iterms fn-left">
-          <li>订货会管理</li>
-          <li>基础数据维护</li>
-        </ul>
+        <!--<ul class="iterms fn-left">-->
+          <!--<li>订货会管理</li>-->
+          <!--<li>基础数据维护</li>-->
+        <!--</ul>-->
+        <el-menu class="iterms fn-left" :default-active="$route.path" mode="horizontal" router>
+          <el-menu-item index="/orderManage/orderManageIndex">订购会管理</el-menu-item>
+          <el-menu-item index="/orderManage/terminalMaintain">基础数据维护</el-menu-item>
+          <el-menu-item index="/orderManage/usermanManage">系统维护</el-menu-item>
+        </el-menu>
         <div class="user fn-right">
           <div class="select-info"><span class="name">运营商A先生，您好！</span><i class="iconfont">&#xe655;</i></div>
           <a href="javasript:void(0)">退出</a>
@@ -59,6 +64,8 @@
 
   .iterms li {
     float: left;
+    height: 35px;
+    line-height: 35px;
     padding: 0 25px;
     font-size: 14px;
     color: #000;

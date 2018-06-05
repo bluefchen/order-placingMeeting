@@ -44,7 +44,7 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId"/>
+              <Cascader @change="handleChange" :level="level" :regionId="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -54,7 +54,6 @@
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
-
             </div>
           </el-col>
         </el-row>
@@ -71,7 +70,7 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <el-input type="textarea" v-model="usermanData.remark"></el-input>
+              <Input type="textarea" v-model="usermanData.remark" />
             </div>
           </el-col>
         </el-row>
@@ -209,14 +208,6 @@
   .vue_add-supplier {
     .el-textarea{
       flex: 1;
-      .el-textarea__inner{
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &:focus {
-          border-color: #ff7a7a;
-        }
-      }
     }
     .text-right {
       text-align: right;

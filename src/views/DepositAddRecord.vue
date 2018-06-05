@@ -311,7 +311,6 @@
   /* 条件搜索 */
   .condition-search {
     display: flex;
-    height: 72px;
     margin: 10px auto 14px;
     border: 1px solid #dfdfdf;
     .el-row{
@@ -319,7 +318,7 @@
     }
     .condition-iterm{
       display: flex;
-      margin: 10px 0px 0 0;
+      margin: 15px 0;
       .label-wrds {
         width: 110px;
         line-height: 32px;

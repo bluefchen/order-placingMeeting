@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cyj-deposit-addrecord">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -24,19 +24,13 @@
           <el-col :span="8">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
+              <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
           <el-col :span="12">
               <div class="condition-iterm">
                 <label class="label-wrds">订购起止日期：</label>
-                <el-date-picker
-                  v-model="depositRecord.orderDate"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  value-format="yyyy-MM-dd">
-                </el-date-picker>
+                <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
               </div>
           </el-col>
           <el-col :span="4">
@@ -63,9 +57,11 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import TitlePlate from '@/components/TitlePlate';
+  import DatePicker from '@/components/DatePicker';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'CyjDepositAddRecord',
@@ -123,11 +119,13 @@
         this.depositRecord.offerNameOrCode = obj.value;
         this.queryOpmRetailerDepositList();
       },
+      selectRetailer(val){
+        this.depositRecord.retailerId = val;
+      },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       queryOpmRetailerDepositList(curPage, pageSize) {
-        this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmRetailerDepositList', {
           opMeetingId: '订货会ID',
           retailerId: this.depositRecord.retailerId,
@@ -147,159 +145,154 @@
     components: {
       InputWithSelect,
       DeviceInfo,
+      DatePicker,
       Table,
       TitlePlate,
       Breadcrumb,
       Pagination,
+      ChooseMerchants
     }
   }
 </script>
 
 <style scoped lang="less">
   @import "../assets/css/mixin";
-
-  /*中间背景图片*/
-  .img-bg {
-    width: 100%;
-    height: 200px;
-    background: #e4273f;
-    .info {
-      width: 1036px;
+  .cyj-deposit-addrecord {
+    /*中间背景图片*/
+    .img-bg {
+      width: 100%;
       height: 200px;
-      margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
-      overflow: hidden;
-      .p-titl {
-        margin: 62px 0 0 0;
-        font-size: 22px;
-        color: #fcfdff;
-      }
-      .activity {
-        width: 306px;
-        margin: 10px 0 0 0;
-        line-height: 18px;
-        font-size: 12px;
-        color: #fcfdff;
-        text-align: center;
-      }
-    }
-  }
-
-  /*中间背景图片*/
-  .my-location {
-    height: 30px;
-    line-height: 30px;
-    background-color: #f6f6f6;
-  }
-  .search {
-    position: relative;
-    margin: 10px auto;
-    .category-more {
-      position: absolute;
-      top: 0px;
-      left: 500px;
-      color: #151515;
-      text-decoration: none;
-    }
-  }
-  .el-row {
-    width: 100%;
-  }
-  
-  /* 条件搜索 */
-  .condition-search {
-    display: flex;
-    height: 72px;
-    margin: 10px auto 14px;
-    border: 1px solid #dfdfdf;
-    .condition-iterm {
-      position: relative;
-      margin: 20px 30px 0 0;
-      .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        width: calc(100% - 20px - 100px);
-        height: 24px;
-        padding: 3px 10px;
-        margin-left: 100px;
-        border: 1px solid #e5e5e5;
-      }
-      .btns{
-        left: 0;
-        line-height: 31px;
-        padding: 0 10px;
-        font-size: 14px;
-      }
-    }
-  }
-  .category-more {
-    height: 22px;
-    margin: 7px 0 0 20px;
-    padding: 0 5px;
-    line-height: 22px;
-    background-color: #fff;
-    border: 0;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .category-more:active,
-  .category-more:focus,
-  .category-more:hover {
-    color: #f82134;
-  }
-
-  .category-more .iconfont {
-    font-size: 12px;
-  }
-  .tabs-list{
-    margin: 0 auto;
-    padding: 0 0 20px;
-    .result-header {
-      position: relative;
-      height: 28px;
-      margin: 0 0 8px;
-      line-height: 28px;
-      .result-info {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        > span {
-          color: #f82134;
+      background: #e4273f;
+      .info {
+        width: 1036px;
+        height: 200px;
+        margin: 0 auto;
+        background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
+        overflow: hidden;
+        .p-titl {
+          margin: 62px 0 0 0;
+          font-size: 22px;
+          color: #fcfdff;
         }
+        .activity {
+          width: 306px;
+          margin: 10px 0 0 0;
+          line-height: 18px;
+          font-size: 12px;
+          color: #fcfdff;
+          text-align: center;
+        }
+      }
+    }
 
-        > b {
-          margin: 0 3px;
-          color: #f82134;
+    /*中间背景图片*/
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+    .search {
+      position: relative;
+      margin: 10px auto;
+      .category-more {
+        position: absolute;
+        top: 0px;
+        left: 500px;
+        color: #151515;
+        text-decoration: none;
+      }
+    }
+    .el-row {
+      width: 100%;
+    }
+
+    /* 条件搜索 */
+    .condition-search {
+      display: flex;
+      margin: 10px auto;
+      border: 1px solid #dfdfdf;
+      .condition-iterm {
+        display: flex;
+        margin: 15px 0;
+        .label-wrds {
+          width: 110px;
+          line-height: 32px;
+          font-size: 14px;
+          text-align: right;
+        }
+        .condition-input {
+          flex: 1 0 0;
+        }
+        .btns {
+          position: relative;
+          line-height: 31px;
+          padding: 0 10px;
           font-size: 14px;
         }
       }
     }
-  }
+    .category-more {
+      height: 22px;
+      margin: 7px 0 0 20px;
+      padding: 0 5px;
+      line-height: 22px;
+      background-color: #fff;
+      border: 0;
+      color: #333;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-  .btns {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0 10px;
-    border: 0;
-    background-color: #fa0000;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 3px;
-    line-height: 28px;
-    text-decoration: none;
-    &:hover {
-      background-color: #e20606;
+    .category-more:active,
+    .category-more:focus,
+    .category-more:hover {
+      color: #f82134;
+    }
+
+    .category-more .iconfont {
+      font-size: 12px;
+    }
+    .tabs-list {
+      margin: 0 auto;
+      padding: 0 0 20px;
+      .result-header {
+        position: relative;
+        height: 28px;
+        margin: 0 0 8px;
+        line-height: 28px;
+        .result-info {
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          > span {
+            color: #f82134;
+          }
+
+          > b {
+            margin: 0 3px;
+            color: #f82134;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .btns {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 10px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+      text-decoration: none;
+      &:hover {
+        background-color: #e20606;
+      }
     }
   }
 </style>
