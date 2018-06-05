@@ -283,7 +283,7 @@
         this.commonRegionList = rsp;
       });
 
-      this.opMeetingInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       if (this.opMeetingInfo.opMeetingId) {
         this.title = '编辑订购会';
         this.orderPlacingMeeting = this.opMeetingInfo;
