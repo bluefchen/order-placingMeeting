@@ -62,7 +62,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="终端产品列表"/>
         <div class="buttons fn-right">
-          <router-link class="btns" to="/orderManage/addTerminalMaintain"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
+          <router-link class="btns" :to="{path: '/orderManage/addTerminalMaintain', query: {operation: 'add'}}"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
           <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
           <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
         </div>
@@ -316,11 +316,11 @@
         this.queryOfferList(curPage);
       },
       editTerminalMaintain(val, index){
-        localStorage.setItem(val.offerId, JSON.stringify(val));
+        localStorage.setItem('offerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/addTerminalMaintain',
           query: {
-            offerId: val.offerId
+            operation: 'modify'
           }
         });
 

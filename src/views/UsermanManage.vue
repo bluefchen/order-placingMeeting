@@ -374,16 +374,19 @@
       border: 1px solid #dfdfdf;
     }
     .condition-iterm {
-      display: flex;
+      position:relative;
       margin: 10px 0;
+      padding: 0 0 0 110px;
       .label-wrds {
-        width: 100px;
+        position:absolute;
+        left:0;
+        width: 110px;
         line-height: 32px;
         font-size: 14px;
         text-align: right;
       }
       .condition-input {
-        flex: 1 0 0;
+        width: 100%;
       }
     }
     /*搜索框*/

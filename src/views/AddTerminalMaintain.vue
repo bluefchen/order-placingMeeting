@@ -141,11 +141,6 @@
                   <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.frame"/>
                 </div>
                 <div class="content-item">
-                  <label class="content-label">屏幕占比</label>
-                  <p>----缺少字段----</p>
-                  <!-- <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam"/> -->
-                </div>
-                <div class="content-item">
                   <label class="content-label">其他屏幕参数</label>
                   <Input type="textarea" v-model="terminalMaintainInfo.offerScreenParam.otherParam" />
                 </div>
@@ -252,10 +247,16 @@
   export default {
     name: 'AddTerminalMaintain',
     created() {
-      this.terminalMaintainInfo = JSON.parse(localStorage.getItem(this.$route.query.offerId));
-
-      if(this.terminalMaintainInfo.offerId){
+      var operation = this.$route.query.operation;
+      if(operation === 'add'){
+        this.title = '新增终端';
+        this.terminalMaintainInfo = {};
+        this.terminalMaintainInfo.offerBaseParam = {};
+        this.terminalMaintainInfo.offerScreenParam = {};
+        this.terminalMaintainInfo.offerHardwardParam = {};
+      }else{
         this.title = '修改终端';
+        this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerId'));
         if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
           this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
         };
@@ -274,14 +275,7 @@
         if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6){
           this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6})
         };
-      }else{
-        this.title = '新增终端';
-        this.terminalMaintainInfo = {};
-        this.terminalMaintainInfo.offerBaseParam = {};
-        this.terminalMaintainInfo.offerScreenParam = {};
-        this.terminalMaintainInfo.offerHardwardParam = {};
-      };
-
+      }
     },
     data() {
       return {
