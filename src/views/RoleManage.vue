@@ -35,7 +35,7 @@
           width: 240,
           render: (h, params) => {
             return h({
-              template: '<div class="role-man"><img src="../../static/img/roleman-img.png" alt=""><span>{{roleName}}</span></div>',
+              template: '<div class="role-man"><img src="./static/img/roleman-img.png" alt=""><span>{{roleName}}</span></div>',
               data() {
                 return {
                   roleName: params.row.name
