@@ -8,7 +8,7 @@
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 用户类型：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
               <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
               <!--当身份为管理员时-->
               <!--<Select class="condition-input" :value.sync="usermanData.manageUserType" :options="manageUserList" :disabled="modify"/>-->
@@ -18,7 +18,7 @@
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 用户账号：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 用户账号：</label>
               <Input class="condition-input" :value.sync="usermanData.systemUserCode" :disabled="modify"/>
             </div>
           </el-col>
@@ -26,7 +26,7 @@
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 真实姓名：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 真实姓名：</label>
               <Input class="condition-input" :value.sync="usermanData.name" :disabled="modify"/>
             </div>
           </el-col>
@@ -34,7 +34,7 @@
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 手机号码：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 手机号码：</label>
               <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
             </div>
           </el-col>
@@ -43,7 +43,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
-              <label class="label-wrds text-right"><span class="red-star">*</span> 归属省份：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
               <Cascader :value.sync="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
@@ -52,7 +52,7 @@
           <!-- 当为管理人员时，此项不存在 -->
           <el-col :span="8" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
             </div>
           </el-col>
@@ -60,7 +60,7 @@
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
             <div class="condition-item" v-if="!$route">
-              <label class="label-wrds text-right"><span class="red-star">*</span> 密码：</label>
+              <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
               <Input class="condition-input" type="password" :value.sync="usermanData.password"/>
             </div>
           </el-col>
@@ -68,7 +68,7 @@
         <el-row :gutter="20">
           <el-col :span="18" :offset="2">
             <div class="condition-item">
-              <label class="label-wrds text-right">备注：</label>
+              <label class="label-wrds">备注：</label>
               <Input type="textarea" :value.sync="usermanData.remark" />
             </div>
           </el-col>
@@ -202,9 +202,6 @@
 <style lang="less">
 
   .vue_add-supplier {
-    .el-textarea{
-      flex: 1;
-    }
     .text-right {
       text-align: right;
     }
@@ -231,15 +228,19 @@
       color: #f00;
     }
     .condition-item {
-      display: flex;
+      position:relative;
       margin: 10px 0;
+      padding: 0 0 0 110px;
       .label-wrds {
+        position:absolute;
         width: 110px;
         line-height: 32px;
         font-size: 14px;
+        text-align: right;
+        left:0;
       }
       .condition-input {
-        flex: 1 0 0;
+        width: 100%;
       }
       .el-input__inner{
         height: 32px;
@@ -247,7 +248,7 @@
         border-radius: 0;
       }
       .el-cascader{
-        flex: 1 0 0;
+        width:100%;
         line-height: 32px;
         .el-input__icon{
           line-height: 32px;
