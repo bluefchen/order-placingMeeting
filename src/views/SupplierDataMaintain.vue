@@ -297,21 +297,24 @@
       addSupplier(title, val){
         if(title === '新增'){
           this.$router.push({
-            path: '/orderManage/AddSupplierData'
+            path: '/orderManage/AddSupplierData',
+            query: {
+              operation: 'add'
+            }
           });
         }else{
-          localStorage.setItem(val.supplierId, JSON.stringify(val));
+          localStorage.setItem('supplierId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSupplierData',
             query: {
-              supplierId: val.supplierId
+              operation: 'modify'
             }
           });
         }
 
       },
       detailSupplier(val){
-        localStorage.setItem(val.supplierId, JSON.stringify(val));
+        localStorage.setItem('supplierId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSupplierData',
           query: {
