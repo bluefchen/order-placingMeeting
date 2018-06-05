@@ -81,12 +81,15 @@
   export default {
     name: 'AddSupplierData',
     created() {
-      this.supplierInfo = JSON.parse(localStorage.getItem(this.$route.query.supplierId));
-      if(this.supplierInfo.supplierId){
-        this.title = '修改供货商';
-      }else{
+
+      var operation = this.$route.query.operation;
+      if(operation === 'add'){
         this.title = '新增供货商';
+      }else{
+        this.title = '修改供货商';
+        this.supplierInfo = JSON.parse(localStorage.getItem('supplierId'));
       };
+
     },
     data() {
       return {
