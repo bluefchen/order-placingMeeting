@@ -151,7 +151,7 @@
         //供应商表头
         tableSupplierTitle: [{
           label: '省份',
-          prop: 'province',
+          prop: 'commonRegionName',
         }, {
           label: '供应商编码',
           prop: 'supplierCode',
@@ -178,7 +178,7 @@
         //零售商表头
         tableRetailerTitle: [{
           label: '省份',
-          prop: 'province',
+          prop: 'commonRegionName',
         }, {
           label: '零售商编码',
           prop: 'retailerCode',
