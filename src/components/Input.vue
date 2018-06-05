@@ -69,5 +69,8 @@
   }
   .el-textarea {
     vertical-align: top;
+    textarea{
+      resize: none;
+    }
   }
 </style>

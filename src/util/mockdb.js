@@ -84,8 +84,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmSupplierList'), {
     'rows|10': [{
       supplierId: '@id', //供应商ID
       supplierCode: '@id', //供应商编码
-      province: '@province()', //供应商省份
-      city: '@city()', //供应商地市
+      commonRegionId: '@id',
+      commonRegionName: '@province()', //供应商省份
       supplierName: '@cword(3,6)', //供应商名称
       supplierType: '', //供应商类型
       supplierTypeName: '@cword(3,6)', //供应商类型名称
@@ -109,8 +109,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmRetailerList'), {
     'rows|10': [{
       'retailerId': '@id',
       'retailerCode': '@id',
-      'province': '@province()',
-      'city': '@city()',
+      'commonRegionId': '@id',
+      'commonRegionName': '@province()',
       'retailerName': '@cword(3,6)',
       'retailerType': '',
       'retailerTypeName': '@cword(3,6)',

@@ -25,7 +25,7 @@
               <el-col :span="18" :offset="2">
                 <div class="condition-item">
                   <label class="label-wrds text-right"><span class="red-star">*</span> 角色说明：</label>
-                  <el-input class="condition-input" type="textarea" v-model="roleData.description"></el-input>
+                  <Input class="condition-input" type="textarea" v-model="roleData.description" />
                 </div>
               </el-col>
             </el-row>

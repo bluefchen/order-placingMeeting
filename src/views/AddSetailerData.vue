@@ -59,7 +59,7 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <el-input type="textarea" v-model="retailerInfo.remarks"></el-input>
+              <Input type="textarea" v-model="retailerInfo.remarks" />
             </div>
           </el-col>
         </el-row>
@@ -175,14 +175,6 @@
   .vue_add-supplier {
     .el-textarea{
       flex: 1;
-      .el-textarea__inner{
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &:focus {
-          border-color: #ff7a7a;
-        }
-      }
     }
     .text-right {
       text-align: right;
