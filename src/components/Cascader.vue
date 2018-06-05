@@ -11,7 +11,6 @@
 <script>
   export default {
     name: 'Cascader',
-
     props: {
       level: {
         type: String
@@ -20,7 +19,6 @@
         type: String
       }
     },
-
     created() {
       this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
         this.areaList = rsp;
@@ -41,12 +39,12 @@
       options() {
         let arr = [];
         _.forEach(this.areaList, (item) => {
-          if(this.level === 'province'){
+          if (this.level === 'province') {
             arr.push({
               label: item.name,
               areaId: item.id
             })
-          }else{
+          } else {
             arr.push({
               label: item.name,
               areaId: item.id,
@@ -70,27 +68,25 @@
                 areaId: item.id
               })
             });
-
             _.forEach(this.options, (item) => {
-              if(item.areaId == val){
+              if (item.areaId == val) {
                 item.cities = arr;
               }
             });
-
           });
         }
       },
-      handleChange(item){
-        if(this.level === 'province'){
-          var flag = {}
-          this.areaList.forEach( (opt,index) =>{
-            if(item[item.length - 1] === opt.id){
+      handleChange(item) {
+        if (this.level === 'province') {
+          let flag = {};
+          this.areaList.forEach((opt, index) => {
+            if (item[item.length - 1] === opt.id) {
               flag = opt;
               return;
-            };
+            }
           });
           this.$emit('change', flag.id, flag.name);
-        }else{
+        } else {
           this.$emit('change', item[item.length - 1]);
         }
       }
