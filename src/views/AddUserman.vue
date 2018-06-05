@@ -44,7 +44,8 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
-              <Cascader :value.sync="usermanData.commonRegionId" :disabled="modify"/>
+              <!--<Cascader :value.sync="usermanData.commonRegionId" :disabled="modify"/>-->
+              <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -98,7 +99,7 @@
   import Input from '@/components/Input';
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'AddSupplierData',
@@ -194,7 +195,7 @@
       Input,
       Select,
       ChooseMerchants,
-      Cascader
+      AreaSelect
     }
   }
 </script>
