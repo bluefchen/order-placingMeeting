@@ -41,6 +41,7 @@ const AddUserman = () => import('@/views/AddUserman');
 const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
 const TerminalQuery = () => import('@/views/TerminalQuery');
+const SummaryStatisticalAnalysis = () => import('@/views/SummaryStatisticalAnalysis');
 const AddRole = () => import('@/views/AddRole');
 const AddRelevantPerson = () => import('@/views/AddRelevantPerson');
 
@@ -221,6 +222,13 @@ export default new Router({
         component: TerminalQuery,
         meta: {
           title: '终端查询'
+        },
+      }, {
+        path: 'summaryStatisticalAnalysis',
+        name: 'summaryStatisticalAnalysis',
+        component: SummaryStatisticalAnalysis,
+        meta: {
+          title: '全国汇总统计分析'
         },
       }]
     }, {
