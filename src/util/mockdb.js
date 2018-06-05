@@ -246,12 +246,11 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
         'offerPic': {
           'offerPicId': '@id',
           'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl2': '@url',
-          'offerPicUrl3': '@url',
-          'offerPicUrl4': '@url',
-          'offerPicUrl5': '@url',
-          'offerPicUrl6': '@url'
-        }
+          'offerPicUrl2|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl3|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl4|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl5|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl6|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg']       }
       }
     }]
   }
@@ -1189,7 +1188,7 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize |1-100': 100, //总记录条数
+    'totalSize|1-99': 1,//总记录条数
     'rows|10': [{
       'partyId': '@id',
       'commonRegionId': '1000001',

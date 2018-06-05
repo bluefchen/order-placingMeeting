@@ -1,11 +1,15 @@
 <template>
   <div class="choose-merchants">
-    <div class="choose-input-box" @click="isShow = true">
+    <div class="choose-input-box" @click="isShow = true" v-show="!disabled">
       <input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly/>
       <input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly/>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
-
+    <div class="choose-input-box disabled" v-show="disabled">
+      <input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly/>
+      <input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly/>
+      <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
+    </div>
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <el-row :gutter="10">
@@ -62,10 +66,12 @@
       },
       selectionFor: {
         type: Object
+      },
+      disabled: {
+        type: Boolean
       }
     },
     created() {
-      // this.dialogTitle = this.dialog + this.title;
       if (this.title === '供应商') {
         this.tableTitle = this.tableSupplierTitle;
         this.isShowSupplierType = true;
@@ -87,7 +93,6 @@
     data() {
       return {
         dialog: '选择添加',
-        // dialogTitle: '',
         isShowSupplierType: true,
         checkedOption: {},
         sdfadf: '',
@@ -350,7 +355,23 @@
         width: calc(100% - 45px);
         height: 24px;
         padding: 3px 10px;
+        color: #606266;
+        font-size: 14px;
         cursor: pointer;
+      }
+      &.disabled{
+        .choose-input{
+          background-color: #f5f7fa;
+          border-color: #e4e7ed;
+          color: #c0c4cc;
+          cursor: not-allowed;
+        }
+        .choose-input-icon{
+          background-color: #f5f7fa;
+          border-color: #e4e7ed;
+          color: #c0c4cc;
+          cursor: not-allowed;
+        }
       }
     }
     .dialog-choose-merchants {

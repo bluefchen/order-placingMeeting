@@ -675,9 +675,9 @@
         justify-content: center;
         align-items: center;
         border-radius: 5px;
-        img {
-          max-width: 100%;
-          max-height: 100%;
+        img{
+          max-width: 161px;
+          max-height: 84px;
         }
       }
       .el-cascader {
