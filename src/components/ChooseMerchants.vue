@@ -214,7 +214,7 @@
           }
         }, {
           label: '省份',
-          prop: 'province',
+          prop: 'commonRegionName',
         }, {
           label: '零售商编码',
           prop: 'retailerCode',
