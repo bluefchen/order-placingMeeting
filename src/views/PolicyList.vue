@@ -45,9 +45,11 @@
     },
     data() {
       return {
-        title: '优惠政策详情',
+        policyManage: {
+          policyType: '',
+          policyName: ''
+        },
         //表格的数据
-        isSelection: true,
         tableTitle: [{
           label: '政策名称',
           prop: 'policyName',
@@ -61,44 +63,40 @@
           }
         }, {
           label: '政策机型',
-          prop: 'policyModel',
+          prop: 'offerNames',
           width: 180,
         }, {
           label: '政策制定日期',
-          prop: 'policyDate',
+          prop: 'createDt',
           width: 180,
         }, {
           label: '制定人',
-          prop: 'policyModelName',
+          prop: 'partyName',
           width: 150,
         }, {
           label: '制定状态',
-          prop: 'state',
-          width: 150,
-          render: (h, params) => {
-            return h({
-              template: '<div><span v-if="data.row.state === \'Y\'">已发布</span><span v-else>待审核</span></div>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
+          prop: 'statusCdName',
+          width: 150
         }],
-        tableData: [{
-          policyName: 'VIVO',
-          policyModel: '普惠机型',
-          policyDate: '2018-04-04',
-          policyModelName: '吴晓明',
-          state: 'Y'
-        }],
+        tableData: [],
         isShow: false
       }
     },
     methods: {
       search(obj) {
-        console.log('参数：', obj);
+        this.policyManage.policyType = obj.type;
+        this.policyManage.policyName = obj.value;
+        this.queryOpmPolicyList();
+      },
+      queryOpmPolicyList() {
+        this.$post('/opmPolicyController/queryOpmPolicyList', {
+          opMeetingId: '订货会ID',
+          policyName: this.policyManage.policyName,
+          policyType: this.policyManage.policyType,
+          statusCd: ''
+        }).then((rsp) => {
+          this.tableData = rsp.rows;
+        })
       }
     },
     components: {

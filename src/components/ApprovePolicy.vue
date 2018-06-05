@@ -81,7 +81,18 @@
       text-decoration: underline;
     }
   }
-
+  .hover-btn{
+    padding: 2px 5px;
+    border: 1px solid transparent;
+    color: #ff0000;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover{
+      border: 1px solid #ff0000;
+      text-decoration: none;
+    }
+  }
   .approve {
     .el-row {
       margin-bottom: 10px;

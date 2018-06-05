@@ -54,7 +54,9 @@
       text-decoration: underline;
     }
   }
-
+  .hover-btn{
+    text-decoration: underline;
+  }
   .pop-cnt {
     .vivo {
       width: 102px;

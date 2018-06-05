@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="policy-manage">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -117,7 +117,7 @@
           this.queryOpmPolicyList();
         })
       },
-      queryOpmPolicyList(curPage, pageSize) {
+      queryOpmPolicyList() {
         this.$post('/opmPolicyController/queryOpmPolicyList', {
           opMeetingId: '订货会ID',
           policyName: this.policyManage.policyName,
@@ -139,82 +139,72 @@
 
 <style scoped lang="less">
   /*中间背景图片*/
-  .img-bg {
-    width: 100%;
-    height: 200px;
-    background: #e4273f;
+  .policy-manage{
+    .img-bg {
+      width: 100%;
+      height: 200px;
+      background: #e4273f;
+    }
+    .img-bg .info {
+      width: 1036px;
+      height: 200px;
+      margin: 0 auto;
+      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
+      overflow: hidden;
+    }
+    .img-bg .info .p-titl {
+      margin: 62px 0 0 0;
+      font-size: 22px;
+      color: #fcfdff;
+    }
+    .img-bg .info .activity {
+      width: 306px;
+      margin: 10px 0 0 0;
+      line-height: 18px;
+      font-size: 12px;
+      color: #fcfdff;
+      text-align: center;
+    }
+    /*中间背景图片*/
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+    .search {
+      margin: 10px auto;
+    }
+    .order-titl {
+      height: 28px;
+      margin: 15px 0;
+      line-height: 28px;
+    }
+    .order-titl .tel-model {
+      min-width: 5px;
+      min-height: 20px;
+      background: url('../assets/images/red-line.png') no-repeat 0 center;
+      padding-left: 10px;
+      font-size: 18px;
+      color: #000;
+      font-weight: 800;
+    }
+    .buttons .btns {
+      display: inline-block;
+      padding: 0 12px;
+      margin-left: 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+      text-decoration: none;
+    }
+    .buttons .btns:hover {
+      background-color: #e20606;
+    }
+    .child {
+      height: 330px;
+    }
   }
-
-  .img-bg .info {
-    width: 1036px;
-    height: 200px;
-    margin: 0 auto;
-    background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
-    overflow: hidden;
-  }
-
-  .img-bg .info .p-titl {
-    margin: 62px 0 0 0;
-    font-size: 22px;
-    color: #fcfdff;
-  }
-
-  .img-bg .info .activity {
-    width: 306px;
-    margin: 10px 0 0 0;
-    line-height: 18px;
-    font-size: 12px;
-    color: #fcfdff;
-    text-align: center;
-  }
-
-  /*中间背景图片*/
-
-  .my-location {
-    height: 30px;
-    line-height: 30px;
-    background-color: #f6f6f6;
-  }
-
-  .search {
-    margin: 10px auto;
-  }
-
-  .order-titl {
-    height: 28px;
-    margin: 15px 0;
-    line-height: 28px;
-  }
-
-  .order-titl .tel-model {
-    min-width: 5px;
-    min-height: 20px;
-    background: url('../assets/images/red-line.png') no-repeat 0 center;
-    padding-left: 10px;
-    font-size: 18px;
-    color: #000;
-    font-weight: 800;
-  }
-
-  .buttons .btns {
-    display: inline-block;
-    padding: 0 12px;
-    margin-left: 2px;
-    border: 0;
-    background-color: #fa0000;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 3px;
-    line-height: 28px;
-    text-decoration: none;
-  }
-
-  .buttons .btns:hover {
-    background-color: #e20606;
-  }
-
-  .child {
-    height: 330px;
-  }
-
 </style>
