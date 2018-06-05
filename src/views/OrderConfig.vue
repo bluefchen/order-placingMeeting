@@ -37,7 +37,7 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <Cascader @change="selectAddress" :level="level" :regionId="orderPlacingMeeting.commonRegionId" />
+                <Cascader @change="selectAddress" :level="level" :regionId="orderPlacingMeeting.commonRegionId"/>
               </div>
             </el-col>
             <el-col :span="10">
@@ -123,28 +123,13 @@
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会描述：</label>
                 <div class="editor">
                   <quill-editor ref="textEditor"
-                    v-model="orderPlacingMeeting.discription">
+                                v-model="orderPlacingMeeting.discription">
                   </quill-editor>
                 </div>
               </div>
             </el-col>
           </el-row>
         </div>
-      </div>
-      <div class="dialog-save">
-        <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
-          <div slot="content" class="pop-cnt">
-            <div class="import-result-box fn-clear">
-              <div class="success">
-                <img src="@/assets/images/icon-success.png" class="suc-img">
-                订货会基本信息保存成功！
-              </div>
-            </div>
-          </div>
-          <div slot="footer">
-            <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
-          </div>
-        </DialogPopup>
       </div>
     </div>
     <div v-show="active === 2">
@@ -187,7 +172,7 @@
             </div>
           </div>
           <div class="add-supplier">
-            <AddMerchants title="供货商" @selectOptions="selectSupplier" />
+            <AddMerchants title="供货商" @selectOptions="selectSupplier"/>
           </div>
           <div class="add-order-title">
             <div class="title fn-left">已添加供货商：</div>
@@ -239,7 +224,7 @@
             </div>
           </div>
           <div class="add-supplier">
-            <AddMerchants title="零售商" @selectOptions="selectRetailer" />
+            <AddMerchants title="零售商" @selectOptions="selectRetailer"/>
           </div>
           <div class="add-order-title">
             <div class="title fn-left">已添加零售商：</div>
@@ -253,24 +238,20 @@
     </div>
     <div v-show="active === 4">
       <div class="box-1200">
-        <div class="terminal-info-box">
-          <div class="finish-info-box">
-            <div class="finish-info">
-              <div class="finish-info-left fn-left">
-                <img src="@/assets/images/icon-success.png" alt="">
-              </div>
-              <div class="finish-info-right fn-left">
-                <p class="finish-info-title">订货会资料信息填写完成！</p>
-                <p class="finish-info-text">可到<span>订货会管理</span>查看或补充完整信息资料。</p>
-                <p class="finish-info-btn"><button>订购会管理</button></p>
-              </div>
-            </div>
+        <div class="import-result-box">
+          <div class="success">
+            <p class="title">订货会资料信息填写完成！</p>
+            <p class="sub-title">您可到<router-link class="btns" to="/orderManage/orderManageIndex">订货会管理</router-link>查看或补充完整信息资料</p>
+            <el-button size="small" type="success" @click="jumpLink">订购会管理</el-button>
           </div>
         </div>
       </div>
     </div>
     <div class="foot-btn" v-show="active !== 4">
-      <button :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt" v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存</button>
+      <button
+        :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt"
+        v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存
+      </button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
       <button v-show="active !== 3" class="btns" @click="next">下一步</button>
@@ -287,8 +268,7 @@
   import Table from '@/components/Table';
   import Cascader from '@/components/Cascader';
   import DialogPopup from '@/components/DialogPopup';
-  import { quillEditor } from 'vue-quill-editor';
-
+  import {quillEditor} from 'vue-quill-editor';
 
   export default {
     name: 'OrderConfig',
@@ -301,33 +281,32 @@
       });
 
       this.opMeetingInfo = JSON.parse(localStorage.getItem(this.$route.query.opMeetingId));
-      if(this.opMeetingInfo.opMeetingId){
+      if (this.opMeetingInfo.opMeetingId) {
         this.title = '编辑订购会';
         this.orderPlacingMeeting = this.opMeetingInfo;
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
-      }else{
+      } else {
         this.title = '新增订购会';
-      };
-
+      }
     },
     data() {
       return {
-        pickerBeginDateBefore:{
-            disabledDate: (time) => {
-                let beginDateVal = this.orderPlacingMeeting.endDt;
-                if (beginDateVal) {
-                    return time.getTime() > beginDateVal;
-                }
+        pickerBeginDateBefore: {
+          disabledDate: (time) => {
+            let beginDateVal = this.orderPlacingMeeting.endDt;
+            if (beginDateVal) {
+              return time.getTime() > beginDateVal;
             }
+          }
         },
-        pickerBeginDateAfter:{
-            disabledDate: (time) => {
-                let beginDateVal = this.orderPlacingMeeting.startDt;
-                if (beginDateVal) {
-                    return time.getTime() < beginDateVal;
-                }
+        pickerBeginDateAfter: {
+          disabledDate: (time) => {
+            let beginDateVal = this.orderPlacingMeeting.startDt;
+            if (beginDateVal) {
+              return time.getTime() < beginDateVal;
             }
+          }
         },
         dialogVisible: false,
         dislogTitle: '保存',
@@ -346,33 +325,33 @@
           tableTitle: [{
             label: '省份',
             prop: 'province',
-          },{
+          }, {
             label: '供货商编码',
             prop: 'supplierCode',
-          },{
+          }, {
             label: '供货商名称',
             prop: 'supplierName',
-          },{
+          }, {
             label: '供货商类型',
             prop: 'supplierTypeName',
-          },{
+          }, {
             label: '联系人',
             prop: 'linkMan',
-          },{
+          }, {
             label: '联系电话',
             prop: 'linkNbr',
-          },{
+          }, {
             label: '公司电话',
             prop: 'supplierPhone',
-          },{
+          }, {
             label: '公司传真',
             prop: 'supplierFax',
-          },{
+          }, {
             label: '操作',
             render: (h, params) => {
               return h({
                 template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
-                data: function(){
+                data: function () {
                   return {
                     param: params
                   }
@@ -392,33 +371,33 @@
           tableTitle: [{
             label: '省份',
             prop: 'province',
-          },{
+          }, {
             label: '零售商编码',
             prop: 'retailerCode',
-          },{
+          }, {
             label: '零售商名称',
             prop: 'retailerName',
-          },{
+          }, {
             label: '零售商类型',
             prop: 'retailerTypeName',
-          },{
+          }, {
             label: '联系人',
             prop: 'linkMan',
-          },{
+          }, {
             label: '联系电话',
             prop: 'linkNbr',
-          },{
+          }, {
             label: '公司电话',
             prop: 'retailerPhone',
-          },{
+          }, {
             label: '公司传真',
             prop: 'retailerFax',
-          },{
+          }, {
             label: '操作',
             render: (h, params) => {
               return h({
                 template: '<div><button @click="delItem(param.row, param.index)" class="del-btn"><span class="iconfont">&#xe60a;</span></button></div>',
-                data: function(){
+                data: function () {
                   return {
                     param: params
                   }
@@ -437,60 +416,57 @@
     },
     methods: {
       next() {
-        this.active ++;
+        this.active++;
       },
       previous() {
-        this.active --;
+        this.active--;
       },
-      visibleChange(val) {
-        this.dialogVisible = val;
-      },
-      selectAddress(code, name){
+      selectAddress(code, name) {
         this.orderPlacingMeeting.commonRegionId = code;
         this.orderPlacingMeeting.commonRegionName = name;
       },
-      qryOpmSupplierList (){
+      qryOpmSupplierList() {
         this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
-            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
-            'pageSize': 10,
-            'curPage': 1
+          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+          'pageSize': 10,
+          'curPage': 1
         }).then((rsp) => {
           this.supplierList.tableData = rsp.rows;
         });
       },
-      qryOpmRetailerList(){
+      qryOpmRetailerList() {
         this.$post('/orderPlacingMeetingController/queryOpmRetailerList', {
-            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
-            'pageSize': 10,
-            'curPage': 1
+          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+          'pageSize': 10,
+          'curPage': 1
         }).then((rsp) => {
           this.retailerList.tableData = rsp.rows;
         });
       },
-      selectRetailer(val){
+      selectRetailer(val) {
         val.forEach((item, index) => {
-          var flag = this.retailerList.tableData.some((opt,index) =>{
+          let flag = this.retailerList.tableData.some((opt, index) => {
             return item.retailerId === opt.retailerId;
           });
-          if(!flag){
+          if (!flag) {
             this.retailerList.tableData.push(item);
-          };
+          }
         })
       },
-      selectSupplier(val){
+      selectSupplier(val) {
         val.forEach((item, index) => {
-          var flag = this.supplierList.tableData.some((opt,index) =>{
+          let flag = this.supplierList.tableData.some((opt, index) => {
             return item.supplierId === opt.supplierId;
           });
-          if(!flag){
+          if (!flag) {
             this.supplierList.tableData.push(item);
-          };
+          }
         })
       },
-      delSupplier(val, index){
+      delSupplier(val, index) {
         this.supplierList.tableData.splice(index, 1);
       },
-      delRetailer(val, index){
+      delRetailer(val, index) {
         this.retailerList.tableData.splice(index, 1);
       },
       //图片上传
@@ -498,12 +474,12 @@
         this.orderPlacingMeeting.logoUrl = URL.createObjectURL(file.raw);
       },
       beforeAvatarUpload(file) {
-        var isImg;
-        if(file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/jpg'){
+        let isImg;
+        if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/jpg') {
           isImg = true;
-        }else{
+        } else {
           isImg = false;
-        };
+        }
         if (!isImg) {
           this.$message.error('订购会logo只能是图片格式!');
         }
@@ -515,15 +491,15 @@
         // return isJPG && isLt2M;
       },
       orderSubmit() {
-        if(this.title === '新增订购会'){
+        if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
-            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
-            'opmName': this.orderPlacingMeeting.opmName, 
-            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
+            'opmName': this.orderPlacingMeeting.opmName,
+            'opmAddr': this.orderPlacingMeeting.opmAddr,
             'startDt': this.orderPlacingMeeting.startDt,
             'endDt': this.orderPlacingMeeting.endDt,
-            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
             'discription': this.orderPlacingMeeting.discription,
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
@@ -533,16 +509,16 @@
           }).then((rsp) => {
             console.log('新增成功！');
           });
-        }else{
+        } else {
           //修改
           this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
-            'opMeetingId': this.orderPlacingMeeting.opMeetingId, 
-            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo, 
-            'opmName': this.orderPlacingMeeting.opmName, 
-            'opmAddr': this.orderPlacingMeeting.opmAddr, 
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
+            'opmName': this.orderPlacingMeeting.opmName,
+            'opmAddr': this.orderPlacingMeeting.opmAddr,
             'startDt': this.orderPlacingMeeting.startDt,
             'endDt': this.orderPlacingMeeting.endDt,
-            'commonRegionId': this.orderPlacingMeeting.commonRegionId, 
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
             'discription': this.orderPlacingMeeting.discription,
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
@@ -556,11 +532,14 @@
       },
       orderSave() {
         this.orderSubmit();
-        this.visibleChange(true);
+        this.$message.success('订货会基本信息保存成功');
       },
       finish() {
         this.orderSubmit();
         this.next();
+      },
+      jumpLink() {
+        this.$router.push({path: '/orderManage/orderManageIndex'});
       }
     },
     components: {
@@ -588,40 +567,40 @@
       margin: 15px 0;
       line-height: 28px;
     }
-    .terminal-info-box{
+    .terminal-info-box {
       width: 100%;
       margin-top: 20px;
       margin-bottom: 20px;
-      .add-order-title{
+      .add-order-title {
         height: 28px;
         margin: 15px 0;
         line-height: 28px;
-        .title{
+        .title {
           font-size: 14px;
         }
-        .remark{
+        .remark {
           color: #6c6c6c;
           font-size: 12px;
-          span{
+          span {
             color: #f60e0e;
           }
         }
       }
-      .add-supplier{
+      .add-supplier {
         margin-top: 20px;
       }
-      .order-info{
+      .order-info {
         width: 100%;
         height: 81px;
         border: 1px solid #ebebeb;
-        .order-info-left{
+        .order-info-left {
           position: relative;
           width: 108px;
           height: 100%;
           background: #f8f8f8;
           border-right: 1px solid #ebebeb;
           text-align: center;
-          &:after{
+          &:after {
             position: absolute;
             right: -10px;
             top: 50%;
@@ -632,14 +611,14 @@
             height: 15px;
             background: url('../assets/images/arrow-right.png') no-repeat 0 center;
           }
-          img{
+          img {
             padding-top: 9px;
           }
-          p{
+          p {
             line-height: 22px;
           }
         }
-        .order-info-right{
+        .order-info-right {
           width: calc(100% - 109px);
           padding-top: 10px;
           .order-info-item {
@@ -658,7 +637,7 @@
         }
       }
     }
-    .red-star{
+    .red-star {
       color: #f00;
     }
 
@@ -671,7 +650,7 @@
         line-height: 32px;
         font-size: 14px;
       }
-      .date-text{
+      .date-text {
         width: 50px;
         text-align: center;
         line-height: 32px;
@@ -679,12 +658,12 @@
       .condition-input {
         flex: 1 0 0;
       }
-      .label-address{
+      .label-address {
         width: 20px;
         line-height: 32px;
         text-align: center;
       }
-      .condition-upload{
+      .condition-upload {
         width: 163px;
         height: 86px;
         margin-right: 10px;
@@ -697,46 +676,46 @@
         align-items: center;
         border-radius: 5px;
         img{
-          max-width: 163px;
-          max-height: 86px;
+          max-width: 161px;
+          max-height: 84px;
         }
       }
-      .el-cascader{
+      .el-cascader {
         flex: 1;
         line-height: 32px;
-        .el-input__inner{
+        .el-input__inner {
           height: 32px;
           line-height: 32px;
         }
-        .el-input__icon{
+        .el-input__icon {
           line-height: 32px;
         }
       }
-      .editor{
+      .editor {
         flex: 1;
-        .quill-editor{
+        .quill-editor {
           height: 200px;
         }
       }
-      &.editor-box{
+      &.editor-box {
         height: 270px;
       }
     }
 
-    .add-roder-table{
-      .del-btn{
+    .add-roder-table {
+      .del-btn {
         background: none;
         border: none;
         color: #6f6f6f;
         font-size: 16px;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: #f01d1d;
         }
       }
     }
 
-    .foot-btn{
+    .foot-btn {
       width: 100%;
       padding: 35px 0;
       border-top: 1px solid #dcdcdc;
@@ -756,7 +735,7 @@
         &:hover {
           background-color: #e20606;
         }
-        &:disabled{
+        &:disabled {
           opacity: 0.7;
           &:hover {
             background-color: #fa0000;
@@ -765,119 +744,104 @@
       }
     }
 
-    .finish-info-box{
+    .import-result-box {
       width: 100%;
-      height: 168px;
+      margin-top: 20px;
+      padding: 10px 0 20px;
       background: #f5fff8;
       border: 1px solid #e4f0e7;
-      .finish-info{
-        width: 500px;
-        margin: auto;
-        padding-top: 15px;
-        .finish-info-left{
-          width: 99px;
-          height: 99px;
-          margin-right: 5px;
+
+      .success {
+        width: 330px;
+        margin: 0 auto;
+        padding: 10px 0 0 110px;
+        background: url(../assets/images/icon-success.png) no-repeat 0 0;
+        .title {
+          line-height: 35px;
+          color: #000;
+          font-size: 16px;
         }
-        .finish-info-right{
-          .finish-info-title{
-            margin-top: 20px;
-            color: #000;
-            font-size: 16px;
-            font-weight: bold;
-          }
-          .finish-info-text{
-            margin-top: 20px;
-            color: #1e1e1e;
+        .sub-title {
+          margin-bottom: 15px;
+          color: #1e1e1e;
+          font-size: 12px;
+          a, a:hover, a:active {
+            margin: 0 2px;
+            color: #f82134;
             font-size: 12px;
-            span{
-              margin: 0 5px;
-              color: #f60e0e;
-              text-decoration: underline;
-            }
-          }
-          .finish-info-btn{
-            button{
-              margin-top: 20px;
-              padding: 5px 10px;
-              background: #f01919;
-              color: #fff;
-              border: none;
-              border-radius: 3px;
-              cursor: pointer;
-            }
+            text-decoration: underline;
           }
         }
       }
     }
 
     //步骤条
-    .step-box{
+    .step-box {
       padding: 0 20px;
-      .el-step__title{
+      .el-step__title {
         line-height: 30px;
         font-size: 12px;
-        &.is-wait, &.is-process{
+        &.is-wait, &.is-process {
           color: #727272;
           font-weight: normal;
-          .el-step__icon-inner{
+          .el-step__icon-inner {
             color: #818181;
             font-weight: normal;
           }
         }
-        &.is-finish{
+        &.is-finish {
           color: #f01d1d;
         }
       }
-      .el-step__icon{
+      .el-step__icon {
         background: #dcdcdc;
         border: none;
       }
-      .el-step__line-inner{
+      .el-step__line-inner {
         border-width: 0;
       }
-      .el-step__line{
+      .el-step__line {
         background: none;
         border-top-width: 1px;
         border-style: dotted;
       }
-      .el-step__head{
-        &.is-finish{
+      .el-step__head {
+        &.is-finish {
           color: #fff;
-          .el-step__icon{
+          .el-step__icon {
             background: #f01d1d;
             border: none;
           }
-          .el-step__line{
+          .el-step__line {
             border-color: #f00;
           }
         }
-        &.is-process, &.is-wait{
-          .el-step__icon-inner{
+        &.is-process, &.is-wait {
+          .el-step__icon-inner {
             color: #818181;
             font-weight: normal;
           }
         }
-        .el-step__line-inner{
+        .el-step__line-inner {
           border: none;
         }
       }
     }
     //步骤条
-    .dialog-save{
+    .dialog-save {
       .dialog-choose-merchants {
         .el-dialog {
           width: 550px;
           padding: 50px 0;
         }
-        .el-dialog__header{
+        .el-dialog__header {
           display: none;
         }
-        .el-dialog__footer{
+        .el-dialog__footer {
           background: none;
           border: none;
         }
-        .success{
+        .success {
           display: flex;
           color: #000;
           font-size: 14px;
@@ -889,13 +853,16 @@
     }
 
   }
+
   .el-date-table td.current:not(.disabled) span {
-      color: #fff;
-      background-color: #ff7a7a;
+    color: #fff;
+    background-color: #ff7a7a;
   }
+
   .el-date-table td.available:hover {
     color: #ff7a7a;
   }
+
   .el-date-table td.today span {
     color: #ff7a7a;
     font-weight: 700;
