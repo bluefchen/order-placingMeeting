@@ -54,7 +54,6 @@
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
-
             </div>
           </el-col>
         </el-row>

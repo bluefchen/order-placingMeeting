@@ -24,19 +24,13 @@
           <el-col :span="8">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
+              <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
           <el-col :span="12">
               <div class="condition-iterm">
                 <label class="label-wrds">订购起止日期：</label>
-                <el-date-picker
-                  v-model="depositRecord.orderDate"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                  value-format="yyyy-MM-dd">
-                </el-date-picker>
+                <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
               </div>
           </el-col>
           <el-col :span="4">
@@ -63,9 +57,11 @@
   import InputWithSelect from '@/components/InputWithSelect';
   import DeviceInfo from '@/components/DeviceInfo';
   import TitlePlate from '@/components/TitlePlate';
+  import DatePicker from '@/components/DatePicker';
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import Pagination from '@/components/Pagination';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'CyjDepositAddRecord',
@@ -147,10 +143,12 @@
     components: {
       InputWithSelect,
       DeviceInfo,
+      DatePicker,
       Table,
       TitlePlate,
       Breadcrumb,
       Pagination,
+      ChooseMerchants
     }
   }
 </script>
@@ -205,34 +203,26 @@
   .el-row {
     width: 100%;
   }
-  
+
   /* 条件搜索 */
   .condition-search {
     display: flex;
-    height: 72px;
-    margin: 10px auto 14px;
+    margin: 10px auto;
     border: 1px solid #dfdfdf;
-    .condition-iterm {
-      position: relative;
-      margin: 20px 30px 0 0;
+    .condition-iterm{
+      display: flex;
+      margin: 15px 0;
       .label-wrds {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
+        width: 110px;
         line-height: 32px;
         font-size: 14px;
         text-align: right;
       }
       .condition-input {
-        width: calc(100% - 20px - 100px);
-        height: 24px;
-        padding: 3px 10px;
-        margin-left: 100px;
-        border: 1px solid #e5e5e5;
+        flex: 1 0 0;
       }
-      .btns{
-        left: 0;
+      .btns {
+        position: relative;
         line-height: 31px;
         padding: 0 10px;
         font-size: 14px;
