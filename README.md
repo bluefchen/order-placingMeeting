@@ -42,14 +42,12 @@ npm run build --report
 
 ## 问题记录
 - 1、input输入框只能输入数字；
-- 2、导出、下载后台返回blob；
-- 3、地区选择联动组件；
-- 4、富文本编辑器 https://surmon-china.github.io/vue-quill-editor/
-	cnpm install vue-quill-editor --save；
-- 5、routerLink地址首字母小写；
-- 6、详情预览界面文字总体感觉别扭；
-- 7、textarea替换成Input组件type="textarea"；
-- 8、接口51的入参policyId，在接口48中返回参数缺失（已在接口48返回参数中添加，待和开发确认）；
+- 2、导出UploadFile组件调用增加下载模板downloadUrl地址；
+- 3、地区选择联动组件（只有省的选择）；
+- 4、routerLink地址首字母小写；
+- 5、详情预览界面文字总体感觉别扭；
+- 6、textarea替换成Input组件type="textarea"；
+- 7、接口51的入参policyId，在接口48中返回参数缺失（已在接口48返回参数中添加，待和开发确认）；
 
 
 页面

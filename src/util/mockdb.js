@@ -36,7 +36,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
       'commonRegionName': '@province',
       'statusCd|1': ['1000', '1001', '1002'],
       'discription': '@cword(10,20)',
-      'logoUrl|1': ['/assets/images/telephone1.jpg', '/assets/images/telephone2.jpg', '/assets/images/telephone3.jpg', '/assets/images/telephone4.jpg'],
+      'logoUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
       'depositRecordEnddt': '@date()',
       'pickupRecordEnddt': '@date()',
       'statusDt': '@date()',
@@ -136,16 +136,15 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/querySupplierList'), {
     'rows|5-10': [{
       'supplierId': '@id',
       'supplierCode': '@id',
-      'province': '@province',
       'commonRegionId': '@id',
-      'city': '@city',
+      'commonRegionName': '@province',
       'supplierName': '@cword(4,6)',
       'supplierType|1': ['1001', '1002', '1003', '1004'],
       'supplierTypeName|1': ['厂商', '国代', '省代', '其他'],
       'linkMan': '@cname',
       'linkNbr': /\d{5,11}/,
-      'supplierPhone': /\d{5,9}/,
-      'supplierFax': /\d{5,9}/,
+      'supplierPhone': /\d{5,9}\-/,
+      'supplierFax': /\d{5,9}\-/,
       'statusCd|1': ['1000', '1001'],
       'statusCdName|1': ['有效', '停用'],
       'remarks': '@cword(10,20)'
@@ -165,9 +164,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerList'), {
     'rows|5-10': [{
       'retailerId': '@id',
       'retailerCode': '@id',
-      'province': '@province',
       'commonRegionId': '@id',
-      'city': '@city',
+      'commonRegionName': '@province',
       'retailerName': '@cword(4,6)',
       'retailerType|1': ['1001', '1002', '1003'],
       'retailerTypeName|1': ['自营厅', '大连锁', '代理商'],
@@ -247,13 +245,12 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
         'batteryCharge': '@word(2,10)',
         'offerPic': {
           'offerPicId': '@id',
-          'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
-          'offerPicUrl2': '@url',
-          'offerPicUrl3': '@url',
-          'offerPicUrl4': '@url',
-          'offerPicUrl5': '@url',
-          'offerPicUrl6': '@url'
-        }
+          'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl2|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl3|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl4|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl5|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+          'offerPicUrl6|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg']       }
       }
     }]
   }
@@ -310,7 +307,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
       'supplierName': '@cword(3, 5)',
       'offerPic': {
         'offerPicId': '@id',
-        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -427,7 +424,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
       'assignQty|1-99': 1,
       'offerPic': {
         'offerPicId': '@id',
-        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -592,7 +589,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
       'pickupGoodsAmount|1-100': 1,
       'remarks': '@cword(8, 30)',
       'offerPic': {
-        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -689,7 +686,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'statusCdName|1': ['进行中', '已完成', '已撤销'],
       'remarks': '@cword(15,30)',
       'offerPic': {
-        'offerPicUrl|1': ['assets/images/telephone1.jpg', 'assets/images/telephone2.jpg', 'assets/images/telephone3.jpg', 'assets/images/telephone4.jpg'],
+        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',

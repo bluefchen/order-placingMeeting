@@ -30,6 +30,9 @@
         type: String,
         require: true
       },
+      downloadUrl: {
+        type: String
+      },
       callback: {
         type: Function
       }
@@ -69,20 +72,7 @@
         })
       },
       download() {
-        // window.open('/orderPlacingMeeting/orderPlacingMeetingService/exportTest');
-        // this.$axios.get('/orderPlacingMeeting/orderPlacingMeetingService/exportTest', {
-        //   params: {
-        //     key: ''
-        //   },
-        //   responseType: 'blob'
-        // }).then((response) => {
-        //   //创建一个blob对象,file的一种
-        //   let blob = new Blob([response.data], {type: 'application/vnd.ms-excel;charset=UTF-8'});
-        //   let link = document.createElement('a');
-        //   link.href = window.URL.createObjectURL(blob);
-        //   link.download = '_' + response.headers.datestr + '.xls';
-        //   link.click();
-        // })
+        window.open(this.downloadUrl);
       }
     }
   }

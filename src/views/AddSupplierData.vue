@@ -84,7 +84,6 @@
       this.supplierInfo = JSON.parse(localStorage.getItem(this.$route.query.supplierId));
       if(this.supplierInfo.supplierId){
         this.title = '修改供货商';
-        this.supplierInfo.commonRegionId = '1000003'; //测试地区用，最后需要删除
       }else{
         this.title = '新增供货商';
       };

@@ -84,7 +84,6 @@
       this.retailerInfo = JSON.parse(localStorage.getItem(this.$route.query.retailerId));
       if(this.retailerInfo.retailerId){
         this.title = '修改零售商';
-        this.retailerInfo.commonRegionId = '1000003'; //测试地区用，最后需要删除
       }else{
         this.title = '新增零售商';
       };
