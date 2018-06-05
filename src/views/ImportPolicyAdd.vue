@@ -23,7 +23,7 @@
         <div class="file-import">
           <UploadFile :url="url" @callback="uploadData"/>
         </div>
-        <div class="import-result-box">
+        <div class="import-result-box" v-show="data">
           <div class="success">
             <p class="title">上传政策成功，等待集团审批！</p>
             <p class="sub-title">您可到<router-link class="btns" to="/order/policyManage">政策投入</router-link>查看您制定的政策</p>
@@ -46,12 +46,13 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList',
-        tableData: []
+        data: null,
+        uploadDone: false
       }
     },
     methods: {
       uploadData(data) {
-        this.tableData = data.rows;
+        this.data = data;
         console.log('导入文件返回的数据：', data);
       },
       jumpLink() {
