@@ -217,7 +217,7 @@
       </div>
     </div>
     <div class="foot-btn">
-        <button class="btns" @click="showList">保&nbsp;持</button>
+        <button class="btns" @click="showList">保&nbsp;存</button>
         <button class="btns">预&nbsp;览</button>
     </div>
 
