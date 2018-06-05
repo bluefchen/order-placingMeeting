@@ -141,11 +141,19 @@
       compileOrder(title, item) {
         if (title === '新增') {
           this.$router.push({
-            path: '/orderManage/orderConfig'
+            path: '/orderManage/orderConfig',
+            query: {
+              operation: 'add'
+            }
           });
         } else {
           localStorage.setItem('opMeeting', JSON.stringify(item));
-          this.$router.push({path: '/orderManage/orderConfig'});
+          this.$router.push({
+            path: '/orderManage/orderConfig',
+            query:{
+              operation: 'modify'
+            }
+          });
         }
       },
       delOrder(item) {
