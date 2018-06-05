@@ -507,9 +507,9 @@ Mock.mock(new RegExp('/commonCfgController/getCommonRegionTreeList'), {
   code: null,
   msg: null, //失败信息
   error: null,
-  'data|30': [{
-    'id|1': ['1000001', '1000002', '1000003', '1000004', '1000005', '1000006', '1000007', '1000008', '1000009', '1000010'],
-    'name': '@province()',
+  'data|5': [{
+    'id': '@id',
+    'name': '@province',
     'parentId': '',
     'areaLevel': ''
   }]

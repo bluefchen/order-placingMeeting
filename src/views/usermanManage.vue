@@ -7,10 +7,13 @@
     <!-- 中间背景图片 -->
     <!-- 搜索 -->
     <div class="search  box-1200 fn-clear">
-      <el-input placeholder="输入用户帐号或手机号查询" v-model="usermanData.codeOrPhone" class="input-with-select fn-left" size="small">
+      <el-input placeholder="输入用户帐号或手机号查询" v-model="usermanData.codeOrPhone" class="input-with-select fn-left"
+                size="small">
         <el-button slot="append" @click="usermanSearch()">搜 索</el-button>
       </el-input>
-      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
+      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition"
+                                                                            class="iconfont">&#xe607;</i><i
+        v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
@@ -24,7 +27,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">所属省份：</label>
-            <Cascader @change="handleChange"/>
+            <Cascader :value.sync="usermanData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -85,18 +88,18 @@
           value: 1001,
           label: '供应商'
         }],
-        statusList:[{
+        statusList: [{
           value: 1000,
           label: '有效'
-        },{
+        }, {
           value: 1001,
           label: '冻结'
-        },{
+        }, {
           value: 1002,
           label: '无效'
         }],
         usermanData: {
-          codeOrPhone:'',
+          codeOrPhone: '',
           userType: 1000,
           statusCd: 1000,
           retailerId: '',
@@ -147,7 +150,7 @@
         }, {
           label: '状态',
           prop: 'stautsCd',
-          width: 54,
+          width: 60,
           render: (h, params) => {
             return h({
               template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">冻结</span><span v-else-if="data.row.stautsCd == 1002">无效</span></div>',
@@ -160,13 +163,13 @@
           }
         }, {
           label: '操作',
-          width: 190,
+          width: 220,
           render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
-              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>'+
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>' +
               '<el-button type="text" @click="modifyUserman(usermanInfo)" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>'+
+              '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>' +
               '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
               data() {
                 return {
@@ -184,7 +187,7 @@
                   });
                 },
                 //冻结
-                freezeUserman(item){
+                freezeUserman(item) {
                   this.$post('/systemUserController/freezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
@@ -193,7 +196,7 @@
                   })
                 },
                 //激活
-                activateUserman(item){
+                activateUserman(item) {
                   this.$post('/systemUserController/unfreezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
@@ -202,7 +205,7 @@
                   })
                 },
                 //删除
-                deleteUserman: (item) =>{
+                deleteUserman: (item) => {
                   this.$post('/systemUserController/deleteSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
@@ -224,7 +227,7 @@
           }
         }],
         tableData: [],//查询返回的数据
-        selectionChangeList:[],//多选的数据
+        selectionChangeList: [],//多选的数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
@@ -240,26 +243,22 @@
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       //选择零售商或供应商
-      selectRetailer(val){
+      selectRetailer(val) {
         this.usermanData.relaId = val;
       },
       //多选
-      selectionChange(val){
+      selectionChange(val) {
         this.selectionChangeList = val;
       },
-      //选择地区
-      handleChange(val){
-        this.usermanData.commonRegionId = val;
-      },
       //新增
-      addUserman(){
+      addUserman() {
         this.$router.push({
           path: '/orderManage/addUserman',
         });
       },
       //批量激活
-      batchActivateUserman(){
-        if(!this.selectionChangeList.length){
+      batchActivateUserman() {
+        if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要激活的用户！');
           return;
         }
@@ -275,8 +274,8 @@
         })
       },
       //批量冻结
-      batchFreezeUserman(){
-        if(!this.selectionChangeList.length){
+      batchFreezeUserman() {
+        if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要冻结的用户！');
           return;
         }
@@ -292,8 +291,8 @@
         })
       },
       //批量删除
-      batchDeleteUserman(){
-        if(!this.selectionChangeList.length){
+      batchDeleteUserman() {
+        if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要删除的用户！');
           return;
         }
@@ -326,11 +325,11 @@
         this.queryUsermanSubmit(curPage);
       }
     },
-    computed:{
-      merchantsTitle:function() {
-        if(this.usermanData.userType == 1000){
+    computed: {
+      merchantsTitle: function () {
+        if (this.usermanData.userType == 1000) {
           return '零售商';
-        }else{
+        } else {
           return '供应商';
         }
       }
@@ -427,22 +426,6 @@
     .category-more .iconfont {
       font-size: 12px;
     }
-    /* 条件搜索 */
-    /* 选择省市 */
-    .el-cascader .el-input, .el-cascader .el-input__inner{
-      height: 32px;
-      line-height: 32px;
-    }
-    .el-cascader{
-      -webkit-box-flex: 1;
-      -ms-flex: 1 0 0px;
-      flex: 1 0 0;
-      line-height: 32px;
-    }
-    .el-input__icon{
-      line-height: 32px;
-    }
-    /*输入框*/
     .el-range-editor.el-input__inner {
       height: 32px;
     }
@@ -461,7 +444,7 @@
       line-height: 28px;
     }
     .buttons .btns {
-      position:relative;
+      position: relative;
       padding: 0 12px;
       margin-left: 2px;
       border: 0;
@@ -492,10 +475,10 @@
         background-color: #e20606;
       }
     }
-    .query-btns{
+    .query-btns {
       position: relative;
       padding: 0 35px;
-      margin:  11px 0 0 2px;
+      margin: 11px 0 0 2px;
       border: 0;
       background-color: #fa0000;
       color: #fff;
@@ -503,9 +486,9 @@
       border-radius: 3px;
       line-height: 30px;
     }
-    .role-man{
+    .role-man {
       text-align: left;
-      .iconfont{
+      .iconfont {
         margin: 0 15px 0 5px;
         color: #f7626f;
         font-size: 18px;

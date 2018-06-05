@@ -74,4 +74,14 @@
   .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus {
     border-color: #ff7a7a;
   }
+
+  .el-select-dropdown {
+    border: none;
+  }
+
+  .el-select-dropdown__item.selected {
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
+  }
 </style>

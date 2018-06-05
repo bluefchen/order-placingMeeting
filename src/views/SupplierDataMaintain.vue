@@ -461,9 +461,4 @@
       background-color: #e20606;
     }
   }
-  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
-    color: #fff;
-    font-weight: normal;
-    background-color: #f13939;
-  }
 </style>

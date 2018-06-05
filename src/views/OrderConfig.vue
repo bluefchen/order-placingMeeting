@@ -241,7 +241,10 @@
         <div class="import-result-box">
           <div class="success">
             <p class="title">订货会资料信息填写完成！</p>
-            <p class="sub-title">您可到<router-link class="btns" to="/orderManage/orderManageIndex">订货会管理</router-link>查看或补充完整信息资料</p>
+            <p class="sub-title">您可到
+              <router-link class="btns" to="/orderManage/orderManageIndex">订货会管理</router-link>
+              查看或补充完整信息资料
+            </p>
             <el-button size="small" type="success" @click="jumpLink">订购会管理</el-button>
           </div>
         </div>
@@ -675,7 +678,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 5px;
-        img{
+        img {
           max-width: 161px;
           max-height: 84px;
         }

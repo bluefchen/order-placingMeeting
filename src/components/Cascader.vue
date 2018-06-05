@@ -1,10 +1,17 @@
 <template>
   <el-cascader
     :options="options"
-    @active-item-change="handleItemChange"
     :props="props"
-    @change="handleChange"
-    v-model="selectedOpt"
+    :separator="separator"
+    :size="size"
+    :disabled="disabled"
+    :clearable="clearable"
+    :expand-trigger="expandTrigger"
+    :show-all-levels="showAllLevels"
+    :change-on-select="changeOnSelect"
+    v-model="copyValue"
+    @active-item-change="handleItemChange"
+    @change="onChange"
   ></el-cascader>
 </template>
 
@@ -12,45 +19,62 @@
   export default {
     name: 'Cascader',
     props: {
-      level: {
+      value: {
         type: String
       },
-      regionId: {
-        type: String
+      separator: {
+        type: String,
+        default: '/'
+      },
+      size: {
+        type: String,
+        default: 'small'
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      clearable: {
+        type: Boolean,
+        default: false
+      },
+      expandTrigger: {
+        type: String,
+        default: 'click'
+      },
+      showAllLevels: {
+        type: Boolean,
+        default: false
+      },
+      changeOnSelect: {
+        type: Boolean,
+        default: false
       }
     },
     created() {
       this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
         this.areaList = rsp;
-        this.selectedOpt = [this.regionId]; //设置默认值
       });
     },
     data() {
       return {
-        areaList: [],
+        copyValue: this.value,
         props: {
           value: 'areaId',
           children: 'cities'
         },
-        selectedOpt: []
+        areaList: []
       }
     },
     computed: {
       options() {
         let arr = [];
         _.forEach(this.areaList, (item) => {
-          if (this.level === 'province') {
-            arr.push({
-              label: item.name,
-              areaId: item.id
-            })
-          } else {
-            arr.push({
-              label: item.name,
-              areaId: item.id,
-              cities: []
-            })
-          }
+          arr.push({
+            label: item.name,
+            areaId: item.id,
+            cities: []
+          })
         });
         return arr;
       }
@@ -76,24 +100,17 @@
           });
         }
       },
-      handleChange(item) {
-        if (this.level === 'province') {
-          let flag = {};
-          this.areaList.forEach((opt, index) => {
-            if (item[item.length - 1] === opt.id) {
-              flag = opt;
-              return;
-            }
-          });
-          this.$emit('change', flag.id, flag.name);
-        } else {
-          this.$emit('change', item[item.length - 1]);
-        }
+      onChange(val) {
+        this.$emit('update:value', val[val.length - 1]);
       }
     }
   }
 </script>
 
-<style scoped lang="less">
-
+<style lang="less">
+  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active) {
+    color: #fff;
+    font-weight: normal;
+    background-color: #f13939;
+  }
 </style>

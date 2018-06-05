@@ -1,5 +1,5 @@
 <template>
-  <div class="vue_add-supplier">
+  <div class="v_supplier">
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" :title="title"/>
@@ -114,10 +114,10 @@
       saveSetailerData(){
         if(this.title === '修改零售商'){
           this.$post('/orderPlacingMeetingController/updateRetailer', {
-            'retailerId': this.retailerInfo.retailerId, 
-            'commonRegionId': this.retailerInfo.commonRegionId, 
+            'retailerId': this.retailerInfo.retailerId,
+            'commonRegionId': this.retailerInfo.commonRegionId,
             'retailerName': this.retailerInfo.retailerName,
-            'retailerType': this.retailerInfo.retailerType, 
+            'retailerType': this.retailerInfo.retailerType,
             'linkMan': this.retailerInfo.linkMan,
             'linkNbr': this.retailerInfo.linkNbr,
             'retailerPhone': this.retailerInfo.retailerPhone,
@@ -135,9 +135,9 @@
           })
         }else{
           this.$post('/orderPlacingMeetingController/addRetailer', {
-            'commonRegionId': this.retailerInfo.commonRegionId, 
+            'commonRegionId': this.retailerInfo.commonRegionId,
             'retailerName': this.retailerInfo.retailerName,
-            'retailerType': this.retailerInfo.retailerType, 
+            'retailerType': this.retailerInfo.retailerType,
             'linkMan': this.retailerInfo.linkMan,
             'linkNbr': this.retailerInfo.linkNbr,
             'retailerPhone': this.retailerInfo.retailerPhone,
@@ -171,8 +171,7 @@
 </script>
 
 <style lang="less">
-
-  .vue_add-supplier {
+  .v_supplier {
     .el-textarea{
       flex: 1;
       .el-textarea__inner{
@@ -275,10 +274,4 @@
     font-weight: normal;
     background-color: #f13939;
   }
-  .el-cascader-menu__item.is-active, .el-cascader-menu__item:focus:not(:active){
-    color: #fff;
-    font-weight: normal;
-    background-color: #f13939;
-  }
-
 </style>
