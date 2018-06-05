@@ -59,7 +59,7 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">备注：</label>
-              <el-input type="textarea" v-model="supplierInfo.remarks"></el-input>
+              <Input type="textarea" v-model="supplierInfo.remarks" />
             </div>
           </el-col>
         </el-row>
@@ -116,10 +116,10 @@
       saveSupplierData(){
         if(this.title === '修改供货商'){
           this.$post('/orderPlacingMeetingController/updateSupplier', {
-            'supplierId': this.supplierInfo.supplierId, 
-            'commonRegionId': this.supplierInfo.commonRegionId, 
+            'supplierId': this.supplierInfo.supplierId,
+            'commonRegionId': this.supplierInfo.commonRegionId,
             'supplierName': this.supplierInfo.supplierName,
-            'supplierType': this.supplierInfo.supplierType, 
+            'supplierType': this.supplierInfo.supplierType,
             'linkMan': this.supplierInfo.linkMan,
             'linkNbr': this.supplierInfo.linkNbr,
             'supplierPhone': this.supplierInfo.supplierPhone,
@@ -137,9 +137,9 @@
           })
         }else{
           this.$post('/orderPlacingMeetingController/addSupplier', {
-            'commonRegionId': this.supplierInfo.commonRegionId, 
+            'commonRegionId': this.supplierInfo.commonRegionId,
             'supplierName': this.supplierInfo.supplierName,
-            'supplierType': this.supplierInfo.supplierType, 
+            'supplierType': this.supplierInfo.supplierType,
             'linkMan': this.supplierInfo.linkMan,
             'linkNbr': this.supplierInfo.linkNbr,
             'supplierPhone': this.supplierInfo.supplierPhone,
@@ -177,14 +177,6 @@
   .vue_add-supplier {
     .el-textarea{
       flex: 1;
-      .el-textarea__inner{
-        &:hover {
-          border-color: #c0c4cc;
-        }
-        &:focus {
-          border-color: #ff7a7a;
-        }
-      }
     }
     .text-right {
       text-align: right;
