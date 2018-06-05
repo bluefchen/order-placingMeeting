@@ -161,14 +161,14 @@
         }, {
           label: '操作',
           width: 190,
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
               '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>'+
               '<el-button type="text" @click="modifyUserman(usermanInfo)" class="delete-btn">修改</el-button>' +
               '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>'+
               '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
-              data: function () {
+              data() {
                 return {
                   usermanInfo: params.row
                 }
@@ -189,7 +189,7 @@
                     partyIds: [item.partyId],
                   }).then((rsp) => {
                     this.$message.success('冻结成功！');
-                    // this.queryUsermanSubmit();
+                    this.queryUsermanSubmit(this.currentPage);
                   })
                 },
                 //激活
@@ -198,14 +198,16 @@
                     partyIds: [item.partyId],
                   }).then((rsp) => {
                     this.$message.success('激活成功！');
+                    this.queryUsermanSubmit(this.currentPage);
                   })
                 },
                 //删除
-                deleteUserman(item){
+                deleteUserman: (item) =>{
                   this.$post('/systemUserController/deleteSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
                     this.$message.success('删除成功！');
+                    this.queryUsermanSubmit(this.currentPage);
                   })
                 },
                 //详情
@@ -258,7 +260,7 @@
       //批量激活
       batchActivateUserman(){
         if(!this.selectionChangeList.length){
-          this.$message.warning('请至少选择一项进行操作！');
+          this.$message.warning('请选择需要激活的用户！');
           return;
         }
         let partyIds = [];
@@ -275,7 +277,7 @@
       //批量冻结
       batchFreezeUserman(){
         if(!this.selectionChangeList.length){
-          this.$message.warning('请至少选择一项进行操作！');
+          this.$message.warning('请选择需要冻结的用户！');
           return;
         }
         let partyIds = [];
@@ -292,7 +294,7 @@
       //批量删除
       batchDeleteUserman(){
         if(!this.selectionChangeList.length){
-          this.$message.warning('请至少选择一项进行操作！');
+          this.$message.warning('请选择需要删除的用户！');
           return;
         }
         let partyIds = [];

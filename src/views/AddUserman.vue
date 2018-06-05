@@ -9,9 +9,9 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户类型：</label>
-              <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
+              <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
               <!--当身份为管理员时-->
-              <!--<Select class="condition-input" :value.sync="usermanData.manageUserType" :options="manageUserList"/>-->
+              <!--<Select class="condition-input" :value.sync="usermanData.manageUserType" :options="manageUserList" :disabled="modify"/>-->
             </div>
           </el-col>
         </el-row>
@@ -19,7 +19,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 用户账号：</label>
-              <Input class="condition-input" :value.sync="usermanData.systemUserCode"/>
+              <el-input class="condition-input" v-model="usermanData.systemUserCode" :disabled="modify"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -27,7 +27,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 真实姓名：</label>
-              <Input class="condition-input" :value.sync="usermanData.name"/>
+              <el-input class="condition-input" v-model="usermanData.name" :disabled="modify"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -35,7 +35,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 手机号码：</label>
-              <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
+              <el-input class="condition-input" v-model="usermanData.linktelenumber"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -53,7 +53,8 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" />
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
+
             </div>
           </el-col>
         </el-row>
@@ -77,15 +78,17 @@
       </div>
       <div class="foot-btn">
         <div>
+          <!--新增-->
           <el-button class="btns" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
+          <!--修改-->
           <el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>
-          <el-button class="btns" >取&nbsp;消</el-button>
+          <el-button class="btns" @click="cancel">取&nbsp;消</el-button>
         </div>
         <!--当身份为管理人员时-->
         <!--<div>-->
           <!--<el-button class="btns" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
           <!--<el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
-          <!--<el-button class="btns" >取&nbsp;消</el-button>-->
+          <!--<el-button class="btns" @click="cancel">取&nbsp;消</el-button>-->
         <!--</div>-->
       </div>
     </div>
@@ -104,10 +107,12 @@
     created() {
       if(this.$route.query.usermanInfo){
         this.usermanData = this.$route.query.usermanInfo;
+        this.modify = true;
       }
     },
     data() {
       return {
+        modify: false,
         level: 'province',
         usermanData: {
           userType: 1000,
@@ -138,19 +143,46 @@
       },
       addUsermanSubmit(){
         //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
-        this.$post('/systemUserController/addSystemUser', {
-          commonRegionId: this.usermanData.commonRegionId,
-          userType: this.usermanData.userType,
-          relaId: this.usermanData.relaId,
-          systemUserCode: this.usermanData.systemUserCode,
-          password: this.usermanData.password,
-          name: this.usermanData.name,
-          linktelenumber: this.usermanData.linktelenumber,
-          remark: this.usermanData.remark,
-        }).then((rsp) => {
-          this.$message.success('添加成功！');
-          // 刷新页面还是跳转到usermanManage
-        })
+        if(!this.$route.query.usermanInfo){
+          this.$post('/systemUserController/addSystemUser', {
+            commonRegionId: this.usermanData.commonRegionId,
+            userType: this.usermanData.userType,
+            relaId: this.usermanData.relaId,//归属商户
+            systemUserCode: this.usermanData.systemUserCode,//用户账号
+            password: this.usermanData.password,
+            name: this.usermanData.name,
+            linktelenumber: this.usermanData.linktelenumber,
+            remark: this.usermanData.remark,
+          }).then((rsp) => {
+            this.$alert('添加成功！', '提示', {
+              confirmButtonText: '确定',
+              type: 'success'
+            }).then(() => {
+              this.$router.push({
+                path: '/orderManage/usermanManage'
+              });
+            });
+          })
+        }else{
+          this.$post('/systemUserController/updateSystemUser', {
+            linktelenumber: this.usermanData.linktelenumber,
+            remark: this.usermanData.remark,
+          }).then((rsp) => {
+            this.$alert('修改成功！', '提示', {
+              confirmButtonText: '确定',
+              type: 'success'
+            }).then(() => {
+              this.$router.push({
+                path: '/orderManage/usermanManage'
+              });
+            });
+          })
+        }
+      },
+      cancel(){
+        this.$router.push({
+          path: '/orderManage/usermanManage'
+        });
       }
     },
     computed:{
@@ -237,14 +269,6 @@
       .el-textarea__inner{
         border-radius: 0;
         resize:none;
-      }
-      .choose-merchants {
-        .choose-input-box {
-          .choose-input {
-            font-size: 14px;
-            color: #606266;
-          }
-        }
       }
     }
     .foot-btn{

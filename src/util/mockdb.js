@@ -1191,7 +1191,7 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize |1-100': 100, //总记录条数
+    'totalSize|1-99': 1,//总记录条数
     'rows|10': [{
       'partyId': '@id',
       'commonRegionId': '1000001',
