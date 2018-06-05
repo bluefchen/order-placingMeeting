@@ -37,7 +37,7 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <Cascader @change="selectAddress" :level="level" :regionId="orderPlacingMeeting.commonRegionId"/>
+                <AreaSelect class="condition-input" :value.sync="orderPlacingMeeting.commonRegionId"/>
               </div>
             </el-col>
             <el-col :span="10">
@@ -257,7 +257,7 @@
       </button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
-      <button v-show="active !== 3" class="btns" @click="next">下一步</button>
+      <button v-show="active !== 3" :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt" class="btns" @click="next">下一步</button>
     </div>
   </div>
 </template>
@@ -271,27 +271,22 @@
   import Table from '@/components/Table';
   import Cascader from '@/components/Cascader';
   import DialogPopup from '@/components/DialogPopup';
+  import AreaSelect from '@/components/AreaSelect';
   import {quillEditor} from 'vue-quill-editor';
 
   export default {
     name: 'OrderConfig',
     created() {
-
-      this.$post('/commonCfgController/getCommonRegionTreeList', {
-        commonRegionId: ''
-      }).then((rsp) => {
-        this.commonRegionList = rsp;
-      });
-
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
-      if (this.opMeetingInfo.opMeetingId) {
+      var operation = this.$route.query.operation;
+      if(operation === 'add'){
+        this.title = '新增订购会';
+      }else{
         this.title = '编辑订购会';
-        this.orderPlacingMeeting = this.opMeetingInfo;
+        this.orderPlacingMeeting = JSON.parse(localStorage.getItem('opMeeting'));
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
-      } else {
-        this.title = '新增订购会';
       }
+
     },
     data() {
       return {
@@ -316,8 +311,8 @@
 
         active: 1,
         title: '',
+        opMeetingInfo: {},
 
-        level: 'province',
         orderPlacingMeeting: {
           logoUrl: ''
         },
@@ -423,10 +418,6 @@
       },
       previous() {
         this.active--;
-      },
-      selectAddress(code, name) {
-        this.orderPlacingMeeting.commonRegionId = code;
-        this.orderPlacingMeeting.commonRegionName = name;
       },
       qryOpmSupplierList() {
         this.$post('/orderPlacingMeetingController/queryOpmSupplierList', {
@@ -554,7 +545,8 @@
       Table,
       Cascader,
       quillEditor,
-      DialogPopup
+      DialogPopup,
+      AreaSelect
     }
   }
 </script>
