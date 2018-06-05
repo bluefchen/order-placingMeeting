@@ -48,6 +48,7 @@ npm run build --report
 - 5、详情预览界面文字总体感觉别扭；
 - 6、textarea替换成Input组件type="textarea"；
 - 7、接口51的入参policyId，在接口48中返回参数缺失（已在接口48返回参数中添加，待和开发确认）；
+- 8、Banner图片切换组件；
 
 
 页面
