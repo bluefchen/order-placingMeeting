@@ -18,11 +18,11 @@
         <Breadcrumb :list="['首页', '统计查询', '全国汇总分析']"/>
       </div>
     </div>
-    
+
     <div class="box-1200">
       <el-tabs v-model="activeName">
         <el-tab-pane label="按机型" name="first">
-          <div class="condition-query fn-clear">
+          <div class="condition-search fn-clear">
             <el-form :model="form" :inline="true" class="demo-form-inline">
               <el-form-item label="终端名称：">
                 <Input :value.sync="orderQueryData.opmOrderNo"/>
@@ -50,7 +50,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="按品牌" name="second">
-          <div class="condition-query fn-clear">
+          <div class="condition-search fn-clear">
             <el-form :model="form" :inline="true" class="demo-form-inline">
               <el-form-item label="终端名称：">
                 <Input :value.sync="orderQueryData.opmOrderNo"/>
@@ -77,7 +77,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="按商户" name="third">
-          <div class="condition-query fn-clear">
+          <div class="condition-search fn-clear">
             <el-form :model="form" :inline="true" class="demo-form-inline">
               <el-form-item label="商户类型：">
                 <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
@@ -309,29 +309,6 @@
     }
     /*中间背景图片*/
 
-    /* 条件搜索 */
-    .condition-query {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 30px;
-      border: 1px solid #dfdfdf;
-      .el-form--inline{
-       .el-form-item{
-          width: 32%;
-        }
-        .el-form-item__content {
-          width: 260px;
-          .el-select{
-            width: 100%;
-          }
-        }
-      }
-      .btn-qry{
-        margin-right: 40px;
-      }
-    }
-    /* 条件搜索 */
-
     .my-location {
       height: 30px;
       line-height: 30px;
@@ -369,7 +346,7 @@
     .text-right{
       text-align: right;
     }
-  
+
     .el-tabs__nav-wrap{
       height: 48px;
     }

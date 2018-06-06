@@ -307,12 +307,6 @@
   }
 
   /* 条件搜索 */
-  .condition-search {
-    margin: 18px auto 22px;
-    padding: 10px;
-    border: 1px solid #dfdfdf;
-  }
-
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;
