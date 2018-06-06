@@ -215,7 +215,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
       'statusCd|1': ['1001', '1002'],
       'offerBaseParam': {
         'listDt': '@date',
-        'termType': '',
+        'termType|1': ['3G手机','4G手机','5G手机','CDMA手机'],
         'os': '@word(5,10)'
       },
       'offerScreenParam': {
@@ -306,6 +306,49 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateOfferUnground'), {
     'resultMsg': '成功',
     'resultCode': '0'
   }
+});
+
+//16、解析终端规格数据接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeOfferParamList'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'offerBaseParam':{
+      'listDt': '@date',
+      'termType|1': ['3G手机','4G手机','5G手机','CDMA手机'],
+      'os': '@word(5,10)'
+    },
+    'offerScreenParam': {
+      'screenType': '@cword(3,6)',
+      'screenSize|1-10.1': 9.7,
+      'screenMaterial': '@cword(3,5)',
+      'resolutionRatio|1': ['720P', '1080P', '2K', '4K'],
+      'screenPiexl|1-99.1-1': 1,
+      'screenTech': '@cword(3,10)',
+      'frame|1': ['是', '否'],
+      'otherParam': '@cword(10,20)'
+    },
+    'offerHardwardParam':{
+      'cpuModel': '@word(3,5)',
+      'cpuRate|1-10': 1,
+      'core|1-8': 2,
+      'gpuModel': '@word(3,6)',
+      'ram|1': [2, 4, 6, 8, 16],
+      'rom|1': [2, 4, 6, 8, 16],
+      'memoryType': '@word(3,6)',
+      'memoryCard': '@word(3,6)',
+      'extendedCapacity|1': [2, 4, 6, 8, 16],
+      'rearCamera': '@cword(6,12)',
+      'frontCamera': '@cword(6,12)',
+      'batteryCapacity|1000-9999': 1000,
+      'batteryType': '@word(3,10)',
+      'batteryCharge': '@word(2,10)',
+    }
+  }
+
 });
 
 //17、查询订货会机型接口
