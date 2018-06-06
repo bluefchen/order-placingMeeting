@@ -311,7 +311,7 @@
           offerNameOrCode: this.categoryItem.offerNameOrCode,
           isCentman: this.categoryItem.isCentman,
           statusCd: this.categoryItem.statusCd,
-          brandCd: this.categoryItem.brandCd, 
+          brandCd: this.categoryItem.brandCd,
           offerModelId: this.categoryItem.offerModelId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
@@ -556,7 +556,7 @@
 
     .order-titl {
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
     }
 
@@ -683,7 +683,7 @@
           text-decoration: none;
         }
       }
-      .updown-btn{ 
+      .updown-btn{
         &.green{
           &:hover {
             border: 1px solid #46b02e;

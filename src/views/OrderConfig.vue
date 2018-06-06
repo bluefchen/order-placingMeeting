@@ -557,7 +557,7 @@
     }
     .order-titl {
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
     }
     .terminal-info-box {
@@ -653,7 +653,7 @@
         text-align: center;
         line-height: 32px;
       }
-      
+
       .condition-upload {
         width: 163px;
         height: 86px;

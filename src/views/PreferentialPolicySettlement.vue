@@ -207,18 +207,6 @@
       },
       selectSupplier(val){
         this.orderQueryData.supplierId = val;
-      },
-      exportOpmOrder(){
-        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
-          statusCd: this.orderQueryData.statusCd,
-        })));
       }
     },
     components: {
@@ -312,7 +300,7 @@
       }
       .order-titl {
         height: 28px;
-        margin: 15px 0;
+        margin: 15px 0 8px;
         line-height: 28px;
       }
 

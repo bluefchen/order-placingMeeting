@@ -25,18 +25,28 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">省份：</label>
-            <AreaSelect :value.sync="formInline.commonRegionId"/>
+            <AreaSelect :clearable="true" :value.sync="commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
           <div class="condition-item">
-            <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+            <el-button size="small" type="success" @click="search">查询</el-button>
           </div>
         </el-col>
       </el-row>
     </div>
-  </div>
 
+    <div class="box-1200 tabs-list">
+      <div class="order-titl fn-clear">
+        <TitlePlate class="fn-left" title="全国汇总统计分析"/>
+        <div class="buttons fn-right">
+          <el-button class="btns" @click="exportReport"><i class="iconfont">&#xe654;</i> 导出</el-button>
+        </div>
+      </div>
+      <Table :tableTitle="tableTitle" :tableData="tableData"/>
+      <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -49,37 +59,51 @@
 
   export default {
     name: 'summaryStatisticalAnalysis',
+    created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.queryOpmOrderPickupReport();
+    },
     data() {
       return {
-        formInline: {
-          commonRegionId: '',
-          region: ''
-        },
-
+        opMeetingInfo: '', //订货会基本信息
         commonRegionId: '',
-        orderPickupRecordList: [], //查询返回的数据
+        tableTitle: [{
+          label: '省份',
+          prop: 'commonRegionName'
+        }, {
+          label: '订购数量',
+          prop: 'offerQty'
+        }, {
+          label: '订单提货数量',
+          prop: 'pickupGoodsAmount'
+        }],
+        tableData: [], //查询返回的数据
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
       }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
+      search() {
+        this.queryOpmOrderPickupReport();
       },
-      qryOpmOrderPickupRecordList(curPage, pageSize) {
+      queryOpmOrderPickupReport(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-          opMeetingId: '订货会ID',
+        this.$post('/opmOrderController/queryOpmOrderPickupReport', {
+          opMeetingId: this.opMeetingInfo.opMeetingId,
+          commonRegionId: this.commonRegionId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.orderPickupRecordList = rsp.rows;
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
+      exportReport() {
+        window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
+      },
       pageChanged(curPage) {
-        this.qryOpmOrderPickupRecordList(curPage);
+        this.queryOpmOrderPickupReport(curPage);
       }
     },
     components: {
@@ -127,6 +151,33 @@
       height: 30px;
       line-height: 30px;
       background-color: #f6f6f6;
+    }
+
+    .tabs-list {
+      margin: 0 auto 20px;
+    }
+    
+    .order-titl {
+      height: 28px;
+      margin: 15px 0 8px;
+      line-height: 28px;
+    }
+
+    .buttons .btns {
+      display: inline-block;
+      padding: 0 12px;
+      margin-left: 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+      text-decoration: none;
+    }
+
+    .buttons .btns:hover {
+      background-color: #e20606;
     }
   }
 </style>
