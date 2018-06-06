@@ -53,6 +53,7 @@ npm run build --report
 - 10、新增订货会基本继续没有填写就可以直接提交；
 - 11、表单label文字展现方式，common.css已做统一配置；
 - 12、iconfont字体下载；
+- 13、CSS中display:flex样式更换；
 
 
 页面
