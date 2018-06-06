@@ -62,12 +62,12 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="终端产品列表"/>
         <div class="buttons fn-right">
-          <router-link class="btns" to="/orderManage/addTerminalMaintain"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
-          <button class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
-          <button class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
+          <router-link class="btns" :to="{path: '/orderManage/addTerminalMaintain', query: {operation: 'add'}}"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
+          <button @click="batchUpdateOffer" class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
+          <button @click="batchUnUpdateOffer" class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
         </div>
       </div>
-      <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" @selectionChange="selectionChange"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -147,9 +147,9 @@
           render: (h, params) => {
             return h({
               template: `<div>
-              <button v-if="param.row.statusCd === '1002'" class="updown-btn green">上架</button>
-              <button v-if="param.row.statusCd === '1001'" class="updown-btn">下架</button>
-              <button @click="editTerminal(param.row, param.index)" class="updown-btn">修改</button>
+              <button @click="updateOffer(param.row)" v-if="param.row.statusCd === '1002'" class="updown-btn green">上架</button>
+              <button @click="unUpdateOffer(param.row)" v-if="param.row.statusCd === '1001'" class="updown-btn">下架</button>
+              <button @click="editTerminal(param.row)" class="updown-btn">修改</button>
               <button class="updown-btn">删除</button>
               </div>`,
               data: function(){
@@ -158,8 +158,14 @@
                 }
               },
               methods: {
-                editTerminal: (val, index) => {
-                  this.editTerminalMaintain(val, index);
+                editTerminal: (val) => {
+                  this.editTerminalMaintain(val);
+                },
+                updateOffer: (val) => {
+                  this.updateOffer([val.offerId])
+                },
+                unUpdateOffer: (val) => {
+                  this.unUpdateOffer([val.offerId])
                 }
               }
             })
@@ -302,7 +308,9 @@
       queryOfferList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOfferList', {
-          offerNameOrCode: this.categoryItem.offerNameOrCode, 
+          offerNameOrCode: this.categoryItem.offerNameOrCode,
+          isCentman: this.categoryItem.isCentman,
+          statusCd: this.categoryItem.statusCd,
           brandCd: this.categoryItem.brandCd, 
           offerModelId: this.categoryItem.offerModelId,
           pageSize: pageSize || 10,
@@ -315,15 +323,59 @@
       pageChanged(curPage) {
         this.queryOfferList(curPage);
       },
-      editTerminalMaintain(val, index){
-        localStorage.setItem(val.offerId, JSON.stringify(val));
+      editTerminalMaintain(val){
+        localStorage.setItem('offerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/addTerminalMaintain',
           query: {
-            offerId: val.offerId
+            operation: 'modify'
           }
         });
-
+      },
+      selectionChange(val){
+        this.selectTerminalList = val;
+      },
+      batchUpdateOffer(){
+        let selectUpdateList = [];
+        this.selectTerminalList.forEach((item, index) => {
+          if(item.statusCd === '1002'){
+            selectUpdateList.push(item.offerId);
+          }
+        });
+        if(selectUpdateList.length){
+          this.updateOffer(selectUpdateList);
+        }else{
+          this.$message.warning('请至少选择一项进行操作！');
+        }
+      },
+      batchUnUpdateOffer(){
+        let selectUnUpdateList = [];
+        this.selectTerminalList.forEach((item, index) => {
+          if(item.statusCd === '1001'){
+            selectUnUpdateList.push(item.offerId);
+          }
+        });
+        if(selectUnUpdateList.length){
+          this.unUpdateOffer(selectUnUpdateList);
+        }else{
+          this.$message.warning('请至少选择一项进行操作！');
+        }
+      },
+      updateOffer(val){
+        this.$post('/orderPlacingMeetingController/updateOfferGround', {
+          offerIds: val
+        }).then((rsp) => {
+          this.$message.success('终端上架成功!');
+          this.queryOfferList(this.currentPage);
+        })
+      },
+      unUpdateOffer(val){
+        this.$post('/orderPlacingMeetingController/updateOfferUnground', {
+          offerIds: val
+        }).then((rsp) => {
+          this.$message.success('终端下架成功!');
+          this.queryOfferList(this.currentPage);
+        })
       }
     },
     components: {

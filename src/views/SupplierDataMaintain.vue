@@ -23,7 +23,7 @@
         <el-col :span="6">
           <div class="condition-iterm">
             <label class="label-wrds">省份：</label>
-            <Cascader @change="selectAddress" :level="level" :regionId="orderQueryData.commonRegionId" />
+            <AreaSelect :value.sync="orderQueryData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="6">
@@ -75,7 +75,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'SupplierDataMaintain',
@@ -176,7 +176,6 @@
           }
         }],
         tableData: [],
-        level: 'province',
         paymentCtatusCd: '', //付款状态CD
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
@@ -197,10 +196,6 @@
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
         this.qrySupplierList()
-      },
-      selectAddress(code, name){
-        this.orderQueryData.commonRegionId = code;
-        this.orderQueryData.commonRegionName = name;
       },
       qrySupplierList(curPage, pageSize) {
         this.currentPage = curPage || 1;
@@ -302,21 +297,24 @@
       addSupplier(title, val){
         if(title === '新增'){
           this.$router.push({
-            path: '/orderManage/AddSupplierData'
+            path: '/orderManage/AddSupplierData',
+            query: {
+              operation: 'add'
+            }
           });
         }else{
-          localStorage.setItem(val.supplierId, JSON.stringify(val));
+          localStorage.setItem('supplierId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSupplierData',
             query: {
-              supplierId: val.supplierId
+              operation: 'modify'
             }
           });
         }
 
       },
       detailSupplier(val){
-        localStorage.setItem(val.supplierId, JSON.stringify(val));
+        localStorage.setItem('supplierId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSupplierData',
           query: {
@@ -339,7 +337,7 @@
       DeviceInfo,
       Pagination,
       ChooseMerchants,
-      Cascader
+      AreaSelect
     }
   }
 </script>

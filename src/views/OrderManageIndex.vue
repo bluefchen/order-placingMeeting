@@ -11,7 +11,7 @@
         <TitlePlate class="fn-left" title="订购会列表"/>
         <div class="order-type">
           <div class="order-type-text">订购会状态：</div>
-          <el-select class="condition-input" v-model="orderQueryData.statusCd" placeholder="请选择">
+          <el-select class="condition-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList" placeholder="请选择">
             <el-option
               v-for="item in orderTypeList"
               :key="item.value"
