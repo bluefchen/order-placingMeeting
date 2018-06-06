@@ -337,7 +337,7 @@
       },
       batchUpdateOffer(){
         let selectUpdateList = [];
-        this.selectTerminalList.forEach((item, index) => {
+        _.forEach(this.selectTerminalList, (item, index) => {
           if(item.statusCd === '1002'){
             selectUpdateList.push(item.offerId);
           }
@@ -350,7 +350,7 @@
       },
       batchUnUpdateOffer(){
         let selectUnUpdateList = [];
-        this.selectTerminalList.forEach((item, index) => {
+        _.forEach(this.selectTerminalList, (item, index) => {
           if(item.statusCd === '1001'){
             selectUnUpdateList.push(item.offerId);
           }

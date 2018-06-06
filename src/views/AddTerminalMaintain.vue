@@ -219,7 +219,7 @@
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <UploadFile :url="url" @callback="uploadData"/>
-        <div class="import-result-box fn-clear">
+        <div class="import-result-box fn-clear" v-if="showSuccee">
           <div class="success">
             <img src="@/assets/images/icon-success.png" class="suc-img">
             <div class="import-text">终端规格详情导入完成！</div>
@@ -291,8 +291,12 @@
     },
     data() {
       return {
-        terminalMaintainInfo: {},
+        terminalMaintainInfo: {
+
+        },
+        flag: 0,
         title: '',
+        showSuccee: false,
         brandOptions: [],
         modelOptions: [],
 
@@ -323,9 +327,12 @@
       },
       //导入
       uploadData(data) {
-        this.data = data;
-        console.log('导入文件返回的数据：', data);
+        this.showSuccee = true;
+        this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
+        this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
+        this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
       },
+      //终端型号
       qryOfferModelList(val){
         this.$post('/orderPlacingMeetingController/queryOfferModelList', {
           'brandCd': val
@@ -351,10 +358,18 @@
       UploadFile
     },
     watch: {
-      'terminalMaintainInfo.brandCd': function () {
-        this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
-        this.terminalMaintainInfo.offerModelId = ''
-        this.terminalMaintainInfo.offerModelName = ''
+      'terminalMaintainInfo.brandCd': function (newVal, oldVal) {
+        if(this.flag){
+          if(newVal !== oldVal){
+            this.modelOptions = [];
+            if(newVal){
+              this.qryOfferModelList(newVal);
+            };
+            this.terminalMaintainInfo.offerModelId = ''
+          }
+        }else{
+          this.flag++
+        }
       }
     }
   }
