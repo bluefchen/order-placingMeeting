@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <Cascader @change="handleChange" :regionId="supplierInfo.commonRegionId" :level="level"/>
+              <AreaSelect class="condition-select" :value.sync="supplierInfo.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
@@ -76,7 +76,7 @@
   import TitlePlate from '@/components/TitlePlate';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'AddSupplierData',
@@ -170,7 +170,7 @@
       TitlePlate,
       Input,
       Select,
-      Cascader
+      AreaSelect
     }
   }
 </script>

@@ -269,9 +269,8 @@
   import DatePicker from '@/components/DatePicker';
   import AddMerchants from '@/components/AddMerchants';
   import Table from '@/components/Table';
-  import Cascader from '@/components/Cascader';
-  import DialogPopup from '@/components/DialogPopup';
   import AreaSelect from '@/components/AreaSelect';
+  import DialogPopup from '@/components/DialogPopup';
   import {quillEditor} from 'vue-quill-editor';
 
   export default {
@@ -543,10 +542,9 @@
       DatePicker,
       AddMerchants,
       Table,
-      Cascader,
+      AreaSelect,
       quillEditor,
-      DialogPopup,
-      AreaSelect
+      DialogPopup
     }
   }
 </script>

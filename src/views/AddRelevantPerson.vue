@@ -19,7 +19,6 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">所属省份：</label>
-            <!--<Cascader :value.sync="relevantData.commonRegionId"/>-->
             <AreaSelect :value.sync="relevantData.commonRegionId"/>
           </div>
         </el-col>
