@@ -24,28 +24,26 @@
         <el-tab-pane label="按机型" name="first">
           <div class="condition-search fn-clear">
             <el-row :gutter="20">
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
                   <Input :value.sync="modelQueryData.offerName"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select :value.sync="modelQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
+                  <Select :value.sync="modelQueryData.brandCd" :clearable="true" :options="brandOptions"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <Select :value.sync="modelQueryData.offerModelId" :clearable="true" :options.sync="modelOptions"/>
+                  <Select :value.sync="modelQueryData.offerModelId" :clearable="true" :options="modelOptions"/>
                 </div>
               </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="24">
-                <div class="condition-item text-right">
+              <el-col :span="6">
+                <div class="condition-item">
                   <el-button size="small" type="success" @click="qryOpmOrderPickupReportByModel()">查询</el-button>
                 </div>
               </el-col>
@@ -67,19 +65,19 @@
         <el-tab-pane label="按品牌" name="second">
           <div class="condition-search fn-clear">
             <el-row :gutter="20">
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
                   <Input :value.sync="brandQueryData.offerName"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select :value.sync="brandQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
+                  <Select :value.sync="brandQueryData.brandCd" :clearable="true" :options="brandOptions"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <el-button size="small" type="success" @click="queryOpmOrderPickupReportByBrand()">查询</el-button>
                 </div>
@@ -102,19 +100,19 @@
         <el-tab-pane label="按商户" name="third">
           <div class="condition-search fn-clear">
             <el-row :gutter="20">
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">商户类型：</label>
                   <Select :value.sync="busiQueryData.busiType" :options="merchantsTypeList"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">商户名称：</label>
                   <Input :value.sync="busiQueryData.busiName"/>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div class="condition-item">
                   <el-button size="small" type="success" @click="qryOpmOrderPickupReportByBusi()">查询</el-button>
                 </div>
