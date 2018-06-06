@@ -7,7 +7,7 @@
       <div class="terminal-info-box">
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
               <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
               <!--当身份为管理员时-->
@@ -17,7 +17,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds"><span class="red-star">*</span> 用户账号：</label>
               <Input class="condition-input" :value.sync="usermanData.systemUserCode" :disabled="modify"/>
             </div>
@@ -25,7 +25,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds"><span class="red-star">*</span> 真实姓名：</label>
               <Input class="condition-input" :value.sync="usermanData.name" :disabled="modify"/>
             </div>
@@ -33,7 +33,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds"><span class="red-star">*</span> 手机号码：</label>
               <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
             </div>
@@ -41,7 +41,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
               <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
@@ -51,7 +51,7 @@
         <el-row :gutter="20">
           <!-- 当为管理人员时，此项不存在 -->
           <el-col :span="8" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
             </div>
@@ -59,7 +59,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
-            <div class="condition-item" v-if="!$route">
+            <div class="condition-iterm" v-if="!$route">
               <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
               <Input class="condition-input" type="password" :value.sync="usermanData.password"/>
             </div>
@@ -67,7 +67,7 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="18" :offset="2">
-            <div class="condition-item">
+            <div class="condition-iterm">
               <label class="label-wrds">备注：</label>
               <Input type="textarea" :value.sync="usermanData.remark" />
             </div>
@@ -77,16 +77,16 @@
       <div class="foot-btn">
         <div>
           <!--新增-->
-          <el-button class="btns" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
+          <el-button size="small" type="success" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
           <!--修改-->
-          <el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>
-          <el-button class="btns" @click="cancel">取&nbsp;消</el-button>
+          <el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>
+          <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
         </div>
         <!--当身份为管理人员时-->
         <!--<div>-->
-          <!--<el-button class="btns" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
-          <!--<el-button class="btns" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
-          <!--<el-button class="btns" @click="cancel">取&nbsp;消</el-button>-->
+          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+          <!--<el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>-->
         <!--</div>-->
       </div>
     </div>
@@ -234,27 +234,6 @@
       border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
-      .btns {
-        display: inline-block;
-        padding: 3px 30px;
-        margin: 0 10px;
-        border: 0;
-        background-color: #fa0000;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-        line-height: 28px;
-        cursor: pointer;
-        text-decoration: none;
-        &:hover {
-          background-color: #e20606;
-        }
-        &:disabled{
-          color: #fff;
-          background-color: #f25555;
-          cursor: default;
-        }
-      }
     }
 
   }

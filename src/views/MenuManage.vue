@@ -46,7 +46,7 @@
         </ul>
       </div>
       <div class="foot-btn">
-        <el-button class="btns" @click="menuSave">保&nbsp;存</el-button>
+        <el-button size="small" type="success" @click="menuSave">保&nbsp;存</el-button>
       </div>
     </div>
   </div>
@@ -165,9 +165,7 @@
           }
         }
       }
-
     }
-
     .foot-btn{
       width: 100%;
       padding: 24px 0;
@@ -175,30 +173,7 @@
       border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
-      .btns {
-        display: inline-block;
-        padding: 3px 30px;
-        margin: 0 10px;
-        border: 0;
-        background-color: #fa0000;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-        line-height: 28px;
-        cursor: pointer;
-        text-decoration: none;
-        &:hover {
-          background-color: #e20606;
-        }
-        &:disabled{
-          color: #fff;
-          background-color: #f25555;
-          cursor: default;
-        }
-      }
     }
-
-
   }
 
 </style>
