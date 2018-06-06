@@ -1394,7 +1394,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize |1-100': 100, //总记录条数
+    'totalSize|1-100': 100, //总记录条数
     'rows|10': [{
       'opMeetingId': '@id', //订货会ID
       'commonRegionId': '@id', //地区ID

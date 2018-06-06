@@ -40,7 +40,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="全国汇总统计分析"/>
         <div class="buttons fn-right">
-          <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe654;</i> 导出</router-link>
+          <el-button class="btns" @click="exportReport"><i class="iconfont">&#xe654;</i> 导出</el-button>
         </div>
       </div>
       <Table :tableTitle="tableTitle" :tableData="tableData"/>
@@ -99,6 +99,9 @@
           this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
+      },
+      exportReport() {
+        window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
       },
       pageChanged(curPage) {
         this.queryOpmOrderPickupReport(curPage);
