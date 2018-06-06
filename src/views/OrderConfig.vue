@@ -566,6 +566,7 @@
       width: 100%;
       margin-top: 20px;
       margin-bottom: 20px;
+      border: none;
       .add-order-title {
         height: 28px;
         margin: 15px 0;

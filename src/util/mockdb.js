@@ -282,6 +282,32 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferModelList'), {
   }]
 });
 
+//12、终端上架接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateOfferGround'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
+//13、终端下架接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateOfferUnground'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
 //17、查询订货会机型接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), {
   rsphead: 's',
