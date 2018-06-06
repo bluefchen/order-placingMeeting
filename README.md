@@ -54,6 +54,7 @@ npm run build --report
 - 11、表单label文字展现方式，common.css已做统一配置；
 - 12、iconfont字体下载；
 - 13、CSS中display:flex样式更换；
+- 14、接口76、78名称一样；
 
 
 页面
