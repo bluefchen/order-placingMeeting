@@ -676,17 +676,6 @@
           max-height: 84px;
         }
       }
-      .el-cascader {
-        flex: 1;
-        line-height: 32px;
-        .el-input__inner {
-          height: 32px;
-          line-height: 32px;
-        }
-        .el-input__icon {
-          line-height: 32px;
-        }
-      }
       .editor {
         flex: 1;
         .quill-editor {

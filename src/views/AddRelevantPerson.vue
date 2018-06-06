@@ -228,19 +228,7 @@
       padding: 10px 0;
       border: 1px solid #dfdfdf;
     }
-    .condition-iterm {
-      display: flex;
-      margin: 10px 0;
-      .label-wrds {
-        width: 100px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        flex: 1 0 0;
-      }
-    }
+
     /*搜索框*/
     .input-with-select {
       width: 480px;
@@ -281,20 +269,6 @@
       font-size: 12px;
     }
     /* 条件搜索 */
-    /* 选择省市 */
-    .el-cascader .el-input, .el-cascader .el-input__inner{
-      height: 32px;
-      line-height: 32px;
-    }
-    .el-cascader{
-      -webkit-box-flex: 1;
-      -ms-flex: 1 0 0px;
-      flex: 1 0 0;
-      line-height: 32px;
-    }
-    .el-input__icon{
-      line-height: 32px;
-    }
 
     /*搜索条件输入框*/
     .el-range-editor.el-input__inner {

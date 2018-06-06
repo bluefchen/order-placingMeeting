@@ -37,7 +37,7 @@
           <el-col :span="6">
             <div class="condition-iterm">
               <label class="label-wrds">零售商名称：</label>
-              <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+              <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
             </div>
           </el-col>
           <el-col :span="9">
@@ -47,9 +47,7 @@
             </div>
           </el-col>
           <el-col :span="3">
-            <div class="condition-iterm">
-              <el-button class="btns" @click="queryOpmDepositList()">定金付款查询</el-button>
-            </div>
+            <el-button size="small" type="success" @click="queryOpmDepositList">定金付款查询</el-button>
           </el-col>
         </el-row>
       </div>
@@ -208,7 +206,7 @@
         this.depositRecord.offerNameOrCode = obj.value;
         this.queryOpmDepositList();
       },
-      selectRetailer(val){
+      selectRetailer(val) {
         this.depositRecord.retailerId = val;
       },
       showMoreCondition() {
@@ -310,32 +308,11 @@
 
   /* 条件搜索 */
   .condition-search {
-    display: flex;
-    margin: 10px auto 14px;
+    margin: 18px auto 22px;
+    padding: 10px;
     border: 1px solid #dfdfdf;
-    .el-row{
-      width: 100%;
-    }
-    .condition-iterm{
-      display: flex;
-      margin: 15px 0;
-      .label-wrds {
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        flex: 1 0 0;
-      }
-      .btns {
-        position: relative;
-        line-height: 31px;
-        padding: 0 10px;
-        font-size: 14px;
-      }
-    }
   }
+
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;

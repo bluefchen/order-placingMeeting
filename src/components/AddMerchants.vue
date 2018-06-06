@@ -310,12 +310,6 @@
         background: #f8f8f8;
         border-right: 1px solid #d0d0d0;
       }
-      .el-cascader {
-        line-height: 27px;
-        .el-input__icon {
-          line-height: 27px;
-        }
-      }
       .condition-select {
         width: calc(100% - 91px);
         height: 27px;
@@ -337,26 +331,11 @@
           }
         }
       }
-      .el-cascader {
-        margin-left: 91px;
-        width: calc(100% - 91px);
-        height: 27px;
-        .el-input__inner {
-          height: 27px;
-          line-height: 27px;
-          vertical-align: top;
-          border-radius: 0;
-          border: none;
-        }
-      }
     }
     .el-input-group--append .el-input__inner {
       border-radius: 0;
       height: 29px;
       line-height: 29px;
-    }
-    .el-cascader-menu__item:focus:not(:active), .el-cascader-menu__item:hover {
-      background-color: #f5f7fa;
     }
     .v_pagination .el-pagination {
       margin-top: 10px;

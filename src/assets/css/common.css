@@ -116,6 +116,12 @@ body {
   font-family: iconfont
 }
 
+.condition-query {
+  margin: 18px auto 22px;
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+}
+
 .condition-iterm {
   position: relative;
   padding-left: 100px;

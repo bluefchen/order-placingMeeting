@@ -146,7 +146,7 @@
           value: 1002,
           label: '已付款'
         }],
-        
+
         qryOpmOrderList: [], //查询返回的数据
         orderQueryData: {
           isCentman: '',
@@ -269,25 +269,6 @@
       /* 条件搜索 */
       .search {
         margin: 10px auto;
-      }
-      .condition-query {
-        display: block;
-        margin: 20px auto;
-        padding: 10px;
-        border: 1px solid #dfdfdf;
-        .condition-iterm {
-          display: flex;
-          margin: 10px 0;
-          .label-wrds {
-            width: 100px;
-            line-height: 32px;
-            font-size: 14px;
-            text-align: right;
-          }
-          .condition-input {
-            flex: 1 0 0;
-          }
-        }
       }
       .category-more {
         height: 22px;

@@ -229,24 +229,9 @@
       margin: 10px auto;
     }
     .condition-search {
-      display: block;
-      height: 72px;
       margin: 18px auto 22px;
       padding: 10px;
       border: 1px solid #dfdfdf;
-    }
-    .condition-iterm {
-      display: flex;
-      margin: 10px 0px 0 0;
-      .label-wrds {
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        flex: 1 0 0;
-      }
     }
     .wid30 {
       width: 30%;
