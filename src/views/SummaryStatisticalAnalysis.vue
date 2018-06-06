@@ -29,9 +29,7 @@
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
-          <el-button size="small" type="success" @click="onSubmit"><i
-            class="iconfont">&#xe794;</i> 查询
-          </el-button>
+          <el-button size="small" type="success" @click="onSubmit">查询</el-button>
         </el-col>
       </el-row>
     </div>
