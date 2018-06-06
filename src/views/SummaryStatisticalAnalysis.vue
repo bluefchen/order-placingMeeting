@@ -71,7 +71,7 @@
           label: '省份',
           prop: 'commonRegionName'
         }, {
-          label: '订购数量',
+          label: '定购数量',
           prop: 'offerQty'
         }, {
           label: '订单提货数量',
