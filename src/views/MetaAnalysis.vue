@@ -27,19 +27,19 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
-                  <Input class="condition-input" :value.sync="modelQueryData.offerName"/>
+                  <Input :value.sync="modelQueryData.offerName"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select class="condition-input" :value.sync="modelQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
+                  <Select :value.sync="modelQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <Select class="condition-input" :value.sync="modelQueryData.offerModelId" :clearable="true" :options.sync="modelOptions"/>
+                  <Select :value.sync="modelQueryData.offerModelId" :clearable="true" :options.sync="modelOptions"/>
                 </div>
               </el-col>
             </el-row>
@@ -70,13 +70,13 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
-                  <Input class="condition-input" :value.sync="brandQueryData.offerName"/>
+                  <Input :value.sync="brandQueryData.offerName"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select class="condition-input" :value.sync="brandQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
+                  <Select :value.sync="brandQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
                 </div>
               </el-col>
               <el-col :span="8">
@@ -105,7 +105,7 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">商户类型：</label>
-                  <Select class="condition-input" :value.sync="busiQueryData.busiType" :options="merchantsTypeList"/>
+                  <Select :value.sync="busiQueryData.busiType" :options="merchantsTypeList"/>
                 </div>
               </el-col>
               <el-col :span="8">

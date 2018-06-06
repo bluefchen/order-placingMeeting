@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">零售商名称：</label>
-                  <p class="condition-input"><b>{{retailerInfo.retailerName}}</b></p>
+                  <p><b>{{retailerInfo.retailerName}}</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -22,13 +22,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p class="condition-input">{{retailerInfo.commonRegionName}}</p>
+                  <p>{{retailerInfo.commonRegionName}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">零售商类型：</label>
-                  <p class="condition-input">{{retailerInfo.retailerTypeName}}</p>
+                  <p>{{retailerInfo.retailerTypeName}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -36,13 +36,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人：</label>
-                  <p class="condition-input">{{retailerInfo.linkMan}}</p>
+                  <p>{{retailerInfo.linkMan}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人手机：</label>
-                  <p class="condition-input">{{retailerInfo.linkNbr}}</p>
+                  <p>{{retailerInfo.linkNbr}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -50,13 +50,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司电话：</label>
-                  <p class="condition-input">{{retailerInfo.retailerPhone}}</p>
+                  <p>{{retailerInfo.retailerPhone}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司传真：</label>
-                  <p class="condition-input">{{retailerInfo.retailerFax}}</p>
+                  <p>{{retailerInfo.retailerFax}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -64,7 +64,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds text-right">备注：</label>
-                  <p class="condition-input">{{retailerInfo.remarks}}</p>
+                  <p>{{retailerInfo.remarks}}</p>
                 </div>
               </el-col>
             </el-row>

@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端编码：</label>
-              <Input class="condition-input" :value.sync="terminalMaintainInfo.offerCode"/>
+              <Input :value.sync="terminalMaintainInfo.offerCode"/>
             </div>
           </el-col>
         </el-row>
@@ -26,7 +26,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端名称：</label>
-              <Input class="condition-input" :value.sync="terminalMaintainInfo.offerName"/>
+              <Input :value.sync="terminalMaintainInfo.offerName"/>
             </div>
           </el-col>
         </el-row>
@@ -34,13 +34,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端品牌：</label>
-              <Select class="condition-input" :value.sync="terminalMaintainInfo.brandCd" :options="brandOptions"/>
+              <Select :value.sync="terminalMaintainInfo.brandCd" :options="brandOptions"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端型号：</label>
-              <Select class="condition-input" :value.sync="terminalMaintainInfo.offerModelId" :options="modelOptions"/>
+              <Select :value.sync="terminalMaintainInfo.offerModelId" :options="modelOptions"/>
             </div>
           </el-col>
         </el-row>
@@ -48,7 +48,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端价格：</label>
-              <Input class="condition-input" :value.sync="terminalMaintainInfo.salePrice"/>
+              <Input :value.sync="terminalMaintainInfo.salePrice"/>
             </div>
           </el-col>
         </el-row>

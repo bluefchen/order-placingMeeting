@@ -9,9 +9,9 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
-              <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
+              <Select :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
               <!--当身份为管理员时-->
-              <!--<Select class="condition-input" :value.sync="usermanData.manageUserType" :options="manageUserList" :disabled="modify"/>-->
+              <!--<Select :value.sync="usermanData.manageUserType" :options="manageUserList" :disabled="modify"/>-->
             </div>
           </el-col>
         </el-row>
@@ -19,7 +19,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds"><span class="red-star">*</span> 用户账号：</label>
-              <Input class="condition-input" :value.sync="usermanData.systemUserCode" :disabled="modify"/>
+              <Input :value.sync="usermanData.systemUserCode" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -27,7 +27,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds"><span class="red-star">*</span> 真实姓名：</label>
-              <Input class="condition-input" :value.sync="usermanData.name" :disabled="modify"/>
+              <Input :value.sync="usermanData.name" :disabled="modify"/>
             </div>
           </el-col>
         </el-row>
@@ -35,7 +35,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds"><span class="red-star">*</span> 手机号码：</label>
-              <Input class="condition-input" :value.sync="usermanData.linktelenumber"/>
+              <Input :value.sync="usermanData.linktelenumber"/>
             </div>
           </el-col>
         </el-row>
@@ -61,7 +61,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item" v-if="!$route">
               <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
-              <Input class="condition-input" type="password" :value.sync="usermanData.password"/>
+              <Input type="password" :value.sync="usermanData.password"/>
             </div>
           </el-col>
         </el-row>

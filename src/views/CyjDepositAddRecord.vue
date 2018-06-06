@@ -30,7 +30,7 @@
           <el-col :span="12">
               <div class="condition-item">
                 <label class="label-wrds">订购起止日期：</label>
-                <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
+                <DatePicker :value.sync="depositRecord.orderDate"/>
               </div>
           </el-col>
           <el-col :span="4">

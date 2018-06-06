@@ -17,7 +17,7 @@
             <el-col :span="8" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
-                <Input class="condition-input" :value.sync="roleData.name"/>
+                <Input :value.sync="roleData.name"/>
               </div>
             </el-col>
           </el-row>
@@ -25,7 +25,7 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
-                <Input class="condition-input" type="textarea" :value.sync="roleData.description"/>
+                <Input type="textarea" :value.sync="roleData.description"/>
               </div>
             </el-col>
           </el-row>
