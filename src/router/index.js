@@ -44,6 +44,7 @@ const TerminalQuery = () => import('@/views/TerminalQuery');
 const SummaryStatisticalAnalysis = () => import('@/views/SummaryStatisticalAnalysis');
 const AddRole = () => import('@/views/AddRole');
 const AddRelevantPerson = () => import('@/views/AddRelevantPerson');
+const MetaAnalysis = () => import('@/views/MetaAnalysis');
 
 Vue.use(Router);
 
@@ -229,6 +230,13 @@ export default new Router({
         component: SummaryStatisticalAnalysis,
         meta: {
           title: '全国汇总统计分析'
+        },
+      },{
+        path: 'metaAnalysis',
+        name: 'metaAnalysis',
+        component: MetaAnalysis,
+        meta: {
+          title: '全国汇总分析'
         },
       }]
     }, {
