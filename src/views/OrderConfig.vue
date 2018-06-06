@@ -544,8 +544,7 @@
       Table,
       AreaSelect,
       quillEditor,
-      DialogPopup,
-      AreaSelect
+      DialogPopup
     }
   }
 </script>

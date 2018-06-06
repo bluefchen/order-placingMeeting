@@ -75,6 +75,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'SetailerDataMaintain',
@@ -334,6 +335,7 @@
       DeviceInfo,
       Pagination,
       ChooseMerchants,
+      AreaSelect
     }
   }
 </script>
