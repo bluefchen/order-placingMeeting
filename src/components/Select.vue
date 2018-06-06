@@ -66,6 +66,11 @@
       onChange(val) {
         this.$emit('update:value', val);
       }
+    },
+    watch: {
+      'value': function(newVal, oldVal){
+        this.copyValue = newVal
+      }
     }
   }
 </script>

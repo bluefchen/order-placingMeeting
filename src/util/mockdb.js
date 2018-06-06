@@ -1404,3 +1404,24 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
     }]
   }
 });
+//79、按机型统计机型销售数据接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByModel'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-99': 10, 
+    'rows|5-10': [{
+      'opMeetingId': '@id',
+      'rank|1-99': 1,
+      'brandCd': '@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId': '@id',
+      'offerModelName': '@cword(3,6)',
+      'offerQty|1-99': 1,
+      'pickupGoodsAmount|1-99': 1
+    }]
+  }
+});
