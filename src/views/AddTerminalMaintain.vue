@@ -34,13 +34,14 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端品牌：</label>
-              <Select class="condition-input" :value.sync="terminalMaintainInfo.brandName" :options="brandList"/>
+              <Select class="condition-input" :value.sync="terminalMaintainInfo.brandCd" :options="brandOptions"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端型号：</label>
-              <Select class="condition-input" :value.sync="terminalMaintainInfo.offerModelName" :options="brandList"/>
+              <Select class="condition-input" :value.sync="terminalMaintainInfo.offerModelId" :options="modelOptions"/>
+              --{{terminalMaintainInfo.offerModelId}}--
             </div>
           </el-col>
         </el-row>
@@ -97,7 +98,7 @@
                 </div>
                 <div class="content-item">
                   <label class="content-label">手机类型</label>
-                  <Input class="content-input" :value.sync="terminalMaintainInfo.isCentman"/>
+                  <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.termType"/>
                 </div>
                 <div class="content-item">
                   <label class="content-label">操作系统</label>
@@ -219,14 +220,12 @@
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <UploadFile :url="url" @callback="uploadData"/>
-
         <div class="import-result-box fn-clear">
           <div class="success">
             <img src="@/assets/images/icon-success.png" class="suc-img">
             <div class="import-text">终端规格详情导入完成！</div>
           </div>
         </div>
-
       </div>
       <div slot="footer">
         <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
@@ -247,6 +246,17 @@
   export default {
     name: 'AddTerminalMaintain',
     created() {
+
+      this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
+        this.brandList = rsp;
+        _.forEach(this.brandList, (item) => {
+          this.brandOptions.push({
+            value: item.brandCd,
+            label: item.brandName
+          })
+        });
+      });
+
       var operation = this.$route.query.operation;
       if(operation === 'add'){
         this.title = '新增终端';
@@ -257,6 +267,9 @@
       }else{
         this.title = '修改终端';
         this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerId'));
+
+        this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
+
         if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
           this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
         };
@@ -281,47 +294,51 @@
       return {
         terminalMaintainInfo: {},
         title: '',
+        brandOptions: [],
+        modelOptions: [],
+
         offerPicList: [],
         imgBigVisible: false,
         dialogImageUrl: '',
+        brandList: [],
+        modelList: [],
 
-
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
         dialogVisible: false,
         dislogTitle: '导入',
 
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
         imgUrl: require('../assets/images/icon-add.png'),
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
+        url: '/orderPlacingMeetingController/analyzeOfferParamList',
       }
     },
     methods: {
-      // 图片上传和删除
+      //图片上传成功
       handleAvatarSuccess(res, file, fileList){
         this.offerPicList = fileList
       },
+      //图片删除
       handleRemove(file, fileList) {
         this.offerPicList = fileList
       },
       visibleChange(val) {
         this.dialogVisible = val;
       },
+      //导入
       uploadData(data) {
-        this.totalCnt = data.totalCnt;
-        this.successCnt = data.successCnt;
-        this.failCnt = data.failCnt;
-        this.tableData = data.rows;
+        this.data = data;
         console.log('导入文件返回的数据：', data);
+      },
+      qryOfferModelList(val){
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': val
+        }).then((rsp) => {
+          this.modelList = rsp;
+          _.forEach(this.modelList, (item) => {
+            this.modelOptions.push({
+              value: item.offerModelId,
+              label: item.offerModelName
+            })
+          });
+        });
       },
       showList(){
         console.log(this.offerPicList)
@@ -333,6 +350,13 @@
       Select,
       DialogPopup,
       UploadFile
+    },
+    watch: {
+      'terminalMaintainInfo.brandCd': function () {
+        this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
+        this.terminalMaintainInfo.offerModelId = ''
+        this.terminalMaintainInfo.offerModelName = ''
+      }
     }
   }
 </script>
