@@ -68,7 +68,7 @@
     },
     data() {
       return {
-        systemMenuList: [],//所有菜单列表
+        systemMenuAllList: [],//所有菜单列表
         systemMenuHadList: [],//已关联菜单
       }
     },
@@ -77,7 +77,9 @@
       querySystemMenuList(){
         this.$post('/systemUserController/querySystemMenuList', {
         }).then((rsp) => {
-          this.systemMenuList = rsp;
+          this.systemMenuAllList = rsp;
+          _.map()
+
         });
       },
       //查询已关联菜单
@@ -126,8 +128,7 @@
       }
     }
     .role-setup-info{
-      min-height: 430px;
-      padding: 12px 15px;
+      padding: 12px 15px 60px;
       border: 1px solid #dfdfdf;
       .p-titl{
         font-size:16px;

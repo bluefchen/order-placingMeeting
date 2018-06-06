@@ -83,7 +83,7 @@
                   this.$router.push({
                     path: '/orderManage/userRoleManage',
                     query: {
-                      roleInfo: item
+                      postRoleId: item.postRoleId
                     }
                   });
                 }

@@ -1030,7 +1030,7 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize ': '12',
+    'totalSize': '12',
     'rows': [{
       'opmOrderId': '@id',
       'opMeetingId': '@id',
@@ -1341,7 +1341,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize |1-100': 100, //总记录条数
+    'totalSize|1-100': 1, //总记录条数
     'rows|10': [{
       'userRoleId': '@id',
       'postRoleId': '@id',
