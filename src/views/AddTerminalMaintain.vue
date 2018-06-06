@@ -41,7 +41,6 @@
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 终端型号：</label>
               <Select class="condition-input" :value.sync="terminalMaintainInfo.offerModelId" :options="modelOptions"/>
-              --{{terminalMaintainInfo.offerModelId}}--
             </div>
           </el-col>
         </el-row>
@@ -523,14 +522,6 @@
     }
 
     .condition-item {
-      display: flex;
-      margin: 10px 0;
-      .label-wrds {
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-      }
-
       .el-radio__input{
         display: none;
         & + .el-radio__label{
@@ -558,9 +549,6 @@
             background: url('../assets/images/selected-icon.png');
           };
         }
-      }
-      .condition-input {
-        flex: 1 0 0;
       }
       input[type=radio]{
         margin: 0;

@@ -29,19 +29,19 @@
       <div class="condition-search box-1200" v-show="isShowMoreCondition">
         <el-row :gutter="20">
           <el-col :span="6">
-            <div class="condition-iterm">
+            <div class="condition-item">
               <label class="label-wrds">订单号：</label>
               <Input class="condition-input" :value.sync="depositRecord.opmOrderNo"/>
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="condition-iterm">
+            <div class="condition-item">
               <label class="label-wrds">零售商名称：</label>
               <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
             </div>
           </el-col>
           <el-col :span="9">
-            <div class="condition-iterm">
+            <div class="condition-item">
               <label class="label-wrds">订购起止日期：</label>
               <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
             </div>
@@ -307,12 +307,6 @@
   }
 
   /* 条件搜索 */
-  .condition-search {
-    margin: 18px auto 22px;
-    padding: 10px;
-    border: 1px solid #dfdfdf;
-  }
-
   .category-more {
     height: 22px;
     margin: 7px 0 0 20px;

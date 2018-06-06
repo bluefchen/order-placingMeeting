@@ -13,7 +13,7 @@
           </div>
         </el-col>
         <el-col :span="7">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">所属商户：</label>
             <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
           </div>

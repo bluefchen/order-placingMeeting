@@ -23,15 +23,15 @@
     <div class="box-1200 condition-search">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">省份：</label>
             <AreaSelect :value.sync="formInline.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
-          <el-button size="small" type="success" @click="onSubmit"><i
-            class="iconfont">&#xe794;</i> 查询
-          </el-button>
+          <div class="condition-item">
+            <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -127,12 +127,6 @@
       height: 30px;
       line-height: 30px;
       background-color: #f6f6f6;
-    }
-
-    .condition-search {
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
     }
   }
 </style>

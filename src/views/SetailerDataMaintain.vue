@@ -18,28 +18,28 @@
     </div>
 
     <!-- 条件搜索 -->
-    <div class="box-1200 condition-query" v-show="isShowMoreCondition">
+    <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="6">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">省份：</label>
-            <Cascader @change="selectAddress" :level="level" :regionId="orderQueryData.commonRegionId" />
+            <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">零售商类型：</label>
             <Select class="condition-input" :value.sync="orderQueryData.type" :options="retailerTypeList"/>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">零售商状态：</label>
             <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="retailerStatusList"/>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <el-button type="success" size="small" @click="qryRetailerList()">查询</el-button>
           </div>
         </el-col>
@@ -75,7 +75,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'SetailerDataMaintain',
@@ -335,7 +335,7 @@
       DeviceInfo,
       Pagination,
       ChooseMerchants,
-      Cascader
+      AreaSelect
     }
   }
 </script>

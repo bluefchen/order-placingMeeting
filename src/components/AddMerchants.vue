@@ -8,9 +8,9 @@
       <div slot="content" class="pop-cnt">
         <el-row :gutter="10">
           <el-col :span="7">
-            <div class="form-group">
+            <div class="form-group fn-clear">
               <label>所属省市：</label>
-              <Cascader @change="handleChange"/>
+              <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId"/>
             </div>
           </el-col>
           <el-col :span="7">
@@ -48,7 +48,7 @@
 
 <script>
   import DialogPopup from '@/components/DialogPopup';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
 
@@ -229,9 +229,6 @@
       visibleChange(val) {
         this.isShow = val;
       },
-      handleChange(val) {
-        this.orderQueryData.commonRegionId = val;
-      },
       handleSearch(curPage, pageSize) {
         if (this.title === '供货商') {
           //查询供应商
@@ -265,7 +262,7 @@
     },
     components: {
       DialogPopup,
-      Cascader,
+      AreaSelect,
       Table,
       Pagination
     }

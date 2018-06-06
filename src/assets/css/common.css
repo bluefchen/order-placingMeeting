@@ -116,27 +116,28 @@ body {
   font-family: iconfont
 }
 
-.condition-query {
+.condition-search {
   margin: 18px auto 22px;
   padding: 10px;
   border: 1px solid #dfdfdf;
 }
 
-.condition-iterm {
+.condition-item {
   position: relative;
-  padding-left: 100px;
+  margin: 10px 0;
+  padding-left: 110px;
 }
 
-.condition-iterm .label-wrds {
+.condition-item .label-wrds {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100px;
+  width: 110px;
   line-height: 32px;
   font-size: 14px;
   text-align: right;
 }
 
-.condition-iterm .condition-input {
+.condition-item .condition-input {
   width: 100%;
 }

@@ -19,19 +19,19 @@
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">用户类型：</label>
             <Select class="condition-input" :value.sync="usermanData.userType" :options="usermanList"/>
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">所属省份：</label>
             <AreaSelect :value.sync="usermanData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">所属商户：</label>
             <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
           </div>
@@ -39,7 +39,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">用户状态：</label>
             <Select class="condition-input" :value.sync="usermanData.statusCd" :options="statusList"/>
           </div>
@@ -366,12 +366,6 @@
     /* 条件搜索 */
     .search {
       margin: 10px auto;
-    }
-    .condition-search {
-      display: block;
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
     }
     /*搜索框*/
     .input-with-select {

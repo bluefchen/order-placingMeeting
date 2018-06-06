@@ -134,7 +134,7 @@
           height: 16px;
           margin-top: -8px;
           background: url('../assets/images/icon-angle.png') no-repeat 0 center;
-          
+
         }
       }
       .supplier-info{
@@ -143,21 +143,6 @@
           padding: 0 25px;
           .el-row{
             border-bottom: 1px dashed #f0f0f0;
-          }
-        }
-        .condition-item {
-          display: flex;
-          margin: 10px 0;
-          color: #151515;
-          font-size: 14px;
-          .label-wrds {
-            width: 110px;
-            text-align: right;
-            line-height: 32px;
-          }
-          .condition-input {
-            flex: 1 0 0;
-            line-height: 32px;
           }
         }
       }
