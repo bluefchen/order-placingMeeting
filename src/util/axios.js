@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
 import qs from 'qs'
-// import './mockdb'
+import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 // axios.defaults.baseURL = 'http://127.0.0.1';

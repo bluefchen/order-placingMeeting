@@ -308,7 +308,7 @@
     .order-titl {
       position: relative;
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
       padding-bottom: 3px;
       border-bottom: 2px solid #e5e5e5;

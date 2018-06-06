@@ -25,12 +25,12 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">省份：</label>
-            <AreaSelect :value.sync="commonRegionId"/>
+            <AreaSelect :clearable="true" :value.sync="commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
           <div class="condition-item">
-            <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+            <el-button size="small" type="success" @click="search">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -38,12 +38,13 @@
 
     <div class="box-1200">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="优惠政策列表"/>
+        <TitlePlate class="fn-left" title="全国汇总统计分析"/>
         <div class="buttons fn-right">
-          <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
+          <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe654;</i> 导出</router-link>
         </div>
       </div>
-      <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
+      <Table :tableTitle="tableTitle" :tableData="tableData"/>
+      <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
 </template>
@@ -58,51 +59,23 @@
 
   export default {
     name: 'summaryStatisticalAnalysis',
+    created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.queryOpmOrderPickupReport();
+    },
     data() {
       return {
+        opMeetingInfo: '', //订货会基本信息
         commonRegionId: '',
         tableTitle: [{
-          label: '政策名称',
-          prop: 'policyName',
-          render: (h, params) => {
-            return h(ButtonWithDialog, {
-              props: {
-                title: params.row.policyName,
-                data: params.row
-              }
-            });
-          }
+          label: '省份',
+          prop: 'commonRegionName'
         }, {
-          label: '政策机型',
-          prop: 'offerNames',
-          width: 200,
+          label: '订购数量',
+          prop: 'offerQty'
         }, {
-          label: '政策制定日期',
-          prop: 'createDt',
-          width: 180,
-        }, {
-          label: '制定人',
-          prop: 'partyName',
-          width: 120,
-        }, {
-          label: '政策状态',
-          prop: 'statusCdName',
-          width: 120
-        }, {
-          label: '操作',
-          width: 120,
-          render: (h, params) => {
-            return h(ApprovePolicy, {
-              props: {
-                data: params.row
-              },
-              on: {
-                update: (data) => {
-                  this.queryOpmPolicyList();
-                }
-              }
-            });
-          }
+          label: '订单提货数量',
+          prop: 'pickupGoodsAmount'
         }],
         tableData: [], //查询返回的数据
         total: 0, //列表总数
@@ -111,13 +84,15 @@
       }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
+      search() {
+        this.queryOpmOrderPickupReport();
       },
-      qryOpmOrderPickupRecordList(curPage, pageSize) {
+      queryOpmOrderPickupReport(curPage, pageSize) {
+        debugger;
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-          opMeetingId: '订货会ID',
+        this.$post('/opmOrderController/queryOpmOrderPickupReport', {
+          opMeetingId: this.opMeetingInfo.opMeetingId,
+          commonRegionId: this.commonRegionId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -126,7 +101,7 @@
         })
       },
       pageChanged(curPage) {
-        this.qryOpmOrderPickupRecordList(curPage);
+        this.queryOpmOrderPickupReport(curPage);
       }
     },
     components: {
@@ -178,7 +153,7 @@
 
     .order-titl {
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
     }
 
