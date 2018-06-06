@@ -7,24 +7,24 @@
       </div>
     </div>
     <div class="box-1200">
-      <div class="order-titl fn-clear">
+      <div class="top-titl fn-clear">
         <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>零售商</span></label>
       </div>
       <!--管理人员-->
       <div class="role-setup-info">
         <div class="order-titl fn-clear">
-          <TitlePlate class="fn-left" title="已有角色人员管理列表"/>
+          <p class="p-titl fn-left">已有角色人员管理列表 </p>
           <div class="buttons fn-right">
             <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
           </div>
         </div>
         <Table :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
-        <div class="foot-btn">
-          <el-button class="btns" @click="roleSetupSubmit">保&nbsp;存</el-button>
-        </div>
+      </div>
+      <div class="foot-btn">
+        <el-button size="small" type="success" @click="roleSetupSubmit">保&nbsp;存</el-button>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -41,6 +41,7 @@
       if(this.$route.query.roleInfo){
         this.roleData = this.$route.query.roleInfo;
       }
+      this.queryPostRoleRelaUserList();
     },
     data() {
       return {
@@ -163,7 +164,7 @@
       line-height: 30px;
       background-color: #f6f6f6;
     }
-    .order-titl {
+    .top-titl {
       height: 36px;
       margin: 15px 0 8px;
       line-height: 36px;
@@ -181,6 +182,17 @@
         span{
           color: #000;
         }
+      }
+    }
+    .role-setup-info{
+      .order-titl{
+        height: 42px;
+        line-height: 42px;
+        padding: 0 12px;
+        border: 1px solid #dfdfdf;
+        border-bottom: 0;
+        font-size: 14px;
+        color: #000;
       }
     }
     .role-man{
@@ -205,37 +217,11 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
-    .v_table{
-      margin: 0 40px;
-    }
     .foot-btn{
       width: 100%;
       padding: 24px 0;
-      background: #fafafa;
-      border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
-      .btns {
-        display: inline-block;
-        padding: 3px 30px;
-        margin: 0 10px;
-        border: 0;
-        background-color: #fa0000;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-        line-height: 28px;
-        cursor: pointer;
-        text-decoration: none;
-        &:hover {
-          background-color: #e20606;
-        }
-        &:disabled{
-          color: #fff;
-          background-color: #f25555;
-          cursor: default;
-        }
-      }
     }
   }
 
