@@ -30,16 +30,16 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
       'opMeetingNo': '@id',
       'opmName': '@cword(4, 12)',
       'opmAddr': '@cword(8, 16)',
-      'startDt': '@date()',
-      'endDt': '@date()',
+      'startDt': '@date',
+      'endDt': '@date',
       'commonRegionId': '@id',
       'commonRegionName': '@province',
       'statusCd|1': ['1000', '1001', '1002'],
       'discription': '@cword(10,20)',
       'logoUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-      'depositRecordEnddt': '@date()',
-      'pickupRecordEnddt': '@date()',
-      'statusDt': '@date()',
+      'depositRecordEnddt': '@date',
+      'pickupRecordEnddt': '@date',
+      'statusDt': '@date',
       'supplierCnt|1-100': 11,
       'retailerCnt|1-100': 11
     }]
@@ -215,7 +215,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
       'statusCd|1': ['1001', '1002'],
       'offerBaseParam': {
         'listDt': '@date',
-        'termType|1': ['3G手机','4G手机','5G手机','CDMA手机'],
+        'termType|1': ['3G手机', '4G手机', '5G手机', 'CDMA手机'],
         'os': '@word(5,10)'
       },
       'offerScreenParam': {
@@ -250,7 +250,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
           'offerPicUrl3|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
           'offerPicUrl4|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
           'offerPicUrl5|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl6|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg']       }
+          'offerPicUrl6|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg']
+        }
       }
     }]
   }
@@ -316,9 +317,9 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeOfferParamList'), {
   msg: null,
   error: null,
   data: {
-    'offerBaseParam':{
+    'offerBaseParam': {
       'listDt': '@date',
-      'termType|1': ['3G手机','4G手机','5G手机','CDMA手机'],
+      'termType|1': ['3G手机', '4G手机', '5G手机', 'CDMA手机'],
       'os': '@word(5,10)'
     },
     'offerScreenParam': {
@@ -331,7 +332,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeOfferParamList'), {
       'frame|1': ['是', '否'],
       'otherParam': '@cword(10,20)'
     },
-    'offerHardwardParam':{
+    'offerHardwardParam': {
       'cpuModel': '@word(3,5)',
       'cpuRate|1-10': 1,
       'core|1-8': 2,
@@ -665,11 +666,12 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
         'offerPicUrl5': '@url',
         'offerPicUrl6': '@url'
       },
-      'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
-      'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
+      'orderDt': '@date',
+      'pickupDt': '@date'
     }]
   }
-});
+})
+;
 
 //35、订单提货确认接口
 Mock.mock(new RegExp('/opmOrderController/updateOpmOrderPickupRecord'), {
@@ -679,8 +681,8 @@ Mock.mock(new RegExp('/opmOrderController/updateOpmOrderPickupRecord'), {
   msg: null,
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 
@@ -762,8 +764,8 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
         'offerPicUrl5': '@url',
         'offerPicUrl6': '@url'
       },
-      'orderDt': '@date("yyyy-yy-dd HH:mm:ss")',
-      'pickupDt': '@date("yyyy-yy-dd HH:mm:ss")'
+      'orderDt': '@date',
+      'pickupDt': '@date'
     }]
   }
 });
@@ -801,8 +803,8 @@ Mock.mock(new RegExp('/opmDepositController/updateOpmDepositInfo'), {
   'msg': null,
   'error': null,
   'data': {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 
@@ -1030,7 +1032,7 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPoilcyDepositList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize ': '12',
+    'totalSize': '12',
     'rows': [{
       'opmOrderId': '@id',
       'opMeetingId': '@id',
@@ -1077,8 +1079,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/freezeSupplier'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //54、激活供应商接口
@@ -1089,8 +1091,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/unfreezeSupplier'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //55、删除供应商接口
@@ -1101,8 +1103,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/deleteSupplier'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 56、新增供应商接口
@@ -1113,8 +1115,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/addSupplier'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 57、修改供应商接口
@@ -1125,8 +1127,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateSupplier'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 58、冻结零售商接口
@@ -1137,8 +1139,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/freezeRetailer'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 59、激活零售商接口
@@ -1149,8 +1151,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/unfreezeRetailer'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 60、删除零售商接口
@@ -1161,8 +1163,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/deleteRetailer'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 61、新增零售商接口
@@ -1173,8 +1175,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/addRetailer'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 // 62、修改零售商接口
@@ -1185,8 +1187,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateRetailer'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //63、冻结用户
@@ -1197,8 +1199,8 @@ Mock.mock(new RegExp('/systemUserController/freezeSystemUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //64、激活用户
@@ -1209,8 +1211,8 @@ Mock.mock(new RegExp('/systemUserController/unfreezeSystemUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //65、	删除用户接口
@@ -1221,8 +1223,8 @@ Mock.mock(new RegExp('/systemUserController/deleteSystemUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //66、	新增用户接口
@@ -1233,8 +1235,8 @@ Mock.mock(new RegExp('/systemUserController/addSystemUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //67、	修改用户接口
@@ -1245,8 +1247,8 @@ Mock.mock(new RegExp('/systemUserController/updateSystemUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //68、用户列表查询
@@ -1295,9 +1297,9 @@ Mock.mock(new RegExp('/systemUserController/savePostRole'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "postRoleId": '@id',
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'postRoleId': '@id',
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //71、	查询所有菜单接口
@@ -1341,7 +1343,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize |1-100': 100, //总记录条数
+    'totalSize|1-100': 1, //总记录条数
     'rows|10': [{
       'userRoleId': '@id',
       'postRoleId': '@id',
@@ -1368,8 +1370,8 @@ Mock.mock(new RegExp('/systemUserController/deletePostRoleRelaUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //75、新增关联关系
@@ -1380,8 +1382,26 @@ Mock.mock(new RegExp('/systemUserController/addPostRoleRelaUser'), {
   msg: null, //失败信息
   error: null,
   data: {
-    "resultMsg": "成功",
-    "resultCode": "0"
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+//76、全国汇总统计分析查询接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数
+    'rows|10': [{
+      'opMeetingId': '@id', //订货会ID
+      'commonRegionId': '@id', //地区ID
+      'commonRegionName': '@province', //地区名称
+      'offerQty|100-1000': 100, //订货数
+      'pickupGoodsAmount|100-1000': 100, //提货数
+    }]
   }
 });
 //79、按机型统计机型销售数据接口

@@ -35,7 +35,7 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">上市日期</label>
-                  <div class="content-detail">2018年03月28日</div>  
+                  <div class="content-detail">2018年03月28日</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">手机类型</label>
@@ -210,7 +210,7 @@
 
     .order-titl {
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
     }
 

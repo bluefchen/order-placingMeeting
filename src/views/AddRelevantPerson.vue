@@ -7,9 +7,9 @@
     <div class="condition-search">
       <el-row :gutter="20">
         <el-col :span="7">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">用户账号/手机号：</label>
-            <Input class="condition-input" :value.sync="relevantData.systemUserCode"/>
+            <Input class="condition-input" :value.sync="relevantData.codeOrPhone"/>
           </div>
         </el-col>
         <el-col :span="7">
@@ -19,14 +19,15 @@
           </div>
         </el-col>
         <el-col :span="3">
-          <el-button size="small" type="success" @click="usermanSearch">查询</el-button>
+          <div class="condition-item">
+            <el-button size="small" type="success" @click="usermanSearch">查询</el-button>
+          </div>
         </el-col>
       </el-row>
     </div>
     <div class="order-titl fn-clear">
       <TitlePlate class="fn-left" title="选择添加角色人员列表"/>
     </div>
-    <!--<p class="role-title"><i class="iconfont">&#xe609;</i> 选择添加角色人员列表</p>-->
     <Table :isSelection="true" @selectionChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
     <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     <div class="foot-btn">
@@ -50,9 +51,8 @@
     data() {
       return {
         relevantData: {
-          systemUserCode:'',
           codeOrPhone:'',
-          retailerId: '',
+          relaId: '',
         },
         tableTitle: [{
           label: '真实姓名',
@@ -149,7 +149,10 @@
             type: 'success'
           }).then(() => {
             this.$router.push({
-              path: '/orderManage/userRoleManage'
+              path: '/orderManage/userRoleManage',
+              query: {
+                postRoleId: this.$route.query.postRoleId
+              }
             });
           });
         })
@@ -202,7 +205,7 @@
         }
       }
     }
-    .condition-iterm{
+    .condition-item{
       padding-left: 120px;
       .label-wrds{
         width: 120px;
@@ -229,7 +232,7 @@
     .condition-search {
       display: block;
       margin: 0 auto 10px;
-      padding: 10px;
+      padding: 5px 10px;
       border: 1px solid #dfdfdf;
     }
     .condition-input {

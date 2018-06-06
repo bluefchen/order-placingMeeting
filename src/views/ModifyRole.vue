@@ -74,7 +74,7 @@
             type: 'success'
           }).then(() => {
             this.$router.push({
-              path: '/orderManage/userRoleManage'
+              path: '/orderManage/RoleManage'
             });
           });
         });

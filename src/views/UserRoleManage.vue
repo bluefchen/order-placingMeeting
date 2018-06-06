@@ -38,13 +38,16 @@
   export default {
     name: 'userRoleManage',
     created() {
-      if(this.$route.query.roleInfo){
-        this.roleData = this.$route.query.roleInfo;
+      if(this.$route.query.postRoleId){
+        this.roleData.postRoleId = this.$route.query.postRoleId;
       }
       this.queryPostRoleRelaUserList();
     },
     data() {
       return {
+        roleData: {
+          postRoleId: ''
+        },
         tableTitle: [{
           label: '真实姓名',
           prop: 'name',

@@ -176,7 +176,7 @@
     }
     .order-titl {
       height: 28px;
-      margin: 15px 0;
+      margin: 15px 0 8px;
       line-height: 28px;
     }
     .order-titl .tel-model {
