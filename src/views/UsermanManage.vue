@@ -373,22 +373,6 @@
       padding: 10px;
       border: 1px solid #dfdfdf;
     }
-    .condition-iterm {
-      position:relative;
-      margin: 10px 0;
-      padding: 0 0 0 110px;
-      .label-wrds {
-        position:absolute;
-        left:0;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-      }
-      .condition-input {
-        width: 100%;
-      }
-    }
     /*搜索框*/
     .input-with-select {
       width: 480px;

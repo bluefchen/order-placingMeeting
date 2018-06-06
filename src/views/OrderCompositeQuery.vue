@@ -287,26 +287,6 @@
         font-size: 12px;
       }
     }
-
-    .condition-query {
-      display: block;
-      margin: 20px auto;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
-      .condition-iterm {
-        display: flex;
-        margin: 10px 0;
-        .label-wrds {
-          width: 100px;
-          line-height: 32px;
-          font-size: 14px;
-          text-align: right;
-        }
-        .condition-input {
-          flex: 1 0 0;
-        }
-      }
-    }
     /* 条件搜索 */
 
     .my-location {

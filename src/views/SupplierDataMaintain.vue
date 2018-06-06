@@ -403,37 +403,6 @@
         font-size: 12px;
       }
     }
-
-    .condition-query {
-      display: block;
-      margin: 0 auto;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
-      .condition-iterm {
-        display: flex;
-        margin: 10px 0;
-        .label-wrds {
-          width: 100px;
-          line-height: 32px;
-          font-size: 14px;
-          text-align: right;
-        }
-        .condition-input {
-          flex: 1 0 0;
-        }
-      }
-    }
-    .el-cascader{
-      flex: 1;
-      line-height: 32px;
-      .el-input__inner{
-        height: 32px;
-        line-height: 32px;
-      }
-      .el-input__icon{
-        line-height: 32px;
-      }
-    }
     /* 条件搜索 */
     .tabs-list {
       margin: 0 auto 20px;

@@ -247,13 +247,6 @@
         line-height: 32px;
         border-radius: 0;
       }
-      .el-cascader{
-        width:100%;
-        line-height: 32px;
-        .el-input__icon{
-          line-height: 32px;
-        }
-      }
       .el-textarea__inner{
         border-radius: 0;
         resize:none;
