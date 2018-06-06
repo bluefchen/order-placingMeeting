@@ -304,22 +304,7 @@
         });
       },
       exportOpmOrderPickupReportByModel(){
-
-        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
-          opMeetingId=''&&offerName=this.modelQueryData.offerName&&brandCd=this.modelQueryData.brandCd&&offerModelId=this.modelQueryData.offerModelId
-        })));
-
-        // this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
-        //   'opMeetingId': '',
-        //   'offerName': this.modelQueryData.offerName,
-        //   'brandCd': this.modelQueryData.brandCd,
-        //   'offerModelId': this.modelQueryData.offerModelId,
-        //   'pageSize': pageSize || 10,
-        //   'curPage': curPage || 1
-        // }).then((rsp) => {
-        //   this.total = rsp.totalSize;
-        //   this.tableData = rsp.rows;
-        // });
+        window.open('/opmOrderController/exportOpmOrderList?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId);
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupReportByModel(curPage);
