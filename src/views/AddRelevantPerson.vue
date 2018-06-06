@@ -19,7 +19,8 @@
         <el-col :span="7">
           <div class="condition-iterm">
             <label class="label-wrds">所属省份：</label>
-            <Cascader :value.sync="relevantData.commonRegionId"/>
+            <!--<Cascader :value.sync="relevantData.commonRegionId"/>-->
+            <AreaSelect :value.sync="relevantData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="7">
@@ -34,7 +35,7 @@
       </el-row>
     </div>
     <p class="p-title"><i class="iconfont">&#xe609;</i> 选择添加角色人员列表</p>
-    <Table :isSelection="true" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
+    <Table :isSelection="true" @selectionChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
     <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     <div class="foot-btn">
       <button class="btns" @click="addRelevantRoleSubmit">保&nbsp;存</button>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
@@ -114,6 +115,7 @@
         }],
         tableData: [],//查询返回的数据
         isShowMoreCondition: false, //是否显示更多条件
+        selectionChangeList: [],
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -165,10 +167,16 @@
           postRoleId: this.$route.query.postRoleId,
           partyIds: partyIds,
         }).then((rsp) => {
-          this.$message.success('添加成功！');
-          //添加完之后跳回页面并刷新
-          this.$router.push({
-            path: '/orderManage/addRole'
+          this.$alert('添加成功！', '提示', {
+            confirmButtonText: '确定',
+            type: 'success'
+          }).then(() => {
+            this.$router.push({
+              path: '/orderManage/userRoleManage',
+              query: {
+                postRoleId: item
+              }
+            });
           });
         })
       },
@@ -186,7 +194,7 @@
       }
     },
     components: {
-      Cascader,
+      AreaSelect,
       Table,
       Pagination,
       ChooseMerchants,

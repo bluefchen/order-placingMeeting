@@ -27,7 +27,7 @@
         <el-col :span="8">
           <div class="condition-iterm">
             <label class="label-wrds">所属省份：</label>
-            <Cascader :value.sync="usermanData.commonRegionId"/>
+            <AreaSelect :value.sync="usermanData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -72,7 +72,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
-  import Cascader from '@/components/Cascader';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'UsermanManage',
@@ -341,7 +341,7 @@
       ChooseMerchants,
       Input,
       Select,
-      Cascader
+      AreaSelect
     }
   }
 </script>

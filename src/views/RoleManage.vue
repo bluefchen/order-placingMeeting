@@ -5,13 +5,15 @@
       <div class="info"></div>
     </div>
     <!-- 中间背景图片 -->
-
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '角色管理']"/>
+      </div>
+    </div>
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="角色管理列表"/>
-        <div class="buttons fn-right">
-          <el-button class="btns" @click="addRole"><i class="iconfont">&#xe642;</i> 新增角色</el-button>
-        </div>
       </div>
       <Table :tableTitle="tableTitle" :tableData="tableData"/>
     </div>
@@ -20,6 +22,7 @@
 
 <script>
   import TitlePlate from '@/components/TitlePlate';
+  import Breadcrumb from '@/components/Breadcrumb';
   import Table from '@/components/Table';
 
   export default {
@@ -48,10 +51,12 @@
           prop: 'description'
         }, {
           label: '操作',
-          width: 170,
+          width: 230,
           render: function (h, params) {
             return h({
-              template: '<div><el-button type="text" @click="modifyRole(roleInfo)" class="delete-btn">编辑</el-button></div>',
+              template: '<div><el-button type="text" @click="modifyRole(roleInfo)" class="delete-btn">角色编辑</el-button>' +
+              '<el-button type="text" @click="menuManage(roleInfo)" class="delete-btn">管理菜单</el-button>' +
+              '<el-button type="text" @click="userManage(roleInfo)" class="delete-btn">管理人员</el-button></div>',
               data: function () {
                 return {
                   roleInfo: params.row
@@ -60,7 +65,23 @@
               methods: {
                 modifyRole(item) {
                   this.$router.push({
-                    path: '/orderManage/addRole',
+                    path: '/orderManage/modifyRole',
+                    query: {
+                      roleInfo: item
+                    }
+                  });
+                },
+                menuManage(item) {
+                  this.$router.push({
+                    path: '/orderManage/menuManage',
+                    query: {
+                      roleInfo: item
+                    }
+                  });
+                },
+                userManage(item) {
+                  this.$router.push({
+                    path: '/orderManage/userRoleManage',
                     query: {
                       roleInfo: item
                     }
@@ -74,11 +95,6 @@
       }
     },
     methods: {
-      addRole(){
-        this.$router.push({
-          path: '/orderManage/addRole',
-        });
-      },
       queryRole() {
         this.$post('/systemUserController/queryPostRoleList', {
         }).then((rsp) => {
@@ -88,7 +104,8 @@
     },
     components: {
       TitlePlate,
-      Table
+      Table,
+      Breadcrumb
     }
   }
 </script>
@@ -108,7 +125,11 @@
       overflow: hidden;
     }
     /*中间背景图片*/
-
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
     .tabs-list {
       margin: 0 auto 20px;
     }

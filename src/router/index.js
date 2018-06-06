@@ -42,7 +42,9 @@ const DetailUserman = () => import('@/views/DetailUserman');
 const RoleManage = () => import('@/views/RoleManage');
 const TerminalQuery = () => import('@/views/TerminalQuery');
 const SummaryStatisticalAnalysis = () => import('@/views/SummaryStatisticalAnalysis');
-const AddRole = () => import('@/views/AddRole');
+const ModifyRole = () => import('@/views/ModifyRole');
+const MenuManage = () => import('@/views/MenuManage');
+const UserRoleManage = () => import('@/views/UserRoleManage');
 const AddRelevantPerson = () => import('@/views/AddRelevantPerson');
 const MetaAnalysis = () => import('@/views/MetaAnalysis');
 
@@ -352,11 +354,25 @@ export default new Router({
           title: '角色管理'
         }
       }, {
-        path: 'addRole',
-        name: 'addRole',
-        component: AddRole,
+        path: 'modifyRole',
+        name: 'modifyRole',
+        component: ModifyRole,
         meta: {
-          title: '新增/修改角色'
+          title: '编辑角色'
+        }
+      }, {
+        path: 'menuManage',
+        name: 'menuManage',
+        component: MenuManage,
+        meta: {
+          title: '管理菜单'
+        }
+      }, {
+        path: 'userRoleManage',
+        name: 'userRoleManage',
+        component: UserRoleManage,
+        meta: {
+          title: '管理人员'
         }
       }, {
         path: 'addRelevantPerson',

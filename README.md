@@ -60,5 +60,5 @@ npm run build --report
 - **AddUserman** 新增用户
 - **DetailUserman** 用户详情
 - **RoleManage**角色管理
-- **Addrole**新增角色
+- **ModifyRole**编辑角色
 - **AddRelevantPerson** 添加相关人员

@@ -1,0 +1,242 @@
+<template>
+  <div class="add-role">
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '角色管理', '管理人员']"/>
+      </div>
+    </div>
+    <div class="box-1200">
+      <div class="order-titl fn-clear">
+        <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>零售商</span></label>
+      </div>
+      <!--管理人员-->
+      <div class="role-setup-info">
+        <div class="order-titl fn-clear">
+          <TitlePlate class="fn-left" title="已有角色人员管理列表"/>
+          <div class="buttons fn-right">
+            <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
+          </div>
+        </div>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+        <div class="foot-btn">
+          <el-button class="btns" @click="roleSetupSubmit">保&nbsp;存</el-button>
+        </div>
+    </div>
+  </div>
+  </div>
+</template>
+
+<script>
+  import Table from '@/components/Table';
+  import TitlePlate from '@/components/TitlePlate';
+  import Input from '@/components/Input';
+  import Pagination from '@/components/Pagination';
+  import Breadcrumb from '@/components/Breadcrumb';
+
+  export default {
+    name: 'userRoleManage',
+    created() {
+      if(this.$route.query.roleInfo){
+        this.roleData = this.$route.query.roleInfo;
+      }
+    },
+    data() {
+      return {
+        tableTitle: [{
+          label: '真实姓名',
+          prop: 'name',
+          width: 176,
+          render: (h, params) => {
+            return h({
+              template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
+              data() {
+                return {
+                  roleName: params.row.name,
+                }
+              }
+            });
+          }
+        },{
+          label: '用户帐号',
+          prop: 'systemUserCode',
+          width: 145
+        },{
+          label: '用户类型',
+          prop: 'userType',
+          width: 145,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        },{
+          label: '手机号码',
+          prop: 'linktelenumber',
+          width: 145
+        },{
+          label: '归属省份',
+          prop: 'commonRegionName',
+          width: 128
+        },{
+          label: '归属商户',
+          prop: 'relaName'
+        }, {
+          label: '操作',
+          width: 128,
+          render: function (h, params) {
+            return h({
+              template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
+              data: function () {
+                return {
+                  roleInfo: params.row
+                }
+              },
+              methods: {
+                deleteRelativeRole(item) {
+                  this.$post('/systemUserController/deletePostRoleRelaUser', {
+                    postRoleId: item.postRoleId,
+                    partyId: item.partyId
+                  }).then((rsp) => {
+                    this.$message.success('删除成功！');
+                    //刷新数据
+
+                  });
+                }
+              },
+            })
+          }
+        }],
+        tableData: [],//查询返回的数据
+        total: 1, //列表总数
+        pageSize: 10, //每页展示条数
+        currentPage: 1, //当前页
+      }
+    },
+    methods: {
+      //查询角色关联用户接口
+      queryPostRoleRelaUserList(){
+        this.$post('/systemUserController/queryPostRoleRelaUserList', {
+          postRoleId: this.roleData.postRoleId,
+        }).then((rsp) => {
+          this.tableData = rsp.rows;
+          this.total = rsp.totalSize;
+        });
+      },
+      //添加相关人员
+      addRelevantPerson() {
+        this.$router.push({
+          path: '/orderManage/addRelevantPerson',
+          query: {
+            postRoleId: this.roleData.postRoleId,
+          }
+        });
+      },
+      //保存
+      roleSetupSubmit(){
+
+      },
+      pageChanged(curPage) {
+        this.queryOpmDepositList(curPage);
+      }
+    },
+    components: {
+      Table,
+      TitlePlate,
+      Input,
+      Pagination,
+      Breadcrumb
+    }
+  }
+</script>
+
+<style scoped lang="less">
+  .add-role {
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+    .order-titl {
+      height: 36px;
+      margin: 15px 0 8px;
+      line-height: 36px;
+      .p-titl{
+        font-size: 18px;
+        padding: 7px 30px 7px 0;
+        color: #9a9a9a;
+        border: 1px solid #d1d1d1;
+        background: #fafafa;
+        .iconfont{
+          font-size: 18px;
+          color: #f60e0e;
+          margin: 0 8px;
+        }
+        span{
+          color: #000;
+        }
+      }
+    }
+    .role-man{
+      text-align: left;
+      .iconfont{
+        margin: 0 15px;
+        color: #f7626f;
+        font-size: 18px;
+      }
+    }
+    .buttons .btns {
+      position:relative;
+      padding: 0 12px;
+      margin-left: 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+    }
+    .buttons .btns:hover {
+      background-color: #e20606;
+    }
+    .v_table{
+      margin: 0 40px;
+    }
+    .foot-btn{
+      width: 100%;
+      padding: 24px 0;
+      background: #fafafa;
+      border: 1px solid #dcdcdc;
+      border-top: none;
+      text-align: center;
+      .btns {
+        display: inline-block;
+        padding: 3px 30px;
+        margin: 0 10px;
+        border: 0;
+        background-color: #fa0000;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 3px;
+        line-height: 28px;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+          background-color: #e20606;
+        }
+        &:disabled{
+          color: #fff;
+          background-color: #f25555;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+</style>
