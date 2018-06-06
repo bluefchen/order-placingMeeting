@@ -36,7 +36,7 @@
       </el-row>
     </div>
 
-    <div class="box-1200">
+    <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="全国汇总统计分析"/>
         <div class="buttons fn-right">
@@ -88,7 +88,6 @@
         this.queryOpmOrderPickupReport();
       },
       queryOpmOrderPickupReport(curPage, pageSize) {
-        debugger;
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReport', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
@@ -154,6 +153,10 @@
       background-color: #f6f6f6;
     }
 
+    .tabs-list {
+      margin: 0 auto 20px;
+    }
+    
     .order-titl {
       height: 28px;
       margin: 15px 0 8px;
