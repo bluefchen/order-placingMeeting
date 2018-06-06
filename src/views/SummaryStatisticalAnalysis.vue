@@ -126,11 +126,5 @@
       line-height: 30px;
       background-color: #f6f6f6;
     }
-
-    .condition-search {
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
-    }
   }
 </style>

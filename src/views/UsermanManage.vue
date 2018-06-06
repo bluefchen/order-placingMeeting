@@ -367,12 +367,6 @@
     .search {
       margin: 10px auto;
     }
-    .condition-search {
-      display: block;
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
-    }
     /*搜索框*/
     .input-with-select {
       width: 480px;

@@ -228,11 +228,6 @@
     .search {
       margin: 10px auto;
     }
-    .condition-search {
-      margin: 18px auto 22px;
-      padding: 10px;
-      border: 1px solid #dfdfdf;
-    }
     .wid30 {
       width: 30%;
     }
