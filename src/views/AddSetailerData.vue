@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <AreaSelect :value.sync="retailerInfo.commonRegionId"/>
+              <AreaSelect class="condition-input" :value.sync="retailerInfo.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
@@ -23,7 +23,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 零售商类型：</label>
-              <Select :value.sync="retailerInfo.retailerType" :options="retailerTypeList"/>
+              <Select class="condition-input" :value.sync="retailerInfo.retailerType" :options="retailerTypeList"/>
             </div>
           </el-col>
         </el-row>

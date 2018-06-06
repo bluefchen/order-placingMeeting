@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <AreaSelect class="condition-select" :value.sync="supplierInfo.commonRegionId"/>
+              <AreaSelect class="condition-input" :value.sync="supplierInfo.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
