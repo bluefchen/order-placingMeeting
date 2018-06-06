@@ -32,8 +32,7 @@
         </div>
       </div>
       <div class="foot-btn">
-        <el-button class="btns" @click="roleAddSubmit" :disabled="!roleData.name || !roleData.description">保&nbsp;存
-        </el-button>
+        <el-button size="small" type="success" :disabled="!roleData.name || !roleData.description" @click="roleAddSubmit">保&nbsp;存</el-button>
       </div>
     </div>
   </div>
@@ -131,29 +130,7 @@
       border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
-      .btns {
-        display: inline-block;
-        padding: 3px 30px;
-        margin: 0 10px;
-        border: 0;
-        background-color: #fa0000;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-        line-height: 28px;
-        cursor: pointer;
-        text-decoration: none;
-        &:hover {
-          background-color: #e20606;
-        }
-        &:disabled {
-          color: #fff;
-          background-color: #f25555;
-          cursor: default;
-        }
-      }
     }
-
   }
 
 </style>

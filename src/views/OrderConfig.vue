@@ -41,18 +41,18 @@
               </div>
             </el-col>
             <el-col :span="10">
-              <div class="condition-item">
+              <div class="condition-item-address">
                 <label class="label-address">--</label>
                 <Input class="condition-input" :value.sync="orderPlacingMeeting.opmAddr"/>
               </div>
             </el-col>
           </el-row>
           <el-row :gutter="0">
-            <el-col :span="10" :offset="2">
+            <el-col :span="24" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 活动起止日期：</label>
                 <el-date-picker
-                  class="condition-input"
+                  class="fn-left"
                   v-model="orderPlacingMeeting.startDt"
                   type="date"
                   size="small"
@@ -61,9 +61,9 @@
                   placeholder="选择日期"
                   :editable="false">
                 </el-date-picker>
-                <div class="date-text">至</div>
+                <div class="date-text fn-left">至</div>
                 <el-date-picker
-                  class="condition-input"
+                  class="fn-left"
                   v-model="orderPlacingMeeting.endDt"
                   type="date"
                   size="small"
@@ -631,7 +631,18 @@
     .red-star {
       color: #f00;
     }
-
+    .condition-item-address{
+      position: relative;
+      margin: 10px 0;
+      padding-left: 20px;
+      .label-address {
+        position: absolute;
+        left: 0;
+        width: 20px;
+        line-height: 32px;
+        text-align: center;
+      }
+    }
     .condition-item {
       padding-left: 135px;
       .label-wrds {
@@ -642,11 +653,7 @@
         text-align: center;
         line-height: 32px;
       }
-      .label-address {
-        width: 20px;
-        line-height: 32px;
-        text-align: center;
-      }
+      
       .condition-upload {
         width: 163px;
         height: 86px;
@@ -801,29 +808,6 @@
       }
     }
     //步骤条
-    .dialog-save {
-      .dialog-choose-merchants {
-        .el-dialog {
-          width: 550px;
-          padding: 50px 0;
-        }
-        .el-dialog__header {
-          display: none;
-        }
-        .el-dialog__footer {
-          background: none;
-          border: none;
-        }
-        .success {
-          display: flex;
-          color: #000;
-          font-size: 14px;
-          font-weight: bold;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-    }
 
   }
 

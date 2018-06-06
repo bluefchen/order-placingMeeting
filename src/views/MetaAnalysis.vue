@@ -23,18 +23,33 @@
       <el-tabs v-model="activeName">
         <el-tab-pane label="按机型" name="first">
           <div class="condition-search fn-clear">
-            <el-form :model="form" :inline="true" class="demo-form-inline">
-              <el-form-item label="终端名称：">
-                <Input :value.sync="orderQueryData.opmOrderNo"/>
-              </el-form-item>
-              <el-form-item label="终端品牌：">
-                <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
-              </el-form-item>
-              <el-form-item label="终端型号：">
-                <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
-              </el-form-item>
-            </el-form>
-            <el-button class="fn-right btn-qry" type="success" size="small">查询</el-button>
+            <el-row :gutter="20">
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">终端名称：</label>
+                  <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">终端品牌：</label>
+                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">终端型号：</label>
+                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="24">
+                <div class="condition-item text-right">
+                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
           <div class="tabs-list">
             <div class="order-titl fn-clear">
@@ -51,17 +66,25 @@
         </el-tab-pane>
         <el-tab-pane label="按品牌" name="second">
           <div class="condition-search fn-clear">
-            <el-form :model="form" :inline="true" class="demo-form-inline">
-              <el-form-item label="终端名称：">
-                <Input :value.sync="orderQueryData.opmOrderNo"/>
-              </el-form-item>
-              <el-form-item label="终端品牌：">
-                <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
-              </el-form-item>
-              <el-form-item label="">
-                <el-button class="btn-qry" type="success" size="small">查询</el-button>
-              </el-form-item>
-            </el-form>
+            <el-row :gutter="20">
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">终端名称：</label>
+                  <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">终端品牌：</label>
+                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
           <div class="tabs-list">
             <div class="order-titl fn-clear">
@@ -78,17 +101,25 @@
         </el-tab-pane>
         <el-tab-pane label="按商户" name="third">
           <div class="condition-search fn-clear">
-            <el-form :model="form" :inline="true" class="demo-form-inline">
-              <el-form-item label="商户类型：">
-                <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
-              </el-form-item>
-              <el-form-item label="商户名称：">
-                <Input :value.sync="orderQueryData.opmOrderNo"/>
-              </el-form-item>
-              <el-form-item label="">
-                <el-button class="btn-qry" type="success" size="small">查询</el-button>
-              </el-form-item>
-            </el-form>
+            <el-row :gutter="20">
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">商户类型：</label>
+                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <label class="label-wrds">商户名称：</label>
+                  <Input :value.sync="orderQueryData.opmOrderNo"/>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="condition-item">
+                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
           <div class="tabs-list">
             <div class="order-titl fn-clear">
@@ -113,13 +144,9 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
-  import DatePicker from '@/components/DatePicker';
-  import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
-  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'MetaAnalysis',
@@ -246,19 +273,8 @@
       }
     },
     methods: {
-      // handleClick(tab, event) {
-      //   console.log(tab, event);
-      // },
       onSubmit() {
         console.log('submit!');
-      },
-
-
-      selectRetailer(val){
-          this.orderQueryData.retailerId = val;
-      },
-      selectSupplier(val){
-          this.orderQueryData.supplierId = val;
       },
       pageChanged(curPage) {
         // this.queryOpmOrderSubmit(curPage);
@@ -268,13 +284,9 @@
       Breadcrumb,
       Input,
       Select,
-      DatePicker,
-      InputWithSelect,
       TitlePlate,
       Table,
-      DeviceInfo,
-      Pagination,
-      ChooseMerchants
+      Pagination
     }
   }
 </script>
