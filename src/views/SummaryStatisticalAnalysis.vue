@@ -29,7 +29,9 @@
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
-          <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+          <div class="condition-item">
+            <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+          </div>
         </el-col>
       </el-row>
     </div>
