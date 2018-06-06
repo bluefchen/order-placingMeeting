@@ -23,7 +23,7 @@
         <el-col :span="6">
           <div class="condition-iterm">
             <label class="label-wrds">省份：</label>
-            <Cascader @change="selectAddress" :level="level" :regionId="orderQueryData.commonRegionId" />
+            <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="6">
@@ -75,7 +75,6 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
-  import Cascader from '@/components/Cascader';
 
   export default {
     name: 'SetailerDataMaintain',
@@ -335,7 +334,6 @@
       DeviceInfo,
       Pagination,
       ChooseMerchants,
-      Cascader
     }
   }
 </script>
