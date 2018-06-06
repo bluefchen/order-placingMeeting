@@ -23,7 +23,7 @@
     <div class="box-1200 condition-search">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">省份：</label>
             <AreaSelect :value.sync="formInline.commonRegionId"/>
           </div>

@@ -31,19 +31,19 @@
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
             <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
             <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
           </div>
@@ -51,19 +51,19 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
             <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">供应商名称：</label>
             <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
           </div>
         </el-col>
         <el-col :span="8">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <el-button type="success" size="small" @click="queryOpmOrderSubmit()">查询</el-button>
           </div>
         </el-col>

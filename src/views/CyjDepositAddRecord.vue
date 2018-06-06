@@ -22,13 +22,13 @@
       <div class="condition-search box-1200">
         <el-row :gutter="20">
           <el-col :span="8">
-            <div class="condition-iterm">
+            <div class="condition-item">
               <label class="label-wrds">零售商名称：</label>
               <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
           <el-col :span="12">
-              <div class="condition-iterm">
+              <div class="condition-item">
                 <label class="label-wrds">订购起止日期：</label>
                 <DatePicker class="condition-input" :value.sync="depositRecord.orderDate"/>
               </div>

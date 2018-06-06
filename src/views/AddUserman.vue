@@ -227,34 +227,6 @@
     .red-star{
       color: #f00;
     }
-    .condition-item {
-      position:relative;
-      margin: 10px 0;
-      padding: 0 0 0 110px;
-      .label-wrds {
-        position:absolute;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-        left:0;
-      }
-      .condition-input {
-        width: 100%;
-      }
-      .el-input__inner{
-        height: 32px;
-        line-height: 32px;
-        border-radius: 0;
-      }
-      .el-select{
-        width:100%;
-      }
-      .el-textarea__inner{
-        border-radius: 0;
-        resize:none;
-      }
-    }
     .foot-btn{
       width: 100%;
       padding: 24px 0;

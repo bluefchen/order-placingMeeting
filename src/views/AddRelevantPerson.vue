@@ -11,20 +11,20 @@
     <div class="condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
         <el-col :span="7">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">用户类型：</label>
             <Select class="condition-input" :value.sync="relevantData.userType" :options="usermanList"/>
           </div>
         </el-col>
         <el-col :span="7">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">所属省份：</label>
             <!--<Cascader :value.sync="relevantData.commonRegionId"/>-->
             <AreaSelect :value.sync="relevantData.commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="7">
-          <div class="condition-iterm">
+          <div class="condition-item">
             <label class="label-wrds">所属商户：</label>
             <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
           </div>

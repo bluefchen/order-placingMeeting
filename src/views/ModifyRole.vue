@@ -120,22 +120,6 @@
     .red-star {
       color: #f00;
     }
-    .condition-item {
-      position: relative;
-      margin: 10px 0;
-      padding: 0 0 0 110px;
-      .label-wrds {
-        position: absolute;
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-        text-align: right;
-        left: 0;
-      }
-      .condition-input {
-        width: 100%;
-      }
-    }
     .role-setup-info {
       height: 250px;
       border: 1px solid #dfdfdf;

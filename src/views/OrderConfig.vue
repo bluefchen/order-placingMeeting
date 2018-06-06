@@ -626,9 +626,6 @@
             .label-info-title {
               width: 100px;
             }
-            .condition-input {
-              flex: 1 0 0;
-            }
           }
         }
       }
@@ -638,21 +635,14 @@
     }
 
     .condition-item {
-      display: flex;
-      margin: 10px 0;
-      color: #151515;
+      padding-left: 135px;
       .label-wrds {
         width: 135px;
-        line-height: 32px;
-        font-size: 14px;
       }
       .date-text {
         width: 50px;
         text-align: center;
         line-height: 32px;
-      }
-      .condition-input {
-        flex: 1 0 0;
       }
       .label-address {
         width: 20px;

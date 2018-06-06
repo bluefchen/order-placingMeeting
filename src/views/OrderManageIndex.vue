@@ -11,7 +11,8 @@
         <TitlePlate class="fn-left" title="订购会列表"/>
         <div class="order-type">
           <div class="order-type-text">订购会状态：</div>
-          <el-select class="condition-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList" placeholder="请选择">
+          <el-select class="order-type-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList"
+                     placeholder="请选择">
             <el-option
               v-for="item in orderTypeList"
               :key="item.value"
@@ -150,7 +151,7 @@
           localStorage.setItem('opMeeting', JSON.stringify(item));
           this.$router.push({
             path: '/orderManage/orderConfig',
-            query:{
+            query: {
               operation: 'modify'
             }
           });
@@ -315,21 +316,19 @@
         position: absolute;
         right: 0;
         bottom: 0;
-        width: 165px;
         height: 21px;
         border: 1px solid #e5e5e5;
         border-bottom: none;
         display: flex;
         .order-type-text {
-          width: 83px;
+          width: 80px;
           height: 21px;
           background: #f5f5f5;
           border-right: 1px solid #e5e5e5;
           text-align: right;
           line-height: 22px;
         }
-        .condition-input {
-          flex: 1 0 0;
+        .order-type-input {
           height: 21px;
           line-height: 21px;
           .el-input__inner {

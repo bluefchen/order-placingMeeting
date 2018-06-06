@@ -200,19 +200,6 @@
     .red-star{
       color: #f00;
     }
-
-    .condition-item {
-      display: flex;
-      margin: 10px 0;
-      .label-wrds {
-        width: 110px;
-        line-height: 32px;
-        font-size: 14px;
-      }
-      .condition-input {
-        flex: 1 0 0;
-      }
-    }
     .foot-btn{
       width: 100%;
       padding: 24px 0;

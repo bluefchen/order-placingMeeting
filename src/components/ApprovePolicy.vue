@@ -4,15 +4,19 @@
     <DialogPopup :visible="isShow" title="审批" @visibleChange="visibleChange">
       <div slot="content" class="approve">
         <el-row>
-          <el-col :span="16" :offset="4">
-            <label class="label-wrds">审批结果：</label>
-            <Select class="condition-input" :value.sync="statusCd" :options="statusList"/>
+          <el-col :span="14" :offset="2">
+            <div class="condition-item">
+              <label class="label-wrds">审批结果：</label>
+              <Select class="condition-input" :value.sync="statusCd" :options="statusList"/>
+            </div>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="16" :offset="4">
-            <label class="label-wrds">审批备注：</label>
-            <Input type="textarea" :value.sync="remark"/>
+          <el-col :span="18" :offset="2">
+            <div class="condition-item">
+              <label class="label-wrds">审批备注：</label>
+              <Input type="textarea" :value.sync="remark"/>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -91,14 +95,6 @@
     &:hover{
       border: 1px solid #ff0000;
       text-decoration: none;
-    }
-  }
-  .approve {
-    .el-row {
-      margin-bottom: 10px;
-    }
-    .label-wrds {
-      font-size: 12px;
     }
   }
 </style>
