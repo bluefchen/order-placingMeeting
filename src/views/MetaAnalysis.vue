@@ -70,18 +70,18 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
-                  <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="condition-input" :value.sync="brandQueryData.offerName"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                  <Select class="condition-input" :value.sync="brandQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
-                  <el-button size="small" type="success">查询</el-button>
+                  <el-button size="small" type="success" @click="queryOpmOrderPickupReportByBrand()">查询</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -90,13 +90,13 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国终端品牌销量统计"/>
               <div class="buttons fn-right">
-                <button class="btns"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByBrand"><i class="iconfont">&#xe654;</i> 导出</button>
               </div>
             </div>
             <div class="result-table">
               <Table :border="false" :tableTitle="brandTableTitle" :tableData="brandTableData"/>
             </div>
-            <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+            <Pagination :total="brandTotal" :pageSize="pageSize" :currentPage="brandCurrentPage" @pageChanged="brandPageChanged"/>
           </div>
         </el-tab-pane>
         <el-tab-pane label="按商户" name="third">
@@ -105,18 +105,18 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">商户类型：</label>
-                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                  <Select class="condition-input" :value.sync="busiQueryData.busiType" :options="merchantsTypeList"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">商户名称：</label>
-                  <Input :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input :value.sync="busiQueryData.busiName"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
-                  <el-button size="small" type="success">查询</el-button>
+                  <el-button size="small" type="success" @click="qryOpmOrderPickupReportByBusi()">查询</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -125,13 +125,13 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国商户订购量统计"/>
               <div class="buttons fn-right">
-                <button class="btns"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByBusi"><i class="iconfont">&#xe654;</i> 导出</button>
               </div>
             </div>
             <div class="result-table">
               <Table :border="false" :tableTitle="BusinessTableTitle" :tableData="BusinessTableData"/>
             </div>
-            <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+            <Pagination :total="busiTotal" :pageSize="pageSize" :currentPage="busiCurrentPage" @pageChanged="busiPageChanged"/>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -160,6 +160,8 @@
         })
       });
       this.qryOpmOrderPickupReportByModel();
+      this.queryOpmOrderPickupReportByBrand();
+      this.qryOpmOrderPickupReportByBusi();
     },
     data() {
       return {
@@ -182,7 +184,6 @@
           prop: 'pickupGoodsAmount'
         }],
         tableData: [],
-
         brandTableTitle: [{
           label: '排名',
           prop: 'rank',
@@ -197,27 +198,14 @@
           label: '提货量',
           prop: 'pickupGoodsAmount'
         }],
-        brandTableData: [{
-          rank: '1',
-          offerModelName: '12',
-          brandName: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        },{
-          rank: '1',
-          offerModelName: '12',
-          brandName: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        }],
-
+        brandTableData: [],
         BusinessTableTitle: [{
           label: '排名',
           prop: 'rank',
           width: 160,
         }, {
           label: '商户名称',
-          prop: 'brandName'
+          prop: 'busiName'
         }, {
           label: '商户类型',
           prop: 'busiType'
@@ -228,55 +216,40 @@
           label: '提货量',
           prop: 'pickupGoodsAmount'
         }],
-        BusinessTableData: [{
-          rank: '1',
-          brandName: '12',
-          busiType: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        },{
-          rank: '1',
-          brandName: '12',
-          busiType: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        }],
-
+        BusinessTableData: [],
         brandOptions: [],
         modelOptions: [],
-
-
-
-
-
-
-
-
-
-        usermanList: [],
-
+        merchantsTypeList: [{
+          value: '1001',
+          label: '零售商'
+        },{
+          value: '1002',
+          label: '供应商'
+        }],
         modelQueryData: {
           offerName: '',
           brandCd: '',
           offerModelId: ''
         },
-
-        orderQueryData: {
-          isCentman: '',
-          offerNameOrCode: '',
-          opmOrderNo: '',
-          retailerId: '',
-          dateValue: [],
-          supplierId: '',
-          statusCd: ''
+        brandQueryData: {
+          offerName: '',
+          brandCd: ''
         },
-
+        busiQueryData: {
+          busiType: '',
+          busiName: ''
+        },
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
-        currentPage: 1 //当前页
+        currentPage: 1, //当前页
+        brandTotal: 0,
+        brandCurrentPage: 1,
+        busiTotal: 0,
+        busiCurrentPage: 1
       }
     },
     methods: {
+      //查询型号
       qryOfferModelList(val){
         this.$post('/orderPlacingMeetingController/queryOfferModelList', {
           'brandCd': val
@@ -289,6 +262,7 @@
           });
         });
       },
+      //按机型查询
       qryOpmOrderPickupReportByModel(curPage, pageSize){
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
@@ -303,11 +277,56 @@
           this.tableData = rsp.rows;
         });
       },
+      //按机型导出
       exportOpmOrderPickupReportByModel(){
-        window.open('/opmOrderController/exportOpmOrderList?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId);
+        window.open('/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId);
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupReportByModel(curPage);
+      },
+
+      //按品牌查询
+      queryOpmOrderPickupReportByBrand(curPage, pageSize){
+        this.brandCurrentPage = curPage || 1;
+        this.$post('/opmOrderController/queryOpmOrderPickupReportByBrand', {
+          'opMeetingId': '',
+          'offerName': this.brandQueryData.offerName,
+          'brandCd': this.brandQueryData.brandCd,
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
+        }).then((rsp) => {
+          this.brandTotal = rsp.totalSize;
+          this.brandTableData = rsp.rows;
+        });
+      },
+      //按品牌导出
+      exportOpmOrderPickupReportByBrand(){
+        window.open('/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd);
+      },
+      brandPageChanged(curPage) {
+        this.queryOpmOrderPickupReportByBrand(curPage);
+      },
+
+      //按商户查询
+      qryOpmOrderPickupReportByBusi(curPage, pageSize){
+        this.busiCurrentPage = curPage || 1;
+        this.$post('/opmOrderController/queryOpmOrderPickupReportByBusi', {
+          'opMeetingId': '',
+          'busiName': this.busiQueryData.busiName,
+          'busiType': this.busiQueryData.busiType,
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
+        }).then((rsp) => {
+          this.busiTotal = rsp.totalSize;
+          this.BusinessTableData = rsp.rows;
+        });
+      },
+      //按商户导出
+      exportOpmOrderPickupReportByBusi(){
+        window.open('/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName);
+      },
+      busiPageChanged(curPage) {
+        this.qryOpmOrderPickupReportByBusi(curPage);
       }
     },
     watch: {
