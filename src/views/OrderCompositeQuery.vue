@@ -33,7 +33,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
-            <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+            <Input :value.sync="orderQueryData.opmOrderNo"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -45,7 +45,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
-            <DatePicker class="condition-input" :value.sync="orderQueryData.dateValue"/>
+            <DatePicker :value.sync="orderQueryData.dateValue"/>
           </div>
         </el-col>
       </el-row>
@@ -53,7 +53,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
-            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
         <el-col :span="8">

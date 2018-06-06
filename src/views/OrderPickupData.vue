@@ -33,21 +33,21 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
-            <Input class="condition-input" :value.sync="orderDeliveryData.opmOrderNo"/>
+            <Input :value.sync="orderDeliveryData.opmOrderNo"/>
           </div>
         </el-col>
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
             <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
-            <!-- <input type="text" class="condition-input" v-model="orderDeliveryData.retailerId"> -->
+            <!-- <input type="text" v-model="orderDeliveryData.retailerId"> -->
           </div>
         </el-col>
       <el-col :span="8">
         <div class="condition-item">
           <label class="label-wrds">订购起止日期：</label>
-          <DatePicker class="condition-input" :value.sync="orderDeliveryData.dateValue"/>
-          <!--<el-date-picker class="condition-input" v-model="orderDeliveryData.dateValue" type="daterange"-->
+          <DatePicker :value.sync="orderDeliveryData.dateValue"/>
+          <!--<el-date-picker v-model="orderDeliveryData.dateValue" type="daterange"-->
                           <!--range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
         </div>
       </el-col>

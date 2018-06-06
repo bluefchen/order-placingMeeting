@@ -7,7 +7,7 @@
           <el-col :span="14" :offset="2">
             <div class="condition-item">
               <label class="label-wrds">审批结果：</label>
-              <Select class="condition-input" :value.sync="statusCd" :options="statusList"/>
+              <Select :value.sync="statusCd" :options="statusList"/>
             </div>
           </el-col>
         </el-row>

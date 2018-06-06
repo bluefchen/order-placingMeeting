@@ -1386,6 +1386,31 @@ Mock.mock(new RegExp('/systemUserController/addPostRoleRelaUser'), {
     'resultCode': '0'
   }
 });
+//78、汇总统计查询接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数
+    'rows|10': [{
+      'opMeetingId': '@id', //订货会ID
+      'commonRegionId': '@id', //地区ID
+      'commonRegionName': '@province', //地区名称
+      'offerCode': '@id', //商品编码
+      'offerName': '@cword(5, 8)', //商品名称
+      'brandCd': '@cword(5, 8)', //商品品牌
+      'brandName': '@cword(5, 8)', //商品品牌名称
+      'offerModelId': '@id', //商品型号
+      'offerModelName': '@cword(5, 8)', //商品型号名称
+      'isCentman': 'Y', //产品类型，Y-集采，N社采
+      'offerQty|100-1000': 100, //订货数
+      'pickupGoodsAmount|100-1000': 100, //提货数
+    }]
+  }
+});
 //79、按机型统计机型销售数据接口
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByModel'), {
   rsphead: 's',
@@ -1394,7 +1419,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByModel'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-99': 10, 
+    'totalSize|1-99': 10,
     'rows|5-10': [{
       'opMeetingId': '@id',
       'rank|1-99': 1,
@@ -1436,10 +1461,10 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByBusi'), {
   data: {
     'totalSize|1-100': 100, //总记录条数
     'rows|10': [{
-      'opMeetingId':'@id',
+      'opMeetingId': '@id',
       'rank|1-99': 1,
-      'busiType':'@id',
-      'busiName':'@cword(3,6)',
+      'busiType': '@id',
+      'busiName': '@cword(3,6)',
       'offerQty|1-99': 1,
       'pickupGoodsAmount|1-99': 1
     }]
