@@ -44,7 +44,6 @@
             <div class="condition-item">
               <!-- 当为管理人员时，* 存在，表示为必填项 -->
               <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
-              <!--<Cascader :value.sync="usermanData.commonRegionId" :disabled="modify"/>-->
               <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
             </div>
           </el-col>
@@ -248,12 +247,8 @@
         line-height: 32px;
         border-radius: 0;
       }
-      .el-cascader{
+      .el-select{
         width:100%;
-        line-height: 32px;
-        .el-input__icon{
-          line-height: 32px;
-        }
       }
       .el-textarea__inner{
         border-radius: 0;
