@@ -15,7 +15,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['首页', '订单管理', '订单提货数据维护']"/>
+        <Breadcrumb :list="['首页', '统计查询', '全国汇总统计分析']"/>
       </div>
     </div>
 
@@ -24,32 +24,39 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="condition-iterm">
-            <label class="label-wrds">订单号：</label>
-            <Input class="condition-input" :value.sync="orderDeliveryData.opmOrderNo"/>
+            <label class="label-wrds">省份：</label>
+            <AreaSelect :value.sync="formInline.commonRegionId"/>
           </div>
+        </el-col>
+        <el-col :span="8" :offset="8">
+          <el-button size="small" type="success" @click="onSubmit"><i
+            class="iconfont">&#xe794;</i> 查询
+          </el-button>
         </el-col>
       </el-row>
     </div>
-
   </div>
 
 </template>
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
-  import InputWithSelect from '@/components/InputWithSelect';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
-  import DatePicker from '@/components/DatePicker';
-  import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'summaryStatisticalAnalysis',
     data() {
       return {
+        formInline: {
+          commonRegionId: '',
+          region: ''
+        },
+
+        commonRegionId: '',
         orderPickupRecordList: [], //查询返回的数据
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
@@ -57,16 +64,13 @@
       }
     },
     methods: {
+      onSubmit() {
+        console.log('submit!');
+      },
       qryOpmOrderPickupRecordList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
           opMeetingId: '订货会ID',
-          isCentman: this.orderDeliveryData.isCentman,
-          offerNameOrCode: this.orderDeliveryData.offerNameOrCode,
-          opmOrderNo: this.orderDeliveryData.opmOrderNo,
-          retailerId: this.orderDeliveryData.retailerId,
-          fromDate: this.orderDeliveryData.dateValue[0],
-          toDate: this.orderDeliveryData.dateValue[1],
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -83,7 +87,8 @@
       TitlePlate,
       Table,
       Pagination,
-      Input
+      Input,
+      AreaSelect
     }
   }
 </script>
@@ -117,5 +122,17 @@
       text-align: center;
     }
     /*中间背景图片*/
+
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+
+    .condition-search {
+      margin: 18px auto 22px;
+      padding: 10px;
+      border: 1px solid #dfdfdf;
+    }
   }
 </style>
