@@ -27,26 +27,26 @@
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端名称：</label>
-                  <Input class="condition-input" :value.sync="orderQueryData.opmOrderNo"/>
+                  <Input class="condition-input" :value.sync="modelQueryData.offerName"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                  <Select class="condition-input" :value.sync="modelQueryData.brandCd" :clearable="true" :options.sync="brandOptions"/>
                 </div>
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <Select class="condition-input" :value.sync="orderQueryData.userType" :options="usermanList"/>
+                  <Select class="condition-input" :value.sync="modelQueryData.offerModelId" :clearable="true" :options.sync="modelOptions"/>
                 </div>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
                 <div class="condition-item text-right">
-                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                  <el-button size="small" type="success" @click="qryOpmOrderPickupReportByModel()">查询</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -55,7 +55,7 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国机型销量统计"/>
               <div class="buttons fn-right">
-                <button class="btns"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByModel"><i class="iconfont">&#xe654;</i> 导出</button>
               </div>
             </div>
             <div class="result-table">
@@ -81,7 +81,7 @@
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
-                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                  <el-button size="small" type="success">查询</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -116,7 +116,7 @@
               </el-col>
               <el-col :span="8">
                 <div class="condition-item">
-                  <el-button size="small" type="success" @click="onSubmit">查询</el-button>
+                  <el-button size="small" type="success">查询</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -151,23 +151,19 @@
   export default {
     name: 'MetaAnalysis',
     created() {
+      this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
+        _.forEach(rsp, (item) => {
+          this.brandOptions.push({
+            value: item.brandCd,
+            label: item.brandName
+          })
+        })
+      });
+      this.qryOpmOrderPickupReportByModel();
     },
     data() {
       return {
-        activeName: 'first',
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-        usermanList: [],
-
-
+        activeName: 'first', //默认按机型显示
         tableTitle: [{
           label: '排名',
           prop: 'rank',
@@ -185,19 +181,7 @@
           label: '提货量',
           prop: 'pickupGoodsAmount'
         }],
-        tableData: [{
-          rank: '1',
-          offerModelName: '12',
-          brandName: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        },{
-          rank: '1',
-          offerModelName: '12',
-          brandName: '12341234',
-          offerQty: '123',
-          pickupGoodsAmount: '123'
-        }],
+        tableData: [],
 
         brandTableTitle: [{
           label: '排名',
@@ -258,6 +242,25 @@
           pickupGoodsAmount: '123'
         }],
 
+        brandOptions: [],
+        modelOptions: [],
+
+
+
+
+
+
+
+
+
+        usermanList: [],
+
+        modelQueryData: {
+          offerName: '',
+          brandCd: '',
+          offerModelId: ''
+        },
+
         orderQueryData: {
           isCentman: '',
           offerNameOrCode: '',
@@ -267,17 +270,70 @@
           supplierId: '',
           statusCd: ''
         },
+
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
       }
     },
     methods: {
-      onSubmit() {
-        console.log('submit!');
+      qryOfferModelList(val){
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': val
+        }).then((rsp) => {
+          _.forEach(rsp, (item) => {
+            this.modelOptions.push({
+              value: item.offerModelId,
+              label: item.offerModelName
+            })
+          });
+        });
+      },
+      qryOpmOrderPickupReportByModel(curPage, pageSize){
+        this.currentPage = curPage || 1;
+        this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
+          'opMeetingId': '',
+          'offerName': this.modelQueryData.offerName,
+          'brandCd': this.modelQueryData.brandCd,
+          'offerModelId': this.modelQueryData.offerModelId,
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
+        }).then((rsp) => {
+          this.total = rsp.totalSize;
+          this.tableData = rsp.rows;
+        });
+      },
+      exportOpmOrderPickupReportByModel(){
+
+        window.open('/opmOrderController/exportOpmOrderList?' + encodeURI(JSON.stringify({
+          opMeetingId=''&&offerName=this.modelQueryData.offerName&&brandCd=this.modelQueryData.brandCd&&offerModelId=this.modelQueryData.offerModelId
+        })));
+
+        // this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
+        //   'opMeetingId': '',
+        //   'offerName': this.modelQueryData.offerName,
+        //   'brandCd': this.modelQueryData.brandCd,
+        //   'offerModelId': this.modelQueryData.offerModelId,
+        //   'pageSize': pageSize || 10,
+        //   'curPage': curPage || 1
+        // }).then((rsp) => {
+        //   this.total = rsp.totalSize;
+        //   this.tableData = rsp.rows;
+        // });
       },
       pageChanged(curPage) {
-        // this.queryOpmOrderSubmit(curPage);
+        this.qryOpmOrderPickupReportByModel(curPage);
+      }
+    },
+    watch: {
+      'modelQueryData.brandCd': function(newVal, oldVal){
+        if(newVal !== oldVal){
+          this.modelOptions = [];
+          if(newVal){
+            this.qryOfferModelList(newVal);
+          };
+          this.modelQueryData.offerModelId = '';
+        }
       }
     },
     components: {
