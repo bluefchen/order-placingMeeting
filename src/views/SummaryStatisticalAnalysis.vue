@@ -25,7 +25,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">省份：</label>
-            <AreaSelect :value.sync="formInline.commonRegionId"/>
+            <AreaSelect :value.sync="commonRegionId"/>
           </div>
         </el-col>
         <el-col :span="8" :offset="8">
@@ -35,8 +35,17 @@
         </el-col>
       </el-row>
     </div>
-  </div>
 
+    <div class="box-1200">
+      <div class="order-titl fn-clear">
+        <TitlePlate class="fn-left" title="优惠政策列表"/>
+        <div class="buttons fn-right">
+          <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
+        </div>
+      </div>
+      <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -51,13 +60,51 @@
     name: 'summaryStatisticalAnalysis',
     data() {
       return {
-        formInline: {
-          commonRegionId: '',
-          region: ''
-        },
-
         commonRegionId: '',
-        orderPickupRecordList: [], //查询返回的数据
+        tableTitle: [{
+          label: '政策名称',
+          prop: 'policyName',
+          render: (h, params) => {
+            return h(ButtonWithDialog, {
+              props: {
+                title: params.row.policyName,
+                data: params.row
+              }
+            });
+          }
+        }, {
+          label: '政策机型',
+          prop: 'offerNames',
+          width: 200,
+        }, {
+          label: '政策制定日期',
+          prop: 'createDt',
+          width: 180,
+        }, {
+          label: '制定人',
+          prop: 'partyName',
+          width: 120,
+        }, {
+          label: '政策状态',
+          prop: 'statusCdName',
+          width: 120
+        }, {
+          label: '操作',
+          width: 120,
+          render: (h, params) => {
+            return h(ApprovePolicy, {
+              props: {
+                data: params.row
+              },
+              on: {
+                update: (data) => {
+                  this.queryOpmPolicyList();
+                }
+              }
+            });
+          }
+        }],
+        tableData: [], //查询返回的数据
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -74,7 +121,7 @@
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.orderPickupRecordList = rsp.rows;
+          this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
@@ -127,6 +174,29 @@
       height: 30px;
       line-height: 30px;
       background-color: #f6f6f6;
+    }
+
+    .order-titl {
+      height: 28px;
+      margin: 15px 0;
+      line-height: 28px;
+    }
+
+    .buttons .btns {
+      display: inline-block;
+      padding: 0 12px;
+      margin-left: 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+      text-decoration: none;
+    }
+
+    .buttons .btns:hover {
+      background-color: #e20606;
     }
   }
 </style>
