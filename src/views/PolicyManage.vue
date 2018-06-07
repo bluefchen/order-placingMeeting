@@ -31,6 +31,7 @@
           </div>
         </div>
         <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
   </div>
@@ -41,6 +42,7 @@
   import Table from '@/components/Table';
   import Breadcrumb from '@/components/Breadcrumb';
   import ButtonWithDialog from '@/components/ButtonWithDialog';
+  import Pagination from '@/components/Pagination';
 
   export default {
     name: 'PolicyManage',
@@ -101,6 +103,9 @@
           }
         }],
         tableData: [],
+        total: 1, //列表总数
+        pageSize: 10, //每页展示条数
+        currentPage: 1, //当前页
         isShow: false
       }
     },
@@ -118,21 +123,27 @@
           this.queryOpmPolicyList();
         })
       },
-      queryOpmPolicyList() {
+      queryOpmPolicyList(curPage, pageSize) {
         this.$post('/opmPolicyController/queryOpmPolicyList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
         })
+      },
+      pageChanged(curPage) {
+        this.queryOpmRetailerDepositList(curPage);
       }
     },
     components: {
       InputWithSelect,
       Table,
       Breadcrumb,
-      ButtonWithDialog
+      ButtonWithDialog,
+      Pagination
     }
   }
 </script>
