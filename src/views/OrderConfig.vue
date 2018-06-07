@@ -276,7 +276,7 @@
   export default {
     name: 'OrderConfig',
     created() {
-      var operation = this.$route.query.operation;
+      let operation = this.$route.query.operation;
       if(operation === 'add'){
         this.title = '新增订购会';
       }else{
