@@ -5,7 +5,6 @@ import qs from 'qs'
 import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
-// axios.defaults.baseURL = 'http://127.0.0.1';
 axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -21,15 +20,21 @@ axios.interceptors.request.use(config => {
   });
   return config
 }, error => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   return Promise.reject(error)
 });
 
 axios.interceptors.response.use(response => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   return response.data;
 }, error => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   if (error.response.status === 504 || error.response.status === 404) {
     Message.error({message: '服务器被吃了⊙﹏⊙∥'});
   } else if (error.response.status === 403) {

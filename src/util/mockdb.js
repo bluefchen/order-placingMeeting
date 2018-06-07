@@ -1412,8 +1412,26 @@ Mock.mock(new RegExp('/systemUserController/addPostRoleRelaUser'), {
     'resultCode': '0'
   }
 });
-//78、汇总统计查询接口
+//76、全国汇总统计分析查询接口
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数
+    'rows|10': [{
+      'opMeetingId': '@id', //订货会ID
+      'commonRegionId': '@id', //地区ID
+      'commonRegionName': '@province', //地区名称
+      'offerQty|100-1000': 100, //订货数
+      'pickupGoodsAmount|100-1000': 100, //提货数
+    }]
+  }
+});
+//78、汇总统计查询接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderOfferPickupReport'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
