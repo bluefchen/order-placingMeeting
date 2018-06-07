@@ -6,18 +6,18 @@
       </div>
       <div class="terminal-info fn-clear">
         <div class="terminal-info-images fn-left">
-          <PicPreview></PicPreview>
+          <PicPreview :picPreviewList="offerPicList"></PicPreview>
         </div>
         <div class="terminal-info-text fn-left">
-          <div class="terminal-info-title">vivo X21 全面屏 双摄手机 6GB+64GB 冰钻黑全网通4G手机 双卡双待</div>
+          <div class="terminal-info-title">{{terminalInfo.offerName}}</div>
           <div class="terminal-info-price">
-            <div class="terminal-price">终端价格<span class="price-nub">¥<span>&nbsp;2898.00</span></span></div>
+            <div class="terminal-price">终端价格<span class="price-nub">¥<span>&nbsp;{{terminalInfo.salePrice}}</span></span></div>
           </div>
           <div class="terminal-info-list fn-clear">
             <ul>
-              <li><div class="info-type fn-left">品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牌</div>vivo</li>
-              <li><div class="info-type fn-left">型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</div>X21</li>
-              <li><div class="info-type fn-left">产品类型</div>集采</li>
+              <li><div class="info-type fn-left">品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牌</div>{{terminalInfo.brandName}}</li>
+              <li><div class="info-type fn-left">型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</div>{{terminalInfo.offerModelName}}</li>
+              <li><div class="info-type fn-left">产品类型</div>{{terminalInfo.isCentman | centmanType}}</li>
             </ul>
           </div>
         </div>
@@ -35,15 +35,15 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">上市日期</label>
-                  <div class="content-detail">2018年03月28日</div>
+                  <div class="content-detail">{{terminalInfo.offerBaseParam.listDt}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">手机类型</label>
-                  <div class="content-detail">4G手机，3G手机，智能手机，平板手机，拍照手机，快充手机，游戏手机，音乐手机</div>
+                  <div class="content-detail">{{terminalInfo.offerBaseParam.termType}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">操作系统</label>
-                  <div class="content-detail">Funtouch OS 4.0（基于Android 8.1）</div>
+                  <div class="content-detail">{{terminalInfo.offerBaseParam.os}}</div>
                 </div>
               </div>
             </td>
@@ -56,39 +56,35 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">触摸屏类型</label>
-                  <div class="content-detail">智能手机，平板手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.screenType}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏尺寸</label>
-                  <div class="content-detail">4G手机，3G手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.screenSize}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏材质</label>
-                  <div class="content-detail">拍照手机，快充手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.screenMaterial}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">主屏分辨率</label>
-                  <div class="content-detail">游戏手机，音乐手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.resolutionRatio}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">屏幕像素密度</label>
-                  <div class="content-detail">Funtouch OS 4.0（基于Android 8.1）</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.screenPiexl}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">屏幕技术</label>
-                  <div class="content-detail">智能手机，平板手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.screenTech}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">窄边框</label>
-                  <div class="content-detail">4G手机，3G手机</div>
-                </div>
-                <div class="content-item">
-                  <label class="content-label">屏幕占比</label>
-                  <div class="content-detail">拍照手机，快充手机</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.frame}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">其他屏幕参数</label>
-                  <div class="content-detail">全面屏，超窄边框<br/>主屏色彩1600万真彩色，屏幕对比度1000000:1，色彩饱和度100%<br/>DCI-P3</div>
+                  <div class="content-detail">{{terminalInfo.offerScreenParam.otherParam}}</div>
                 </div>
               </div>
             </td>
@@ -101,55 +97,59 @@
               <div class="result-table-content">
                 <div class="content-item">
                   <label class="content-label">后置摄像头</label>
-                  <div class="content-detail">游戏手机，音乐手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.rearCamera}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">前置摄像头</label>
-                  <div class="content-detail">Funtouch OS 4.0（基于Android 8.1）</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.frontCamera}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">CPU型号</label>
-                  <div class="content-detail">智能手机，平板手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.cpuModel}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">CPU频率</label>
-                  <div class="content-detail">4G手机，3G手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.cpuRate}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">核心数</label>
-                  <div class="content-detail">拍照手机，快充手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.core}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">GPU型号</label>
-                  <div class="content-detail">游戏手机，音乐手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.gpuModel}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">RAM容量</label>
-                  <div class="content-detail">Funtouch OS 4.0（基于Android 8.1）</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.ram}}</div>
+                </div>
+                <div class="content-item">
+                  <label class="content-label">ROM容量</label>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.rom}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">存储类型</label>
-                  <div class="content-detail">智能手机，平板手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.memoryType}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">存储卡</label>
-                  <div class="content-detail">4G手机，3G手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.memoryCard}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">扩展容量</label>
-                  <div class="content-detail">拍照手机，快充手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.extendedCapacity}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池类型</label>
-                  <div class="content-detail">游戏手机，音乐手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.batteryType}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池容量</label>
-                  <div class="content-detail">Funtouch OS 4.0（基于Android 8.1）</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.batteryCapacity}}</div>
                 </div>
                 <div class="content-item">
                   <label class="content-label">电池充电</label>
-                  <div class="content-detail">智能手机，平板手机</div>
+                  <div class="content-detail">{{terminalInfo.offerHardwardParam.batteryCharge}}</div>
                 </div>
               </div>
             </td>
@@ -170,28 +170,32 @@
   import PicPreview from '@/components/PicPreview';
 
   export default {
-    name: 'AddTerminalMaintain',
+    name: 'DetailTerminalMaintain',
     created() {
+      this.terminalInfo = JSON.parse(localStorage.getItem('offerCode'));
+      _.forEach(this.terminalInfo.offerPicList, (item, index) => {
+        this.offerPicList.push(item.url);
+      }); 
     },
     data() {
       return {
-        orderQueryData: {},
-        brandList: [{
-          value: '1001',
-          label: '苹果'
-        },{
-          value: '1002',
-          label: 'oppo'
-        }],
-        totalCnt: 0,
-        successCnt: 0,
-        failCnt: 0,
-        tableData: [],
-
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
+        terminalInfo: {},
+        offerPicList: []
       }
     },
     methods: {
+    },
+    filters: {
+      centmanType: function (value) {
+        switch(value){
+          case 'Y':
+            return '集采';
+            break;
+          case 'N':
+            return '社采';
+            break;
+        }
+      }
     },
     components: {
       TitlePlate,

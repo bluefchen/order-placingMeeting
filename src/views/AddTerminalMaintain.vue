@@ -361,6 +361,16 @@
         });
       },
       saveOffer(){
+        _.some(this.brandList, (item, index) => {
+          if(item.brandCd === this.terminalMaintainInfo.brandCd){
+             this.terminalMaintainInfo.brandName =  item.brandName
+          }
+        });
+        _.some(this.modelList, (item, index) => {
+          if(item.offerModelId === this.terminalMaintainInfo.offerModelId){
+             this.terminalMaintainInfo.offerModelName =  item.offerModelName
+          }
+        });
         _.forEach(this.offerPicList, (item, index) => {
           if(index === 0){
             this.uploadOfferPicList.offerPicUrl = item.url
@@ -451,7 +461,105 @@
         }
       },
       previewOffer(){
-
+        _.some(this.brandList, (item, index) => {
+          if(item.brandCd === this.terminalMaintainInfo.brandCd){
+             this.terminalMaintainInfo.brandName =  item.brandName
+          }
+        });
+        _.some(this.modelList, (item, index) => {
+          if(item.offerModelId === this.terminalMaintainInfo.offerModelId){
+             this.terminalMaintainInfo.offerModelName =  item.offerModelName
+          }
+        });
+        _.forEach(this.offerPicList, (item, index) => {
+          if(index === 0){
+            this.uploadOfferPicList.offerPicUrl = item.url
+          }else if(index === 1){
+            this.uploadOfferPicList.offerPicUrl2 = item.url
+          }else if(index === 2){
+            this.uploadOfferPicList.offerPicUrl3 = item.url
+          }else if(index === 3){
+            this.uploadOfferPicList.offerPicUrl4 = item.url
+          }else if(index === 4){
+            this.uploadOfferPicList.offerPicUrl5 = item.url
+          }else if(index === 5){
+            this.uploadOfferPicList.offerPicUrl6 = item.url
+          }
+        });
+        if(this.title === '新增终端'){
+          this.$post('/orderPlacingMeetingController/insertOffer', {
+            'offerCode': this.terminalMaintainInfo.offerCode,
+            'offerName': this.terminalMaintainInfo.offerName,
+            'brandCd': this.terminalMaintainInfo.brandCd,
+            'brandName': this.terminalMaintainInfo.brandName,
+            'offerModelId': this.terminalMaintainInfo.offerModelId,
+            'offerModelName': this.terminalMaintainInfo.offerModelName,
+            'isCentman': this.terminalMaintainInfo.isCentman,
+            'salePrice': this.terminalMaintainInfo.salePrice,
+            'statusCd': this.terminalMaintainInfo.statusCd,
+            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
+            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerHardwardParam':{
+              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
+              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
+              'core': this.terminalMaintainInfo.offerHardwardParam.core,
+              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
+              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
+              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
+              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
+              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
+              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
+              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
+              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
+              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
+              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
+              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+            },
+            'offerPic': this.uploadOfferPicList
+          }).then((rsp) => {
+            console.log('新增成功！')
+          });
+        }else{
+          this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
+          this.$post('/orderPlacingMeetingController/updateOffer', {
+            'offerId': this.terminalMaintainInfo.offerId,
+            'offerCode': this.terminalMaintainInfo.offerCode,
+            'offerName': this.terminalMaintainInfo.offerName,
+            'brandCd': this.terminalMaintainInfo.brandCd,
+            'brandName': this.terminalMaintainInfo.brandName,
+            'offerModelId': this.terminalMaintainInfo.offerModelId,
+            'offerModelName': this.terminalMaintainInfo.offerModelName,
+            'isCentman': this.terminalMaintainInfo.isCentman,
+            'salePrice': this.terminalMaintainInfo.salePrice,
+            'statusCd': this.terminalMaintainInfo.statusCd,
+            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
+            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerHardwardParam':{
+              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
+              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
+              'core': this.terminalMaintainInfo.offerHardwardParam.core,
+              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
+              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
+              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
+              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
+              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
+              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
+              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
+              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
+              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
+              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
+              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+            },
+            'offerPic': this.uploadOfferPicList
+          }).then((rsp) => {
+            console.log('修改成功！')
+          });
+        };
+        this.terminalMaintainInfo.offerPicList = this.offerPicList
+        localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
+        this.$router.push({
+          path: '/orderManage/detailTerminalMaintain',
+        });
       }
     },
     components: {
