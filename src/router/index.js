@@ -57,7 +57,7 @@ export default new Router({
     {
       path: '/',
       redirect: {
-        name: 'orderIndex'
+        name: 'orderManageIndex'
       }
     }, {
       path: '/order',

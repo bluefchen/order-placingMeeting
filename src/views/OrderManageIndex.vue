@@ -10,7 +10,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="订购会列表"/>
         <div class="order-type">
-          <div class="order-type-text">订购会状态：</div>
+          <div class="order-type-text">订购会状态:</div>
           <el-select class="order-type-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList"
                      placeholder="请选择">
             <el-option
@@ -321,12 +321,13 @@
         border-bottom: none;
         display: flex;
         .order-type-text {
-          width: 80px;
           height: 21px;
+          padding: 0 10px;
           background: #f5f5f5;
           border-right: 1px solid #e5e5e5;
-          text-align: right;
           line-height: 22px;
+          white-space: nowrap;
+          text-align: right;
         }
         .order-type-input {
           height: 21px;
