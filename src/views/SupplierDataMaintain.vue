@@ -316,10 +316,7 @@
       detailSupplier(val){
         localStorage.setItem('supplierId', JSON.stringify(val));
         this.$router.push({
-          path: '/orderManage/detailsSupplierData',
-          query: {
-            supplierId: val.supplierId
-          }
+          path: '/orderManage/detailsSupplierData'
         });
       },
       pageChanged(curPage) {

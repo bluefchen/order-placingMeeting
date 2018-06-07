@@ -276,7 +276,7 @@
   export default {
     name: 'OrderConfig',
     created() {
-      var operation = this.$route.query.operation;
+      let operation = this.$route.query.operation;
       if(operation === 'add'){
         this.title = '新增订购会';
       }else{
@@ -528,8 +528,46 @@
         this.$message.success('订货会基本信息保存成功');
       },
       finish() {
-        this.orderSubmit();
-        this.next();
+        if (this.title === '新增订购会') {
+          //新增
+          this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
+            'opmName': this.orderPlacingMeeting.opmName,
+            'opmAddr': this.orderPlacingMeeting.opmAddr,
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('新增成功！');
+            this.next();
+          });
+        } else {
+          //修改
+          this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
+            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
+            'opmName': this.orderPlacingMeeting.opmName,
+            'opmAddr': this.orderPlacingMeeting.opmAddr,
+            'startDt': this.orderPlacingMeeting.startDt,
+            'endDt': this.orderPlacingMeeting.endDt,
+            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
+            'discription': this.orderPlacingMeeting.discription,
+            'logoUrl': this.orderPlacingMeeting.logoUrl,
+            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
+            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
+            'supplierArr': this.supplierList.tableData,
+            'retailerArr': this.retailerList.tableData
+          }).then((rsp) => {
+            console.log('修改成功！');
+            this.next();
+          });
+        }
       },
       jumpLink() {
         this.$router.push({path: '/orderManage/orderManageIndex'});
