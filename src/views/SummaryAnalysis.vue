@@ -173,6 +173,10 @@
         this.$post('/opmOrderController/queryOpmOrderOfferPickupReport', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           commonRegionId: this.commonRegionId,
+          isCentman: this.isCentman,
+          offerName: this.offerName,
+          brandCd: this.brandCd,
+          offerModelId: this.offerModelId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
