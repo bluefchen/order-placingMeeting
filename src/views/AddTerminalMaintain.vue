@@ -212,10 +212,9 @@
       </div>
     </div>
     <div class="foot-btn">
-        <button class="btns" @click="saveOffer">保&nbsp;存</button>
-        <button class="btns" @click="previewOffer">预&nbsp;览</button>
+        <button :disabled="!terminalMaintainInfo.offerCode || !terminalMaintainInfo.isCentman || !terminalMaintainInfo.offerName || !terminalMaintainInfo.brandCd || !terminalMaintainInfo.offerModelId || !terminalMaintainInfo.salePrice || !offerPicList.length" class="btns" @click="saveOffer">保&nbsp;存</button>
+        <button :disabled="!terminalMaintainInfo.offerCode || !terminalMaintainInfo.isCentman || !terminalMaintainInfo.offerName || !terminalMaintainInfo.brandCd || !terminalMaintainInfo.offerModelId || !terminalMaintainInfo.salePrice || !offerPicList.length" class="btns" @click="previewOffer">预&nbsp;览</button>
     </div>
-
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
@@ -270,6 +269,7 @@
         this.title = '修改终端';
         this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerId'));
         this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
+
         if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
           this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
         };
@@ -306,6 +306,14 @@
         dialogImageUrl: '',
         brandList: [],
         modelList: [],
+        uploadOfferPicList:{
+          'offerPicUrl': '',
+          'offerPicUrl2': '',
+          'offerPicUrl3': '',
+          'offerPicUrl4': '',
+          'offerPicUrl5': '',
+          'offerPicUrl6': ''
+        },
         dialogVisible: false,
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
@@ -353,114 +361,92 @@
         });
       },
       saveOffer(){
-        console.log(this.offerPicList)
+        _.forEach(this.offerPicList, (item, index) => {
+          if(index === 0){
+            this.uploadOfferPicList.offerPicUrl = item.url
+          }else if(index === 1){
+            this.uploadOfferPicList.offerPicUrl2 = item.url
+          }else if(index === 2){
+            this.uploadOfferPicList.offerPicUrl3 = item.url
+          }else if(index === 3){
+            this.uploadOfferPicList.offerPicUrl4 = item.url
+          }else if(index === 4){
+            this.uploadOfferPicList.offerPicUrl5 = item.url
+          }else if(index === 5){
+            this.uploadOfferPicList.offerPicUrl6 = item.url
+          }
+        });
         if(this.title === '新增终端'){
           this.$post('/orderPlacingMeetingController/insertOffer', {
-            'offerCode':'',
-            'offerName':'',
-            'brandCd':'',
-            'brandName':'',
-            'offerModelId':'',
-            'offerModelName':'',
-            'isCentman':'',
-            'salePrice':'',
-            'statusCd':'',
-            'offerBaseParam':{
-              'listDt':'',
-              'termType':'',
-              'os':''
-            },
-            'offerScreenParam':{
-              'screenType':'',
-              'screenSize':'',
-              'screenMaterial':'',
-              'resolutionRatio':'',
-              'screenPiexl':'',
-              'screenTech':'',
-              'frame':'',
-              'otherParam':''
-            },
+            'offerCode': this.terminalMaintainInfo.offerCode,
+            'offerName': this.terminalMaintainInfo.offerName,
+            'brandCd': this.terminalMaintainInfo.brandCd,
+            'brandName': this.terminalMaintainInfo.brandName,
+            'offerModelId': this.terminalMaintainInfo.offerModelId,
+            'offerModelName': this.terminalMaintainInfo.offerModelName,
+            'isCentman': this.terminalMaintainInfo.isCentman,
+            'salePrice': this.terminalMaintainInfo.salePrice,
+            'statusCd': this.terminalMaintainInfo.statusCd,
+            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
+            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
             'offerHardwardParam':{
-              'cpuModel':'',
-              'cpuRate':'',
-              'core':'',
-              'gpuModel':'',
-              'ram':'',
-              'rom':'',
-              'memoryType':'',
-              'memoryCard':'',
-              'extendedCapacity':'',
-              'rearCamera':'',
-              'frontCamera':'',
-              'batteryCapacity':'',
-              'batteryType':'',
-              'batteryCharge':''
+              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
+              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
+              'core': this.terminalMaintainInfo.offerHardwardParam.core,
+              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
+              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
+              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
+              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
+              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
+              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
+              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
+              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
+              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
+              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
+              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
             },
-            'offerPic':{
-              'offerPicUrl':'',
-              'offerPicUrl2':'',
-              'offerPicUrl3':'',
-              'offerPicUrl4':'',
-              'offerPicUrl5':'',
-              'offerPicUrl6':''
-            }
+            'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            console.log('新增成功！')
+            this.$router.push({
+              path: '/orderManage/terminalMaintain'
+            });
           });
         }else{
+          this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
           this.$post('/orderPlacingMeetingController/updateOffer', {
-            'offerId':'',
-            'offerCode':'',
-            'offerName':'',
-            'brandCd':'',
-            'brandName':'',
-            'offerModelId':'',
-            'offerModelName':'',
-            'salePrice':'',
-            'isCentman':'',
-            'statusCd':'',
-            'offerBaseParam':{
-              'listDt':'',
-              'termType':'',
-              'os':''
-            },
-            'offerScreenParam':{
-              'screenType':'',
-              'screenSize':'',
-              'screenMaterial':'',
-              'resolutionRatio':'',
-              'screenPiexl':'',
-              'screenTech':'',
-              'frame':'',
-              'otherParam':''
-            },
+            'offerId': this.terminalMaintainInfo.offerId,
+            'offerCode': this.terminalMaintainInfo.offerCode,
+            'offerName': this.terminalMaintainInfo.offerName,
+            'brandCd': this.terminalMaintainInfo.brandCd,
+            'brandName': this.terminalMaintainInfo.brandName,
+            'offerModelId': this.terminalMaintainInfo.offerModelId,
+            'offerModelName': this.terminalMaintainInfo.offerModelName,
+            'isCentman': this.terminalMaintainInfo.isCentman,
+            'salePrice': this.terminalMaintainInfo.salePrice,
+            'statusCd': this.terminalMaintainInfo.statusCd,
+            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
+            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
             'offerHardwardParam':{
-              'cpuModel':'',
-              'cpuRate':'',
-              'core':'',
-              'gpuModel':'',
-              'ram':'',
-              'rom':'',
-              'memoryType':'',
-              'memoryCard':'',
-              'extendedCapacity':'',
-              'rearCamera':'',
-              'frontCamera':'',
-              'batteryCapacity':'',
-              'batteryType':'',
-              'batteryCharge':''
+              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
+              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
+              'core': this.terminalMaintainInfo.offerHardwardParam.core,
+              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
+              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
+              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
+              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
+              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
+              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
+              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
+              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
+              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
+              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
+              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
             },
-            'offerPic':{
-              'offerPicId':'',
-              'offerPicUrl':'',
-              'offerPicUrl2':'',
-              'offerPicUrl3':'',
-              'offerPicUrl4':'',
-              'offerPicUrl5':'',
-              'offerPicUrl6':''
-            }
+            'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            console.log('修改成功！')
+            this.$router.push({
+              path: '/orderManage/terminalMaintain'
+            });
           });
         }
       },
@@ -610,8 +596,12 @@
         text-decoration: none;
       }
 
-      .buttons .btns:hover {
-        background-color: #e20606;
+      .buttons{
+        .btns{
+          &:hover {
+            background-color: #e20606;
+          }
+        }
       }
     }
 
@@ -743,6 +733,9 @@
         text-decoration: none;
         &:hover {
           background-color: #e20606;
+        }
+        &:disabled{
+          opacity: 0.7
         }
       }
     }
