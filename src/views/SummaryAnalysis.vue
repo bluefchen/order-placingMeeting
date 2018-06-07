@@ -37,7 +37,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">终端品牌：</label>
-            <Select :clearable="true" :value.sync="brandCd" :options="brandList"/>
+            <Select :clearable="true" :value.sync="brandCd" :options="brandOptions"/>
           </div>
         </el-col>
       </el-row>
@@ -45,7 +45,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">终端型号：</label>
-            <Select :clearable="true" :value.sync="offerModelId" :options="offerModelList"/>
+            <Select :clearable="true" :value.sync="offerModelId" :options="modelOptions"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -56,7 +56,7 @@
         </el-col>
         <el-col :span="8">
           <div class="condition-item">
-            <el-button size="small" type="success" @click="search">查询</el-button>
+            <el-button size="small" type="success" @click="queryOpmOrderOfferPickupReport()">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -84,7 +84,15 @@
     name: 'summaryAnalysis',
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
-      this.queryOpmOrderPickupReport();
+      this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
+        _.forEach(rsp, (item) => {
+          this.brandOptions.push({
+            value: item.brandCd,
+            label: item.brandName
+          })
+        })
+      });
+      this.queryOpmOrderOfferPickupReport();
     },
     data() {
       return {
@@ -99,9 +107,9 @@
           label: '社采'
         }],
         brandCd: '',
-        brandList: [],
+        brandOptions: [],
         offerModelId: '',
-        offerModelList: [],
+        modelOptions: [],
         offerName: '',
         tableTitle: [{
           label: '省份',
@@ -148,12 +156,21 @@
       }
     },
     methods: {
-      search() {
-        this.queryOpmOrderPickupReport();
+      qryOfferModelList(val) {
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': val
+        }).then((rsp) => {
+          _.forEach(rsp, (item) => {
+            this.modelOptions.push({
+              value: item.offerModelId,
+              label: item.offerModelName
+            })
+          });
+        });
       },
-      queryOpmOrderPickupReport(curPage, pageSize) {
+      queryOpmOrderOfferPickupReport(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderPickupReport', {
+        this.$post('/opmOrderController/queryOpmOrderOfferPickupReport', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           commonRegionId: this.commonRegionId,
           pageSize: pageSize || 10,
@@ -167,7 +184,14 @@
         window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
       },
       pageChanged(curPage) {
-        this.queryOpmOrderPickupReport(curPage);
+        this.queryOpmOrderOfferPickupReport(curPage);
+      }
+    },
+    watch: {
+      'brandCd': function (newVal) {
+        this.offerModelId = '';
+        this.modelOptions = [];
+        this.qryOfferModelList(newVal);
       }
     },
     components: {

@@ -21,15 +21,21 @@ axios.interceptors.request.use(config => {
   });
   return config
 }, error => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   return Promise.reject(error)
 });
 
 axios.interceptors.response.use(response => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   return response.data;
 }, error => {
-  loadingInstance.close();
+  setTimeout(function () {
+    loadingInstance.close();
+  }, 500);
   if (error.response.status === 504 || error.response.status === 404) {
     Message.error({message: '服务器被吃了⊙﹏⊙∥'});
   } else if (error.response.status === 403) {
