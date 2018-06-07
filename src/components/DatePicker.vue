@@ -84,6 +84,9 @@
 </script>
 
 <style lang="less">
+  .el-range-editor--small.el-input__inner{
+    width: 100%;
+  }
   .el-range-editor.is-active, .el-range-editor.is-active:hover {
     border-color: #ff7a7a;
   }

@@ -81,13 +81,13 @@
   export default {
     name: 'AddSetailerData',
     created() {
-      this.retailerInfo = JSON.parse(localStorage.getItem(this.$route.query.retailerId));
-      if(this.retailerInfo.retailerId){
-        this.title = '修改零售商';
-      }else{
+      var operation = this.$route.query.operation;
+      if(operation === 'add'){
         this.title = '新增零售商';
+      }else{
+        this.title = '修改零售商';
+        this.retailerInfo = JSON.parse(localStorage.getItem('retailerId'));
       };
-
     },
     data() {
       return {

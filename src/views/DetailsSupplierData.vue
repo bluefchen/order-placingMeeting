@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">供货商名称：</label>
-                  <p><b>{{supplierInfo.supplierName}}</b></p>
+                  <p class="item-detail"><b>{{supplierInfo.supplierName}}</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -22,13 +22,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p>{{supplierInfo.commonRegionName}}</p>
+                  <p class="item-detail">{{supplierInfo.commonRegionName}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">供货商类型：</label>
-                  <p>{{supplierInfo.supplierTypeName}}</p>
+                  <p class="item-detail">{{supplierInfo.supplierTypeName}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -36,13 +36,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人：</label>
-                  <p>{{supplierInfo.linkMan}}</p>
+                  <p class="item-detail">{{supplierInfo.linkMan}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">联系人手机：</label>
-                  <p>{{supplierInfo.linkNbr}}</p>
+                  <p class="item-detail">{{supplierInfo.linkNbr}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -50,13 +50,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司电话：</label>
-                  <p>{{supplierInfo.supplierPhone}}</p>
+                  <p class="item-detail">{{supplierInfo.supplierPhone}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">公司传真：</label>
-                  <p>{{supplierInfo.supplierFax}}</p>
+                  <p class="item-detail">{{supplierInfo.supplierFax}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -64,7 +64,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds text-right">备注：</label>
-                  <p>{{supplierInfo.remarks}}</p>
+                  <p class="item-detail">{{supplierInfo.remarks}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -81,7 +81,7 @@
   export default {
     name: 'DetailsSupplierData',
     created() {
-      this.supplierInfo = JSON.parse(localStorage.getItem(this.$route.query.supplierId));
+      this.supplierInfo = JSON.parse(localStorage.getItem('supplierId'));
     },
     data() {
       return {
@@ -146,6 +146,11 @@
           }
         }
       }
+    }
+    .item-detail{
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
     }
   }
 

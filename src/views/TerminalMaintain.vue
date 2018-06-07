@@ -150,7 +150,7 @@
               <button @click="updateOffer(param.row)" v-if="param.row.statusCd === '1002'" class="updown-btn green">上架</button>
               <button @click="unUpdateOffer(param.row)" v-if="param.row.statusCd === '1001'" class="updown-btn">下架</button>
               <button @click="editTerminal(param.row)" class="updown-btn">修改</button>
-              <button class="updown-btn">删除</button>
+              <button @click="deleteOffer(param.row)" class="updown-btn">删除</button>
               </div>`,
               data: function(){
                 return {
@@ -162,10 +162,13 @@
                   this.editTerminalMaintain(val);
                 },
                 updateOffer: (val) => {
-                  this.updateOffer([val.offerId])
+                  this.updateOffer([val.offerId]);
                 },
                 unUpdateOffer: (val) => {
-                  this.unUpdateOffer([val.offerId])
+                  this.unUpdateOffer([val.offerId]);
+                },
+                deleteOffer: (val) => {
+                  this.deleteOffer(val.offerId);
                 }
               }
             })
@@ -374,6 +377,14 @@
           offerIds: val
         }).then((rsp) => {
           this.$message.success('终端下架成功!');
+          this.queryOfferList(this.currentPage);
+        })
+      },
+      deleteOffer(val){
+        this.$post('/orderPlacingMeetingController/deleteOffer', {
+          offerId: val
+        }).then((rsp) => {
+          this.$message.success('终端删除成功!');
           this.queryOfferList(this.currentPage);
         })
       }

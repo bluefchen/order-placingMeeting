@@ -29,6 +29,7 @@
     name: 'PicPreview',
     created() {
       //取图片列表最后一项，放到数组最前面。ul往左偏移一项显示，防止点击左右按钮切换时候出现突然显示问题。自动选择index为1的项
+      this.imgList = this.picPreviewList;
       if (this.imgList.length) {
         let imgItem = this.imgList.pop();
         this.imgList.unshift(imgItem);
@@ -36,16 +37,15 @@
         this.checkedUrl(this.imgList[1], 1);
       }
     },
+    props: {
+      picPreviewList: {
+        type: Array,
+        require: true
+      },
+    },
     data() {
       return {
-        imgList: [
-          'http://img12.360buyimg.com/n1/s450x450_jfs/t17149/173/1779654602/189601/335d3d90/5ad8628dN03dc292f.jpg',
-          'http://img10.360buyimg.com/n1/s450x450_jfs/t17773/222/1772357349/201925/627b888c/5ad8614bN7b9187f7.jpg',
-          'http://img10.360buyimg.com/n1/s450x450_jfs/t18157/222/1822300674/231514/6c179af8/5ad87390N086a3c91.jpg',
-          'http://img12.360buyimg.com/n1/s450x450_jfs/t17086/355/1787289240/85381/8ed3a44/5ad86285Nc411d600.jpg',
-          'http://img14.360buyimg.com/n1/s450x450_jfs/t17494/75/1869981719/216755/afe6bf7/5ad87250N8b8f157e.jpg',
-          'http://img10.360buyimg.com/n1/s450x450_jfs/t18076/23/1790973070/197564/1c7e24b3/5ad87379N59492ad3.jpg'
-        ],
+        imgList: [],
         url: '',
         checkedIndex: '',
         animateLeft: false, //往左切换的动画样式
