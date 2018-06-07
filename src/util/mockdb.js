@@ -1499,6 +1499,57 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByBusi'), {
     }]
   }
 });
+//85、订单提货上报分析接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupAnal'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数
+    'rows|5-10': [{
+      'opMeetingId': '@id',
+      'commonRegionId': '@id',
+      'commonRegionName': '@cword(3,10)',
+      'offerQty|1-99': 1,
+      'pickupGoodsAmount|1-99': 1,
+      'notPickupGoodsAmount|1-99': 1
+    }]
+  }
+});
+//86、订单提货清单接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupInfo'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数 
+    'rows|5-10': [{
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(3,6)',
+      'brandCd': '@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId': '@id',
+      'offerModelName': '@cword(3,6)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'supplierId': '@id',
+      'supplierName': '@cword(3,6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(3,6)',
+      'offerQty|1-100': 1,
+      'pickupGoodsAmount|1-100': 1,
+      'remarks': '@cword(8,20)'
+    }]
+  }
+});
 //87、终端下架接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOffer'), {
   rsphead: 's',

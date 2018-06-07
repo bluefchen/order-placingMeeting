@@ -211,6 +211,14 @@
         text-decoration: none;
       }
     }
+
+    .link-btn{
+      color: #f60e0e;
+      a{
+        border-bottom: 1px solid #f60e0e;
+        cursor: pointer;
+      }
+    }
   }
   /*真实姓名*/
   .role-man{
