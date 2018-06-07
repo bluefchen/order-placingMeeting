@@ -26,15 +26,15 @@
             <ul class="selections fn-clear">
               <label class="select-wrds fn-left">定金模式：</label>
               <div class="fn-left">
-                <p class="fir-wrds fn-left">{{depositInfoList.depositTypeName}}</p>
-                <el-button class="edit-btn fn-left" @click="edit(depositType)"><i class="iconfont">&#xe738;</i> 修改</el-button>
+                <p class="fir-wrds fn-left">{{depositInfoList.depositTypeName || '--' }}</p>
+                <el-button class="edit-btn fn-left" @click="edit()"><i class="iconfont">&#xe738;</i> 修改</el-button>
               </div>
             </ul>
             <div class="steps">
               <!-- 定金 -->
               <div class="second-step fn-clear" v-show="depositType == 2">
                 <label class="select-wrds fn-left">定金比例配置：</label>
-                <p class="sec-done fn-left">{{depositInfoList.depositProportion}}%</p>
+                <p class="sec-done fn-left">{{depositInfoList.depositProportion || '--'}}%</p>
                 <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
               </div>
               <!-- 诚意金 -->
@@ -104,7 +104,11 @@
         editshow: true,
         depositType: '',
         opMeetingInfo: [],//订货会数据
-        depositInfoList: [], //查询返回的数据
+        depositInfoList: {
+          depositTypeName:'',
+          depositProportion:'',
+          opmRetailerDepositList: []
+        }, //查询返回的数据
         opmRetailerUpate: [], //诚意金修改后要提交的数据
         tableTitle: [{
           label: '零售商编码',
@@ -203,9 +207,13 @@
         this.$post('/opmDepositController/queryOpmDepositInfo', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
         }).then((rsp) => {
-          this.depositInfoList = rsp;
+          if(rsp){
+            this.depositInfoList = rsp;
+          }else{
+            this.depositInfoList = {};
+          }
           this.depositType = this.depositInfoList.depositType;
-          this.tableData = rsp.opmRetailerDepositList;
+          this.tableData = this.depositInfoList.opmRetailerDepositList;
         })
       }
     },

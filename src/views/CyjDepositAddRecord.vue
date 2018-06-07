@@ -35,7 +35,7 @@
           </el-col>
           <el-col :span="4">
             <div class="condition-item btn">
-              <el-button size="small" type="success" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
+              <el-button size="small" type="success" @click="queryOpmRetailerDepositList(currentPage, pageSize)">诚意金付款查询</el-button>
             </div>
           </el-col>
         </el-row>
@@ -117,7 +117,7 @@
       search(obj) {
         this.depositRecord.isCentman = obj.type;
         this.depositRecord.offerNameOrCode = obj.value;
-        this.queryOpmRetailerDepositList();
+        this.queryOpmRetailerDepositList(this.currentPage, this.pageSize);
       },
       selectRetailer(val){
         this.depositRecord.retailerId = val;

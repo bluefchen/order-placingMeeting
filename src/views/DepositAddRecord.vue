@@ -48,7 +48,7 @@
           </el-col>
           <el-col :span="3">
             <div class="condition-item btn">
-              <el-button size="small" type="success" @click="queryOpmDepositList">定金付款查询</el-button>
+              <el-button size="small" type="success" @click="queryOpmDepositList(currentPage, pageSize)">定金付款查询</el-button>
             </div>
           </el-col>
         </el-row>
@@ -111,11 +111,10 @@
               },
               methods: {
                 orderDetail(item) {
-                  localStorage.setItem(item.opmOrderId, JSON.stringify(item));
                   this.$router.push({
                     path: '/order/orderFormDetail',
                     query: {
-                      opmOrderId: item.opmOrderId
+                      opmOrderList: item
                     }
                   });
                 },
@@ -154,7 +153,7 @@
           width: 110
         }, {
           label: '日期',
-          prop: '',
+          prop: 'orderDt',
           width: 90
         }, {
           label: '订购数量',
@@ -229,6 +228,7 @@
           curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
+          debugger;
           this.total = rsp.totalSize;
         })
       },
@@ -341,7 +341,9 @@
       line-height: 28px;
     }
   }
-
+  .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner{
+    width: 100%;
+  }
   .btns {
     position: absolute;
     top: 0;
