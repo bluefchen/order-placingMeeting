@@ -34,7 +34,9 @@
               </div>
           </el-col>
           <el-col :span="4">
-            <el-button size="small" type="success" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
+            <div class="condition-item btn">
+              <el-button size="small" type="success" @click="queryOpmRetailerDepositList">诚意金付款查询</el-button>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -64,7 +66,7 @@
   export default {
     name: 'CyjDepositAddRecord',
     created() {
-
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
     },
     data() {
       return {
@@ -120,12 +122,9 @@
       selectRetailer(val){
         this.depositRecord.retailerId = val;
       },
-      showMoreCondition() {
-        this.isShowMoreCondition = !this.isShowMoreCondition;
-      },
       queryOpmRetailerDepositList(curPage, pageSize) {
         this.$post('/opmDepositController/queryOpmRetailerDepositList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           retailerId: this.depositRecord.retailerId,
           fromDate: this.depositRecord.orderDate[0],
           toDate: this.depositRecord.orderDate[1],
@@ -189,42 +188,13 @@
       line-height: 30px;
       background-color: #f6f6f6;
     }
-    .search {
-      position: relative;
-      margin: 10px auto;
-      .category-more {
-        position: absolute;
-        top: 0px;
-        left: 500px;
-        color: #151515;
-        text-decoration: none;
-      }
-    }
     .el-row {
       width: 100%;
     }
-
-    /* 条件搜索 */
-    .category-more {
-      height: 22px;
-      margin: 7px 0 0 20px;
-      padding: 0 5px;
-      line-height: 22px;
-      background-color: #fff;
-      border: 0;
-      color: #333;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .category-more:active,
-    .category-more:focus,
-    .category-more:hover {
-      color: #f82134;
-    }
-
-    .category-more .iconfont {
-      font-size: 12px;
+    .condition-item{
+      &.btn{
+        padding-left:0;
+      }
     }
     .tabs-list {
       margin: 0 auto;
@@ -234,24 +204,8 @@
         height: 28px;
         margin: 0 0 8px;
         line-height: 28px;
-        .result-info {
-          position: absolute;
-          top: 0;
-          right: 0;
-
-          > span {
-            color: #f82134;
-          }
-
-          > b {
-            margin: 0 3px;
-            color: #f82134;
-            font-size: 14px;
-          }
-        }
       }
     }
-
     .btns {
       position: absolute;
       top: 0;

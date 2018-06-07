@@ -45,6 +45,7 @@
   export default {
     name: 'PolicyManage',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmPolicyList();
     },
     data() {
@@ -119,10 +120,9 @@
       },
       queryOpmPolicyList() {
         this.$post('/opmPolicyController/queryOpmPolicyList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
-          statusCd: ''
         }).then((rsp) => {
           this.tableData = rsp.rows;
         })

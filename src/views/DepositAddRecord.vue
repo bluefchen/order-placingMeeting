@@ -47,7 +47,9 @@
             </div>
           </el-col>
           <el-col :span="3">
-            <el-button size="small" type="success" @click="queryOpmDepositList">定金付款查询</el-button>
+            <div class="condition-item btn">
+              <el-button size="small" type="success" @click="queryOpmDepositList">定金付款查询</el-button>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -78,7 +80,7 @@
   export default {
     name: 'DepositAddRecord',
     created() {
-
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
     },
     data() {
       return {
@@ -89,6 +91,7 @@
           retailerId: '',
           orderDate: []
         },
+        opMeetingInfo: [], //订货会数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 1, //列表总数
         pageSize: 10, //每页展示条数
@@ -177,7 +180,7 @@
           }
         }, {
           label: '应付定金',
-          prop: '',
+          prop: 'receivableDeposit',
           width: 90
         }, {
           label: '已付定金',
@@ -213,9 +216,8 @@
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       queryOpmDepositList(curPage, pageSize) {
-        this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmDepositList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.depositRecord.isCentman,
           offerNameOrCode: this.depositRecord.offerNameOrCode,
           opmOrderNo: this.depositRecord.opmOrderNo,
@@ -289,7 +291,11 @@
     line-height: 30px;
     background-color: #f6f6f6;
   }
-
+  .condition-item{
+    &.btn{
+      padding-left:0;
+    }
+  }
   .red {
     color: #f82134;
   }
@@ -314,17 +320,13 @@
     line-height: 22px;
     background-color: #fff;
     border: 0;
-    color: #333;
-    text-decoration: none;
     cursor: pointer;
   }
-
   .category-more:active,
   .category-more:focus,
   .category-more:hover {
     color: #f82134;
   }
-
   .category-more .iconfont {
     font-size: 12px;
   }
@@ -337,21 +339,6 @@
       height: 28px;
       margin: 0 0 8px;
       line-height: 28px;
-      .result-info {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        > span {
-          color: #f82134;
-        }
-
-        > b {
-          margin: 0 3px;
-          color: #f82134;
-          font-size: 14px;
-        }
-      }
     }
   }
 
