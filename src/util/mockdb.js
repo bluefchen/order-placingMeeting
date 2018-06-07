@@ -309,6 +309,32 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/updateOfferUnground'), {
   }
 });
 
+//14、新增终端接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/insertOffer'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
+//15、修改终端接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/updateOffer'), {
+  rsphead: 's',
+  success: true,
+  code: null,
+  msg: null,
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+
 //16、解析终端规格数据接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeOfferParamList'), {
   rsphead: 's',
@@ -1486,5 +1512,17 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReport'), {
       'offerQty|100-1000': 100, //订货数
       'pickupGoodsAmount|100-1000': 100, //提货数
     }]
+  }
+});
+//87、终端下架接口
+Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOffer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });

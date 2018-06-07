@@ -80,7 +80,7 @@
       <div class="result-head fn-clear">
         <div class="result-title fn-left">规格详情</div>
         <div class="buttons fn-right">
-          <button class="btns" @click="dialogVisible = true"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
+          <button class="btns" @click="importInfo"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
         </div>
       </div>
       <div class="result-box">
@@ -212,13 +212,13 @@
       </div>
     </div>
     <div class="foot-btn">
-        <button class="btns" @click="showList">保&nbsp;存</button>
-        <button class="btns">预&nbsp;览</button>
+        <button class="btns" @click="saveOffer">保&nbsp;存</button>
+        <button class="btns" @click="previewOffer">预&nbsp;览</button>
     </div>
 
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
-        <UploadFile :url="url" @callback="uploadData"/>
+        <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
         <div class="import-result-box fn-clear" v-if="showSuccee">
           <div class="success">
             <img src="@/assets/images/icon-success.png" class="suc-img">
@@ -227,7 +227,6 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button type="success" @click="dialogVisible = false">确&nbsp;定</el-button>
         <el-button type="success" @click="dialogVisible = false">关&nbsp;闭</el-button>
       </div>
     </DialogPopup>
@@ -259,16 +258,18 @@
       var operation = this.$route.query.operation;
       if(operation === 'add'){
         this.title = '新增终端';
-        this.terminalMaintainInfo = {};
+        this.terminalMaintainInfo = {
+          brandCd: '',
+          offerModelId: ''
+        };
         this.terminalMaintainInfo.offerBaseParam = {};
         this.terminalMaintainInfo.offerScreenParam = {};
         this.terminalMaintainInfo.offerHardwardParam = {};
+        this.flag = 1;
       }else{
         this.title = '修改终端';
         this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerId'));
-
         this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
-
         if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
           this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
         };
@@ -292,25 +293,24 @@
     data() {
       return {
         terminalMaintainInfo: {
-
+          brandCd: '',
+          offerModelId: ''
         },
         flag: 0,
         title: '',
         showSuccee: false,
         brandOptions: [],
         modelOptions: [],
-
         offerPicList: [],
         imgBigVisible: false,
         dialogImageUrl: '',
         brandList: [],
         modelList: [],
-
         dialogVisible: false,
         dislogTitle: '导入',
-
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
+        downloadUrl: '/commonCfgController/downloadModel?modelType='
       }
     },
     methods: {
@@ -325,14 +325,20 @@
       visibleChange(val) {
         this.dialogVisible = val;
       },
+      importInfo(){
+        this.dialogVisible = true;
+        this.showSuccee = false;
+      },
       //导入
       uploadData(data) {
-        this.showSuccee = true;
-        this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
-        this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
-        this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
+        this.$nextTick(function () {
+          this.showSuccee = true;
+          this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
+          this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
+          this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
+        })
       },
-      //终端型号
+      //查询终端型号
       qryOfferModelList(val){
         this.$post('/orderPlacingMeetingController/queryOfferModelList', {
           'brandCd': val
@@ -346,8 +352,120 @@
           });
         });
       },
-      showList(){
+      saveOffer(){
         console.log(this.offerPicList)
+        if(this.title === '新增终端'){
+          this.$post('/orderPlacingMeetingController/insertOffer', {
+            'offerCode':'',
+            'offerName':'',
+            'brandCd':'',
+            'brandName':'',
+            'offerModelId':'',
+            'offerModelName':'',
+            'isCentman':'',
+            'salePrice':'',
+            'statusCd':'',
+            'offerBaseParam':{
+              'listDt':'',
+              'termType':'',
+              'os':''
+            },
+            'offerScreenParam':{
+              'screenType':'',
+              'screenSize':'',
+              'screenMaterial':'',
+              'resolutionRatio':'',
+              'screenPiexl':'',
+              'screenTech':'',
+              'frame':'',
+              'otherParam':''
+            },
+            'offerHardwardParam':{
+              'cpuModel':'',
+              'cpuRate':'',
+              'core':'',
+              'gpuModel':'',
+              'ram':'',
+              'rom':'',
+              'memoryType':'',
+              'memoryCard':'',
+              'extendedCapacity':'',
+              'rearCamera':'',
+              'frontCamera':'',
+              'batteryCapacity':'',
+              'batteryType':'',
+              'batteryCharge':''
+            },
+            'offerPic':{
+              'offerPicUrl':'',
+              'offerPicUrl2':'',
+              'offerPicUrl3':'',
+              'offerPicUrl4':'',
+              'offerPicUrl5':'',
+              'offerPicUrl6':''
+            }
+          }).then((rsp) => {
+            console.log('新增成功！')
+          });
+        }else{
+          this.$post('/orderPlacingMeetingController/updateOffer', {
+            'offerId':'',
+            'offerCode':'',
+            'offerName':'',
+            'brandCd':'',
+            'brandName':'',
+            'offerModelId':'',
+            'offerModelName':'',
+            'salePrice':'',
+            'isCentman':'',
+            'statusCd':'',
+            'offerBaseParam':{
+              'listDt':'',
+              'termType':'',
+              'os':''
+            },
+            'offerScreenParam':{
+              'screenType':'',
+              'screenSize':'',
+              'screenMaterial':'',
+              'resolutionRatio':'',
+              'screenPiexl':'',
+              'screenTech':'',
+              'frame':'',
+              'otherParam':''
+            },
+            'offerHardwardParam':{
+              'cpuModel':'',
+              'cpuRate':'',
+              'core':'',
+              'gpuModel':'',
+              'ram':'',
+              'rom':'',
+              'memoryType':'',
+              'memoryCard':'',
+              'extendedCapacity':'',
+              'rearCamera':'',
+              'frontCamera':'',
+              'batteryCapacity':'',
+              'batteryType':'',
+              'batteryCharge':''
+            },
+            'offerPic':{
+              'offerPicId':'',
+              'offerPicUrl':'',
+              'offerPicUrl2':'',
+              'offerPicUrl3':'',
+              'offerPicUrl4':'',
+              'offerPicUrl5':'',
+              'offerPicUrl6':''
+            }
+          }).then((rsp) => {
+            console.log('修改成功！')
+          });
+        }
+      },
+      previewOffer(){
+
       }
     },
     components: {
@@ -358,15 +476,16 @@
       UploadFile
     },
     watch: {
-      'terminalMaintainInfo.brandCd': function (newVal, oldVal) {
+      'terminalMaintainInfo.brandCd': function(newVal, oldVal){
         if(this.flag){
           if(newVal !== oldVal){
             this.modelOptions = [];
             if(newVal){
               this.qryOfferModelList(newVal);
             };
-            this.terminalMaintainInfo.offerModelId = ''
+            this.terminalMaintainInfo.offerModelId = '';
           }
+
         }else{
           this.flag++
         }
