@@ -9,7 +9,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-              <AreaSelect class="condition-select" :value.sync="supplierInfo.commonRegionId"/>
+              <AreaSelect :value.sync="supplierInfo.commonRegionId"/>
             </div>
           </el-col>
         </el-row>
@@ -17,13 +17,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 供货商名称：</label>
-              <Input class="condition-input" :value.sync="supplierInfo.supplierName"/>
+              <Input :value.sync="supplierInfo.supplierName"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 供货商类型：</label>
-              <Select class="condition-input" :value.sync="supplierInfo.supplierType" :options="supplierTypeList"/>
+              <Select :value.sync="supplierInfo.supplierType" :options="supplierTypeList"/>
             </div>
           </el-col>
         </el-row>
@@ -31,13 +31,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人：</label>
-              <Input class="condition-input" :value.sync="supplierInfo.linkMan"/>
+              <Input :value.sync="supplierInfo.linkMan"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人手机：</label>
-              <Input class="condition-input" :value.sync="supplierInfo.linkNbr"/>
+              <Input :value.sync="supplierInfo.linkNbr"/>
             </div>
           </el-col>
         </el-row>
@@ -45,13 +45,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司电话：</label>
-              <Input class="condition-input" :value.sync="supplierInfo.supplierPhone"/>
+              <Input :value.sync="supplierInfo.supplierPhone"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司传真：</label>
-              <Input class="condition-input" :value.sync="supplierInfo.supplierFax"/>
+              <Input :value.sync="supplierInfo.supplierFax"/>
             </div>
           </el-col>
         </el-row>

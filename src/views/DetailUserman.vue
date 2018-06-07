@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户类型：</label>
-                  <p class="condition-input"><b>{{usermanData.userType}}</b></p>
+                  <p><b>{{usermanData.userType}}</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -22,7 +22,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户账号：</label>
-                  <p class="condition-input">{{usermanData.systemUserCode}}</p>
+                  <p>{{usermanData.systemUserCode}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -30,13 +30,13 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">真实姓名：</label>
-                  <p class="condition-input">{{usermanData.name}}</p>
+                  <p>{{usermanData.name}}</p>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">手机号码：</label>
-                  <p class="condition-input">{{usermanData.linktelenumber}}</p>
+                  <p>{{usermanData.linktelenumber}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -44,14 +44,14 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">所属省份：</label>
-                  <p class="condition-input">{{usermanData.commonRegionName}}</p>
+                  <p>{{usermanData.commonRegionName}}</p>
                 </div>
               </el-col>
               <!-- 当为管理人员时，此项不存在 -->
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">归属商户：</label>
-                  <p class="condition-input">{{usermanData.relaName}}</p>
+                  <p>{{usermanData.relaName}}</p>
                 </div>
               </el-col>
             </el-row>
@@ -59,7 +59,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds text-right">备注：</label>
-                  <p class="condition-input">{{usermanData.remark}}</p>
+                  <p>{{usermanData.remark}}</p>
                 </div>
               </el-col>
             </el-row>

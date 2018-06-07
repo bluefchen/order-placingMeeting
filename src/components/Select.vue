@@ -66,11 +66,20 @@
       onChange(val) {
         this.$emit('update:value', val);
       }
+    },
+    watch: {
+      'value': function(newVal, oldVal){
+        this.copyValue = newVal
+      }
     }
   }
 </script>
 
 <style lang="less">
+  .el-select {
+    width: 100%;
+  }
+
   .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus {
     border-color: #ff7a7a;
   }

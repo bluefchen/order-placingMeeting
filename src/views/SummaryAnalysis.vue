@@ -15,7 +15,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['首页', '统计查询', '全国汇总统计分析']"/>
+        <Breadcrumb :list="['首页', '统计查询', '汇总统计']"/>
       </div>
     </div>
 
@@ -28,7 +28,33 @@
             <AreaSelect :clearable="true" :value.sync="commonRegionId"/>
           </div>
         </el-col>
-        <el-col :span="8" :offset="8">
+        <el-col :span="8">
+          <div class="condition-item">
+            <label class="label-wrds">产品类型：</label>
+            <Select :clearable="true" :value.sync="isCentman" :options="isCentmanList"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-item">
+            <label class="label-wrds">终端品牌：</label>
+            <Select :clearable="true" :value.sync="brandCd" :options="brandList"/>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <div class="condition-item">
+            <label class="label-wrds">终端型号：</label>
+            <Select :clearable="true" :value.sync="offerModelId" :options="offerModelList"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="condition-item">
+            <label class="label-wrds">终端名称：</label>
+            <Input :value.sync="offerName"/>
+          </div>
+        </el-col>
+        <el-col :span="8">
           <div class="condition-item">
             <el-button size="small" type="success" @click="search">查询</el-button>
           </div>
@@ -38,27 +64,24 @@
 
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="全国汇总统计分析"/>
-        <div class="buttons fn-right">
-          <el-button class="btns" @click="exportReport"><i class="iconfont">&#xe654;</i> 导出</el-button>
-        </div>
+        <TitlePlate class="fn-left" title="机型汇总统计"/>
       </div>
       <Table :tableTitle="tableTitle" :tableData="tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
 </template>
-
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
   import TitlePlate from '@/components/TitlePlate';
+  import Input from '@/components/Input';
+  import Select from '@/components/Select';
+  import AreaSelect from '@/components/AreaSelect';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
-  import Input from '@/components/Input';
-  import AreaSelect from '@/components/AreaSelect';
 
   export default {
-    name: 'summaryStatisticalAnalysis',
+    name: 'summaryAnalysis',
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmOrderPickupReport();
@@ -67,15 +90,56 @@
       return {
         opMeetingInfo: '', //订货会基本信息
         commonRegionId: '',
+        isCentman: '',
+        isCentmanList: [{ //产品类型列表
+          value: 'Y',
+          label: '集采'
+        }, {
+          value: 'N',
+          label: '社采'
+        }],
+        brandCd: '',
+        brandList: [],
+        offerModelId: '',
+        offerModelList: [],
+        offerName: '',
         tableTitle: [{
           label: '省份',
-          prop: 'commonRegionName'
+          prop: 'commonRegionName',
+          width: 160
         }, {
-          label: '定购数量',
-          prop: 'offerQty'
+          label: '终端名称',
+          prop: 'offerName',
+          width: 160
         }, {
-          label: '订单提货数量',
-          prop: 'pickupGoodsAmount'
+          label: '终端品牌',
+          prop: 'brandName',
+          width: 160
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName'
+        }, {
+          label: '产品类型',
+          prop: 'isCentman',
+          width: 80,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.isCentman === \'Y\'">集采</span><span v-else>社采</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '定购总数量',
+          prop: 'offerQty',
+          width: 160
+        }, {
+          label: '提货总数量',
+          prop: 'pickupGoodsAmount',
+          width: 160
         }],
         tableData: [], //查询返回的数据
         total: 0, //列表总数
@@ -109,13 +173,15 @@
     components: {
       Breadcrumb,
       TitlePlate,
-      Table,
-      Pagination,
       Input,
-      AreaSelect
+      AreaSelect,
+      Select,
+      Table,
+      Pagination
     }
   }
 </script>
+
 
 <style scoped lang="less">
   .order_summary-statistical-analysis {
@@ -161,23 +227,6 @@
       height: 28px;
       margin: 15px 0 8px;
       line-height: 28px;
-    }
-
-    .buttons .btns {
-      display: inline-block;
-      padding: 0 12px;
-      margin-left: 2px;
-      border: 0;
-      background-color: #fa0000;
-      color: #fff;
-      font-size: 12px;
-      border-radius: 3px;
-      line-height: 28px;
-      text-decoration: none;
-    }
-
-    .buttons .btns:hover {
-      background-color: #e20606;
     }
   }
 </style>

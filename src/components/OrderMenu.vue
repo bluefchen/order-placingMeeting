@@ -36,8 +36,8 @@
         <el-menu-item index="/order/preferentialPolicySettlement">优惠政策结算</el-menu-item>
         <el-menu-item index="/order/terminalQuery">终端查询</el-menu-item>
         <el-menu-item index="/order/summaryStatisticalAnalysis">全国汇总统计分析</el-menu-item>
-        <el-menu-item index="">汇总统计</el-menu-item>
-        <el-menu-item index="">全国汇总分析</el-menu-item>
+        <el-menu-item index="/order/summaryAnalysis">汇总统计</el-menu-item>
+        <el-menu-item index="/order/metaAnalysis">全国汇总分析</el-menu-item>
         <el-menu-item index="">订单提货上报</el-menu-item>
       </el-submenu>
     </el-menu>

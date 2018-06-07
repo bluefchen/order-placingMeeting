@@ -29,13 +29,13 @@
         <el-col :span="6">
           <div class="condition-item">
             <label class="label-wrds">零售商类型：</label>
-            <Select class="condition-input" :value.sync="orderQueryData.type" :options="retailerTypeList"/>
+            <Select :value.sync="orderQueryData.type" :options="retailerTypeList"/>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="condition-item">
             <label class="label-wrds">零售商状态：</label>
-            <Select class="condition-input" :value.sync="orderQueryData.statusCd" :options="retailerStatusList"/>
+            <Select :value.sync="orderQueryData.statusCd" :options="retailerStatusList"/>
           </div>
         </el-col>
         <el-col :span="6">

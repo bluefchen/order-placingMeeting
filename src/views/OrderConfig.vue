@@ -21,7 +21,7 @@
             <el-col :span="8" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right">订货会编码：</label>
-                <Input class="condition-input" :value.sync="orderPlacingMeeting.opMeetingNo"/>
+                <Input :value.sync="orderPlacingMeeting.opMeetingNo"/>
               </div>
             </el-col>
           </el-row>
@@ -29,7 +29,7 @@
             <el-col :span="16" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会名称：</label>
-                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmName"/>
+                <Input :value.sync="orderPlacingMeeting.opmName"/>
               </div>
             </el-col>
           </el-row>
@@ -37,13 +37,13 @@
             <el-col :span="6" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订货会地址：</label>
-                <AreaSelect class="condition-input" :value.sync="orderPlacingMeeting.commonRegionId"/>
+                <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
               </div>
             </el-col>
             <el-col :span="10">
               <div class="condition-item-address">
                 <label class="label-address">--</label>
-                <Input class="condition-input" :value.sync="orderPlacingMeeting.opmAddr"/>
+                <Input :value.sync="orderPlacingMeeting.opmAddr"/>
               </div>
             </el-col>
           </el-row>

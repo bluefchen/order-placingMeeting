@@ -9,7 +9,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户账号/手机号：</label>
-            <Input class="condition-input" :value.sync="relevantData.codeOrPhone"/>
+            <Input :value.sync="relevantData.codeOrPhone"/>
           </div>
         </el-col>
         <el-col :span="7">
@@ -240,9 +240,6 @@
       margin: 0 auto 10px;
       padding: 5px 10px;
       border: 1px solid #dfdfdf;
-    }
-    .condition-input {
-      width: 100%;
     }
     /* 条件搜索 */
     .role-man{

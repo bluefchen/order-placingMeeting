@@ -17,7 +17,7 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right"><span class="red-star">*</span> 零售商名称：</label>
-              <Input class="condition-input" :value.sync="retailerInfo.retailerName"/>
+              <Input :value.sync="retailerInfo.retailerName"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
@@ -31,13 +31,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人：</label>
-              <Input class="condition-input" :value.sync="retailerInfo.linkMan"/>
+              <Input :value.sync="retailerInfo.linkMan"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">联系人手机：</label>
-              <Input class="condition-input" :value.sync="retailerInfo.linkNbr"/>
+              <Input :value.sync="retailerInfo.linkNbr"/>
             </div>
           </el-col>
         </el-row>
@@ -45,13 +45,13 @@
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司电话：</label>
-              <Input class="condition-input" :value.sync="retailerInfo.retailerPhone"/>
+              <Input :value.sync="retailerInfo.retailerPhone"/>
             </div>
           </el-col>
           <el-col :span="8" :offset="2">
             <div class="condition-item">
               <label class="label-wrds text-right">公司传真：</label>
-              <Input class="condition-input" :value.sync="retailerInfo.retailerFax"/>
+              <Input :value.sync="retailerInfo.retailerFax"/>
             </div>
           </el-col>
         </el-row>
