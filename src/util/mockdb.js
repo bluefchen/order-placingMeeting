@@ -1328,24 +1328,24 @@ Mock.mock(new RegExp('/systemUserController/savePostRole'), {
     'resultCode': '0'
   }
 });
-//71、	查询所有菜单接口
+//71、	管理菜单界面的菜单列表查询接口
 Mock.mock(new RegExp('/systemUserController/querySystemMenuList'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
   msg: null, //失败信息
   error: null,
-  'data|8': [{
-    'systemMenuId': '@id',
-    'systemMenuName': '@cword(6)',
-    'subSysMenuId': '@id',
-    'orderSeq|+1': [1, 2, 3, 4, 5, 6, 7, 8],
-    'sysModularId': '@id',
-    'isLastNode|+1': ['Y', 'N']
+  'data|3': [{
+    "dispTypeName": "@cword(6)",
+    "menus|6": [{
+      "systemMenuId": "@id",
+      "systemMenuName": "@cword(6)",
+      "isHold|+1": ['Y', 'N']// 当前角色是否拥有,Y - 具有,N - 不具有
+    }]
   }]
 });
-//72、	查询已关联菜单接口
-Mock.mock(new RegExp('/systemUserController/queryRoleShortuctMenu'), {
+//72、更新角色关联的菜单关系接口
+Mock.mock(new RegExp('/systemUserController/updateRoleShortuctMen'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,
@@ -1369,23 +1369,8 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-100': 1, //总记录条数
-    'rows|10': [{
-      'userRoleId': '@id',
-      'postRoleId': '@id',
-      'partyId': '@id',
-      'commonRegionId': '@id',
-      'commonRegionName': '@province',
-      'userType|+1': [1000, 1001],
-      'relaId': '@id',
-      'relaName': '@cword(5)',
-      'systemUserCode': '@id',
-      'name': '@cname',
-      'linktelenumber': '13788823232',
-      'remark': '@cword(11)',
-      'stautsCd|+1': [1000, 1001, 1002],
-      'statusCdName|+1': ['有效', '冻结', '无效']
-    }]
+    'resultMsg': '成功',
+    'resultCode': '0'
   }
 });
 //74、	删除关联关系
@@ -1511,6 +1496,57 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupReportByBusi'), {
       'busiName': '@cword(3,6)',
       'offerQty|1-99': 1,
       'pickupGoodsAmount|1-99': 1
+    }]
+  }
+});
+//85、订单提货上报分析接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupAnal'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数
+    'rows|5-10': [{
+      'opMeetingId': '@id',
+      'commonRegionId': '@id',
+      'commonRegionName': '@cword(3,10)',
+      'offerQty|1-99': 1,
+      'pickupGoodsAmount|1-99': 1,
+      'notPickupGoodsAmount|1-99': 1
+    }]
+  }
+});
+//86、订单提货清单接口
+Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupInfo'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalSize|1-100': 100, //总记录条数 
+    'rows|5-10': [{
+      'opmOrderId': '@id',
+      'opMeetingId': '@id',
+      'opmOrderNo': '@id',
+      'offerId': '@id',
+      'offerCode': '@id',
+      'offerName': '@cword(3,6)',
+      'brandCd': '@id',
+      'brandName': '@cword(3,6)',
+      'offerModelId': '@id',
+      'offerModelName': '@cword(3,6)',
+      'isCentman|1': ['Y', 'N'],
+      'salePrice|1-100.1-2': 1,
+      'supplierId': '@id',
+      'supplierName': '@cword(3,6)',
+      'retailerId': '@id',
+      'retailerName': '@cword(3,6)',
+      'offerQty|1-100': 1,
+      'pickupGoodsAmount|1-100': 1,
+      'remarks': '@cword(8,20)'
     }]
   }
 });

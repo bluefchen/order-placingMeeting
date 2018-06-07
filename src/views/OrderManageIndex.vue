@@ -10,8 +10,8 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="订购会列表"/>
         <div class="order-type">
-          <div class="order-type-text">订购会状态:</div>
-          <el-select class="order-type-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList"
+          <div class="order-type-text">订购会状态：</div>
+          <el-select class="order-type-input" v-model="orderQueryData.statusCd" @change="queryOrderPlacingMeetingList()"
                      placeholder="请选择">
             <el-option
               v-for="item in orderTypeList"
@@ -316,11 +316,16 @@
         position: absolute;
         right: 0;
         bottom: 0;
+        width: 100px;
         height: 21px;
+        padding-left: 81px;
         border: 1px solid #e5e5e5;
         border-bottom: none;
-        display: flex;
         .order-type-text {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 80px;
           height: 21px;
           padding: 0 10px;
           background: #f5f5f5;
@@ -331,6 +336,7 @@
         }
         .order-type-input {
           height: 21px;
+          vertical-align: top;
           line-height: 21px;
           .el-input__inner {
             height: 21px;

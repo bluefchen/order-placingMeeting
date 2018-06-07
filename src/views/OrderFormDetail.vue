@@ -49,8 +49,8 @@
       <div class="info-list">
         <div class="info-table fn-clear">
           <p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
-          <p class="detail-table fn-left"><span>创建时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
-          <p class="detail-table fn-left"><span>付款时间：</span>--</p>
+          <p class="detail-table fn-left"><span>创建时间：</span>{{orderPickGoodsInfo.createDt}}</p>
+          <p class="detail-table fn-left"><span>付款时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
           <p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupDt}}</p>
         </div>
         <table width="100%" cellspacing="0" cellpadding="0" class="table">
@@ -72,7 +72,7 @@
               </td>
               <td>{{orderPickGoodsInfo.brandName}}</td>
               <td>{{orderPickGoodsInfo.offerModelName}}</td>
-              <td>￥{{orderPickGoodsInfo.salePrice}}</td>
+              <td>￥{{orderPickGoodsInfo.price}}</td>
               <td>{{orderPickGoodsInfo.offerQty}}</td>
             </tr>
           </tbody>
@@ -92,27 +92,34 @@
   export default {
     name: 'Orderdetail',
     created() {
-      this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opmOrderId));
-
-      this.$post('/orderPlacingMeetingController/querySupplierById', {
-        supplierId: this.orderPickGoodsInfo.supplierId
-      }).then((rsp) => {
-        this.supplierInfo = rsp;
-      });
-
-      this.$post('/orderPlacingMeetingController/queryRetailerById', {
-        retailerId: this.orderPickGoodsInfo.opMeetingId
-      }).then((rsp) => {
-        this.retailerInfo = rsp;
-      });
-
+      this.orderPickGoodsInfo = _.get(this.$route.query, 'opmOrderList') || {};
+      let orderPickGoodsInfo =  this.orderPickGoodsInfo;
+      debugger;
+      this.getSupplierInfo();
+      this.getRetailerInfo();
     },
     data() {
       return {
         orderPickGoodsInfo: {}, //传入的数据
         supplierInfo: {}, //查询供应商信息
         retailerInfo: {}, //查询零售商信息
-        pickupGoodsAmount: null //提货数量
+        // pickupGoodsAmount: null //提货数量
+      }
+    },
+    methods: {
+      getSupplierInfo(){
+        this.$post('/orderPlacingMeetingController/querySupplierById', {
+          supplierId: this.orderPickGoodsInfo.supplierId
+        }).then((rsp) => {
+          this.supplierInfo = rsp;
+        });
+      },
+      getRetailerInfo(){
+        this.$post('/orderPlacingMeetingController/queryRetailerById', {
+          retailerId: this.orderPickGoodsInfo.opMeetingId
+        }).then((rsp) => {
+          this.retailerInfo = rsp;
+        });
       }
     },
     components: {
@@ -168,12 +175,11 @@
     .tel-model{
       height: 36px;
       line-height: 36px;
-      background: url('../assets/images/red-line.png') no-repeat 10px center;
+      background: #f2f1f1 url('../assets/images/red-line.png') no-repeat 10px center;
       padding-left: 20px;
       font-size: 18px;
       color: #000;
       font-weight: 800;
-      background-color: #f2f1f1;
       border-bottom: 1px solid #d6d6d6;
     }
     .info-list{
@@ -232,33 +238,6 @@
     }
     .td-device-info{
       margin: 10px;
-    }
-    .order-pay-info{
-      height: 76px;
-      margin: 25px auto 20px;
-      border: 1px solid #fadaaf;
-      background-color: #fff4e6
-    }
-    .order-pay-info .p1{
-      font-size: 16px;
-      font-weight: 800;
-      margin: 15px 0 12px;
-        line-height: 20px;
-        .payment-status{
-          color: #e62840;
-        }
-    }
-    .order-pay-info .p2{
-      font-size: 12px;
-      color: #5b5b5b;
-    }
-    .order-pay-info p label{
-      display: inline-block;
-      width: 145px;
-      text-align: right;
-    }
-    .order-pay-info .p2{
-
     }
   }
 </style>

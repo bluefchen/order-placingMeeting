@@ -41,7 +41,7 @@
       if(this.$route.query.postRoleId){
         this.roleData.postRoleId = this.$route.query.postRoleId;
       }
-      this.queryPostRoleRelaUserList();
+      this.queryPostRoleRelaUserList(this.currentPage, this.pageSize);
     },
     data() {
       return {
@@ -125,9 +125,11 @@
     },
     methods: {
       //查询角色关联用户接口
-      queryPostRoleRelaUserList(){
+      queryPostRoleRelaUserList(curPage, pageSize){
         this.$post('/systemUserController/queryPostRoleRelaUserList', {
           postRoleId: this.roleData.postRoleId,
+          pageSize: pageSize || 10,
+          curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
           this.total = rsp.totalSize;

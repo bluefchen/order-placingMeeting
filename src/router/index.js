@@ -48,6 +48,8 @@ const MenuManage = () => import('@/views/MenuManage');
 const UserRoleManage = () => import('@/views/UserRoleManage');
 const AddRelevantPerson = () => import('@/views/AddRelevantPerson');
 const MetaAnalysis = () => import('@/views/MetaAnalysis');
+const OrderPickingReport = () => import('@/views/OrderPickingReport');
+const OrderPickingDetail = () => import('@/views/OrderPickingDetail');
 
 Vue.use(Router);
 
@@ -247,6 +249,20 @@ export default new Router({
         component: MetaAnalysis,
         meta: {
           title: '全国汇总分析'
+        },
+      }, {
+        path: 'orderPickingReport',
+        name: 'orderPickingReport',
+        component: OrderPickingReport,
+        meta: {
+          title: '订单提货上报'
+        },
+      }, {
+        path: 'orderPickingDetail',
+        name: 'orderPickingDetail',
+        component: OrderPickingDetail,
+        meta: {
+          title: '订单提货明细'
         },
       }]
     }, {

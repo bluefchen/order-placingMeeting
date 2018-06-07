@@ -11,39 +11,12 @@
         <TitlePlate class="fn-left" title="管理菜单"/>
       </div>
       <div class="role-setup-info">
-        <p class="p-titl">一、订货会管理</p>
-        <ul class="menu-list fn-clear">
-          <li class="fn-left selected">机型维护</li>
-          <li class="fn-left selected">特种机型分配维护</li>
-          <li class="fn-left">订单批量导入</li>
-          <li class="fn-left">订单提货数据维护</li>
-          <li class="fn-left">定金配置</li>
-          <li class="fn-left">定金补录</li>
-          <li class="fn-left selected">机型维护</li>
-          <li class="fn-left selected">特种机型分配维护</li>
-          <li class="fn-left">订单批量导入</li>
-          <li class="fn-left">订单提货数据维护</li>
-          <li class="fn-left">定金配置</li>
-          <li class="fn-left">定金补录</li>
-        </ul>
-        <p class="p-titl">二、基础数据维护</p>
-        <ul class="menu-list fn-clear">
-          <li class="fn-left selected">机型维护</li>
-          <li class="fn-left selected">特种机型分配维护</li>
-          <li class="fn-left">订单批量导入</li>
-          <li class="fn-left">订单提货数据维护</li>
-          <li class="fn-left">定金配置</li>
-          <li class="fn-left">定金补录</li>
-        </ul>
-        <p class="p-titl">三、系统维护</p>
-        <ul class="menu-list fn-clear">
-          <li class="fn-left selected">机型维护</li>
-          <li class="fn-left selected">特种机型分配维护</li>
-          <li class="fn-left">订单批量导入</li>
-          <li class="fn-left">订单提货数据维护</li>
-          <li class="fn-left">定金配置</li>
-          <li class="fn-left">定金补录</li>
-        </ul>
+        <div v-for="item in systemMenuAllList">
+          <p class="p-titl">{{item.dispTypeName}}</p>
+          <ul class="menu-list fn-clear">
+            <li class="fn-left" v-for="it in item.menus" :class="{'selected': it.isHold === 'Y'}" @click="onSelectClick(it)">{{it.systemMenuName}}</li>
+          </ul>
+        </div>
       </div>
       <div class="foot-btn">
         <el-button size="small" type="success" @click="menuSave">保&nbsp;存</el-button>
@@ -64,34 +37,50 @@
     created() {
       if(this.$route.query.roleInfo){
         this.roleData = this.$route.query.roleInfo;
-      }
+      };
+      this.querySystemMenuList();
     },
     data() {
       return {
         systemMenuAllList: [],//所有菜单列表
-        systemMenuHadList: [],//已关联菜单
+        newMenu: [],
+        roleData: ''
       }
     },
     methods: {
       //查询所有菜单
       querySystemMenuList(){
         this.$post('/systemUserController/querySystemMenuList', {
+          postRoleId: _.get(this.roleData, 'postRoleId') || ''
         }).then((rsp) => {
           this.systemMenuAllList = rsp;
-          _.map()
-
         });
       },
-      //查询已关联菜单
-      queryRoleShortuctMenu(){
-        this.$post('/systemUserController/queryRoleShortuctMenu', {
-          postRoleId: this.roleData.postRoleId,
-        }).then((rsp) => {
-          this.systemMenuHadList = rsp;
-        });
+      onSelectClick(it){
+        if(it.isHold === 'Y'){
+          it.isHold = 'N';
+        }else{
+          it.isHold = 'Y';
+        }
       },
       menuSave(){
-
+        _.map(this.systemMenuAllList, function(item){
+          _.map(item.menus, function(it){
+            if(it.isHold === 'Y'){
+              this.newMenu.push(it);
+            }
+          })
+        });
+        this.$post('/systemUserController/updateRoleShortuctMenu', {
+          postRoleId: this.roleData.postRoleId,
+          systemMenuId: this.newMenu,
+        }).then((rsp) => {
+          if(rsp){
+            this.systemMenuAllList = rsp;
+          }else{
+            this.systemMenuAllList = [];
+          }
+        });
       }
     },
     components: {
