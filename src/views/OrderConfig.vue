@@ -58,6 +58,7 @@
                   size="small"
                   :picker-options="pickerBeginDateBefore"
                   format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
                   placeholder="选择日期"
                   :editable="false">
                 </el-date-picker>
@@ -68,6 +69,7 @@
                   type="date"
                   size="small"
                   format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
                   :picker-options="pickerBeginDateAfter"
                   placeholder="选择日期"
                   :editable="false">
@@ -272,6 +274,7 @@
   import AreaSelect from '@/components/AreaSelect';
   import DialogPopup from '@/components/DialogPopup';
   import {quillEditor} from 'vue-quill-editor';
+  import moment from 'moment';
 
   export default {
     name: 'OrderConfig',
@@ -293,7 +296,7 @@
           disabledDate: (time) => {
             let beginDateVal = this.orderPlacingMeeting.endDt;
             if (beginDateVal) {
-              return time.getTime() > beginDateVal;
+              return moment(time).format('YYYY-MM-DD') > beginDateVal;
             }
           }
         },
@@ -301,7 +304,7 @@
           disabledDate: (time) => {
             let beginDateVal = this.orderPlacingMeeting.startDt;
             if (beginDateVal) {
-              return time.getTime() < beginDateVal;
+              return moment(time).format('YYYY-MM-DD') < beginDateVal;
             }
           }
         },
@@ -484,6 +487,7 @@
         // return isJPG && isLt2M;
       },
       orderSubmit() {
+        debugger;
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
