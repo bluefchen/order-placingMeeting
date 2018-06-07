@@ -62,14 +62,17 @@
         copyValue: this.value
       }
     },
+    watch: {
+      'value': {
+        handler: function (val) {
+          this.copyValue = val;
+        },
+        deep: true
+      }
+    },
     methods: {
       onChange(val) {
         this.$emit('update:value', val);
-      }
-    },
-    watch: {
-      'value': function(newVal, oldVal){
-        this.copyValue = newVal
       }
     }
   }

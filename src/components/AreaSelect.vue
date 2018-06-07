@@ -22,7 +22,6 @@
   export default {
     name: 'AreaSelect',
     created() {
-
       this.$post('/commonCfgController/getCommonRegionTreeList', {
         commonRegionId: ''
       }).then((rsp) => {
@@ -34,7 +33,6 @@
           })
         });
       });
-
     },
     props: {
       value: {
@@ -72,6 +70,14 @@
       return {
         copyValue: this.value,
         options: [],
+      }
+    },
+    watch: {
+      'value': {
+        handler: function (val) {
+          this.copyValue = val;
+        },
+        deep: true
       }
     },
     methods: {

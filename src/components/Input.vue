@@ -50,6 +50,14 @@
         copyValue: this.value
       }
     },
+    watch: {
+      'value': {
+        handler: function (val) {
+          this.copyValue = val;
+        },
+        deep: true
+      }
+    },
     methods: {
       onChange(val) {
         this.$emit('update:value', val);
@@ -67,9 +75,10 @@
       border-color: #ff7a7a;
     }
   }
+
   .el-textarea {
     vertical-align: top;
-    textarea{
+    textarea {
       resize: none;
     }
   }
