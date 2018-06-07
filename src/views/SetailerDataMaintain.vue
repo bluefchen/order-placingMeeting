@@ -298,26 +298,26 @@
       addRetailer(title, val){
         if(title === '新增'){
           this.$router.push({
-            path: '/orderManage/AddSetailerData'
+            path: '/orderManage/AddSetailerData',
+            query: {
+              operation: 'add'
+            }
           });
         }else{
-          localStorage.setItem(val.retailerId, JSON.stringify(val));
+          localStorage.setItem('retailerId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSetailerData',
             query: {
-              retailerId: val.retailerId
+              operation: 'modify'
             }
           });
         }
 
       },
       detailRetailer(val){
-        localStorage.setItem(val.retailerId, JSON.stringify(val));
+        localStorage.setItem('retailerId', JSON.stringify(val));
         this.$router.push({
-          path: '/orderManage/detailsSetailerData',
-          query: {
-            retailerId: val.retailerId
-          }
+          path: '/orderManage/detailsSetailerData'
         });
       },
       pageChanged(curPage) {
