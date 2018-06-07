@@ -96,12 +96,14 @@
   export default {
     name: 'DepositConfigure',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmDepositInfo();
     },
     data() {
       return {
         editshow: true,
         depositType: '',
+        opMeetingInfo: [],//订货会数据
         depositInfoList: [], //查询返回的数据
         opmRetailerUpate: [], //诚意金修改后要提交的数据
         tableTitle: [{
@@ -184,9 +186,9 @@
           };
           this.opmRetailerUpate.push(obj);
         });
-        this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-          opMeetingId: '订货会ID',
-          provinceCommonRegionId: '省份ID',
+        this.$post('/opmOrderController/updateOpmDepositInfo', {
+          opMeetingId: this.opMeetingInfo.opMeetingId,
+          provinceCommonRegionId: this.depositInfoList.provinceCommonRegionId,
           depositType: type,
           depositProportion: this.depositInfoList.depositProportion,
           opmRetailerDepositList: this.opmRetailerUpate
@@ -199,7 +201,7 @@
       ,
       queryOpmDepositInfo() {
         this.$post('/opmDepositController/queryOpmDepositInfo', {
-          opMeetingId: '订货会ID'
+          opMeetingId: this.opMeetingInfo.opMeetingId,
         }).then((rsp) => {
           this.depositInfoList = rsp;
           this.depositType = this.depositInfoList.depositType;

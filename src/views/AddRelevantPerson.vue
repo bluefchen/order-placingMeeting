@@ -17,6 +17,11 @@
             <label class="label-wrds">所属商户：</label>
             <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
           </div>
+          <!--管理员-->
+          <!--<div class="condition-item">-->
+            <!--<label class="label-wrds">所属省份：</label>-->
+            <!--<AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>-->
+          <!--</div>-->
         </el-col>
         <el-col :span="3">
           <div class="condition-item">
@@ -122,7 +127,8 @@
       queryUsermanSubmit(curPage, pageSize) {
         this.$post('/systemUserController/querySystemUserList', {
           codeOrPhone: this.relevantData.codeOrPhone,
-          relaId: this.relevantData.relaId,
+          commonRegionId: _.get(this, 'relevantData.commonRegionId'),
+          relaId: _.get(this, 'relevantData.relaId'),
           pageSize: pageSize || 10,
           curPage: curPage || 1
       }).then((rsp) => {
