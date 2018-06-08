@@ -35,7 +35,8 @@
           this.$post('/systemUserController/loginOut', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
-          }).then(rsp => {
+          }).then(() => {
+            localStorage.removeItem('user');
             this.$message.success('退出成功，TODO跳转回登录页面');
           })
         }
