@@ -233,15 +233,19 @@
         this.isFoldScreen = !this.isFoldScreen;
       },
       checkedStatusCdType(val, index) {
-        this.checkedStatusCdIndex = index;
-        this.checkedCategoryList.map((item) => {
-          if (item.name === '状态') {
-            item.categoryName = val.statusCdName;
-            item.categoryCode = val.statusCd;
-          }
-        });
-        this.categoryItem.statusCd = val.statusCd;
-        this.queryOfferList();
+        if(this.checkedStatusCdIndex != index){
+          this.checkedStatusCdIndex = index;
+          this.checkedCategoryList.map((item) => {
+            if (item.name === '状态') {
+              item.categoryName = val.statusCdName;
+              item.categoryCode = val.statusCd;
+            }
+          });
+          this.categoryItem.statusCd = val.statusCd;
+          this.queryOfferList();
+        }else{
+          this.delCategoryItem('状态');
+        }
       },
       checkedBrand(val, index) {
         if (this.checkedBrandIndex !== index) {
