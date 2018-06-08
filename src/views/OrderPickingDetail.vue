@@ -129,7 +129,7 @@
           prop: 'supplierName',
           width: 100
         }, {
-          label: '订购数量',
+          label: '定购数量',
           prop: 'offerQty',
           width: 80
         }, {
