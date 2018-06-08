@@ -6,8 +6,8 @@
         <img class="fn-left" src="@/assets/images/big-logo.png">
         <OrderManageMenu class="fn-left mange-menu"/>
         <div class="user fn-right">
-          <span class="area">江苏省</span>
-          <Dropdown role="运行商" name="赵小雨"/>
+          <span class="area">{{user.commonReginName}}</span>
+          <Dropdown :role="user.postRoleName" :name="user.partyName"/>
         </div>
       </div>
     </div>
@@ -23,9 +23,20 @@
   export default {
     name: 'OrderManage',
     created() {
+      this.user = JSON.parse(localStorage.getItem('user')) || {
+        commonReginId: '', //当前登录人员的地区ID
+        commonReginName: '', //当前登录人员的地区名
+        postRoleId: '', //当前登录人员的角色ID
+        postRoleName: '', //当前登录人员的角色名称
+        partyId: '', //当前登录人员的ID
+        partyName: '', //当前登录人员的名称
+        token: '' //新的会话令牌
+      };
     },
     data() {
-      return {};
+      return {
+        user: null
+      };
     },
     components: {
       OrderManageMenu,
