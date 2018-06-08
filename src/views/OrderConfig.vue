@@ -111,6 +111,7 @@
                   class="condition-upload"
                   action="/commonCfgController/upload"
                   :show-file-list="false"
+                  :data="upLoadData"
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
@@ -308,6 +309,9 @@
             }
           }
         },
+        upLoadData: {
+          fileType: '2'
+        },
         dialogVisible: false,
         dislogTitle: '保存',
 
@@ -487,7 +491,6 @@
         // return isJPG && isLt2M;
       },
       orderSubmit() {
-        debugger;
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
