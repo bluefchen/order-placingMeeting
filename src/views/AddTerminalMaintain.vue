@@ -63,6 +63,7 @@
                     :file-list="offerPicList"
                     list-type="picture-card"
                     :limit= "6"
+                    :data="upLoadData"
                     :on-success="handleAvatarSuccess"
                     :on-remove="handleRemove">
                     <i class="el-icon-plus"></i>
@@ -318,7 +319,10 @@
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
-        downloadUrl: '/commonCfgController/downloadModel?modelType='
+        downloadUrl: '/commonCfgController/downloadModel?modelType=',
+        upLoadData: {
+          fileType: '2'
+        }
       }
     },
     methods: {

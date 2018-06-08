@@ -310,7 +310,7 @@
           }
         },
         upLoadData: {
-          fileType: '2'
+          fileType: '1'
         },
         dialogVisible: false,
         dislogTitle: '保存',
