@@ -336,7 +336,6 @@
           border-right: 1px solid #e5e5e5;
           line-height: 22px;
           white-space: nowrap;
-          text-align: right;
         }
         .order-type-input {
           height: 21px;

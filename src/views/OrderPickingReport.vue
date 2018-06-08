@@ -70,7 +70,7 @@
           label: '省份',
           prop: 'commonRegionName'
         }, {
-          label: '订单数量',
+          label: '订单总量',
           prop: 'offerQty'
         }, {
           label: '订单提货上报量',
@@ -85,11 +85,11 @@
               },
               methods: {
                 qryOrderPickupInfo(item) {
-                  // this.$router.push({
-                  //   path: '/order/orderFormDetail',
-                  //   query: {
-                  //   }
-                  // });
+                  this.$router.push({
+                    path: '/order/orderPickingDetail',
+                    query: {
+                    }
+                  });
                 },
               }
             });
