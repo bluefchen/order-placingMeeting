@@ -63,7 +63,7 @@
                     :file-list="offerPicList"
                     list-type="picture-card"
                     :limit= "6"
-                    :data="upLoadData"
+                    :data="upLoadItem"
                     :on-success="handleAvatarSuccess"
                     :on-remove="handleRemove">
                     <i class="el-icon-plus"></i>
@@ -320,7 +320,7 @@
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
         downloadUrl: '/commonCfgController/downloadModel?modelType=',
-        upLoadData: {
+        upLoadItem: {
           fileType: '2'
         }
       }
