@@ -1336,11 +1336,11 @@ Mock.mock(new RegExp('/systemUserController/querySystemMenuList'), {
   msg: null, //失败信息
   error: null,
   'data|3': [{
-    "dispTypeName": "@cword(6)",
-    "menus|6": [{
-      "systemMenuId": "@id",
-      "systemMenuName": "@cword(6)",
-      "isHold|+1": ['Y', 'N']// 当前角色是否拥有,Y - 具有,N - 不具有
+    'dispTypeName': '@cword(6)',
+    'menus|6': [{
+      'systemMenuId': '@id',
+      'systemMenuName': '@cword(6)',
+      'isHold|+1': ['Y', 'N']// 当前角色是否拥有,Y - 具有,N - 不具有
     }]
   }]
 });
@@ -1526,7 +1526,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupInfo'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-100': 100, //总记录条数 
+    'totalSize|1-100': 100, //总记录条数
     'rows|5-10': [{
       'opmOrderId': '@id',
       'opMeetingId': '@id',
@@ -1552,6 +1552,35 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupInfo'), {
 });
 //87、终端下架接口
 Mock.mock(new RegExp('/orderPlacingMeetingController/deleteOffer'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'resultMsg': '成功',
+    'resultCode': '0'
+  }
+});
+//88、运营商人员登录初始化接口
+Mock.mock(new RegExp('/systemUserController/loginInitialize'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    commonReginId: '@id',
+    commonReginName: '@province',
+    postRoleId: '@id',
+    postRoleName: '@cword(4, 6)',
+    partyId: '@id',
+    partyName: '@cname',
+    token: '231423SDFFG4545HRTH56U'
+  }
+});
+//89、退出登录接口
+Mock.mock(new RegExp('/systemUserController/loginOut'), {
   rsphead: 's',
   success: 'true', //是否成功true/失败false
   code: null,

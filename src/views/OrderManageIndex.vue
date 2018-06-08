@@ -92,6 +92,13 @@
   export default {
     name: 'OrderManageIndex',
     created() {
+      this.query = this.$route.query;
+      // this.$post('/systemUserController/loginInitialize', {
+      //   userId: _.get(this.query, 'userId'),
+      //   token: _.get(this.query, 'token')
+      // }).then(data => {
+      //   localStorage.setItem('user', JSON.stringify(data));
+      // });
       this.queryOrderPlacingMeetingList();
     },
     data() {
@@ -106,14 +113,11 @@
           value: 1002,
           label: '已结束'
         }],
-
         orderQueryData: {
           opmName: '',
           statusCd: ''
         },
-
         orderPlacingMeetingList: [],
-
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -318,7 +322,7 @@
         bottom: 0;
         width: 100px;
         height: 21px;
-        padding-left: 81px;
+        padding-left: 100px;
         border: 1px solid #e5e5e5;
         border-bottom: none;
         .order-type-text {

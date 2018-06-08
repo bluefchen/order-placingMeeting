@@ -4,10 +4,6 @@
     <div class="toper">
       <div class="box-1200 top-header fn-clear">
         <img src="@/assets/images/small-logo.png" class="fn-left">
-        <!--<ul class="iterms fn-left">-->
-          <!--<li>订货会管理</li>-->
-          <!--<li>基础数据维护</li>-->
-        <!--</ul>-->
         <el-menu class="iterms fn-left" :default-active="$route.path" mode="horizontal" router>
           <el-menu-item index="/orderManage/orderManageIndex">订购会管理</el-menu-item>
           <el-menu-item index="/orderManage/terminalMaintain">基础数据维护</el-menu-item>
