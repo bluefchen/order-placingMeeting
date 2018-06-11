@@ -50,12 +50,12 @@
         </el-row>
         <el-row :gutter="20">
           <!-- 当为管理人员时，此项不存在 -->
-          <el-col :span="8" :offset="2">
-            <div class="condition-item">
-              <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
-              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
-            </div>
-          </el-col>
+          <!--<el-col :span="8" :offset="2">-->
+            <!--<div class="condition-item">-->
+              <!--<label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>-->
+              <!--<ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>-->
+            <!--</div>-->
+          <!--</el-col>-->
         </el-row>
         <el-row :gutter="20">
           <el-col :span="8" :offset="2">
@@ -75,19 +75,19 @@
         </el-row>
       </div>
       <div class="foot-btn">
-        <div>
-          <!--新增-->
-          <el-button size="small" type="success" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>
-          <!--修改-->
-          <el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>
-          <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
-        </div>
-        <!--当身份为管理人员时-->
         <!--<div>-->
-          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
-          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>-->
+          <!--&lt;!&ndash;新增&ndash;&gt;-->
+          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>-->
+          <!--&lt;!&ndash;修改&ndash;&gt;-->
+          <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>-->
           <!--<el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>-->
         <!--</div>-->
+        <!--当身份为管理人员时-->
+        <div>
+          <el-button size="small" type="success" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>
+          <el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>
+          <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
+        </div>
       </div>
     </div>
   </div>
@@ -99,6 +99,7 @@
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import AreaSelect from '@/components/AreaSelect';
+  import { md5 } from 'md5js';
 
   export default {
     name: 'AddSupplierData',
@@ -144,7 +145,7 @@
             userType: this.usermanData.userType,
             relaId: this.usermanData.relaId,//归属商户
             systemUserCode: this.usermanData.systemUserCode,//用户账号
-            password: this.usermanData.password,
+            password: md5(this.usermanData.password, 32),
             name: this.usermanData.name,
             linktelenumber: this.usermanData.linktelenumber,
             remark: this.usermanData.remark,
@@ -194,7 +195,8 @@
       Input,
       Select,
       ChooseMerchants,
-      AreaSelect
+      AreaSelect,
+      md5
     }
   }
 </script>
