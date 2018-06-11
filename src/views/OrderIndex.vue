@@ -36,6 +36,7 @@
   export default {
     name: 'OrderIndex',
     created() {
+      window.scroll(0, 0);
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
@@ -51,7 +52,7 @@
           tabLabel: '参会供货商',
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
             width: 140
           }, {
             label: '供应商名称',
@@ -85,7 +86,7 @@
           tabLabel: '参会零售商',
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
             width: 140
           }, {
             label: '零售商名称',
