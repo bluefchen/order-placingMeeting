@@ -592,7 +592,7 @@ Mock.mock(new RegExp('/commonCfgController/upload'), {
   'msg': null,
   'error': false,
   'data': {
-    'url': ''
+    'url|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
   }
 });
 

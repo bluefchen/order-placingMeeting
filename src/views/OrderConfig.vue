@@ -86,6 +86,9 @@
                   type="date"
                   size="small"
                   placeholder="选择日期"
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  :picker-options="beginDate"
                   :editable="false">
                 </el-date-picker>
               </div>
@@ -98,6 +101,9 @@
                   type="date"
                   size="small"
                   placeholder="选择日期"
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  :picker-options="beginDate"
                   :editable="false">
                 </el-date-picker>
               </div>
@@ -309,6 +315,14 @@
             }
           }
         },
+        beginDate: {
+          disabledDate: (time) => {
+            let beginDateVal = new Date();
+            if (beginDateVal) {
+              return moment(time).format('YYYY-MM-DD') < moment(beginDateVal).format('YYYY-MM-DD');
+            }
+          }
+        },
         upLoadData: {
           fileType: '1'
         },
@@ -471,7 +485,7 @@
       },
       //图片上传
       handleAvatarSuccess(res, file) {
-        this.orderPlacingMeeting.logoUrl = URL.createObjectURL(file.raw);
+        this.orderPlacingMeeting.logoUrl = res.data.url;
       },
       beforeAvatarUpload(file) {
         let isImg;
