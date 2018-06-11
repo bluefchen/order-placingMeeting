@@ -127,6 +127,7 @@
   export default {
     name: 'TerminalQuery',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         this.brandList = rsp;
       });
@@ -279,7 +280,7 @@
       queryOpMeetingOfferList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOpMeetingOfferList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.categoryItem.isCentman,
           offerNameOrCode: this.categoryItem.offerNameOrCode,
           isSpecial: this.categoryItem.isSpecial,
