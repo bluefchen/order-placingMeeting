@@ -1,5 +1,5 @@
 <template>
-  <div class="order_pickup-data">
+  <div class="setailer-data-maintain">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info"></div>
@@ -341,7 +341,7 @@
 </script>
 
 <style lang="less">
-  .order_pickup-data {
+  .setailer-data-maintain {
 
     /*中间背景图片*/
     .img-bg {
