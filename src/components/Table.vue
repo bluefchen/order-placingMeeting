@@ -1,6 +1,6 @@
 <template>
   <div class="v_table">
-    <el-table :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" size="small"
+    <el-table :size="size" :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange"
               :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange" tooltip-effect="light">
       <el-table-column v-if="isIndex" type="index" label="序号" width="50"></el-table-column>
       <el-table-column v-if="isSelection" type="selection" width="50"></el-table-column>
@@ -22,6 +22,10 @@
   export default {
     name: 'Table',
     props: {
+      size: {
+        type: String,
+        default: 'mini'
+      },
       stripe: {
         type: Boolean,
         default: true
