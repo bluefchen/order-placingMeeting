@@ -14,7 +14,9 @@
         <div v-for="item in systemMenuAllList">
           <p class="p-titl">{{item.dispTypeName}}</p>
           <ul class="menu-list fn-clear">
-            <li class="fn-left" v-for="it in item.menus" :class="{'selected': it.isHold === 'Y'}" @click="onSelectClick(it)">{{it.systemMenuName}}</li>
+            <li class="fn-left" v-for="it in item.menus" :class="{'selected': it.isHold === 'Y'}"
+                @click="onSelectClick(it)">{{it.systemMenuName}}
+            </li>
           </ul>
         </div>
       </div>
@@ -35,49 +37,50 @@
   export default {
     name: 'MenuManage',
     created() {
-      if(this.$route.query.roleInfo){
+      if (this.$route.query.roleInfo) {
         this.roleData = this.$route.query.roleInfo;
-      };
+      }
+      ;
       this.querySystemMenuList();
     },
     data() {
       return {
         systemMenuAllList: [],//所有菜单列表
-        newMenu: [],
         roleData: ''
       }
     },
     methods: {
       //查询所有菜单
-      querySystemMenuList(){
+      querySystemMenuList() {
         this.$post('/systemUserController/querySystemMenuList', {
           postRoleId: _.get(this.roleData, 'postRoleId') || ''
         }).then((rsp) => {
           this.systemMenuAllList = rsp;
         });
       },
-      onSelectClick(it){
-        if(it.isHold === 'Y'){
+      onSelectClick(it) {
+        if (it.isHold === 'Y') {
           it.isHold = 'N';
-        }else{
+        } else {
           it.isHold = 'Y';
         }
       },
-      menuSave(){
-        _.map(this.systemMenuAllList, function(item){
-          _.map(item.menus, function(it){
-            if(it.isHold === 'Y'){
-              this.newMenu.push(it);
+      menuSave() {
+        let newMenu = [];
+        _.map(this.systemMenuAllList, function (item) {
+          _.map(item.menus, function (it) {
+            if (it.isHold === 'Y') {
+              newMenu.push(it);
             }
           })
         });
         this.$post('/systemUserController/updateRoleShortuctMenu', {
-          postRoleId: this.roleData.postRoleId,
-          systemMenuId: this.newMenu,
+          postRoleId: this.roleData.postRoleId || 'id',
+          systemMenuId: newMenu,
         }).then((rsp) => {
-          if(rsp){
+          if (rsp) {
             this.systemMenuAllList = rsp;
-          }else{
+          } else {
             this.systemMenuAllList = [];
           }
         });
@@ -104,50 +107,50 @@
       height: 28px;
       margin: 15px 0 8px;
       line-height: 28px;
-      .title{
+      .title {
         font-size: 18px;
       }
     }
-    .role-man{
+    .role-man {
       text-align: left;
-      .iconfont{
+      .iconfont {
         margin: 0 15px;
         color: #f7626f;
         font-size: 18px;
       }
     }
-    .role-setup-info{
+    .role-setup-info {
       padding: 12px 15px 60px;
       border: 1px solid #dfdfdf;
-      .p-titl{
-        font-size:16px;
+      .p-titl {
+        font-size: 16px;
         line-height: 50px;
       }
-      .menu-list{
+      .menu-list {
         padding-bottom: 5px;
         border-bottom: 1px solid #dfdfdf;
-        &:last-child{
+        &:last-child {
           border-bottom: 0;
         }
-        li{
+        li {
           min-width: 70px;
-          height:30px;
+          height: 30px;
           line-height: 30px;
           padding: 0 20px;
-          margin:0 18px 16px 0;
-          border:1px solid #dfdfdf;
+          margin: 0 18px 16px 0;
+          border: 1px solid #dfdfdf;
           border-radius: 3px;
           background: #fafafa;
           text-align: center;
-          &.selected{
+          &.selected {
             position: relative;
             border: 1px solid #f01919;
             overflow: hidden;
-            &::after{
+            &::after {
               position: absolute;
               content: '';
               bottom: -1px;
-              right:0;
+              right: 0;
               width: 32px;
               height: 31px;
               background: url("../assets/images/icon-menuchecked.png") no-repeat;
@@ -156,7 +159,7 @@
         }
       }
     }
-    .foot-btn{
+    .foot-btn {
       width: 100%;
       padding: 24px 0;
       background: #fafafa;
