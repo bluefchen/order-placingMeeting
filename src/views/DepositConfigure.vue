@@ -61,11 +61,15 @@
             </ul>
             <div class="steps">
               <!-- 定金 -->
-              <div class="second-step fn-clear" v-show="depositType == 2">
-                <label class="select-wrds fn-left">定金比例配置：</label>
-                <Input class="fn-left" :value.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent" />
-                <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
-              </div>
+              <el-form :model="depositInfoList" :rules="rules" ref="depositInfoList" label-width="100px" class="demo-ruleForm" v-show="depositType == 2">
+                <el-form-item prop="depositProportion">
+                  <div class="second-step fn-clear">
+                    <label class="select-wrds fn-left">定金比例配置：</label>
+                    <Input class="fn-left" :value.number.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent" />
+                    <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
+                  </div>
+                </el-form-item>
+              </el-form>
               <!-- 诚意金 -->
               <div class="third-step" v-show="depositType == 3">
                 <div class="model-list-table">
@@ -100,6 +104,22 @@
       this.queryOpmDepositInfo();
     },
     data() {
+      var checkProportion = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('不能为空'));
+        }
+        setTimeout(() => {
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+          } else {
+            if (value < 1 && value > 100) {
+              callback(new Error('请输入1-100之间的数字'));
+            } else {
+              callback();
+            }
+          }
+        }, 1000);
+      };
       return {
         editshow: true,
         depositType: '',
@@ -109,6 +129,11 @@
           depositProportion:'',
           opmRetailerDepositList: []
         }, //查询返回的数据
+        rules: {
+          linktelenumber: [
+            { validator: checkProportion, trigger: 'blur' },
+          ]
+        },
         opmRetailerUpate: [], //诚意金修改后要提交的数据
         tableTitle: [{
           label: '零售商编码',
