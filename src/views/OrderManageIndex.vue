@@ -32,52 +32,7 @@
           <button @click="compileOrder('新增')"><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
         </div>
       </div>
-
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="40%">订购会名称</th>
-          <th width="11%">省份</th>
-          <th width="11%">参与供货商</th>
-          <th width="11%">参与零售商</th>
-          <th width="11%">订购会状态</th>
-          <th width="16%">操作</th>
-        </tr>
-        </thead>
-      </table>
-      <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in orderPlacingMeetingList">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color">订购会编码：{{item.opMeetingNo}}</span>
-            <span class="fn-right text-right">
-              <button class="btn-del" v-show="item.statusCd === '1000'" @click="delOrder(item)"><span class="iconfont">&#xe610;</span></button>
-            </span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="dll wid40 fn-left">
-              <div class="device-wrap fn-clear" @click="detailOrder(item)">
-                <div class="device-pic fn-left">
-                  <img :src="item.logoUrl" alt="">
-                </div>
-                <div class="device-info fn-right">
-                  <p class="name">{{item.opmName}}</p>
-                  <p class="date">{{item.startDt}}-{{item.endDt}}</p>
-                </div>
-              </div>
-            </dl>
-            <dl class="dll wid11 fn-left"><p>{{item.commonRegionName}}</p></dl>
-            <dl class="dll wid11 fn-left"><p>{{item.supplierCnt}}家</p></dl>
-            <dl class="dll wid11 fn-left"><p>{{item.retailerCnt}}家</p></dl>
-            <dl class="dll wid11 fn-left"><p class="device-type"
-                                             :class="{'not-start':item.statusCd === '1000', 'underway':item.statusCd === '1001', 'done':item.statusCd === '1002'}">
-              {{item.statusCd | statusCdFilter}}</p></dl>
-            <dl class="dll wid16 fn-left">
-              <button class="updown-btn" v-show="item.statusCd === '1000'" @click="compileOrder('修改', item)">编辑订购会
-              </button>
-            </dl>
-          </div>
-        </li>
-      </ul>
+      <TableList :tableTitle="tableTitle" :tableHeader="tableHeader" :tableData="orderPlacingMeetingList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -88,6 +43,7 @@
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'OrderManageIndex',
@@ -102,6 +58,130 @@
     },
     data() {
       return {
+        tableHeader: [{
+          label: '订购会编码',
+          prop: 'opMeetingNo',
+          colSpan: 14,
+          render: (h, params) => {
+            return h({
+              template: '<p>订购会编码：{{data.row.opMeetingNo}}</p>',
+              data: function () {
+                return {
+                  data: params,
+                }
+              },
+              methods: {
+                orderDetail: (index, item) => {
+                  this.orderDetail(index, item)
+                }
+              }
+            })
+          }
+        },{
+          label: '操作',
+          prop: 'operation',
+          colSpan: 10,
+          render: (h, params) => {
+            return h({
+              template: `<div class="text-right"><button @click="delOrder(data.row)" class="btn-del" v-show="data.row.statusCd === '1000'""><span class="iconfont">&#xe610;</span></button></div>`,
+              data: function () {
+                return {
+                  data: params,
+                }
+              },
+              methods: {
+                delOrder: (item) => {
+                  this.delOrder(item)
+                }
+              }
+            })
+          }
+        }],
+        tableTitle: [{
+          label: '订购会名称',
+          prop: 'opmName',
+          colSpan: 8,
+          render: (h, params) => {
+            return h({
+              template: `
+              <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
+                <div class="device-pic fn-left">
+                  <img :src="data.row.logoUrl" alt="">
+                </div>
+                <div class="device-info fn-right">
+                  <p class="name">{{data.row.opmName}}</p>
+                  <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
+                </div>
+              </div>
+              `,
+              data: function () {
+                return {
+                  data: params
+                }
+              },
+              methods: {
+                detailOrder(item) {
+                  localStorage.setItem('opMeeting', JSON.stringify(item));
+                  this.$router.push({path: '/order/orderIndex'});
+                }
+              }
+            })
+          }
+        }, {
+          label: '省份',
+          prop: 'commonRegionName',
+          colSpan: 3
+        }, {
+          label: '参与供货商',
+          prop: 'supplierCnt',
+          colSpan: 3
+        }, {
+          label: '参与零售商',
+          prop: 'retailerCnt',
+          colSpan: 3
+        }, {
+          label: '订购会状态',
+          prop: 'statusCd',
+          colSpan: 3,
+          render: (h, params) => {
+            return h({
+              template: `
+              <div>
+                <p class="device-type not-start" v-if="data.row.statusCd === '1000'">未开始</p>
+                <p class="device-type underway" v-if="data.row.statusCd === '1001'">进行中</p>
+                <p class="device-type done" v-if="data.row.statusCd === '1002'">已完成</p>
+              </div>
+              `,
+              data: function () {
+                return {
+                  data: params,
+                }
+              }
+            })
+          }
+        }, {
+          label: '操作',
+          prop: 'operation',
+          colSpan: 4,
+          render: (h, params) => {
+            return h({
+              template: `<button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>`,
+              data: function () {
+                return {
+                  data: params,
+                }
+              },
+              methods: {
+                compileOrder: (title, item) => {
+                  this.compileOrder(title, item)
+                }
+              }
+            })
+          }
+        }],
+        
+        tableData: [],//查询返回的数据
+
         orderTypeList: [{
           value: 1000,
           label: '未开始'
@@ -187,7 +267,8 @@
     components: {
       TitlePlate,
       Table,
-      Pagination
+      Pagination,
+      TableList
     },
     filters: {
       statusCdFilter: function (value) {
@@ -358,21 +439,6 @@
       }
     }
 
-    .buttons .btns {
-      padding: 0 16px;
-      margin-left: 2px;
-      border: 0;
-      background-color: #fa0000;
-      color: #fff;
-      font-size: 12px;
-      border-radius: 3px;
-      line-height: 28px;
-      cursor: pointer;
-    }
-    .buttons .btns:hover {
-      background-color: #e20606;
-    }
-
     .table thead tr {
       height: 40px;
       background-color: #efefef;
@@ -385,158 +451,6 @@
     }
     .table thead tr th {
       text-align: center;
-    }
-
-    .li-list {
-      margin-top: 16px;
-      border: 1px solid #e0e0e0;
-      &:hover {
-        border: 1px solid #f00;
-      }
-    }
-    .p-line {
-      height: 35px;
-      line-height: 35px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #e0e0e0;
-      .date-color {
-        color: #807e7e;
-      }
-      .btn-del {
-        background: none;
-        border: none;
-        cursor: pointer;
-        .iconfont {
-          color: #8f8f8f;
-          font-size: 16px;
-          padding: 0;
-        }
-        &:hover {
-          .iconfont {
-            color: #f82134;
-            font-size: 16px;
-            padding: 0;
-          }
-        }
-      }
-      span {
-        width: calc(33% - 20px);
-        padding: 0 10px;
-        b {
-          margin-right: 15px;
-        }
-      ;
-      }
-    }
-    .tabs dl {
-      height: 90px;
-
-    }
-    .tabs .dll {
-      line-height: 90px;
-      text-align: center;
-    }
-    .wid40 {
-      width: 40%;
-    }
-    .wid16 {
-      width: 16%;
-    }
-    .wid11 {
-      width: 11%;
-    }
-
-    .device-type {
-      margin: 21px auto 0;
-      width: 44px;
-      height: 44px;
-      line-height: 44px;
-      border: 2px solid;
-      border-radius: 50%;
-      &.not-start {
-        background: #ffecec;
-        border-color: #f00;
-        color: #f00;
-      }
-      &.underway {
-        background: #eeffec;
-        border-color: #47c044;
-        color: #47c044;
-      }
-      &.done {
-        background: #f8f8f8;
-        border-color: #bcbcbc;
-        color: #bcbcbc;
-      }
-    }
-
-    .updown-btn {
-      padding: 2px 5px;
-      background: #ffffff;
-      border: 1px solid #d9d9d9;
-      border-radius: 3px;
-    }
-    .updown-btn:hover {
-      color: #f82134;
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .red {
-      color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
-    }
-    .p-line span {
-      color: #aaa;
-    }
-    .p-line span b {
-      color: #333;
-    }
-
-    .device-wrap {
-      padding: 10px;
-      text-align: left;
-      cursor: pointer;
-      .device-pic {
-        width: 85px;
-        height: 71px;
-        box-sizing: border-box;
-        border: 1px solid #e5e5e5;
-        img {
-          display: block;
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .device-info {
-        box-sizing: border-box;
-        width: calc(100% - 85px);
-        padding-top: 6px;
-        padding-left: 15px;
-        line-height: 30px;
-        color: #333;
-        .name {
-          height: 26px;
-          line-height: 26px;
-          color: #050505;
-          font-size: 14px;
-          font-weight: bold;
-          &:hover {
-            color: #ed0000;
-            text-decoration: underline;
-            cursor: pointer;
-          }
-        }
-      }
     }
 
   }
