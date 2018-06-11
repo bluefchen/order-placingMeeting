@@ -184,9 +184,6 @@
           this.total = rsp.totalSize;
         })
       },
-      exportReport() {
-        window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
-      },
       pageChanged(curPage) {
         this.queryOpmOrderOfferPickupReport(curPage);
       }

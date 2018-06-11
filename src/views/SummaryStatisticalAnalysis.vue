@@ -100,7 +100,7 @@
         })
       },
       exportReport() {
-        window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
+        location.href = 'http://127.0.0.1/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
       },
       pageChanged(curPage) {
         this.queryOpmOrderPickupReport(curPage);
