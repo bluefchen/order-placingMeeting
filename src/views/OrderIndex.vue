@@ -152,7 +152,7 @@
   /*中间背景图片*/
   .img-bg {
     width: 100%;
-    height: 341px;
+    height: 250px;
     background: #8252fe url('../assets/images/index-bg.jpg') no-repeat center 0;
   }
 
@@ -170,7 +170,7 @@
 
   .img-bg .info .activity {
     width: 506px;
-    margin: 62px 0 0 74px;
+    margin: 18px;
     line-height: 34px;
     font-size: 16px;
     color: #0053a5;

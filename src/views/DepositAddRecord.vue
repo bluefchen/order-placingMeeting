@@ -260,13 +260,12 @@
   /*中间背景图片*/
   .img-bg {
     width: 100%;
-    height: 200px;
-    background: #e4273f;
+    height: 170px;
+    background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat center center;
     .info {
       width: 1036px;
-      height: 200px;
+      height: 170px;
       margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
       overflow: hidden;
       .p-titl {
         margin: 62px 0 0 0;
