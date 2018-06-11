@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order-index">
     <!-- 中间背景图片 (首页和其他页面不一样)-->
     <div class="img-bg">
       <div class="info">
@@ -36,6 +36,7 @@
   export default {
     name: 'OrderIndex',
     created() {
+      window.scroll(0, 0);
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
@@ -51,7 +52,7 @@
           tabLabel: '参会供货商',
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
             width: 140
           }, {
             label: '供应商名称',
@@ -85,7 +86,7 @@
           tabLabel: '参会零售商',
           tableTitle: [{
             label: '省份',
-            prop: 'province',
+            prop: 'commonRegionName',
             width: 140
           }, {
             label: '零售商名称',
@@ -149,88 +150,90 @@
 </script>
 
 <style scoped lang="less">
-  /*中间背景图片*/
-  .img-bg {
-    width: 100%;
-    height: 250px;
-    background: #8252fe url('../assets/images/index-bg.jpg') no-repeat center 0;
-  }
+  .order-index {
+    /*中间背景图片*/
+    .img-bg {
+      width: 100%;
+      height: 250px;
+      background: #8252fe url('../assets/images/index-bg.jpg') no-repeat center 0;
+    }
 
-  .img-bg .info {
-    width: 1180px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
+    .img-bg .info {
+      width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
 
-  .img-bg .info .p-titl {
-    margin: 82px 0 0 74px;
-    font-size: 30px;
-    color: #fcfdff;
-  }
+    .img-bg .info .p-titl {
+      margin: 82px 0 0 74px;
+      font-size: 30px;
+      color: #fcfdff;
+    }
 
-  .img-bg .info .activity {
-    width: 506px;
-    margin: 18px;
-    line-height: 34px;
-    font-size: 16px;
-    color: #0053a5;
-    text-align: center;
-  }
+    .img-bg .info .activity {
+      width: 506px;
+      margin: 18px;
+      line-height: 34px;
+      font-size: 16px;
+      color: #0053a5;
+      text-align: center;
+    }
 
-  /*中间背景图片*/
+    /*中间背景图片*/
 
-  .content {
-    width: 100%;
-  }
+    .content {
+      width: 100%;
+    }
 
-  .mid-cnt {
-    width: 1200px;
-    margin: 0 auto;
-  }
+    .mid-cnt {
+      width: 1200px;
+      margin: 0 auto;
+    }
 
-  .mid-cnt .tit {
-    position: relative;
-    height: 46px;
-    border-bottom: 1px solid #d7d7d7;
-    font-size: 16px;
-    text-align: center;
-  }
+    .mid-cnt .tit {
+      position: relative;
+      height: 46px;
+      border-bottom: 1px solid #d7d7d7;
+      font-size: 16px;
+      text-align: center;
+    }
 
-  .mid-cnt .tit span {
-    position: relative;
-    display: block;
-    width: 82px;
-    margin: 0 auto;
-    line-height: 46px;
-  }
+    .mid-cnt .tit span {
+      position: relative;
+      display: block;
+      width: 82px;
+      margin: 0 auto;
+      line-height: 46px;
+    }
 
-  .mid-cnt .tit span:after {
-    position: absolute;
-    content: '';
-    bottom: -2px;
-    left: 13px;
-    width: 58px;
-    height: 4px;
-    background-color: #ff0404;
-  }
+    .mid-cnt .tit span:after {
+      position: absolute;
+      content: '';
+      bottom: -2px;
+      left: 13px;
+      width: 58px;
+      height: 4px;
+      background-color: #ff0404;
+    }
 
-  .cnt-info {
-    width: 1084px;
-    margin: 16px auto;
-  }
+    .cnt-info {
+      width: 1084px;
+      margin: 16px auto;
+    }
 
-  .cnt-info label {
-    display: block;
-    line-height: 28px;
-    text-indent: 32px;
-    font-size: 14px;
-  }
+    .cnt-info label {
+      display: block;
+      line-height: 28px;
+      text-indent: 32px;
+      font-size: 14px;
+    }
 
-  .red {
-    color: #ff0404;
-  }
+    .red {
+      color: #ff0404;
+    }
 
-  .stores {
-    margin-top: 42px;
+    .stores {
+      margin-top: 42px;
+    }
   }
 </style>
