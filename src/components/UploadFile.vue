@@ -72,7 +72,7 @@
         })
       },
       download() {
-        window.open(this.downloadUrl);
+        location.href = this.downloadUrl;
       }
     }
   }

@@ -277,7 +277,7 @@
       },
       //按机型导出
       exportOpmOrderPickupReportByModel(){
-        window.open('/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId);
+        location.href = 'http://127.0.0.1/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupReportByModel(curPage);
@@ -299,7 +299,7 @@
       },
       //按品牌导出
       exportOpmOrderPickupReportByBrand(){
-        window.open('/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd);
+        location.href = 'http://127.0.0.1/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
       },
       brandPageChanged(curPage) {
         this.queryOpmOrderPickupReportByBrand(curPage);
@@ -321,7 +321,7 @@
       },
       //按商户导出
       exportOpmOrderPickupReportByBusi(){
-        window.open('/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName);
+        location.href = 'http://127.0.0.1/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
       },
       busiPageChanged(curPage) {
         this.qryOpmOrderPickupReportByBusi(curPage);
@@ -354,14 +354,13 @@
     /*中间背景图片*/
     .img-bg {
       width: 100%;
-      height: 200px;
-      background: #e4273f;
+      height: 170px;
+      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat center center;
     }
     .img-bg .info {
       width: 1036px;
-      height: 200px;
+      height: 170px;
       margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
       overflow: hidden;
     }
     .img-bg .info .p-titl {

@@ -100,7 +100,7 @@
         })
       },
       exportReport() {
-        window.open('/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId);
+        location.href = 'http://127.0.0.1/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
       },
       pageChanged(curPage) {
         this.queryOpmOrderPickupReport(curPage);
@@ -122,14 +122,13 @@
     /*中间背景图片*/
     .img-bg {
       width: 100%;
-      height: 200px;
-      background: #e4273f;
+      height: 170px;
+      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat center center;
     }
     .img-bg .info {
       width: 1036px;
-      height: 200px;
+      height: 170px;
       margin: 0 auto;
-      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat right bottom;
       overflow: hidden;
     }
     .img-bg .info .p-titl {

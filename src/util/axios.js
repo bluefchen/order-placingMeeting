@@ -2,12 +2,11 @@ import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
 import qs from 'qs'
-// import './mockdb'
-
+import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-// axios.defaults.baseURL = 'http://192.168.74.17:9086/';
+axios.defaults.baseURL = 'http://192.168.74.17:9086/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
   'token': _.get(user, 'token')
@@ -39,7 +38,7 @@ axios.interceptors.response.use(response => {
     loadingInstance.close();
   }, 500);
   if (error.response.status === 504 || error.response.status === 404) {
-    Message.error({message: '服务器被吃了⊙﹏⊙∥'});
+    Message.error({message: '服务器出小差!'});
   } else if (error.response.status === 403) {
     Message.error({message: '权限不足,请联系管理员!'});
   } else {

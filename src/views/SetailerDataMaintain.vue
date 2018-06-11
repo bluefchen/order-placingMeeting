@@ -1,5 +1,5 @@
 <template>
-  <div class="order_pickup-data">
+  <div class="setailer-data-maintain">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info"></div>
@@ -341,17 +341,17 @@
 </script>
 
 <style lang="less">
-  .order_pickup-data {
+  .setailer-data-maintain {
 
     /*中间背景图片*/
     .img-bg {
       width: 100%;
-      height: 401px;
+      height: 250px;
       background: #6e42ef;
     }
     .img-bg .info {
       width: 1200px;
-      height: 401px;
+      height: 250px;
       margin: 0 auto;
       background: #6e42ef url('../assets/images/manage-bg.jpg') no-repeat center bottom;
       overflow: hidden;
