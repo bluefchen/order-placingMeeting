@@ -133,6 +133,7 @@
   export default {
     name: 'OrderCompositeQuery',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmOrderSubmit();
     },
     data() {
@@ -179,7 +180,7 @@
       queryOpmOrderSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.orderQueryData.isCentman,
           offerNameOrCode: this.orderQueryData.offerNameOrCode,
           opmOrderNo: this.orderQueryData.opmOrderNo,

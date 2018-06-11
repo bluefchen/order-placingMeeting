@@ -10,8 +10,8 @@
           <el-menu-item index="/orderManage/usermanManage">系统维护</el-menu-item>
         </el-menu>
         <div class="user fn-right">
-          <div class="select-info"><span class="name">运营商A先生，您好！</span><i class="iconfont">&#xe655;</i></div>
-          <a href="javasript:void(0)">退出</a>
+          <span class="area">{{user.commonReginName}}</span>
+          <Dropdown :role="user.postRoleName" :name="user.partyName"/>
         </div>
       </div>
     </div>
@@ -28,34 +28,60 @@
 
 <script>
   import OrderMenu from '@/components/OrderMenu';
+  import Dropdown from '@/components/Dropdown';
 
   export default {
     name: 'Order',
     created() {
+      this.user = JSON.parse(localStorage.getItem('user')) || {
+        commonReginId: '', //当前登录人员的地区ID
+        commonReginName: '', //当前登录人员的地区名
+        postRoleId: '', //当前登录人员的角色ID
+        postRoleName: '', //当前登录人员的角色名称
+        partyId: '', //当前登录人员的ID
+        partyName: '', //当前登录人员的名称
+        token: '' //新的会话令牌
+      };
     },
     data() {
-      return {};
+      return {
+        user: null
+      };
     },
     components: {
-      OrderMenu
+      OrderMenu,
+      Dropdown
     }
   }
 </script>
 
 <style scoped lang="less">
-  /*顶部*/
   .toper {
     width: 100%;
     border-bottom: 2px solid #ff0404;
-  }
-
-  .top-header {
-    height: 36px;
-    line-height: 36px;
-  }
-
-  .top-header img {
-    margin: 5px 130px 0 0;
+    .top-header {
+      height: 36px;
+      line-height: 36px;
+      img {
+        margin: 5px 130px 0 0;
+      }
+      .user {
+        height: 22px;
+        margin-top: 6px;
+        line-height: 22px;
+        .area {
+          display: inline-block;
+          height: 22px;
+          padding: 0 10px;
+          background-color: #f60e0e;
+          border-radius: 12px;
+          color: #fff;
+        }
+        .el-dropdown {
+          color: #000;
+        }
+      }
+    }
   }
 
   .iterms li {
@@ -67,24 +93,6 @@
     color: #000;
   }
 
-  .user a {
-    float: right;
-    width: 38px;
-    height: 20px;
-    line-height: 20px;
-    padding-left: 12px;
-    margin-top: 9px;
-    color: #000;
-    border-left: 1px solid #dadada;
-    text-decoration: none;
-  }
-
-  .select-info {
-    float: left;
-    padding: 0 10px;
-  }
-
-  /*头部切换*/
   .header {
     width: 1200px;
     height: 80px;

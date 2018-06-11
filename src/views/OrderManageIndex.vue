@@ -92,13 +92,12 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.query = this.$route.query;
-      // this.$post('/systemUserController/loginInitialize', {
-      //   userId: _.get(this.query, 'userId'),
-      //   token: _.get(this.query, 'token')
-      // }).then(data => {
-      //   localStorage.setItem('user', JSON.stringify(data));
-      // });
+      this.$post('/systemUserController/loginInitialize', {
+        userId: this.$route.query.userId,
+        token: this.$route.query.token
+      }).then((rsp) => {
+        localStorage.setItem('user', JSON.stringify(rsp));
+      });
       this.queryOrderPlacingMeetingList();
     },
     data() {
@@ -335,6 +334,7 @@
           background: #f5f5f5;
           border-right: 1px solid #e5e5e5;
           line-height: 22px;
+          text-align: right;
           white-space: nowrap;
         }
         .order-type-input {

@@ -37,6 +37,7 @@
   export default {
     name: 'ImportSpecialModel',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
     },
     data() {
       return {
@@ -142,7 +143,7 @@
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
             tableDataIsSueccess.push({
-              opMeetingId: '订购会ID',
+              opMeetingId: this.opMeetingInfo.opMeetingId,
               ...item
             })
           }

@@ -9,14 +9,14 @@ Vue.use(ElementUI);
 
 import App from './App';
 import router from './router';
+import _ from 'lodash';
+Vue.prototype._ = _;
+
 import './util/axios';
 
 import '@/assets/css/reset.css';
 import '@/assets/css/common.css';
 import '@/assets/css/quill.snow.css';
-
-import _ from 'lodash';
-Vue.prototype._ = _;
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/user') {

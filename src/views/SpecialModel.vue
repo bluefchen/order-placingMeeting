@@ -97,6 +97,7 @@
   export default {
     name: 'specialModel',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         this.brandList = rsp;
       });
@@ -334,7 +335,7 @@
       queryOpmOfferAllotList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOpmOfferAllotList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           brandCd: this.categoryItem.brandCd,
           offerModelId: this.categoryItem.offerModelId,
           isCentman: this.categoryItem.isCentman,

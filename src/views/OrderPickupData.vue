@@ -118,6 +118,7 @@
   export default {
     name: 'OrderPickupData',
     created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.qryOpmOrderPickupRecordList();
     },
     data() {
@@ -151,7 +152,7 @@
       qryOpmOrderPickupRecordList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupRecordList', {
-          opMeetingId: '订货会ID',
+          opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.orderDeliveryData.isCentman,
           offerNameOrCode: this.orderDeliveryData.offerNameOrCode,
           opmOrderNo: this.orderDeliveryData.opmOrderNo,
