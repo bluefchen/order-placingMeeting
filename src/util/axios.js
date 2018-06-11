@@ -50,7 +50,7 @@ axios.interceptors.response.use(response => {
 export function fetchPost(url, params) {
   return new Promise((resolve, reject) => {
     axios
-      .post(url, qs.stringify(params))
+      .post(url, 'param=' + JSON.stringify(params))
       .then(
         res => {
           resolve(res.data)
