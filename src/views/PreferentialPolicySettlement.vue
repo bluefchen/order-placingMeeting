@@ -1,5 +1,5 @@
 <template>
-  <div class="order_pickup-data">
+  <div class="prefer-policy-settle">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -226,7 +226,7 @@
 </script>
 
 <style scoped lang="less">
-  .order_pickup-data {
+  .prefer-policy-settle {
       /*中间背景图片*/
       .img-bg {
         width: 100%;
