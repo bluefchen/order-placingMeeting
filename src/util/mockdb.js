@@ -998,15 +998,13 @@ Mock.mock(new RegExp('/opmPolicyController/queryOpmPolicyList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalCnt|1-100': 100, //总记录条数
-    'successCnt|1-100': 100, //成功条数
-    'failCnt|1-100': 1, //失败条数
+    'totalSize|1-100': 100, //总记录条数
     'rows|10': [{
       'opMeetingId': '@id',
       'policyId': '@id',
       'policyName': '@cword(4, 6)',
-      'policyType|+1': [],
-      'policyTypeName|+1': [],
+      'policyType': '@id',
+      'policyTypeName': '@cword(4, 6)',
       'content': '@cword(80, 100)',
       'offerCodes': '@id',
       'offerNames': '@cword(4, 6)',

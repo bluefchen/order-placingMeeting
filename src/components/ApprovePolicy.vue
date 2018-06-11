@@ -44,10 +44,10 @@
         statusCd: 1,
         statusList: [{
           label: '通过',
-          value: 1
+          value: 1001
         }, {
           label: '不通过',
-          value: 0
+          value: 1002
         }],
         remark: ''
       }
@@ -60,7 +60,8 @@
         this.isShow = false;
         this.$post('/opmPolicyController/approveOpmPolicy', {
           policyId: this.data.policyId,
-          statusCd: this.statusCd
+          statusCd: this.statusCd,
+          remark: this.remark
         }).then((rsp) => {
           this.$message.success('优惠政策审批成功!');
           this.$emit('update');

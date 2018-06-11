@@ -1,5 +1,5 @@
 <template>
-  <div class="policy-manage">
+  <div class="policy-manage-page">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -20,7 +20,7 @@
 
       <!-- 搜索 -->
       <div class="box-1200 search">
-        <InputWithSelect @search="search"/>
+        <InputWithSelect @search="search" :options="searchList"/>
       </div>
 
       <div class="box-1200">
@@ -56,6 +56,13 @@
           policyType: '',
           policyName: ''
         },
+        searchList:[{
+          label: '惠普政策',
+          value: 1
+        },{
+          label: '团订政策',
+          value: 2
+        }],
         tableTitle: [{
           label: '政策名称',
           prop: 'policyName',
@@ -116,10 +123,10 @@
         this.queryOpmPolicyList();
       },
       deleteOpmPolicy(id) {
-        this.queryOpmPolicyList();
         this.$post('/opmPolicyController/deleteOpmPolicy', {
           policyId: id
         }).then((rsp) => {
+          this.$message.success('删除政策成功！');
           this.queryOpmPolicyList();
         })
       },
@@ -132,10 +139,11 @@
           curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
+          this.total = rsp.totalSize;
         })
       },
       pageChanged(curPage) {
-        this.queryOpmRetailerDepositList(curPage);
+        this.queryOpmPolicyList(curPage);
       }
     },
     components: {
@@ -148,9 +156,9 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   /*中间背景图片*/
-  .policy-manage{
+  .policy-manage-page{
     .img-bg {
       width: 100%;
       height: 170px;
@@ -183,6 +191,9 @@
     }
     .search {
       margin: 10px auto;
+    }
+    .el-select .el-input{
+      width: 100px;
     }
     .order-titl {
       height: 28px;
