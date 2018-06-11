@@ -59,31 +59,36 @@
                 <li class="select-sp fn-left" :class="depositType === 3?'on':''" @click="selectMode(3)">诚意金</li>
               </div>
             </ul>
-            <div class="steps">
-              <!-- 定金 -->
-              <el-form :model="depositInfoList" :rules="rules" ref="depositInfoList" label-width="100px" class="demo-ruleForm" v-show="depositType == 2">
-                <el-form-item prop="depositProportion">
+            <el-form :model="depositInfoList" :rules="rules" ref="depositInfoList" label-width="100px"
+                     class="demo-ruleForm">
+              <div class="steps">
+                <!-- 定金 -->
+                <el-form-item prop="depositProportion" v-show="depositType == 2">
                   <div class="second-step fn-clear">
                     <label class="select-wrds fn-left">定金比例配置：</label>
-                    <Input class="fn-left" :value.number.sync="depositInfoList.depositProportion" suffixIcon="el-icon-percent" />
+                    <Input class="fn-left" type="number" :value.sync="depositInfoList.depositProportion"
+                           suffixIcon="el-icon-percent"/>
                     <label class="warn-wrds fn-left">( 注：订单的定金比例在1%-100%之间。)</label>
                   </div>
                 </el-form-item>
-              </el-form>
-              <!-- 诚意金 -->
-              <div class="third-step" v-show="depositType == 3">
-                <div class="model-list-table">
-                  <div class="order-titl fn-clear">
-                    <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
-                    <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                <!-- 诚意金 -->
+                <div class="third-step" v-show="depositType == 3">
+                  <div class="model-list-table">
+                    <div class="order-titl fn-clear">
+                      <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
+                      <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                    </div>
+                    <Table :tableTitle="tableTitle" :tableData="tableData"/>
                   </div>
-                  <Table :tableTitle="tableTitle" :tableData="tableData"/>
                 </div>
               </div>
-            </div>
-            <div class="confirm-btn">
-              <el-button class="confirm" @click="confirm(depositType)">确定</el-button>
-            </div>
+              <el-form-item>
+                <div class="confirm-btn">
+                  <el-button type="primary" class="confirm" @click="confirm(depositType, 'depositInfoList')">确定
+                  </el-button>
+                </div>
+              </el-form-item>
+            </el-form>
           </div>
         </div>
       </div>
@@ -108,30 +113,25 @@
         if (!value) {
           return callback(new Error('不能为空'));
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 1 && value > 100) {
-              callback(new Error('请输入1-100之间的数字'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
+        ;
+        if (value < 1 || value > 100) {
+          callback(new Error('请输入1-100之间的数字'));
+        } else {
+          callback();
+        }
       };
       return {
         editshow: true,
         depositType: '',
         opMeetingInfo: [],//订货会数据
         depositInfoList: {
-          depositTypeName:'',
-          depositProportion:'',
+          depositTypeName: '',
+          depositProportion: '',
           opmRetailerDepositList: []
         }, //查询返回的数据
         rules: {
-          linktelenumber: [
-            { validator: checkProportion, trigger: 'blur' },
+          depositProportion: [
+            {validator: checkProportion, trigger: 'blur'},
           ]
         },
         opmRetailerUpate: [], //诚意金修改后要提交的数据
@@ -206,37 +206,44 @@
       selectMode(index) {
         this.depositType = index;
       },
-      confirm(type) {
-        let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-        if(opmRetailerDepositList){
-          opmRetailerDepositList.map((item) => {
-            let obj = {
-              'retailerId': item.retailerId,
-              'depositAmount': item.depositAmount
-            };
-            this.opmRetailerUpate.push(obj);
-          });
-        };
-        this.$post('/opmDepositController/updateOpmDepositInfo', {
-          opMeetingId: this.opMeetingInfo.opMeetingId,
-          provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
-          depositType: type,
-          depositProportion: this.depositInfoList.depositProportion,
-          opmRetailerDepositList: this.opmRetailerUpate
-        }).then((rsp) => {
-          this.$message.success('修改配置成功！');
-          this.queryOpmDepositInfo();
-          this.editshow = true;
-        })
-      }
-      ,
+      confirm(type, formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
+            if (opmRetailerDepositList) {
+              opmRetailerDepositList.map((item) => {
+                let obj = {
+                  'retailerId': item.retailerId,
+                  'depositAmount': item.depositAmount
+                };
+                this.opmRetailerUpate.push(obj);
+              });
+            }
+            ;
+            this.$post('/opmDepositController/updateOpmDepositInfo', {
+              opMeetingId: this.opMeetingInfo.opMeetingId,
+              provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+              depositType: type,
+              depositProportion: this.depositInfoList.depositProportion,
+              opmRetailerDepositList: this.opmRetailerUpate
+            }).then((rsp) => {
+              this.$message.success('修改配置成功！');
+              this.queryOpmDepositInfo();
+              this.editshow = true;
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
       queryOpmDepositInfo() {
         this.$post('/opmDepositController/queryOpmDepositInfo', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
         }).then((rsp) => {
-          if(rsp){
+          if (rsp) {
             this.depositInfoList = rsp;
-          }else{
+          } else {
             this.depositInfoList = {};
           }
           this.depositType = this.depositInfoList.depositType;
@@ -255,6 +262,7 @@
 
 <style lang="less">
   @import "../assets/css/mixin";
+
   .deposit-configure {
     /*中间背景图片*/
     .img-bg {
@@ -400,6 +408,9 @@
         color: #f01919;
         font-weight: bold;
       }
+      .el-input--mini{
+        margin-left: 13px;
+      }
     }
     .warn-wrds {
       line-height: 34px;
@@ -432,6 +443,21 @@
         text-align: center;
         color: #f01919;
       }
+    }
+
+    /*表单验证*/
+    .el-form-item {
+      margin-bottom: 0;
+      margin-left: -100px;
+    }
+    .el-form-item__content {
+      line-height: 32px;
+    }
+    .el-form-item__error {
+      position: absolute;
+      padding-top: 0;
+      top: 78px;
+      left: 194px;
     }
   }
 </style>
