@@ -162,7 +162,7 @@
             { validator: checkTel, trigger: 'blur' },
           ],
           commonRegionId: [
-            { required: true, message: '请选择省份', trigger: 'blur' },
+            { validator: checkTel, trigger: 'blur' },
           ],
           relaId: [
             { required: true, message: '请选择省份', trigger: 'blur' },
