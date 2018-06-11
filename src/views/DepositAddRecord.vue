@@ -228,7 +228,6 @@
           curPage: curPage || 1
         }).then((rsp) => {
           this.tableData = rsp.rows;
-          debugger;
           this.total = rsp.totalSize;
         })
       },

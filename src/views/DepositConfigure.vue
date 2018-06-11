@@ -19,7 +19,7 @@
       </div>
 
       <div class="provin box-1200">
-        <p class="pro-left">当前省份： <span>江苏省</span></p>
+        <p class="pro-left">当前省份： <span>{{opMeetingInfo.commonRegionName}}</span></p>
         <div class="provin-edit">
           <!-- 默认模式 -->
           <div class="default" v-if="editshow">
@@ -183,16 +183,18 @@
       },
       confirm(type) {
         let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-        opmRetailerDepositList.map((item) => {
-          let obj = {
-            'retailerId': item.retailerId,
-            'depositAmount': item.depositAmount
-          };
-          this.opmRetailerUpate.push(obj);
-        });
-        this.$post('/opmOrderController/updateOpmDepositInfo', {
+        if(opmRetailerDepositList){
+          opmRetailerDepositList.map((item) => {
+            let obj = {
+              'retailerId': item.retailerId,
+              'depositAmount': item.depositAmount
+            };
+            this.opmRetailerUpate.push(obj);
+          });
+        };
+        this.$post('/opmDepositController/updateOpmDepositInfo', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
-          provinceCommonRegionId: this.depositInfoList.provinceCommonRegionId,
+          provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
           depositType: type,
           depositProportion: this.depositInfoList.depositProportion,
           opmRetailerDepositList: this.opmRetailerUpate
