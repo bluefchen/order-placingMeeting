@@ -36,7 +36,7 @@
       },
       size: {
         type: String,
-        default: 'small'
+        default: 'mini'
       },
       prefixIcon: {
         type: String
