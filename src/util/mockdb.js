@@ -860,6 +860,10 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositList'), {
       'supplierId': '@id',
       'supplierName': '@cword(4, 6)',
       'retailerId': '@id',
+      'orderDt': '@date',
+      'createDt': '@date',
+      'pickupDt': '@date',
+      'receivableDeposit|1-1000': 1000,
       'retailerName': '@cword(4, 6)',
       'offerQty|1-1000': 1000,
       'pickupGoodsAmount|1-1000': 1000,
@@ -946,6 +950,7 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmRetailerDepositList'), {
       'retailerId': '@id',
       'retailerCode': '@id',
       'retailerName': '@cword(4, 6)',
+      'paymentDt': '@date',
       'retailerType|+1': [1001, 1002, 1003],
       'retailerTypeName|+1': ['自营厅', '大连锁', '代理商'],
       'payDepositAmount|1-1000': 100,
@@ -1288,15 +1293,15 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
       'partyId': '@id',
       'commonRegionId': '1000001',
       'commonRegionName': '@province',
-      'userType|+1': [1000, 1001],//用户类型
+      'userType|+1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
       'relaId': '1122',
       'relaName': '@cword(5)',
       'systemUserCode': '@id',
       'name': '@cname',
       'linktelenumber': '19899992222',
       'remark': '@cword(9)',
-      'stautsCd|+1': [1000, 1001, 1002],
-      'statusCdName|+1': ['有效', '冻结', '无效']
+      'stautsCd|+1': [1000, 1001, 1002, 9999],//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+      'statusCdName|+1': ['有效', '失效', '冻结', '密码错误锁定']
     }]
   }
 });

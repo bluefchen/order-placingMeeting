@@ -21,7 +21,7 @@
       <!-- 文件导入 -->
       <div class="box-1200">
         <div class="file-import">
-          <UploadFile :url="url" @callback="uploadData"/>
+          <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
         </div>
         <div class="import-result-box" v-show="data">
           <div class="success">
@@ -46,6 +46,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList',
+        downloadUrl: 'commonCfgController/downloadModel',
         data: null,
         uploadDone: false
       }

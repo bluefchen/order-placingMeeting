@@ -30,7 +30,7 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input :value.sync="orderQueryData.opmOrderNo"/>
@@ -46,13 +46,6 @@
           <div class="condition-item">
             <label class="label-wrds">供应商名称：</label>
             <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="8" :offset="16">
-          <div class="condition-item">
-            <el-button type="success" size="small" @click="qryOpmOrderPickupInfo()">查询</el-button>
           </div>
         </el-col>
       </el-row>

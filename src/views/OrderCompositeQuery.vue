@@ -30,7 +30,7 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input :value.sync="orderQueryData.opmOrderNo"/>
@@ -45,12 +45,12 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
-            <DatePicker :value.sync="orderQueryData.dateValue"/>
+            <DatePicker :value.sync="orderQueryData.dateValue" :clearable="true"/>
           </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
             <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
@@ -60,11 +60,6 @@
           <div class="condition-item">
             <label class="label-wrds">供应商名称：</label>
             <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="condition-item">
-            <el-button type="success" size="small" @click="queryOpmOrderSubmit()">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -77,42 +72,7 @@
           <button class="btns" @click="exportOpmOrder"><i class="iconfont">&#xe654;</i> 导出</button>
         </div>
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="32%">终端名称</th>
-          <th width="17%">终端品牌</th>
-          <th width="17%">终端型号</th>
-          <th width="11%">订购数量</th>
-          <th width="10%">付款状态</th>
-          <th width="13%">操作</th>
-        </tr>
-        </thead>
-      </table>
-      <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in qryOpmOrderList" :key="index">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
-            <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
-            <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="fn-left wid32">
-              <div class="pd5">
-                <DeviceInfo :data="item"/>
-              </div>
-            </dl>
-            <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>
-              {{item.paymentStatusCdName}}</p></dl>
-            <dl class="dll wid13 fn-left">
-              <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
-            </dl>
-          </div>
-        </li>
-      </ul>
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="qryOpmOrderList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -129,6 +89,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'OrderCompositeQuery',
@@ -138,6 +99,99 @@
     },
     data() {
       return {
+        tab: {
+          tableHeader: [{
+            label: '订单号',
+            prop: 'opmOrderNo',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: '<p class="date-color"><b>订单号：{{data.row.opmOrderNo}}</b>【{{data.row.orderDt}}】</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '零售商',
+            prop: 'retailerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-center">订单号：{{data.row.retailerName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '供货商',
+            prop: 'supplierName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-right">供货商：{{data.row.supplierName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }],
+
+          tableTitle: [{
+            label: '终端名称',
+            prop: 'opmName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h(DeviceInfo, {
+                props: {
+                  data: params.row,
+                }
+              });
+            }
+          }, {
+            label: '终端品牌',
+            prop: 'brandName',
+            colSpan: 4
+          }, {
+            label: '终端型号',
+            prop: 'offerModelName',
+            colSpan: 4
+          }, {
+            label: '订购数量',
+            prop: 'offerQty',
+            colSpan: 2
+          }, {
+            label: '提货数量',
+            prop: 'pickupGoodsAmount',
+            colSpan: 2
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button class="updown-btn red" @click="orderdetail(data.row)">订单详情</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  orderdetail: (item) => {
+                    this.orderdetail(item)
+                  }
+                }
+              })
+            }
+          }]
+        },
         paymentStatusList: [{ //付款状态列表
           value: 1000,
           label: '未交定金'
@@ -169,7 +223,7 @@
       search(obj) {
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit()
+        this.queryOpmOrderSubmit();
       },
       selectRetailer(val){
           this.orderQueryData.retailerId = val;
@@ -222,7 +276,8 @@
       Table,
       DeviceInfo,
       Pagination,
-      ChooseMerchants
+      ChooseMerchants,
+      TableList
     }
   }
 </script>
@@ -322,82 +377,6 @@
     }
     .table thead tr th {
       text-align: center;
-    }
-
-    .li-list {
-      margin-top: 16px;
-      border: 1px solid #e0e0e0;
-    }
-    .p-line {
-      height: 35px;
-      line-height: 35px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #e0e0e0;
-      .date-color {
-        color: #807e7e;
-      }
-      span {
-        width: calc(33% - 20px);
-        padding: 0 10px;
-        b {
-          margin-right: 15px;
-        }
-      }
-    }
-    .tabs dl {
-      height: 90px;
-
-    }
-    .tabs .dll {
-      line-height: 90px;
-      text-align: center;
-    }
-    .wid32 {
-      width: 32%;
-    }
-    .wid17 {
-      width: 17%;
-    }
-    .wid11 {
-      width: 11%;
-    }
-    .wid10 {
-      width: 10%;
-    }
-    .wid13 {
-      width: 13%;
-    }
-    .updown-btn {
-      padding: 2px 5px;
-      border: 0;
-      text-decoration: underline;
-    }
-    .updown-btn:hover {
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
-    }
-    .red {
-      color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
-    }
-    .p-line span {
-      color: #aaa;
-    }
-    .p-line span b {
-      color: #333;
     }
   }
 </style>

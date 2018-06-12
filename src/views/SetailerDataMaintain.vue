@@ -20,27 +20,22 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">省份：</label>
             <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId"/>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">零售商类型：</label>
             <Select :value.sync="orderQueryData.type" :options="retailerTypeList"/>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">零售商状态：</label>
             <Select :value.sync="orderQueryData.statusCd" :options="retailerStatusList"/>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="condition-item">
-            <el-button type="success" size="small" @click="qryRetailerList()">查询</el-button>
           </div>
         </el-col>
       </el-row>

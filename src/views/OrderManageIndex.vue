@@ -70,11 +70,6 @@
                   return {
                     data: params,
                   }
-                },
-                methods: {
-                  orderDetail: (index, item) => {
-                    this.orderDetail(index, item)
-                  }
                 }
               })
             }
@@ -105,12 +100,12 @@
             render: (h, params) => {
               return h({
                 template: `
-                <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
-                  <div class="device-pic fn-left">
+                <div class="photo-wrap fn-clear" @click="detailOrder(data.row)">
+                  <div class="photo-pic fn-left">
                     <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
                     <img v-else src="/static/img/icon-dhhui-default.png" alt="">
                   </div>
-                  <div class="device-info fn-right">
+                  <div class="photo-info fn-right">
                     <p class="name">{{data.row.opmName}}</p>
                     <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
                   </div>

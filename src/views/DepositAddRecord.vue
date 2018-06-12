@@ -28,27 +28,22 @@
       <!-- 条件搜索 -->
       <div class="condition-search box-1200" v-show="isShowMoreCondition">
         <el-row :gutter="20">
-          <el-col :span="6">
+          <el-col :span="7">
             <div class="condition-item">
               <label class="label-wrds">订单号：</label>
               <Input :value.sync="depositRecord.opmOrderNo"/>
             </div>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <div class="condition-item">
               <label class="label-wrds">零售商名称：</label>
               <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
             </div>
           </el-col>
-          <el-col :span="9">
+          <el-col :span="8">
             <div class="condition-item">
               <label class="label-wrds">订购起止日期：</label>
-              <DatePicker :value.sync="depositRecord.orderDate"/>
-            </div>
-          </el-col>
-          <el-col :span="3">
-            <div class="condition-item btn">
-              <el-button size="small" type="success" @click="queryOpmDepositList(currentPage, pageSize)">定金付款查询</el-button>
+              <DatePicker :value.sync="depositRecord.orderDate" :clearable="true"/>
             </div>
           </el-col>
         </el-row>
@@ -81,6 +76,7 @@
     name: 'DepositAddRecord',
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.queryOpmDepositList();
     },
     data() {
       return {
@@ -89,7 +85,7 @@
           offerNameOrCode: '',
           opmOrderNo: '',
           retailerId: '',
-          orderDate: []
+          orderDate: [],
         },
         opMeetingInfo: [], //订货会数据
         isShowMoreCondition: false, //是否显示更多条件
@@ -215,12 +211,12 @@
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       queryOpmDepositList(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmDepositList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.depositRecord.isCentman,
           offerNameOrCode: this.depositRecord.offerNameOrCode,
           opmOrderNo: this.depositRecord.opmOrderNo,
-          supplierId: '',
           retailerId: this.depositRecord.retailerId,
           fromDate: this.depositRecord.orderDate[0],
           toDate: this.depositRecord.orderDate[1],

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cyj-import">
     <!-- 中间背景图片 -->
     <div class="img-bg">
       <div class="info">
@@ -74,7 +74,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
+              template: '<div><span class="state-icon" :class="data.row.isSuccess === \'Y\' ? \'ok\' : \'error\'"></span></div>',
               data() {
                 return {
                   data: params
@@ -122,46 +122,48 @@
 </script>
 
 <style scoped lang="less">
-  /*中间背景图片*/
-  .img-bg {
-    width: 100%;
-    height: 170px;
-    background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat center center;
-  }
+  .cyj-import {
+    /*中间背景图片*/
+    .img-bg {
+      width: 100%;
+      height: 170px;
+      background: #e4273f url('../assets/images/index-bg2.jpg') no-repeat center center;
+    }
 
-  .img-bg .info {
-    width: 1036px;
-    height: 170px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
+    .img-bg .info {
+      width: 1036px;
+      height: 170px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
 
-  .img-bg .info .p-titl {
-    margin: 62px 0 0 0;
-    font-size: 22px;
-    color: #fcfdff;
-  }
+    .img-bg .info .p-titl {
+      margin: 62px 0 0 0;
+      font-size: 22px;
+      color: #fcfdff;
+    }
 
-  .img-bg .info .activity {
-    width: 306px;
-    margin: 10px 0 0 0;
-    line-height: 18px;
-    font-size: 12px;
-    color: #fcfdff;
-    text-align: center;
-  }
+    .img-bg .info .activity {
+      width: 306px;
+      margin: 10px 0 0 0;
+      line-height: 18px;
+      font-size: 12px;
+      color: #fcfdff;
+      text-align: center;
+    }
 
-  /*中间背景图片*/
+    /*中间背景图片*/
 
-  .my-location {
-    height: 30px;
-    line-height: 30px;
-    background-color: #f6f6f6;
-  }
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
 
-  /*底部按钮*/
-  .bottom-btns {
-    margin: 20px 0;
-    text-align: center;
+    /*底部按钮*/
+    .bottom-btns {
+      margin: 20px 0;
+      text-align: center;
+    }
   }
 </style>

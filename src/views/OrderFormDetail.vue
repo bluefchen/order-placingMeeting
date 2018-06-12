@@ -94,7 +94,6 @@
     created() {
       this.orderPickGoodsInfo = _.get(this.$route.query, 'opmOrderList') || {};
       let orderPickGoodsInfo =  this.orderPickGoodsInfo;
-      debugger;
       this.getSupplierInfo();
       this.getRetailerInfo();
     },
@@ -103,7 +102,6 @@
         orderPickGoodsInfo: {}, //传入的数据
         supplierInfo: {}, //查询供应商信息
         retailerInfo: {}, //查询零售商信息
-        // pickupGoodsAmount: null //提货数量
       }
     },
     methods: {

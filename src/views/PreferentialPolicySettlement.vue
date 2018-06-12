@@ -43,7 +43,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
-            <DatePicker :value.sync="orderQueryData.dateValue"/>
+            <DatePicker :value.sync="orderQueryData.dateValue" :clearable="true"/>
           </div>
         </el-col>
       </el-row>
@@ -58,11 +58,6 @@
           <div class="condition-item">
             <label class="label-wrds">供应商名称：</label>
             <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="condition-item">
-            <el-button type="success" size="small" @click="queryOpmOrderSubmit">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -174,6 +169,7 @@
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
       queryOpmOrderSubmit(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.orderQueryData.isCentman,

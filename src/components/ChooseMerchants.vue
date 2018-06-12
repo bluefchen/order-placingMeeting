@@ -333,26 +333,26 @@
       position: relative;
       width: 100%;
       border: 1px solid #e5e5e5;
-      line-height: 28px;
+      height: 26px;
       .choose-input-icon {
         position: absolute;
         right: 0;
         top: 0;
         width: 24px;
-        height: 30px;
+        height: 26px;
         background: #f9f9f9;
         color: #afafaf;
         border-left: 1px solid #e5e5e5;
         font-size: 14px;
         text-align: center;
-        line-height: 30px;
+        line-height: 26px;
         cursor: pointer;
       }
       .choose-input {
         border: none;
         width: calc(100% - 45px);
-        height: 24px;
-        padding: 3px 10px;
+        height: 22px;
+        padding: 2px 10px;
         color: #606266;
         font-size: 14px;
         cursor: pointer;

@@ -27,15 +27,15 @@
               <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="10">
               <div class="condition-item">
                 <label class="label-wrds">订购起止日期：</label>
-                <DatePicker :value.sync="depositRecord.orderDate"/>
+                <DatePicker :value.sync="depositRecord.orderDate" :clearable="true"/>
               </div>
           </el-col>
           <el-col :span="4">
             <div class="condition-item btn">
-              <el-button size="small" type="success" @click="queryOpmRetailerDepositList(currentPage, pageSize)">诚意金付款查询</el-button>
+              <el-button size="mini" type="success" @click="queryOpmRetailerDepositList(currentPage, pageSize)">诚意金付款查询</el-button>
             </div>
           </el-col>
         </el-row>
@@ -123,6 +123,7 @@
         this.depositRecord.retailerId = val;
       },
       queryOpmRetailerDepositList(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmRetailerDepositList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           retailerId: this.depositRecord.retailerId,
