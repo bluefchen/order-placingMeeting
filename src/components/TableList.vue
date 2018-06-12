@@ -132,11 +132,11 @@
       text-align: center;
     }
 
-    .device-wrap {
+    .photo-wrap {
       padding: 9px;
       text-align: left;
       cursor: pointer;
-      .device-pic {
+      .photo-pic {
         width: 66px;
         height: 66px;
         box-sizing: border-box;
@@ -147,7 +147,7 @@
           height: 100%;
         }
       }
-      .device-info {
+      .photo-info {
         box-sizing: border-box;
         width: calc(100% - 85px);
         padding-top: 6px;
