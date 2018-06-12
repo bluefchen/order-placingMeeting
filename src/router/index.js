@@ -10,6 +10,7 @@ const ImportModelDel = () => import('@/views/ImportModelDel');
 const ImportSpecialModel = () => import('@/views/ImportSpecialModel');
 const ImportPickupAdd = () => import('@/views/ImportPickupAdd');
 const OrderPickupData = () => import('@/views/OrderPickupData');
+const ImportPickupData = () => import('@/views/ImportPickupData');
 const OrderPickupGoodsConfirm = () => import('@/views/OrderPickupGoodsConfirm');
 const DepositConfigure = () => import('@/views/DepositConfigure');
 const OrderFormDetail = () => import('@/views/OrderFormDetail');
@@ -123,6 +124,12 @@ export default new Router({
         component: OrderPickupData,
         meta: {
           title: '订单提货数据维护'
+        },
+      }, {path: 'importPickupData',
+        name: 'importPickupData',
+        component: ImportPickupData,
+        meta: {
+          title: '订单提货数据导入'
         },
       }, {
         path: 'orderPickupGoodsConfirm',

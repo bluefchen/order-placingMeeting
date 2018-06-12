@@ -56,7 +56,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="提货数据列表"/>
         <div class="buttons fn-right">
-          <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入</button>
+          <router-link class="btns" to="/order/importPickupData"><i class="iconfont">&#xe6a8;</i> 导入</router-link>
         </div>
       </div>
 
@@ -333,6 +333,7 @@
     }
 
     .buttons .btns {
+      display: inline-block;
       padding: 0 12px;
       margin-left: 2px;
       border: 0;
@@ -341,7 +342,9 @@
       font-size: 12px;
       border-radius: 3px;
       line-height: 28px;
+      text-decoration: none;
     }
+
     .buttons .btns:hover {
       background-color: #e20606;
     }
