@@ -27,7 +27,7 @@
               <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="10">
               <div class="condition-item">
                 <label class="label-wrds">订购起止日期：</label>
                 <DatePicker :value.sync="depositRecord.orderDate" :clearable="true"/>
@@ -35,7 +35,7 @@
           </el-col>
           <el-col :span="4">
             <div class="condition-item btn">
-              <el-button size="small" type="success" @click="queryOpmRetailerDepositList(currentPage, pageSize)">诚意金付款查询</el-button>
+              <el-button size="mini" type="success" @click="queryOpmRetailerDepositList(currentPage, pageSize)">诚意金付款查询</el-button>
             </div>
           </el-col>
         </el-row>

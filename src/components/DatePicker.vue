@@ -86,9 +86,14 @@
 <style lang="less">
   .el-range-editor--small.el-input__inner{
     width: 100%;
+    height: 28px;
+    border-radius: 0;
   }
   .el-range-editor.is-active, .el-range-editor.is-active:hover {
     border-color: #ff7a7a;
+  }
+  .el-range-editor.el-input__inner{
+    padding: 2px 10px;
   }
 
   .el-date-table td.end-date span, .el-date-table td.start-date span {

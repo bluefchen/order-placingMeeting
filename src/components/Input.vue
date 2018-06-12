@@ -74,6 +74,7 @@
     &:focus {
       border-color: #ff7a7a;
     }
+    border-radius: 0;
   }
 
   .el-textarea {
