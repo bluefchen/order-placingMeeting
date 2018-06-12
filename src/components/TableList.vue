@@ -27,7 +27,7 @@
               :span="column.colSpan" 
               :offset="column.colOffset">
                 <span v-if="!column.render">
-                  {{item[column.prop]}}
+                  {{item[column.prop] || '--'}}
                 </span>
                 <table-row v-else :index="index" :row="item" :render="column.render"></table-row>
             </el-col>
