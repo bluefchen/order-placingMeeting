@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-import './mockdb'
+// import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-// axios.defaults.baseURL = 'http://192.168.74.17:9086/';
+axios.defaults.baseURL = 'http://192.168.74.17:9086/';
 axios.defaults.headers = {
-  'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
   'token': _.get(user, 'token')
 };
 
