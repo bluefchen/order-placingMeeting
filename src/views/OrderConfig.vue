@@ -264,13 +264,9 @@
       </div>
     </div>
     <div class="foot-btn" v-show="active !== 4 && active !== 1">
-      <button
-        :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt"
-        v-show="active === 1" class="btns" @click="orderSave">保&nbsp;存
-      </button>
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
-      <button v-show="active !== 3" :disabled="!this.orderPlacingMeeting.opmName || !this.orderPlacingMeeting.opmAddr || !this.orderPlacingMeeting.commonRegionId || !this.orderPlacingMeeting.startDt || !this.orderPlacingMeeting.endDt || !this.orderPlacingMeeting.discription || !this.orderPlacingMeeting.logoUrl || !this.orderPlacingMeeting.depositRecordEnddt || !this.orderPlacingMeeting.pickupRecordEnddt" class="btns" @click="next">下一步</button>
+      <button v-show="active !== 3" class="btns" @click="next">下一步</button>
     </div>
   </div>
 </template>
