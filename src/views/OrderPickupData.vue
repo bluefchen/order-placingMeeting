@@ -306,17 +306,6 @@
       font-size: 12px;
     }
     /* 条件搜索 */
-
-    .el-range-editor.el-input__inner {
-      height: 32px;
-    }
-    .el-date-editor .el-range__icon, .el-date-editor .el-range-separator, .el-date-editor .el-range__close-icon {
-      line-height: 26px;
-    }
-    .el-input__inner {
-      border-radius: 0;
-    }
-
     .my-location {
       height: 30px;
       line-height: 30px;

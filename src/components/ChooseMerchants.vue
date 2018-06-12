@@ -39,7 +39,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" :border="true" :isSelection="false" @currentChange="selectionChange"
+        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange"
                :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
@@ -334,6 +334,7 @@
       width: 100%;
       border: 1px solid #e5e5e5;
       height: 26px;
+      font-size: 14px;
       .choose-input-icon {
         position: absolute;
         right: 0;
@@ -445,7 +446,6 @@
     }
     .el-table td, .el-table th.is-leaf {
       border-color: #e6e6e6;
-      height: 33px;
     }
     .el-table--small td, .el-table--small th {
       padding: 0;

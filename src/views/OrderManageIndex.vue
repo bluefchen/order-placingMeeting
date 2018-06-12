@@ -179,13 +179,13 @@
         },
 
         orderTypeList: [{
-          value: 1000,
+          value: '1000',
           label: '未开始'
         }, {
-          value: 1001,
+          value: '1001',
           label: '进行中'
         }, {
-          value: 1002,
+          value: '1002',
           label: '已结束'
         }],
         orderQueryData: {

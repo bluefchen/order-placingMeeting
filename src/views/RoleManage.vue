@@ -84,7 +84,8 @@
                     path: '/orderManage/userRoleManage',
                     query: {
                       postRoleId: item.postRoleId,
-                      roleName: item.name
+                      roleName: item.name,
+                      userType: item.userType
                     }
                   });
                 }

@@ -1315,6 +1315,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   'data|5': [{
     'postRoleId': '@id',
     'name': '@cname',
+    'userType|1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
     'description': '@cword(10)'
   }]
 });
@@ -1381,13 +1382,13 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
       "commonRegionName": "@province",
       "userType|1": [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
       "relaId": "@id",
-      "relaName": "@name",
+      "relaName": "@cword(9)",
       "systemUserCode": "@id",
       "name": "@cname",
       "linktelenumber": "13499999999",
       "remark": "@cword(6)",
-      "stautsCd": "",
-      "statusCdName": ""
+      'stautsCd|1': [1000, 1002, 9999],//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+      'statusCdName|+1': ['有效', '失效', '冻结', '密码错误锁定']
     }]
   }
 });

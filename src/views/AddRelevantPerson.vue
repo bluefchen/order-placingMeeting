@@ -1,7 +1,7 @@
 <template>
   <div class="add-relevant-person box-1200">
     <div class="top-titl fn-clear">
-      <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{}}</span></label>
+      <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{relevantData.name}}</span></label>
     </div>
     <!-- 条件搜索 -->
     <div class="condition-search">
@@ -13,15 +13,15 @@
           </div>
         </el-col>
         <el-col :span="7">
-          <div class="condition-item">
+          <div class="condition-item" v-if="relevantData.userType != 1">
             <label class="label-wrds">所属商户：</label>
             <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
           </div>
           <!--管理员-->
-          <!--<div class="condition-item">-->
-            <!--<label class="label-wrds">所属省份：</label>-->
-            <!--<AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>-->
-          <!--</div>-->
+          <div class="condition-item" v-if="relevantData.userType == 1">
+            <label class="label-wrds">所属省份：</label>
+            <AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>
+          </div>
         </el-col>
         <el-col :span="3">
           <div class="condition-item">
@@ -52,6 +52,16 @@
   export default {
     name: 'AddRelevantPerson',
     created() {
+      if(this.$route.query.postRoleId){
+        this.relevantData.postRoleId = this.$route.query.postRoleId;
+      };
+      if(this.$route.query.roleName){
+        this.relevantData.name = this.$route.query.roleName;
+      }
+      if(this.$route.query.userType){
+        this.relevantData.userType = this.$route.query.userType;
+      };
+      this.queryUsermanSubmit();
     },
     data() {
       return {
@@ -127,8 +137,8 @@
       queryUsermanSubmit(curPage, pageSize) {
         this.$post('/systemUserController/querySystemUserList', {
           codeOrPhone: this.relevantData.codeOrPhone,
-          commonRegionId: _.get(this, 'relevantData.commonRegionId'),
-          relaId: _.get(this, 'relevantData.relaId'),
+          commonRegionId: _.get(this.relevantData, 'commonRegionId') || '',
+          relaId: _.get(this.relevantData, 'relaId') || '',
           pageSize: pageSize || 10,
           curPage: curPage || 1
       }).then((rsp) => {
@@ -157,7 +167,8 @@
             this.$router.push({
               path: '/orderManage/userRoleManage',
               query: {
-                postRoleId: this.$route.query.postRoleId
+                postRoleId: this.$route.query.postRoleId,
+                roleName: this.$route.query.roleName
               }
             });
           });

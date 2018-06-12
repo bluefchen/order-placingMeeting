@@ -39,6 +39,7 @@
         <el-menu-item index="/order/summaryAnalysis">汇总统计</el-menu-item>
         <el-menu-item index="/order/metaAnalysis">全国汇总分析</el-menu-item>
         <el-menu-item index="/order/orderPickingReport">订单提货上报</el-menu-item>
+        <el-menu-item index="/order/orderPickingDetail" style="display: none;">提货清单明细</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
