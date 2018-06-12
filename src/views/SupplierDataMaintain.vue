@@ -10,9 +10,8 @@
     <!-- 搜索 -->
     <div class="box-1200">
       <div class="search fn-clear">
-        <InputWithSelect :placeholderText="'请输入供应商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true" />
-        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
-                                                                              class="iconfont">&#xe607;</i><i
+        <InputWithSelect :placeholderText="'请输入供货商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true" :placeholder="placeholder"/>
+        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
         </div>
     </div>
@@ -79,6 +78,7 @@
     },
     data() {
       return {
+        placeholder:'输入供货商编码或供货商名称查询',
         //供货商类型
         supplierTypeList: [{
           value: '1001',
@@ -135,15 +135,15 @@
         }, {
           label: '操作',
           prop: 'remarks',
-          width: 180,
+          width: 220,
           render: (h, params) => {
             return h({
               template: `<div>
-                <button class="updown-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeSupplier([data.row.supplierId])">激活</button>
-                <button class="updown-btn" v-if="data.row.statusCd === '1000'" @click="freezeSupplier([data.row.supplierId])">冻结</button>
-                <button class="updown-btn" @click="addSupplier('修改', data.row)">修改</button>
-                <button class="updown-btn" @click="deleteSupplier([data.row.supplierId])">删除</button>
-                <button class="updown-btn" @click="detailSupplier(data.row)">详情</button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeSupplier([data.row.supplierId])">激活</el-button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1000'" @click="freezeSupplier([data.row.supplierId])">冻结</el-button>
+                <el-button class="delete-btn" @click="addSupplier('修改', data.row)">修改</el-button>
+                <el-button class="delete-btn" @click="deleteSupplier([data.row.supplierId])">删除</el-button>
+                <el-button class="delete-btn" @click="detailSupplier(data.row)">详情</el-button>
               </div>`,
               data() {
                 return {
@@ -417,6 +417,9 @@
     }
     .buttons .btns:hover {
       background-color: #e20606;
+    }
+    .v_table .delete-btn{
+      background: none;
     }
   }
 </style>
