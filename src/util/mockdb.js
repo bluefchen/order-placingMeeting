@@ -1291,10 +1291,10 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'totalSize|1-99': 1,//总记录条数
     'rows|10': [{
       'partyId': '@id',
-      'commonRegionId': '1000001',
+      'commonRegionId': '@id',
       'commonRegionName': '@province',
       'userType|1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
-      'relaId': '1122',
+      'relaId': '@id',
       'relaName': '@cword(5)',
       'systemUserCode': '@id',
       'name': '@cname',
