@@ -111,10 +111,10 @@
           </el-row>
           <el-row :gutter="0">
             <el-col :span="18" :offset="2">
-              <div class="condition-item">
+              <div class="condition-item fn-clear">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 订购会logo上传：</label>
                 <el-upload
-                  class="condition-upload"
+                  class="condition-upload fn-left"
                   action="/commonCfgController/upload"
                   :show-file-list="false"
                   :data="upLoadData"
@@ -123,6 +123,7 @@
                   <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
                   <div v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></div>
                 </el-upload>
+                <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX</div>
               </div>
             </el-col>
           </el-row>
@@ -692,25 +693,27 @@
     }
     .condition-item-address{
       position: relative;
-      margin: 10px 0;
+      margin: 5px 0;
       padding-left: 20px;
       .label-address {
         position: absolute;
         left: 0;
         width: 20px;
-        line-height: 32px;
+        line-height: 30px;
         text-align: center;
       }
     }
     .condition-item {
+      margin: 5px 0;
       padding-left: 135px;
       .label-wrds {
         width: 135px;
+        line-height: 30px;
       }
       .date-text {
-        width: 50px;
+        width: 30px;
         text-align: center;
-        line-height: 32px;
+        line-height: 30px;
       }
 
       .condition-upload {
@@ -729,6 +732,11 @@
           max-width: 161px;
           max-height: 84px;
         }
+      }
+      .logo-notice{
+        margin-left: 5px;
+        color: #ffa132;
+        line-height: 88px;
       }
       .editor {
         flex: 1;

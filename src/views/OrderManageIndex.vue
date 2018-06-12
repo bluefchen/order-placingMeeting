@@ -32,7 +32,7 @@
           <button @click="compileOrder('新增')"><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
         </div>
       </div>
-      <TableList :tableTitle="tableTitle" :tableHeader="tableHeader" :tableData="orderPlacingMeetingList" />
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPlacingMeetingList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -58,130 +58,130 @@
     },
     data() {
       return {
-        tableHeader: [{
-          label: '订购会编码',
-          prop: 'opMeetingNo',
-          colSpan: 14,
-          render: (h, params) => {
-            return h({
-              template: '<p>订购会编码：{{data.row.opMeetingNo}}</p>',
-              data: function () {
-                return {
-                  data: params,
+        tab: {
+          tableHeader: [{
+            label: '订购会编码',
+            prop: 'opMeetingNo',
+            colSpan: 14,
+            render: (h, params) => {
+              return h({
+                template: '<p>订购会编码：{{data.row.opMeetingNo}}</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  orderDetail: (index, item) => {
+                    this.orderDetail(index, item)
+                  }
                 }
-              },
-              methods: {
-                orderDetail: (index, item) => {
-                  this.orderDetail(index, item)
+              })
+            }
+          },{
+            label: '操作',
+            prop: 'operation',
+            colSpan: 10,
+            render: (h, params) => {
+              return h({
+                template: `<div class="text-right"><button @click="delOrder(data.row)" class="btn-del" v-show="data.row.statusCd === '1000'""><span class="iconfont">&#xe610;</span></button></div>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  delOrder: (item) => {
+                    this.delOrder(item)
+                  }
                 }
-              }
-            })
-          }
-        },{
-          label: '操作',
-          prop: 'operation',
-          colSpan: 10,
-          render: (h, params) => {
-            return h({
-              template: `<div class="text-right"><button @click="delOrder(data.row)" class="btn-del" v-show="data.row.statusCd === '1000'""><span class="iconfont">&#xe610;</span></button></div>`,
-              data: function () {
-                return {
-                  data: params,
-                }
-              },
-              methods: {
-                delOrder: (item) => {
-                  this.delOrder(item)
-                }
-              }
-            })
-          }
-        }],
-        tableTitle: [{
-          label: '订购会名称',
-          prop: 'opmName',
-          colSpan: 8,
-          render: (h, params) => {
-            return h({
-              template: `
-              <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
-                <div class="device-pic fn-left">
-                  <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
-                  <img v-else src="/static/img/icon-dhhui-default.png" alt="">
+              })
+            }
+          }],
+          tableTitle: [{
+            label: '订购会名称',
+            prop: 'opmName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
+                  <div class="device-pic fn-left">
+                    <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
+                    <img v-else src="/static/img/icon-dhhui-default.png" alt="">
+                  </div>
+                  <div class="device-info fn-right">
+                    <p class="name">{{data.row.opmName}}</p>
+                    <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
+                  </div>
                 </div>
-                <div class="device-info fn-right">
-                  <p class="name">{{data.row.opmName}}</p>
-                  <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
+                `,
+                data: function () {
+                  return {
+                    data: params
+                  }
+                },
+                methods: {
+                  detailOrder(item) {
+                    localStorage.setItem('opMeeting', JSON.stringify(item));
+                    this.$router.push({path: '/order/orderIndex'});
+                  }
+                }
+              })
+            }
+          }, {
+            label: '省份',
+            prop: 'commonRegionName',
+            colSpan: 3
+          }, {
+            label: '参与供货商',
+            prop: 'supplierCnt',
+            colSpan: 3
+          }, {
+            label: '参与零售商',
+            prop: 'retailerCnt',
+            colSpan: 3
+          }, {
+            label: '订购会状态',
+            prop: 'statusCd',
+            colSpan: 3,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div>
+                  <p class="device-type not-start" v-if="data.row.statusCd === '1000'">未开始</p>
+                  <p class="device-type underway" v-if="data.row.statusCd === '1001'">进行中</p>
+                  <p class="device-type done" v-if="data.row.statusCd === '1002'">已完成</p>
                 </div>
-              </div>
-              `,
-              data: function () {
-                return {
-                  data: params
+                `,
+                data: function () {
+                  return {
+                    data: params,
+                  }
                 }
-              },
-              methods: {
-                detailOrder(item) {
-                  localStorage.setItem('opMeeting', JSON.stringify(item));
-                  this.$router.push({path: '/order/orderIndex'});
+              })
+            }
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  compileOrder: (title, item) => {
+                    this.compileOrder(title, item)
+                  }
                 }
-              }
-            })
-          }
-        }, {
-          label: '省份',
-          prop: 'commonRegionName',
-          colSpan: 3
-        }, {
-          label: '参与供货商',
-          prop: 'supplierCnt',
-          colSpan: 3
-        }, {
-          label: '参与零售商',
-          prop: 'retailerCnt',
-          colSpan: 3
-        }, {
-          label: '订购会状态',
-          prop: 'statusCd',
-          colSpan: 3,
-          render: (h, params) => {
-            return h({
-              template: `
-              <div>
-                <p class="device-type not-start" v-if="data.row.statusCd === '1000'">未开始</p>
-                <p class="device-type underway" v-if="data.row.statusCd === '1001'">进行中</p>
-                <p class="device-type done" v-if="data.row.statusCd === '1002'">已完成</p>
-              </div>
-              `,
-              data: function () {
-                return {
-                  data: params,
-                }
-              }
-            })
-          }
-        }, {
-          label: '操作',
-          prop: 'operation',
-          colSpan: 4,
-          render: (h, params) => {
-            return h({
-              template: `<button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>`,
-              data: function () {
-                return {
-                  data: params,
-                }
-              },
-              methods: {
-                compileOrder: (title, item) => {
-                  this.compileOrder(title, item)
-                }
-              }
-            })
-          }
-        }],
-        
-        tableData: [],//查询返回的数据
+              })
+            }
+          }]
+        },
 
         orderTypeList: [{
           value: 1000,
