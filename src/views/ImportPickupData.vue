@@ -14,7 +14,7 @@
       <!-- 我的位置 -->
       <div class="my-location">
         <div class="box-1200">
-          <Breadcrumb :list="['首页', '机型管理', '导入新增']"/>
+          <Breadcrumb :list="['首页', '订单管理', '订单提货数据导入']"/>
         </div>
       </div>
 
@@ -24,7 +24,7 @@
       </div>
 
       <div class="bottom-btns">
-        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
+        <el-button type="success" @click="batchInsertOpmOfferAllot">确定</el-button>
       </div>
     </div>
   </div>
@@ -35,29 +35,37 @@
   import Import from '@/components/Import';
 
   export default {
-    name: 'ImportModelAdd',
+    name: 'ImportSpecialModel',
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
     },
     data() {
       return {
-        url: '/orderPlacingMeetingController/analyzeInsertOpmOfferList',
+        url: '/opmOrderController/analyzeInsertOpmOrderPickupRecordList',
         tableTitle: [{
+          label: '订单号',
+          prop: 'opmOrderNo',
+          width: 160
+        }, {
+          label: '零售商',
+          prop: 'retailerName',
+          width: 120
+        }, {
           label: '终端编码',
           prop: 'offerCode',
-          width: 160
+          width: 80
         }, {
           label: '终端名称',
           prop: 'offerName',
           width: 120
         }, {
           label: '终端品牌',
-          prop: 'brandName',
+          prop: 'brandCd',
           width: 100
         }, {
           label: '终端型号',
           prop: 'offerModelName',
-          width: 140
+          width: 100
         }, {
           label: '产品类型',
           prop: 'isCentman',
@@ -73,41 +81,21 @@
             });
           }
         }, {
-          label: '终端价格',
-          prop: 'costPrice',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<span>￥{{data.row.costPrice}}</span>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
+          label: '供货商',
+          prop: 'supplierName',
+          width: 80
         }, {
-          label: '是否特种机型',
-          prop: 'isSpecial',
-          width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
-        }, {
-          label: '数量',
+          label: '订购数量',
           prop: 'offerQty',
-          width: 100
+          width: 80
+        }, {
+          label: '提货数量',
+          prop: 'pickupGoodsAmount',
+          width: 80
         }, {
           label: '校验结果',
           prop: 'isSuccess',
-          width: 100,
+          width: 80,
           render: (h, params) => {
             return h({
               template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
@@ -125,7 +113,7 @@
       }
     },
     methods: {
-      batchInsertOpmOffer() {
+      batchInsertOpmOfferAllot() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
           this.$message.warning('导入数据不能为空');
@@ -141,12 +129,12 @@
           }
         });
         console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
+        this.$post('/opmOrderController/batchInsertOpmOrderPickupRecord', {
           tableDataIsSueccess
         }).then(rsp => {
-          this.$router.push({path: '/order/orderModel'});
-          // this.$message.success('导入新增数据成功');
-          console.log('19、批量导入新增机型接口：', rsp);
+          this.$router.push({path: '/order/orderPickupData'});
+          // this.$message.success('导入订单提货数据成功');
+          console.log('34、批量导入订单提货数据接口：', rsp);
         })
       }
     },
@@ -186,7 +174,6 @@
     color: #fcfdff;
     text-align: center;
   }
-
   /*中间背景图片*/
 
   .my-location {

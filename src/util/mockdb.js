@@ -696,8 +696,52 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
       'pickupDt': '@date'
     }]
   }
-})
-;
+});
+
+//33、批量导入订单提货数据解析
+Mock.mock(new RegExp('/opmOrderController/analyzeInsertOpmOrderPickupRecordList'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: {
+    'totalCnt|1-100': 100, //总记录条数
+    'successCnt|1-100': 100, //成功条数
+    'failCnt|1-100': 1, //失败条数
+    'rows|10': [{
+      'opmOrderId':'',
+      'opmOrderNo':'',
+      'offerId': '@id', //商品ID
+      'offerCode': '@id', //商品编码
+      'offerName': '@cword()', //商品名称
+      'brandCd': '@cword()', //商品品牌
+      'brandName': '@cword()', //商品品牌名称
+      'offerModelId': '@id', //商品型号
+      'offerModelName': '@cword()', //商品型号名称
+      'isCentman':'',
+      'salePrice':'',
+      'supplierId': '@id', //供货商ID
+      'supplierName': '@cword()', //供货商名称
+      'retailerId':'',
+      'retailerName':'',
+      'offerQty':'',
+      'pickupGoodsAmount':'',
+      'isSuccess|1': ['Y', 'N'], //校验结果，Y-成功，N-失败
+      'resultMsg': '@cword()' //校验信息
+    }]
+  }
+});
+
+//34、批量导入订单提货数据
+Mock.mock(new RegExp('/opmOrderController/batchInsertOpmOrderPickupRecord'), {
+  rsphead: 's',
+  success: 'true', //是否成功true/失败false
+  code: null,
+  msg: null, //失败信息
+  error: null,
+  data: null
+});
 
 //35、订单提货确认接口
 Mock.mock(new RegExp('/opmOrderController/updateOpmOrderPickupRecord'), {

@@ -14,6 +14,7 @@
         <template slot="title">订单管理</template>
         <el-menu-item index="/order/importPickupAdd">订单批量导入</el-menu-item>
         <el-menu-item index="/order/orderPickupData">订单提货数据维护</el-menu-item>
+        <el-menu-item index="/order/importPickupData" style="display: none;">订单提货数据导入</el-menu-item>
         <el-menu-item index="/order/orderPickupGoodsConfirm" style="display: none;">订单提货确认</el-menu-item>
       </el-submenu>
       <el-submenu index="4">

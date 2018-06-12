@@ -35,7 +35,7 @@
           </el-col>
           <el-col :span="10">
             <el-input placeholder="输入商户名称或编码搜索" v-model="searchInput" size="small">
-              <el-button slot="append" @click="handleSearch()">确定</el-button>
+              <el-button slot="append" @click="handleSearch()">查询</el-button>
             </el-input>
           </el-col>
         </el-row>
@@ -44,7 +44,7 @@
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
       <div slot="footer">
-        <el-button type="success" @click="saveChange">保存</el-button>
+        <el-button type="success" @click="saveChange">确定</el-button>
         <el-button type="success" @click="visibleChange(false)">关闭</el-button>
       </div>
     </DialogPopup>
