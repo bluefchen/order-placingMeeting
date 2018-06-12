@@ -329,9 +329,6 @@
       top: 42px;
       left: 114px;
     }
-    .choose-merchants .choose-input-box .choose-input{
-      margin-top: -1px;
-    }
   }
 
 </style>

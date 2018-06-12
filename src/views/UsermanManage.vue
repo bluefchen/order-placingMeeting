@@ -153,10 +153,10 @@
         }, {
           label: '状态',
           prop: 'stautsCd',
-          width: 60,
+          width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">冻结</span><span v-else-if="data.row.stautsCd == 1002">无效</span></div>',
+              template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">失效</span><span v-else-if="data.row.stautsCd == 1002">冻结</span><span v-else>密码错误锁定</span></div>',
               data() {
                 return {
                   data: params
@@ -170,9 +170,9 @@
           render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
-              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1001">激活</el-button>' +
-              '<el-button type="text" @click="modifyUserman(usermanInfo)" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>' +
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1002 || usermanInfo.stautsCd == 9999">激活</el-button>' +
+              '<el-button type="text" @click="modifyUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">修改</el-button>' +
+              '<el-button type="text" @click="deleteUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">删除</el-button>' +
               '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
               data() {
                 return {
@@ -190,7 +190,7 @@
                   });
                 },
                 //冻结
-                freezeUserman(item) {
+                freezeUserman: (item) => {
                   this.$post('/systemUserController/freezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
@@ -199,7 +199,7 @@
                   })
                 },
                 //激活
-                activateUserman(item) {
+                activateUserman: (item) => {
                   this.$post('/systemUserController/unfreezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
@@ -263,14 +263,24 @@
       },
       //批量激活
       batchActivateUserman() {
+        let partyIds = [],
+          flag = false;
         if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要激活的用户！');
           return;
-        }
-        let partyIds = [];
-        _.map(this.selectionChangeList, function (item) {
-          partyIds.push(item.partyId);
-        });
+        }else{
+          _.map(this.selectionChangeList, function (item) {
+            if(item.stautsCd == 1000){
+              flag = true;
+              return;
+            }
+            partyIds.push(item.partyId);
+          })
+        };
+        if(flag){
+          this.$message.warning('请选择需要激活的有效用户！');
+          return;
+        };
         this.$post('/systemUserController/unfreezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
@@ -280,14 +290,24 @@
       },
       //批量冻结
       batchFreezeUserman() {
+        let partyIds = [],
+          flag = false;
         if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要冻结的用户！');
           return;
-        }
-        let partyIds = [];
-        _.map(this.selectionChangeList, function (item) {
-          partyIds.push(item.partyId);
-        });
+        }else{
+          _.map(this.selectionChangeList, function (item) {
+            if(item.stautsCd != 1000){
+              flag = true;
+              return;
+            }
+            partyIds.push(item.partyId);
+          })
+        };
+        if(flag){
+          this.$message.warning('请选择需要冻结的有效用户！');
+          return;
+        };
         this.$post('/systemUserController/freezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
@@ -297,14 +317,24 @@
       },
       //批量删除
       batchDeleteUserman() {
+        let partyIds = [],
+          flag = false;
         if (!this.selectionChangeList.length) {
           this.$message.warning('请选择需要删除的用户！');
           return;
-        }
-        let partyIds = [];
-        _.map(this.selectionChangeList, function (item) {
-          partyIds.push(item.partyId);
-        });
+        }else{
+          _.map(this.selectionChangeList, function (item) {
+            if(item.stautsCd != 1000){
+              flag = true;
+              return;
+            }
+            partyIds.push(item.partyId);
+          })
+        };
+        if(flag){
+          this.$message.warning('请选择需要删除的有效用户！');
+          return;
+        };
         this.$post('/systemUserController/deleteSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
