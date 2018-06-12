@@ -233,7 +233,7 @@
     }
 
     .stores {
-      margin-top: 42px;
+      margin-top: 22px;
     }
   }
 </style>

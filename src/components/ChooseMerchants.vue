@@ -355,6 +355,7 @@
         padding: 2px 10px;
         color: #606266;
         font-size: 14px;
+        vertical-align: top;
         cursor: pointer;
       }
       &.disabled{
