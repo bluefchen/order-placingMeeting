@@ -36,7 +36,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
       'commonRegionName': '@province',
       'statusCd|1': ['1000', '1001', '1002'],
       'discription': '@cword(10,20)',
-      'logoUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg', ''],
+      'logoUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg', ''],
       'depositRecordEnddt': '@date',
       'pickupRecordEnddt': '@date',
       'statusDt': '@date',
@@ -245,12 +245,12 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
         'batteryCharge': '@word(2,10)',
         'offerPic': {
           'offerPicId': '@id',
-          'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl2|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl3|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl4|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl5|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
-          'offerPicUrl6|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg']
+          'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
+          'offerPicUrl2|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
+          'offerPicUrl3|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
+          'offerPicUrl4|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
+          'offerPicUrl5|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
+          'offerPicUrl6|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg']
         }
       }
     }]
@@ -403,7 +403,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
       'supplierName': '@cword(3, 5)',
       'offerPic': {
         'offerPicId': '@id',
-        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+        'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -520,7 +520,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpmOfferAllotList'), {
       'assignQty|1-99': 1,
       'offerPic': {
         'offerPicId': '@id',
-        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+        'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -592,7 +592,7 @@ Mock.mock(new RegExp('/commonCfgController/upload'), {
   'msg': null,
   'error': false,
   'data': {
-    'url|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+    'url|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
   }
 });
 
@@ -685,7 +685,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderPickupRecordList'), {
       'pickupGoodsAmount|1-100': 1,
       'remarks': '@cword(8, 30)',
       'offerPic': {
-        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+        'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
@@ -783,7 +783,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'statusCdName|1': ['进行中', '已完成', '已撤销'],
       'remarks': '@cword(15,30)',
       'offerPic': {
-        'offerPicUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+        'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',
         'offerPicUrl3': '@url',
         'offerPicUrl4': '@url',
