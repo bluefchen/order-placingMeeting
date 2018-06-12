@@ -12,6 +12,9 @@ import router from './router';
 import _ from 'lodash';
 Vue.prototype._ = _;
 
+import MessageBox from './util/msgbox';
+Vue.use(MessageBox);
+
 import './util/axios';
 
 import '@/assets/css/reset.css';
