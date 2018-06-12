@@ -8,7 +8,7 @@
         <div class="terminal-info-box">
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端编码：" prop="offerCode" :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'change'}]">
+              <el-form-item label="终端编码：" prop="offerCode" :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'blur'}]">
                 <Input :value.sync="terminalMaintainInfo.offerCode"/>
               </el-form-item>
             </el-col>
@@ -49,7 +49,7 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <el-form-item label="终端图片上传：" prop="offerPicList" :rules="[{ required: true, message: '请上传终端图片', trigger: 'change' }]">
+              <el-form-item label="终端图片上传：" prop="offerPicList">
                 <div class="upload-img-list fn-clear">
                   <ul>
                     <el-upload
@@ -90,6 +90,12 @@
                     <label class="content-label">上市日期</label>
                     <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
                   </div>
+
+
+                  <el-form-item label="触摸屏类型" :label-position="labelPosition" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
+                  </el-form-item>
+                  
                   <div class="content-item">
                     <label class="content-label">手机类型</label>
                     <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.termType"/>
@@ -110,11 +116,6 @@
                   <el-form-item label="触摸屏类型" :label-position="labelPosition" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                     <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
                   </el-form-item>
-
-                  <!-- <div class="content-item">
-                    <label class="content-label">触摸屏类型</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
-                  </div> -->
                   <div class="content-item">
                     <label class="content-label">主屏尺寸</label>
                     <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenSize"/>

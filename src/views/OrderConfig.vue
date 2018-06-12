@@ -20,7 +20,7 @@
           <div class="terminal-info-box">
               <el-row :gutter="0">
                 <el-col :span="8" :offset="2">
-                  <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'change'}]">
+                  <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
                     <Input :value.sync="orderPlacingMeeting.opMeetingNo"/>
                   </el-form-item>
                 </el-col>
@@ -531,6 +531,15 @@
         return isImg;
       },
       orderSubmit() {
+        let supplierIdList = [];
+        let retailerIdList = [];
+        _.forEach(this.supplierList.tableData, (item, index) => {
+          supplierIdList.push(item.supplierId);
+        });
+
+        _.forEach(this.retailerList.tableData, (item, index) => {
+          retailerIdList.push(item.retailerId);
+        });
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
@@ -544,8 +553,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('新增成功！');
           });
@@ -563,8 +572,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('修改成功！');
           });
@@ -575,6 +584,15 @@
         this.$message.success('订货会基本信息保存成功');
       },
       finish() {
+        let supplierIdList = [];
+        let retailerIdList = [];
+        _.forEach(this.supplierList.tableData, (item, index) => {
+          supplierIdList.push(item.supplierId);
+        });
+
+        _.forEach(this.retailerList.tableData, (item, index) => {
+          retailerIdList.push(item.retailerId);
+        });
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
@@ -588,8 +606,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('新增成功！');
             this.next();
@@ -608,8 +626,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('修改成功！');
             this.next();
