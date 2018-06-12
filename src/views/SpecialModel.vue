@@ -102,7 +102,9 @@
         this.brandList = rsp;
       });
       this.queryOpmOfferAllotList();
-      this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
+      this.$post('/commonCfgController/getCommonRegionTreeList', {
+        commonRegionId: ''
+      }).then((rsp) => {
         this.provinceList = rsp;
       });
     },
