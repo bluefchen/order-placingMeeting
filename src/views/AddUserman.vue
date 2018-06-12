@@ -52,12 +52,12 @@
                 <div class="condition-item">
                   <!-- 当为管理人员时，* 存在，表示为必填项 -->
                   <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
-                  <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" name="commonRegionId"/>
+                  <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
                 </div>
               </el-form-item>
               <div class="condition-item" v-else>
                 <label class="label-wrds">归属省份：</label>
-                <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" name="commonRegionId"/>
+                <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
               </div>
             </el-col>
           </el-row>
@@ -133,6 +133,28 @@
           callback();
         };
       };
+      var checkCommonRegionId = (rule, value, callback) => {
+        if(this.usermanData.userType == 1){
+          if (!value) {
+            return callback(new Error('请选择归属省份'));
+          }else{
+            callback();
+          }
+        }else{
+          callback();
+        }
+      };
+      var checkRelaId = (rule, value, callback) => {
+        if(this.usermanData.userType != 1){
+          if (!value) {
+            return callback(new Error('请选择归属商户'));
+          }else{
+            callback();
+          }
+        }else{
+          callback();
+        }
+      };
       return {
         modify: false,
         level: 'province',
@@ -158,12 +180,12 @@
           linktelenumber: [
             { validator: checkTel, trigger: 'blur' },
           ],
-          // commonRegionId: [
-          //   { required: true, message: '请选择省份', trigger: 'blur' },
-          // ],
-          // relaId: [
-          //   { required: true, message: '请选择商户', trigger: 'blur' },
-          // ],
+          commonRegionId: [
+            { validator: checkCommonRegionId, trigger: 'blur' },
+          ],
+          relaId: [
+            { validator: checkRelaId, trigger: 'blur' },
+          ]
         },
         usermanSelect:{},
         usermanList: [{
@@ -185,9 +207,7 @@
         this.usermanData.relaId = val;
       },
       addUsermanSubmit(formName){
-        debugger;
         this.$refs[formName].validate((valid) => {
-          debugger;
           if (valid) {
             //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
             if(!this.$route.query.usermanInfo){
