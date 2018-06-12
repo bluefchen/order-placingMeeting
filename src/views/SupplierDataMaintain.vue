@@ -10,7 +10,7 @@
     <!-- 搜索 -->
     <div class="box-1200">
       <div class="search fn-clear">
-        <InputWithSelect class="fn-left" @search="search" :isHideSelect="true" :placeholder="placeholder"/>
+        <InputWithSelect :placeholderText="'请输入供货商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true" :placeholder="placeholder"/>
         <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
         </div>
