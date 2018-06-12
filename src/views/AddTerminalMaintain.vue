@@ -89,9 +89,20 @@
               <td>
                 <div class="result-table-content">
                   <el-row>
-                    <el-form-item label="上市日期" prop="offerBaseParam.listDt" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
+                    <el-form-item label="上市日期" prop="offerBaseParam.listDt" >
+                      <el-date-picker
+                        v-model="terminalMaintainInfo.offerBaseParam.listDt"
+                        type="date"
+                        size="small"
+                        placeholder="选择日期"
+                        format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd"
+                        :editable="false">
+                      </el-date-picker>
                     </el-form-item>
+                    <!-- <el-form-item label="上市日期" prop="offerBaseParam.listDt" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
+                    </el-form-item> -->
                   </el-row>
                   <el-row>
                     <el-form-item label="手机类型" prop="offerBaseParam.termType" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
@@ -987,7 +998,26 @@
       line-height: 26px;
     }
     //表单提示样式
+    .el-date-editor.el-input{
+      width: 100%;
+    }
 
+  }
+  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell{
+    color: #ff7a7a;
+  }
+  .el-date-table td.current:not(.disabled) span {
+    color: #fff;
+    background-color: #ff7a7a;
+  }
+
+  .el-date-table td.available:hover {
+    color: #ff7a7a;
+  }
+
+  .el-date-table td.today span {
+    color: #ff7a7a;
+    font-weight: 700;
   }
 
 </style>
