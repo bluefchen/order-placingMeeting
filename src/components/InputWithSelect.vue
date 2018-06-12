@@ -45,7 +45,8 @@
     data() {
       return {
         input: '',
-        select: ''
+        select: '',
+        placeholder: ''
       }
     },
     methods: {
