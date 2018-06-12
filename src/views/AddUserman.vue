@@ -125,11 +125,13 @@
       var checkTel = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('不能为空'));
+        }else{
+          let reg=/^(\+86)?1[345789]\d{9}$/;
+          if(!(reg.test(value))){
+            callback(new Error('请输入正确的电话号码'));
+          }
+          callback();
         };
-        let reg=/^(\+86)?1[345789]\d{9}$/;
-        if(!(reg.test(value))){
-          callback(new Error('请输入正确的电话号码'));
-        }
       };
       return {
         modify: false,
@@ -185,9 +187,8 @@
       addUsermanSubmit(formName){
         debugger;
         this.$refs[formName].validate((valid) => {
-          alert(valid);
+          debugger;
           if (valid) {
-            debugger;
             //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
             if(!this.$route.query.usermanInfo){
               this.$post('/systemUserController/addSystemUser', {
