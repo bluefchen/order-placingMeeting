@@ -140,7 +140,6 @@
           </div>
         </div>
         <div class="foot-btn">
-          <el-button type="primary" class="btns" @click="submitForm('orderPlacingMeeting', '保存')">保&nbsp;存</el-button>
           <el-button type="primary" class="btns" @click="submitForm('orderPlacingMeeting', '下一步')">下一步</el-button>
         </div>
       </el-form>
