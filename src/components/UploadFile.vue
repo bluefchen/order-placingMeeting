@@ -44,6 +44,9 @@
         }]
       };
     },
+    created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+    },
     computed: {
       uploadFileName() {
         return this.fileList[0].name;
@@ -61,6 +64,7 @@
           return false
         }
         let formdata = new FormData();
+        formdata.append('opMeetingId', this.opMeetingInfo.opMeetingId);
         formdata.append('file', this.fileList[0].raw);
         this.$axios.post(this.url, formdata, {
           headers: {
