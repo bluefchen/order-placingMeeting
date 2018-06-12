@@ -33,7 +33,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">所属商户：</label>
-            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
+            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :disabled="disabled"/>
           </div>
         </el-col>
       </el-row>
@@ -79,26 +79,32 @@
     data() {
       return {
         usermanList: [{
-          value: 1000,
-          label: '零售商'
+          value: 1,
+          label: '运营商'
         }, {
-          value: 1001,
+          value: 2,
           label: '供应商'
+        }, {
+          value: 3,
+          label: '零售商'
         }],
         statusList: [{
           value: 1000,
           label: '有效'
         }, {
           value: 1001,
-          label: '冻结'
+          label: '失效'
         }, {
           value: 1002,
-          label: '无效'
+          label: '冻结'
+        }, {
+          value: 9999,
+          label: '密码错误锁定'
         }],
         usermanData: {
           codeOrPhone: '',
-          userType: 1000,
-          statusCd: 1000,
+          userType: 1,
+          statusCd: 1000,//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
           retailerId: '',
         },
         tableTitle: [{
@@ -226,6 +232,8 @@
         tableData: [],//查询返回的数据
         selectionChangeList: [],//多选的数据
         isShowMoreCondition: false, //是否显示更多条件
+        merchantsTitle: '',
+        disabled: true,
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
@@ -307,7 +315,7 @@
       queryUsermanSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/systemUserController/querySystemUserList', {
-          codeOrPhone: this.usermanData.opmOrderNo,
+          codeOrPhone: this.usermanData.codeOrPhone,
           commonRegionId: this.usermanData.commonRegionId,
           userType: this.usermanData.userType,
           relaId: this.usermanData.relaId,
@@ -323,14 +331,20 @@
         this.queryUsermanSubmit(curPage);
       }
     },
-    computed: {
-      merchantsTitle: function () {
-        if (this.usermanData.userType == 1000) {
-          return '零售商';
-        } else {
-          return '供应商';
+    watch: {
+      "usermanData.userType": function () {
+        if (this.usermanData.userType == 3) {
+          this.merchantsTitle = '零售商';
+          this.disabled = false;
+        } else if(this.usermanData.userType == 2){
+          this.merchantsTitle = '供应商';
+          this.disabled = false;
+        } else if(this.usermanData.userType == 1){
+          this.merchantsTitle = '';
+          this.disabled = true;
         }
-      }
+        this.usermanData.relaId = '';
+      },
     },
     components: {
       TitlePlate,
@@ -388,7 +402,7 @@
 
     .category-more {
       height: 22px;
-      margin: 7px 0 0 20px;
+      margin: 5px 0 0 20px;
       padding: 0 5px;
       line-height: 22px;
       background-color: #fff;
