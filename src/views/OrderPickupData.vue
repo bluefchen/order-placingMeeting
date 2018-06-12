@@ -40,7 +40,6 @@
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
             <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
-            <!-- <input type="text" v-model="orderDeliveryData.retailerId"> -->
           </div>
         </el-col>
       <el-col :span="8">
@@ -60,42 +59,8 @@
           <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入</button>
         </div>
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="32%">终端名称</th>
-          <th width="17%">终端品牌</th>
-          <th width="17%">终端型号</th>
-          <th width="11%">订购数量</th>
-          <th width="10%">提货数量</th>
-          <th width="13%">操作</th>
-        </tr>
-        </thead>
-      </table>
-      <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in orderPickupRecordList" :key="index">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
-            <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
-            <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="fn-left wid32">
-              <div class="pd5">
-                <DeviceInfo :data="item"/>
-              </div>
-            </dl>
-            <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
-            <dl class="dll wid13 fn-left">
-              <button @click="editDeliveryData(item)" class="updown-btn red">编辑</button>
-            </dl>
 
-          </div>
-        </li>
-      </ul>
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPickupRecordList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -112,6 +77,7 @@
   import DatePicker from '@/components/DatePicker';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'OrderPickupData',
@@ -121,6 +87,99 @@
     },
     data() {
       return {
+        tab: {
+          tableHeader: [{
+            label: '订单号',
+            prop: 'opmOrderNo',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: '<p class="date-color"><b>订单号：{{data.row.opmOrderNo}}</b>【{{data.row.orderDt}}】</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '零售商',
+            prop: 'retailerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-center">零售商：{{data.row.retailerName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '供货商',
+            prop: 'supplierName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-right">供货商：{{data.row.supplierName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }],
+
+          tableTitle: [{
+            label: '终端名称',
+            prop: 'opmName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h(DeviceInfo, {
+                props: {
+                  data: params.row,
+                }
+              });
+            }
+          }, {
+            label: '终端品牌',
+            prop: 'brandName',
+            colSpan: 4
+          }, {
+            label: '终端型号',
+            prop: 'offerModelName',
+            colSpan: 4
+          }, {
+            label: '订购数量',
+            prop: 'offerQty',
+            colSpan: 2
+          }, {
+            label: '提货数量',
+            prop: 'pickupGoodsAmount',
+            colSpan: 2
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button @click="editDeliveryData(data.row)" class="updown-btn red">编辑</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  editDeliveryData: (item) => {
+                    this.editDeliveryData(item)
+                  }
+                }
+              })
+            }
+          }]
+        },
         orderPickupRecordList: [], //查询返回的数据
         orderDeliveryData: {
           isCentman: '',
@@ -188,7 +247,8 @@
       Pagination,
       DatePicker,
       ChooseMerchants,
-      Input
+      Input,
+      TableList
     }
   }
 </script>
@@ -225,12 +285,6 @@
     /* 条件搜索 */
     .search {
       margin: 10px auto;
-    }
-    .wid30 {
-      width: 30%;
-    }
-    .wid40 {
-      width: 40%;
     }
     .category-more {
       height: 22px;
@@ -292,99 +346,7 @@
       background-color: #e20606;
     }
 
-    .table thead tr {
-      height: 40px;
-      background-color: #efefef;
-      border: 1px solid #dcdcdc;
-      color: #131212;
-    }
-    .table tbody tr {
-      height: 90px;
-      border-bottom: 1px solid #dcdcdc;
-    }
-    .table thead tr th {
-      text-align: center;
-    }
-
-    .li-list {
-      margin-top: 16px;
-      border: 1px solid #e0e0e0;
-    }
-    .p-line {
-      height: 35px;
-      line-height: 35px;
-      background: #f8f8f8;
-      border-bottom: 1px solid #e0e0e0;
-      .date-color {
-        color: #807e7e;
-      }
-    ;
-      span {
-        width: calc(33% - 20px);
-        padding: 0 10px;
-        b {
-          margin-right: 15px;
-        }
-      ;
-      }
-    }
-    .tabs dl {
-      height: 90px;
-
-    }
-    .tabs .dll {
-      line-height: 90px;
-      text-align: center;
-    }
-    .wid32 {
-      width: 32%;
-    }
-    .wid17 {
-      width: 17%;
-    }
-    .wid11 {
-      width: 11%;
-    }
-    .wid10 {
-      width: 10%;
-    }
-    .wid13 {
-      width: 13%;
-    }
-    .updown-btn {
-      padding: 2px 5px;
-      border: 0;
-      text-decoration: underline;
-    }
-    .updown-btn:hover {
-      border: 1px solid #f82134;
-      border-radius: 3px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .updown-btn.green:hover {
-      border: 1px solid #46b02e;
-    }
-    .red {
-      color: #f82134;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-    .pd5 {
-      padding: 5px;
-    }
-    .p-line span {
-      color: #aaa;
-    }
-    .p-line span b {
-      color: #333;
-    }
   }
-
   .el-range-editor.is-active, .el-range-editor.is-active:hover {
     border-color: #ff7a7a;
   }

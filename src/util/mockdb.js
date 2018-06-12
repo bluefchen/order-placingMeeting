@@ -36,7 +36,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOrderPlacingMeetingLis
       'commonRegionName': '@province',
       'statusCd|1': ['1000', '1001', '1002'],
       'discription': '@cword(10,20)',
-      'logoUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg'],
+      'logoUrl|1': ['/static/img/telephone1.jpg', '/static/img/telephone2.jpg', '/static/img/telephone3.jpg', '/static/img/telephone4.jpg', ''],
       'depositRecordEnddt': '@date',
       'pickupRecordEnddt': '@date',
       'statusDt': '@date',

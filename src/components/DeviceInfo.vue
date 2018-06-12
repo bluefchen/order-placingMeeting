@@ -50,16 +50,17 @@
   @import "../assets/css/mixin";
 
   .device-wrap {
+    padding: 9px 0;
     text-align: left;
     .device-pic {
-      width: 80px;
-      height: 80px;
+      width: 79px;
+      height: 68px;
       box-sizing: border-box;
       border: 1px solid #e7e7e7;
       img {
         display: block;
-        width: 78px;
-        height: 78px;
+        width: 100%;
+        height: 100%;
       }
     }
     .device-info {
@@ -68,8 +69,8 @@
       padding-left: 15px;
       line-height: 22px;
       .name{
-        height: 26px;
-        line-height: 26px;
+        height: 22px;
+        line-height: 22px;
         color: #050505;
         font-size: 14px;
         .truncate();
@@ -84,7 +85,7 @@
         .truncate();
       }
       .property {
-        margin-top: 8px;
+        margin-top: 2px;
         white-space: nowrap;
         overflow: hidden;
         span {

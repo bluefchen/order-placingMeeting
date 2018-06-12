@@ -79,15 +79,16 @@
 <style lang="less">
   .v_table-list{
     .table-list-box{
-      height: 40px;
-      line-height: 40px;
+      height: 28px;
+      line-height: 28px;
       background-color: #efefef;
       border: 1px solid #dcdcdc;
       color: #131212;
+      font-size: 12px;
       font-weight: bold;
     }
     .li-list {
-      margin-top: 16px;
+      margin-top: 10px;
       border: 1px solid #e0e0e0;
       &:hover {
         border: 1px solid #f00;
@@ -97,11 +98,14 @@
       height: 35px;
       padding: 0 10px;
       background: #f8f8f8;
-      color: #807e7e;
+      color: #aaa;
       line-height: 35px;
       border-bottom: 1px solid #e0e0e0;
       .date-color {
-        color: #807e7e;
+        color: #4c4848;
+        b{
+          color: #000;
+        }
       }
       .btn-del {
         background: none;
@@ -123,17 +127,18 @@
     }
     .dll {
       padding: 0 10px;
-      line-height: 90px;
+      height: 84px;
+      line-height: 84px;
       text-align: center;
     }
 
-    .device-wrap {
-      padding: 10px;
+    .photo-wrap {
+      padding: 9px;
       text-align: left;
       cursor: pointer;
-      .device-pic {
-        width: 85px;
-        height: 71px;
+      .photo-pic {
+        width: 66px;
+        height: 66px;
         box-sizing: border-box;
         border: 1px solid #e5e5e5;
         img {
@@ -142,7 +147,7 @@
           height: 100%;
         }
       }
-      .device-info {
+      .photo-info {
         box-sizing: border-box;
         width: calc(100% - 85px);
         padding-top: 6px;
@@ -200,6 +205,21 @@
       border-radius: 3px;
       text-decoration: none;
       cursor: pointer;
+    }
+
+    .updown-btn {
+      padding: 2px 5px;
+      border: 0;
+      text-decoration: underline;
+      &:hover {
+        border: 1px solid #f82134;
+        border-radius: 3px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+    .red {
+      color: #f82134;
     }
   
     .text-left{

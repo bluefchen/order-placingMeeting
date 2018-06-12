@@ -89,6 +89,10 @@
 </script>
 
 <style lang="less">
+  .el-input--small .el-input__inner{
+    height: 28px;
+    line-height: 28px;
+  }
   .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus {
     border-color: #ff7a7a;
   }
