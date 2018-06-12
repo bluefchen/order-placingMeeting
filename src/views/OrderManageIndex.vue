@@ -79,7 +79,7 @@
             colSpan: 10,
             render: (h, params) => {
               return h({
-                template: `<div class="text-right"><button @click="delOrder(data.row)" class="btn-del" v-show="data.row.statusCd === '1000'""><span class="iconfont">&#xe610;</span></button></div>`,
+                template: `<div class="text-right"><button @click="delOrder(data.row)" class="btn-del" v-show="data.row.statusCd === '1000'"><span class="iconfont">&#xe610;</span></button></div>`,
                 data: function () {
                   return {
                     data: params,
@@ -237,27 +237,36 @@
         }
       },
       delOrder(item) {
-        this.$confirm('确定要删除该订货会吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
-            opMeetingId: item.opMeetingId
-          }).then((rsp) => {
-            console.log(rsp.resultMsg, rsp.resultCode);
-          });
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          this.queryOrderPlacingMeetingList(this.currentPage);
+        this.$msgBox({
+          type: 'error',
+          title: '添加分类',
+          content: '请填写分类名称'
+        }).then((val) => {
+          console.log('ok', val);
         }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
+          console.log('err');
         });
+        // this.$confirm('确定要删除该订货会吗?', '提示', {
+        //   confirmButtonText: '确定',
+        //   cancelButtonText: '取消',
+        //   type: 'warning'
+        // }).then(() => {
+        //   this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
+        //     opMeetingId: item.opMeetingId
+        //   }).then((rsp) => {
+        //     console.log(rsp.resultMsg, rsp.resultCode);
+        //   });
+        //   this.$message({
+        //     type: 'success',
+        //     message: '删除成功!'
+        //   });
+        //   this.queryOrderPlacingMeetingList(this.currentPage);
+        // }).catch(() => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: '已取消删除'
+        //   });
+        // });
       }
     },
     components: {
@@ -350,7 +359,6 @@
 
       .search-query {
         button {
-          width: 92px;
           height: 30px;
           background: #fa0000;
           color: #fff;
