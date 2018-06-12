@@ -60,7 +60,11 @@
     },
     methods: {
       onChange(val) {
-        this.$emit('update:value', val);
+        if(this.type === "number"){
+          this.$emit('update:value', _.toNumber(val));
+        }else{
+          this.$emit('update:value', val);
+        }
       }
     }
   }
