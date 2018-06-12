@@ -125,6 +125,7 @@ body {
 
 .condition-item {
   position: relative;
+  height: 28px;
   margin: 10px 0;
   padding-left: 110px;
 }

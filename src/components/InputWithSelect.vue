@@ -46,7 +46,6 @@
       return {
         input: '',
         select: '',
-        placeholder: ''
       }
     },
     methods: {
