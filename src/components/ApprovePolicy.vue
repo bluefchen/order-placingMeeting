@@ -35,6 +35,9 @@
 
   export default {
     name: 'ApprovePolicy',
+    created() {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    },
     props: {
       data: Object
     },
@@ -61,7 +64,7 @@
         this.$post('/opmPolicyController/approveOpmPolicy', {
           policyId: this.data.policyId,
           statusCd: this.statusCd,
-          reviewPartyId: '',
+          reviewPartyId: this.user.userId,
           reviewRemark: this.reviewRemark
         }).then((rsp) => {
           this.$message.success('优惠政策审批成功!');

@@ -334,6 +334,7 @@
       width: 100%;
       border: 1px solid #e5e5e5;
       height: 26px;
+      font-size: 14px;
       .choose-input-icon {
         position: absolute;
         right: 0;

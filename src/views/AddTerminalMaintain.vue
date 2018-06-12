@@ -23,7 +23,7 @@
                 </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端名称：" prop="offerName" :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
+              <el-form-item label="终端名称：" prop="offerName" :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                 <Input :value.sync="terminalMaintainInfo.offerName"/>
               </el-form-item>
             </el-col>
@@ -49,9 +49,10 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <el-form-item label="终端图片上传：" prop="offerPicList">
+              <div class="condition-item">
+                <label class="label-wrds text-right"><span class="red-star">*</span> 终端图片上传：</label>
                 <div class="upload-img-list fn-clear">
-                  <ul>
+                  <ul class="fn-left">
                     <el-upload
                       action="/commonCfgController/upload"
                       :file-list="offerPicList"
@@ -66,9 +67,10 @@
                       <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
                   </ul>
-                  <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
+                  <div v-if="nullError" class="upload-list-null fn-left">请上传终端图片</div>
                 </div>
-              </el-form-item>
+                <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
+              </div>
             </el-col>
           </el-row>
         </div>
@@ -86,24 +88,32 @@
               </td>
               <td>
                 <div class="result-table-content">
-                  <div class="content-item">
-                    <label class="content-label">上市日期</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
-                  </div>
-
-
-                  <el-form-item label="触摸屏类型" :label-position="labelPosition" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
-                  </el-form-item>
-                  
-                  <div class="content-item">
-                    <label class="content-label">手机类型</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.termType"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">操作系统</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerBaseParam.os"/>
-                  </div>
+                  <el-row>
+                    <el-form-item label="上市日期" prop="offerBaseParam.listDt" >
+                      <el-date-picker
+                        v-model="terminalMaintainInfo.offerBaseParam.listDt"
+                        type="date"
+                        size="small"
+                        placeholder="选择日期"
+                        format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd"
+                        :editable="false">
+                      </el-date-picker>
+                    </el-form-item>
+                    <!-- <el-form-item label="上市日期" prop="offerBaseParam.listDt" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
+                    </el-form-item> -->
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="手机类型" prop="offerBaseParam.termType" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.termType"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="操作系统" prop="offerBaseParam.os" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.os"/>
+                    </el-form-item>
+                  </el-row>
                 </div>
               </td>
             </tr>
@@ -113,37 +123,46 @@
               </td>
               <td>
                 <div class="result-table-content">
-                  <el-form-item label="触摸屏类型" :label-position="labelPosition" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
-                  </el-form-item>
-                  <div class="content-item">
-                    <label class="content-label">主屏尺寸</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenSize"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">主屏材质</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenMaterial"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">主屏分辨率</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.resolutionRatio"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">屏幕像素密度</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenPiexl"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">屏幕技术</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.screenTech"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">窄边框</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerScreenParam.frame"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">其他屏幕参数</label>
-                    <Input type="textarea" v-model="terminalMaintainInfo.offerScreenParam.otherParam" />
-                  </div>
+                  <el-row>
+                    <el-form-item label="触摸屏类型" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="主屏尺寸" prop="offerScreenParam.screenSize" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenSize"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="主屏材质" prop="offerScreenParam.screenMaterial" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenMaterial"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="主屏分辨率" prop="offerScreenParam.resolutionRatio" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.resolutionRatio"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="屏幕像素密度" prop="offerScreenParam.screenPiexl" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenPiexl"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="屏幕技术" prop="offerScreenParam.screenTech" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenTech"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="窄边框" prop="offerScreenParam.frame" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.frame"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="其他屏幕参数" prop="offerScreenParam.otherParam" :rules="[{ min: 0, max: 500, message: '长度不能超过500个字符', trigger: 'blur'}]">
+                      <Input type="textarea" :value.sync="terminalMaintainInfo.offerScreenParam.otherParam" />
+                    </el-form-item>
+                  </el-row>
                 </div>
               </td>
             </tr>
@@ -153,58 +172,76 @@
               </td>
               <td>
                 <div class="result-table-content">
-                  <div class="content-item">
-                    <label class="content-label">后置摄像头</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">前置摄像头</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">CPU型号</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.cpuModel"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">CPU频率</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.cpuRate"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">核心数</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.core"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">GPU型号</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.gpuModel"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">RAM容量</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.ram"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">存储类型</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.memoryType"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">存储卡</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.memoryCard"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">扩展容量</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.extendedCapacity"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">电池类型</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">电池容量</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCapacity"/>
-                  </div>
-                  <div class="content-item">
-                    <label class="content-label">电池充电</label>
-                    <Input class="content-input" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCharge"/>
-                  </div>
+                  <el-row>
+                    <el-form-item label="后置摄像头" prop="offerHardwardParam.rearCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="前置摄像头" prop="offerHardwardParam.frontCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="CPU型号" prop="offerHardwardParam.cpuModel" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.cpuModel"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="CPU频率" prop="offerHardwardParam.cpuRate" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.cpuRate"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="核心数" prop="offerHardwardParam.core" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.core"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="GPU型号" prop="offerHardwardParam.gpuModel" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.gpuModel"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="RAM容量" prop="offerHardwardParam.ram" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.ram"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="ROM容量" prop="offerHardwardParam.rom" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.rom"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="存储类型" prop="offerHardwardParam.memoryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.memoryType"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="存储卡" prop="offerHardwardParam.memoryCard" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.memoryCard"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="扩展容量" prop="offerHardwardParam.extendedCapacity" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.extendedCapacity"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="电池类型" prop="offerHardwardParam.batteryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="电池容量" prop="offerHardwardParam.batteryCapacity" :rules="[{max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCapacity"/>
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
+                    <el-form-item label="电池充电" prop="offerHardwardParam.batteryCharge" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCharge"/>
+                    </el-form-item>
+                  </el-row>
                 </div>
               </td>
             </tr>
@@ -212,9 +249,9 @@
         </div>
       </div>
       <div class="foot-btn">
-          <button class="btns" @click="submitForm('terminalMaintainInfo')">保&nbsp;存</button>
+          <button class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
           <!-- <button class="btns" @click="saveOffer">保&nbsp;存</button> -->
-          <button class="btns" @click="previewOffer">预&nbsp;览</button>
+          <button class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
           <!-- <button class="btns" @click="previewOffer">预&nbsp;览</button> -->
       </div>
     </el-form>
@@ -295,7 +332,9 @@
     },
     data() {
       return {
-        labelPosition: 'left',
+        nullError: null,
+
+
         terminalInfo: {
           offerCode: ''
         },
@@ -370,10 +409,16 @@
           });
         });
       },
-      submitForm(formName) {
+      submitForm(formName, title) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            if(this.offerPicList.length){
+              if(title === '保存'){
+                this.saveOffer();
+              }else{
+                this.previewOffer();
+              }
+            }
           } else {
             return false;
           }
@@ -602,6 +647,13 @@
         }else{
           this.flag++
         }
+      },
+      'offerPicList': function(newVal, oldVal){
+        if(!newVal.length){
+          this.nullError = true;
+        }else{
+          this.nullError = false;
+        }
       }
     }
   }
@@ -691,9 +743,10 @@
           }
         }
       }
-      .attention{
-        color: #ffa132;
-      }
+    }
+
+    .attention{
+      color: #ffa132;
     }
 
     .result-head{
@@ -765,7 +818,7 @@
             }
           }
         }
-        padding: 10px 300px 0px 15px;
+        padding: 10px 300px 10px 15px;
         .content-item {
           display: flex;
           margin-bottom: 10px;
@@ -775,9 +828,6 @@
             font-size: 14px;
             font-weight: bold;
             color: #646466;
-          }
-          .content-input {
-            flex: 1 0 0;
           }
         }
       }
@@ -790,13 +840,13 @@
           position: relative;
           display: block;
           width: 102px;
-          height: 32px;
+          height: 28px;
           padding: 0;
           color: #f01919;
           border: 1px solid #f01919;
           text-align: center;
           font-size: 14px;
-          line-height: 32px;
+          line-height: 28px;
           cursor: pointer;
           border-radius: 3px;
         }
@@ -915,6 +965,13 @@
       margin: 10px 0;
     }
 
+    .upload-list-null{
+      z-index: 999;
+      color: #f56c6c;
+      height: 92px;
+      line-height: 92px;
+      font-size: 12px;
+    }
     .editor-error{
       position: absolute;
       left: 0;
@@ -932,16 +989,35 @@
     }
 
     .el-form-item__label{
-      height: 30px;
-      line-height: 30px;
+      height: 28px;
+      line-height: 28px;
       padding: 0;
       color: #333;
     }
     .el-form-item__content{
-      line-height: 30px;
+      line-height: 26px;
     }
     //表单提示样式
+    .el-date-editor.el-input{
+      width: 100%;
+    }
 
+  }
+  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell{
+    color: #ff7a7a;
+  }
+  .el-date-table td.current:not(.disabled) span {
+    color: #fff;
+    background-color: #ff7a7a;
+  }
+
+  .el-date-table td.available:hover {
+    color: #ff7a7a;
+  }
+
+  .el-date-table td.today span {
+    color: #ff7a7a;
+    font-weight: 700;
   }
 
 </style>

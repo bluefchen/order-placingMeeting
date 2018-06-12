@@ -18,11 +18,9 @@
             <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
           </div>
         </div>
-        <Table :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle1" :tableData="tableData" v-if="roleData.userType != 1"/>
+        <Table :tableTitle="tableTitle2" :tableData="tableData" v-if="roleData.userType == 1"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
-      </div>
-      <div class="foot-btn">
-        <el-button size="small" type="success" @click="roleSetupSubmit">保&nbsp;存</el-button>
       </div>
     </div>
   </div>
@@ -41,8 +39,11 @@
       if(this.$route.query.postRoleId){
         this.roleData.postRoleId = this.$route.query.postRoleId;
       }
-      if(this.$route.query.name){
+      if(this.$route.query.roleName){
         this.roleData.name = this.$route.query.roleName;
+      }
+      if(this.$route.query.userType){
+        this.roleData.userType = this.$route.query.userType;
       }
       this.queryPostRoleRelaUserList();
     },
@@ -51,7 +52,7 @@
         roleData: {
           postRoleId: ''
         },
-        tableTitle: [{
+        tableTitle1: [{
           label: '真实姓名',
           prop: 'name',
           width: 176,
@@ -113,7 +114,70 @@
                   }).then((rsp) => {
                     this.$message.success('删除成功！');
                     //刷新数据
-
+                  });
+                }
+              },
+            })
+          }
+        }],
+        tableTitle2: [{
+          label: '真实姓名',
+          prop: 'name',
+          width: 200,
+          render: (h, params) => {
+            return h({
+              template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
+              data() {
+                return {
+                  roleName: params.row.name,
+                }
+              }
+            });
+          }
+        },{
+          label: '用户帐号',
+          prop: 'systemUserCode',
+          width: 200
+        },{
+          label: '用户类型',
+          prop: 'userType',
+          width: 200,
+          render: (h, params) => {
+            return h({
+              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        },{
+          label: '手机号码',
+          prop: 'linktelenumber',
+          width: 200
+        },{
+          label: '归属省份',
+          prop: 'commonRegionName',
+        }, {
+          label: '操作',
+          width: 200,
+          render: function (h, params) {
+            return h({
+              template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
+              data: function () {
+                return {
+                  roleInfo: params.row
+                }
+              },
+              methods: {
+                deleteRelativeRole(item) {
+                  this.$post('/systemUserController/deletePostRoleRelaUser', {
+                    postRoleId: item.postRoleId,
+                    partyId: item.partyId
+                  }).then((rsp) => {
+                    this.$message.success('删除成功！');
+                    //刷新数据
                   });
                 }
               },
@@ -144,12 +208,10 @@
           path: '/orderManage/addRelevantPerson',
           query: {
             postRoleId: this.roleData.postRoleId,
+            roleName: this.roleData.name,
+            userType: this.tableData[0].userType
           }
         });
-      },
-      //保存
-      roleSetupSubmit(){
-
       },
       pageChanged(curPage) {
         this.queryOpmDepositList(curPage);

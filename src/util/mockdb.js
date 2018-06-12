@@ -211,7 +211,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
       'offerModelId': '@id',
       'offerModelName': '@word(3,6)',
       'isCentman|1': ['Y', 'N'],
-      'salePrice|1-100.1-2': 1,
+      'salePrice|10-100.1-2': 1,
       'statusCd|1': ['1001', '1002'],
       'offerBaseParam': {
         'listDt': '@date',
@@ -220,27 +220,27 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
       },
       'offerScreenParam': {
         'screenType': '@cword(3,6)',
-        'screenSize|1-10.1': 9.7,
+        'screenSize': '9.7',
         'screenMaterial': '@cword(3,5)',
         'resolutionRatio|1': ['720P', '1080P', '2K', '4K'],
-        'screenPiexl|1-99.1-1': 1,
+        'screenPiexl': '1',
         'screenTech': '@cword(3,10)',
         'frame|1': ['是', '否'],
         'otherParam': '@cword(10,20)'
       },
       'offerHardwardParam': {
         'cpuModel': '@word(3,5)',
-        'cpuRate|1-10': 1,
-        'core|1-8': 2,
+        'cpuRate': '1',
+        'core': '2',
         'gpuModel': '@word(3,6)',
-        'ram|1': [2, 4, 6, 8, 16],
-        'rom|1': [2, 4, 6, 8, 16],
+        'ram|1': ['2', '4', '6', '8', '16'],
+        'rom|1': ['2', '4', '6', '8', '16'],
         'memoryType': '@word(3,6)',
         'memoryCard': '@word(3,6)',
-        'extendedCapacity|1': [2, 4, 6, 8, 16],
+        'extendedCapacity|1': ['2', '4', '6', '8', '16'],
         'rearCamera': '@cword(6,12)',
         'frontCamera': '@cword(6,12)',
-        'batteryCapacity|1000-9999': 1000,
+        'batteryCapacity': '1000',
         'batteryType': '@word(3,10)',
         'batteryCharge': '@word(2,10)',
         'offerPic': {
@@ -1335,10 +1335,10 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
     'totalSize|1-99': 1,//总记录条数
     'rows|10': [{
       'partyId': '@id',
-      'commonRegionId': '1000001',
+      'commonRegionId': '@id',
       'commonRegionName': '@province',
       'userType|1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
-      'relaId': '1122',
+      'relaId': '@id',
       'relaName': '@cword(5)',
       'systemUserCode': '@id',
       'name': '@cname',
@@ -1359,6 +1359,7 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleList'), {
   'data|5': [{
     'postRoleId': '@id',
     'name': '@cname',
+    'userType|1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
     'description': '@cword(10)'
   }]
 });
@@ -1416,22 +1417,22 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'totalSize|1-100': 100,
-    'rows|10': [{
-      'userRoleId': '@id',
-      'postRoleId': '@id',
-      'partyId': '@id',
-      'commonRegionId': '@id',
-      'commonRegionName': '@province',
-      'userType|1': [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
-      'relaId': '@id',
-      'relaName': '@name',
-      'systemUserCode': '@id',
-      'name': '@cname',
-      'linktelenumber': '13499999999',
-      'remark': '@cword(6)',
-      'stautsCd': '',
-      'statusCdName': ''
+    "totalSize|1-100": 100,
+    "rows|10": [{
+      "userRoleId": "@id",
+      "postRoleId": "@id",
+      "partyId": "@id",
+      "commonRegionId": "@id",
+      "commonRegionName": "@province",
+      "userType|1": [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
+      "relaId": "@id",
+      "relaName": "@cword(9)",
+      "systemUserCode": "@id",
+      "name": "@cname",
+      "linktelenumber": "13499999999",
+      "remark": "@cword(6)",
+      'stautsCd|1': [1000, 1002, 9999],//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+      'statusCdName|+1': ['有效', '失效', '冻结', '密码错误锁定']
     }]
   }
 });

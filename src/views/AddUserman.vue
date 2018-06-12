@@ -74,8 +74,8 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item prop="password">
-                <div class="condition-item" v-if="!$route">
+              <el-form-item prop="password" v-if="!$route.query.usermanInfo">
+                <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
                   <Input type="password" :value.sync="usermanData.password"/>
                 </div>
@@ -86,19 +86,21 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds">备注：</label>
-                <Input type="textarea" :value.sync="usermanData.remark" />
+                <Input type="textarea" :value.sync="usermanData.remark"/>
               </div>
             </el-col>
           </el-row>
         </div>
         <div class="foot-btn">
-            <el-form-item>
-              <!--新增-->
-              <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')" v-if="!this.$route.query.usermanInfo">保&nbsp;存</el-button>
-              <!--修改-->
-              <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')" v-else>保&nbsp;存</el-button>
-              <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
-            </el-form-item>
+          <el-form-item>
+            <!--新增-->
+            <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')"
+                       v-if="!this.$route.query.usermanInfo">保&nbsp;存
+            </el-button>
+            <!--修改-->
+            <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')" v-else>保&nbsp;存</el-button>
+            <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
+          </el-form-item>
         </div>
       </el-form>
     </div>
@@ -111,12 +113,12 @@
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import AreaSelect from '@/components/AreaSelect';
-  import { md5 } from 'md5js';
+  import {md5} from 'md5js';
 
   export default {
     name: 'AddSupplierData',
     created() {
-      if(this.$route.query.usermanInfo){
+      if (this.$route.query.usermanInfo) {
         this.usermanData = this.$route.query.usermanInfo;
         this.modify = true;
       }
@@ -125,33 +127,42 @@
       var checkTel = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('不能为空'));
-        }else{
-          let reg=/^(\+86)?1[345789]\d{9}$/;
-          if(!(reg.test(value))){
+        } else {
+          let reg = /^(\+86)?1[345789]\d{9}$/;
+          if (!(reg.test(value))) {
             callback(new Error('请输入正确的电话号码'));
           }
           callback();
-        };
+        }
+        ;
       };
       var checkCommonRegionId = (rule, value, callback) => {
-        if(this.usermanData.userType == 1){
-          if (!value) {
-            return callback(new Error('请选择归属省份'));
-          }else{
+        if (!this.modify) {
+          if (this.usermanData.userType == 1) {
+            if (!value) {
+              return callback(new Error('请选择归属省份'));
+            } else {
+              callback();
+            }
+          } else {
             callback();
           }
-        }else{
+        } else {
           callback();
         }
       };
       var checkRelaId = (rule, value, callback) => {
-        if(this.usermanData.userType != 1){
-          if (!value) {
-            return callback(new Error('请选择归属商户'));
-          }else{
+        if (!this.modify) {
+          if (this.usermanData.userType != 1) {
+            if (!value) {
+              return callback(new Error('请选择归属商户'));
+            } else {
+              callback();
+            }
+          } else {
             callback();
           }
-        }else{
+        } else {
           callback();
         }
       };
@@ -161,33 +172,37 @@
         usermanData: {
           userType: 1,
           password: '',
-          systemUserCode:'',
-          name:'',
-          linktelenumber:''
+          systemUserCode: '',
+          name: '',
+          linktelenumber: ''
         },
         rules: {
           userType: [
-            { required: true, message: '请选择用户类型', trigger: 'blur' },
+            {required: true, message: '请选择用户类型', trigger: 'blur'},
           ],
           systemUserCode: [
-            { required: true, message: '请输入用户账号', trigger: 'blur' },
-            { min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'blur' }
+            {required: true, message: '请输入用户账号', trigger: 'blur'},
+            {min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'blur'}
           ],
           name: [
-            { required: true, message: '请输入用户名称', trigger: 'blur' },
-            { min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'blur' }
+            {required: true, message: '请输入用户名称', trigger: 'blur'},
+            {min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'blur'}
           ],
           linktelenumber: [
-            { validator: checkTel, trigger: 'blur' },
+            {validator: checkTel, trigger: 'blur'},
           ],
           commonRegionId: [
-            { validator: checkCommonRegionId, trigger: 'blur' },
+            {validator: checkCommonRegionId, trigger: 'blur'},
           ],
           relaId: [
-            { validator: checkRelaId, trigger: 'blur' },
-          ]
+            {validator: checkRelaId, trigger: 'blur'},
+          ],
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'},
+            {min: 1, max: 32, message: '长度在不能超过32个字符', trigger: 'blur'}
+          ],
         },
-        usermanSelect:{},
+        usermanSelect: {},
         usermanList: [{
           value: 1,
           label: '运营商'
@@ -203,14 +218,14 @@
     },
     methods: {
       //选择零售商或供应商
-      selectRetailer(val){
+      selectRetailer(val) {
         this.usermanData.relaId = val;
       },
-      addUsermanSubmit(formName){
+      addUsermanSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
-            if(!this.$route.query.usermanInfo){
+            if (!this.$route.query.usermanInfo) {
               this.$post('/systemUserController/addSystemUser', {
                 commonRegionId: this.usermanData.commonRegionId,
                 userType: this.usermanData.userType,
@@ -230,7 +245,7 @@
                   });
                 });
               })
-            }else{
+            } else {
               this.$post('/systemUserController/updateSystemUser', {
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
@@ -251,7 +266,7 @@
           }
         });
       },
-      cancel(){
+      cancel() {
         this.$router.push({
           path: '/orderManage/usermanManage'
         });
@@ -261,9 +276,10 @@
       "usermanData.userType": function () {
         if (this.usermanData.userType == 3) {
           this.merchantsTitle = '零售商';
-        } else if(this.usermanData.userType == 2){
+        } else if (this.usermanData.userType == 2) {
           this.merchantsTitle = '供应商';
-        };
+        }
+        ;
         this.usermanData.relaId = '';
         this.usermanData.commonRegionId = '';
       },
@@ -298,15 +314,15 @@
         font-weight: 800;
       }
     }
-    .terminal-info-box{
+    .terminal-info-box {
       width: 100%;
       padding: 10px 0;
       border: 1px solid #dfdfdf;
     }
-    .red-star{
+    .red-star {
       color: #f00;
     }
-    .foot-btn{
+    .foot-btn {
       width: 100%;
       padding: 24px 0;
       background: #fafafa;
@@ -315,11 +331,11 @@
       text-align: center;
     }
     /*表单验证*/
-    .el-form-item{
+    .el-form-item {
       margin-bottom: 0;
       margin-left: -100px;
     }
-    .el-form-item__content{
+    .el-form-item__content {
       line-height: 24px;
     }
     .el-form-item__error {
