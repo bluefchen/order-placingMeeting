@@ -20,28 +20,28 @@
           <div class="terminal-info-box">
               <el-row :gutter="0">
                 <el-col :span="8" :offset="2">
-                  <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
+                  <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'change'}]">
                     <Input :value.sync="orderPlacingMeeting.opMeetingNo"/>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="16" :offset="2">
-                  <el-form-item label="订货会名称：" prop="opmName" :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                  <el-form-item label="订货会名称：" prop="opmName" :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
                     <Input :value.sync="orderPlacingMeeting.opmName"/>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="6" :offset="2">
-                  <el-form-item label="订货会地址：" prop="commonRegionId" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'}]">
+                  <el-form-item label="订货会地址：" prop="commonRegionId" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'change'}]">
                     <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="10">
                   <div class="condition-item-address">
                     <label class="label-address">--</label>
-                    <el-form-item label-width="0" prop="opmAddr" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                    <el-form-item label-width="0" prop="opmAddr" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'change'}]">
                       <Input :value.sync="orderPlacingMeeting.opmAddr"/>
                     </el-form-item>
                   </div>
@@ -110,7 +110,7 @@
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="18" :offset="2">
-                  <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl" :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'blur'}]">
+                  <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl" :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
                     <el-upload
                       class="condition-upload fn-left"
                       action="/commonCfgController/upload"
@@ -744,7 +744,7 @@
     }
     .date-text {
       width: 30px;
-      margin-top: 5px;
+      margin-top: 10px;
       text-align: center;
       line-height: 30px;
     }

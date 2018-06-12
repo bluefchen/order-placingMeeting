@@ -8,7 +8,7 @@
         <div class="terminal-info-box">
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端编码：" prop="offerCode" :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'blur'}]">
+              <el-form-item label="终端编码：" prop="offerCode" :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'change'}]">
                 <Input :value.sync="terminalMaintainInfo.offerCode"/>
               </el-form-item>
             </el-col>
