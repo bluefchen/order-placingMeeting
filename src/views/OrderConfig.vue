@@ -920,7 +920,7 @@
 
     //表单提示样式
     .el-form-item{
-      margin: 5px 0;
+      margin: 10px 0;
     }
 
     .editor-error{
@@ -928,8 +928,6 @@
       left: 0;
       bottom: -30px;
       padding: 5px;
-      background: #f7f7f7;
-      border: 1px solid #d3d5da;
       z-index: 999;
       color: #f56c6c;
       font-size: 12px;
@@ -938,8 +936,6 @@
     }
     .el-form-item__error{
       padding: 5px;
-      background: #f7f7f7;
-      border: 1px solid #d3d5da;
       z-index: 999;
     }
 
