@@ -1,6 +1,6 @@
 <template>
   <div class="v_input-with-select">
-    <el-input placeholder="输入终端编码或名称搜索" v-model="input" class="input-with-select" :size="size">
+    <el-input :placeholder="placeholder" v-model="input" class="input-with-select" :size="size">
       <el-select v-model="select" slot="prepend" placeholder="请选择" v-if="!isHideSelect">
         <el-option
           v-for="item in options"
@@ -17,10 +17,16 @@
 <script>
   export default {
     name: 'InputWithSelect',
+    created() {
+      this.placeholder = this.placeholderText ? this.placeholderText : '输入终端编码或名称搜索';
+    },
     props: {
       size: {
         type: String,
         default: 'small'
+      },
+      placeholderText: {
+        type: String
       },
       options: {
         type: Array,
@@ -41,7 +47,8 @@
     data() {
       return {
         input: '',
-        select: ''
+        select: '',
+        placeholder: ''
       }
     },
     methods: {
