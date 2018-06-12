@@ -238,9 +238,9 @@
       },
       delOrder(item) {
         this.$msgBox({
+          type: 'error',
           title: '添加分类',
-          content: '请填写分类名称',
-          type: 'error'
+          content: '请填写分类名称'
         }).then((val) => {
           console.log('ok', val);
         }).catch(() => {

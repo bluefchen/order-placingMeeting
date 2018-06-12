@@ -55,11 +55,11 @@
       },
       isShowConfimrBtn: {
         type: Boolean,
-        default: true
+        default: false
       },
       cancelBtnText: {
         type: String,
-        default: '取消'
+        default: '关闭'
       },
       confirmBtnText: {
         type: String,
@@ -137,16 +137,12 @@
         position: relative;
         height: 36px;
         padding-left: 10px;
-        background: #fafafa;
+        background: #f60e0e;
         border-bottom: 1px solid #b0b0b0;
-        line-height: 36px;
-        color: #000;
-        font-size: 14px;
-        text-align: left;
         h3 {
           height: 36px;
           line-height: 36px;
-          color: #000;
+          color: #fff;
           font-size: 14px;
         }
         .icon {
@@ -156,7 +152,7 @@
           width: 36px;
           height: 36px;
           line-height: 36px;
-          color: #ed5656;
+          color: #fff;
           font-size: 18px;
           font-family: iconfont;
           text-align: center;
@@ -236,11 +232,11 @@
             background-color: #ffd7d7;
           }
           &.btn-ok {
-            background-color: #ed5656;
-            border: 1px solid #ed5656;
+            background-color: #e20606;
+            border: 1px solid #e20606;
             color: #fff;
             &:hover {
-              background-color: #f56161;
+              background-color: #f60e0e;
             }
           }
         }
