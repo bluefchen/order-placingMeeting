@@ -30,7 +30,7 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input :value.sync="orderDeliveryData.opmOrderNo"/>
@@ -46,9 +46,7 @@
       <el-col :span="8">
         <div class="condition-item">
           <label class="label-wrds">订购起止日期：</label>
-          <DatePicker :value.sync="orderDeliveryData.dateValue"/>
-          <!--<el-date-picker v-model="orderDeliveryData.dateValue" type="daterange"-->
-                          <!--range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
+          <DatePicker :value.sync="orderDeliveryData.dateValue" :clearable="true"/>
         </div>
       </el-col>
       </el-row>

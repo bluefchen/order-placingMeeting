@@ -207,35 +207,56 @@
         this.depositType = index;
       },
       confirm(type, formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-            if (opmRetailerDepositList) {
-              opmRetailerDepositList.map((item) => {
-                let obj = {
-                  'retailerId': item.retailerId,
-                  'depositAmount': item.depositAmount
-                };
-                this.opmRetailerUpate.push(obj);
-              });
+        if(type == 1){
+          this.$post('/opmDepositController/updateOpmDepositInfo', {
+            opMeetingId: this.opMeetingInfo.opMeetingId,
+            provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+            depositType: type,
+          }).then((rsp) => {
+            this.$message.success('修改配置成功！');
+            this.queryOpmDepositInfo();
+            this.editshow = true;
+          })
+        }else if(type == 2) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              this.$post('/opmDepositController/updateOpmDepositInfo', {
+                opMeetingId: this.opMeetingInfo.opMeetingId,
+                provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+                depositType: type,
+                depositProportion: this.depositInfoList.depositProportion,
+              }).then((rsp) => {
+                this.$message.success('修改配置成功！');
+                this.queryOpmDepositInfo();
+                this.editshow = true;
+              })
+            } else {
+              console.log('error submit!!');
+              return false;
             }
-            ;
-            this.$post('/opmDepositController/updateOpmDepositInfo', {
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
-              depositType: type,
-              depositProportion: this.depositInfoList.depositProportion,
-              opmRetailerDepositList: this.opmRetailerUpate
-            }).then((rsp) => {
-              this.$message.success('修改配置成功！');
-              this.queryOpmDepositInfo();
-              this.editshow = true;
-            })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+          });
+        }else{
+          let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
+          if (opmRetailerDepositList) {
+            opmRetailerDepositList.map((item) => {
+              let obj = {
+                'retailerId': item.retailerId,
+                'depositAmount': item.depositAmount
+              };
+              this.opmRetailerUpate.push(obj);
+            });
+          };
+          this.$post('/opmDepositController/updateOpmDepositInfo', {
+            opMeetingId: this.opMeetingInfo.opMeetingId,
+            provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+            depositType: type,
+            opmRetailerDepositList: this.opmRetailerUpate
+          }).then((rsp) => {
+            this.$message.success('修改配置成功！');
+            this.queryOpmDepositInfo();
+            this.editshow = true;
+          })
+        }
       },
       queryOpmDepositInfo() {
         this.$post('/opmDepositController/queryOpmDepositInfo', {

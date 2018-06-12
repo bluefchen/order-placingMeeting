@@ -41,7 +41,7 @@
     data() {
       return {
         isShow: false,
-        statusCd: 1,
+        statusCd: 1001,
         statusList: [{
           label: '通过',
           value: 1001

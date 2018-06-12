@@ -121,6 +121,7 @@
         this.queryOpmPolicyList();
       },
       queryOpmPolicyList(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmPolicyController/queryOpmPolicyList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           policyName: this.policyManage.policyName,

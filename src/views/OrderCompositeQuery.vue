@@ -30,7 +30,7 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input :value.sync="orderQueryData.opmOrderNo"/>
@@ -45,12 +45,12 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
-            <DatePicker :value.sync="orderQueryData.dateValue"/>
+            <DatePicker :value.sync="orderQueryData.dateValue" :clearable="true"/>
           </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
             <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
@@ -60,11 +60,6 @@
           <div class="condition-item">
             <label class="label-wrds">供应商名称：</label>
             <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="condition-item">
-            <el-button type="success" size="small" @click="queryOpmOrderSubmit()">查询</el-button>
           </div>
         </el-col>
       </el-row>
@@ -169,7 +164,7 @@
       search(obj) {
         this.orderQueryData.isCentman = obj.type;
         this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit()
+        this.queryOpmOrderSubmit();
       },
       selectRetailer(val){
           this.orderQueryData.retailerId = val;

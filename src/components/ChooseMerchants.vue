@@ -345,7 +345,7 @@
         border-left: 1px solid #e5e5e5;
         font-size: 14px;
         text-align: center;
-        line-height: 30px;
+        line-height: 28px;
         cursor: pointer;
       }
       .choose-input {

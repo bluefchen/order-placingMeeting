@@ -30,7 +30,7 @@
           <el-col :span="12">
               <div class="condition-item">
                 <label class="label-wrds">订购起止日期：</label>
-                <DatePicker :value.sync="depositRecord.orderDate"/>
+                <DatePicker :value.sync="depositRecord.orderDate" :clearable="true"/>
               </div>
           </el-col>
           <el-col :span="4">
@@ -123,6 +123,7 @@
         this.depositRecord.retailerId = val;
       },
       queryOpmRetailerDepositList(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/opmDepositController/queryOpmRetailerDepositList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           retailerId: this.depositRecord.retailerId,

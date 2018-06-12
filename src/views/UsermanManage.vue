@@ -18,7 +18,7 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户类型：</label>
             <Select :value.sync="usermanData.userType" :options="usermanList"/>
@@ -38,14 +38,11 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户状态：</label>
             <Select :value.sync="usermanData.statusCd" :options="statusList"/>
           </div>
-        </el-col>
-        <el-col :span="16">
-          <el-button class="query-btns fn-right" @click="usermanSearch()">查询</el-button>
         </el-col>
       </el-row>
     </div>
@@ -308,6 +305,7 @@
         })
       },
       queryUsermanSubmit(curPage, pageSize) {
+        this.currentPage = curPage || 1;
         this.$post('/systemUserController/querySystemUserList', {
           codeOrPhone: this.usermanData.opmOrderNo,
           commonRegionId: this.usermanData.commonRegionId,
