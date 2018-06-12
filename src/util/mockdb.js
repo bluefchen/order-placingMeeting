@@ -1372,8 +1372,23 @@ Mock.mock(new RegExp('/systemUserController/queryPostRoleRelaUserList'), {
   msg: null, //失败信息
   error: null,
   data: {
-    'resultMsg': '成功',
-    'resultCode': '0'
+    "totalSize|1-100": 100,
+    "rows|10": [{
+      "userRoleId": "@id",
+      "postRoleId": "@id",
+      "partyId": "@id",
+      "commonRegionId": "@id",
+      "commonRegionName": "@province",
+      "userType|1": [1, 2, 3],//用户类型  1 - 运营商，2 - 供货商，3 - 零售商
+      "relaId": "@id",
+      "relaName": "@name",
+      "systemUserCode": "@id",
+      "name": "@cname",
+      "linktelenumber": "13499999999",
+      "remark": "@cword(6)",
+      "stautsCd": "",
+      "statusCdName": ""
+    }]
   }
 });
 //74、	删除关联关系

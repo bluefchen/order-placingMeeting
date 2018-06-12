@@ -39,8 +39,7 @@
     created() {
       if (this.$route.query.roleInfo) {
         this.roleData = this.$route.query.roleInfo;
-      }
-      ;
+      };
       this.querySystemMenuList();
     },
     data() {
@@ -78,11 +77,14 @@
           postRoleId: this.roleData.postRoleId || 'id',
           systemMenuId: newMenu,
         }).then((rsp) => {
-          if (rsp) {
-            this.systemMenuAllList = rsp;
-          } else {
-            this.systemMenuAllList = [];
-          }
+          this.$alert('菜单配置成功！', '提示', {
+            confirmButtonText: '确定',
+            type: 'success'
+          }).then(() => {
+            this.$router.push({
+              path: '/orderManage/RoleManage'
+            });
+          });
         });
       }
     },

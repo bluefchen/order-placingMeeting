@@ -1,5 +1,5 @@
 <template>
-  <div class="add-role">
+  <div class="modify-role">
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
@@ -11,29 +11,37 @@
         <TitlePlate class="fn-left" title="角色编辑"/>
       </div>
       <!-- 角色编辑 -->
-      <div class="role-setup-info">
-        <div class="terminal-info-box">
-          <el-row :gutter="20">
-            <el-col :span="8" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
-                <Input :value.sync="roleData.name"/>
-              </div>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20">
-            <el-col :span="18" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
-                <Input type="textarea" :value.sync="roleData.description"/>
-              </div>
-            </el-col>
-          </el-row>
+      <el-form :model="roleData" :rules="rules" ref="roleData" label-width="100px" class="demo-ruleForm">
+        <div class="role-setup-info">
+            <div class="terminal-info-box">
+              <el-row :gutter="20">
+                <el-col :span="8" :offset="2">
+                  <el-form-item prop="name">
+                    <div class="condition-item">
+                      <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
+                      <Input :value.sync="roleData.name"/>
+                    </div>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="18" :offset="2">
+                  <el-form-item prop="description" class="textarea">
+                    <div class="condition-item">
+                      <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
+                      <Input type="textarea" :value.sync="roleData.description"/>
+                    </div>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
         </div>
-      </div>
-      <div class="foot-btn">
-        <el-button size="small" type="success" :disabled="!roleData.name || !roleData.description" @click="roleAddSubmit">保&nbsp;存</el-button>
-      </div>
+        <div class="foot-btn">
+          <el-form-item>
+            <el-button size="small" type="primary" @click="roleAddSubmit">保&nbsp;存</el-button>
+          </el-form-item>
+        </div>
+      </el-form>
     </div>
   </div>
 </template>
@@ -56,9 +64,18 @@
       return {
         roleData: {
           name: '',
-          description: '',
-          postRoleId: ''
-        }
+          description: ''
+        },
+        rules: {
+          name: [
+            { required: true, message: '角色名称不能为空', trigger: 'blur' },
+            { min: 1, max: 200, message: '长度不能超过200个字符', trigger: 'blur' }
+          ],
+          description: [
+            { required: true, message: '角色说明不能为空', trigger: 'blur' },
+            { min: 1, max: 250, message: '长度不能超过250个字符', trigger: 'blur' }
+          ]
+        },
       }
     },
     methods: {
@@ -90,8 +107,8 @@
   }
 </script>
 
-<style scoped lang="less">
-  .add-role {
+<style lang="less">
+  .modify-role {
     .my-location {
       height: 30px;
       line-height: 30px;
@@ -130,6 +147,28 @@
       border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
+    }
+
+    /*表单验证*/
+    .el-form-item{
+      margin-bottom: 0;
+      margin-left: -100px;
+    }
+    .el-form-item__content{
+      line-height: 24px;
+    }
+    .el-form-item__error {
+      position: absolute;
+      padding-top: 0;
+      top: 42px;
+      left: 114px;
+    }
+    .el-form-item{
+      &.textarea{
+        .el-form-item__error{
+          top: 62px;
+        }
+      }
     }
   }
 

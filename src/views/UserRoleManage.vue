@@ -8,7 +8,7 @@
     </div>
     <div class="box-1200">
       <div class="top-titl fn-clear">
-        <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>零售商</span></label>
+        <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{roleData.name}}</span></label>
       </div>
       <!--管理人员-->
       <div class="role-setup-info">
@@ -41,7 +41,10 @@
       if(this.$route.query.postRoleId){
         this.roleData.postRoleId = this.$route.query.postRoleId;
       }
-      this.queryPostRoleRelaUserList(this.currentPage, this.pageSize);
+      if(this.$route.query.name){
+        this.roleData.name = this.$route.query.roleName;
+      }
+      this.queryPostRoleRelaUserList();
     },
     data() {
       return {
