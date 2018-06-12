@@ -70,11 +70,6 @@
                   return {
                     data: params,
                   }
-                },
-                methods: {
-                  orderDetail: (index, item) => {
-                    this.orderDetail(index, item)
-                  }
                 }
               })
             }

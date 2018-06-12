@@ -16,7 +16,6 @@ import './util/axios';
 
 import '@/assets/css/reset.css';
 import '@/assets/css/common.css';
-import '@/assets/css/quill.snow.css';
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/user') {

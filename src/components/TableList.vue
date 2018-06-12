@@ -98,11 +98,14 @@
       height: 35px;
       padding: 0 10px;
       background: #f8f8f8;
-      color: #807e7e;
+      color: #aaa;
       line-height: 35px;
       border-bottom: 1px solid #e0e0e0;
       .date-color {
-        color: #807e7e;
+        color: #4c4848;
+        b{
+          color: #000;
+        }
       }
       .btn-del {
         background: none;
@@ -202,6 +205,21 @@
       border-radius: 3px;
       text-decoration: none;
       cursor: pointer;
+    }
+
+    .updown-btn {
+      padding: 2px 5px;
+      border: 0;
+      text-decoration: underline;
+      &:hover {
+        border: 1px solid #f82134;
+        border-radius: 3px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+    .red {
+      color: #f82134;
     }
   
     .text-left{

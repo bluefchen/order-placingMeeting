@@ -284,6 +284,8 @@
   import {quillEditor} from 'vue-quill-editor';
   import moment from 'moment';
 
+  import '@/assets/css/quill.snow.css'; //富文本框样式
+
   export default {
     name: 'OrderConfig',
     created() {

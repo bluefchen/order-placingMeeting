@@ -40,15 +40,12 @@
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
             <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
-            <!-- <input type="text" v-model="orderDeliveryData.retailerId"> -->
           </div>
         </el-col>
       <el-col :span="8">
         <div class="condition-item">
           <label class="label-wrds">订购起止日期：</label>
           <DatePicker :value.sync="orderDeliveryData.dateValue"/>
-          <!--<el-date-picker v-model="orderDeliveryData.dateValue" type="daterange"-->
-                          <!--range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
         </div>
       </el-col>
       </el-row>
@@ -62,7 +59,8 @@
           <button class="btns"><i class="iconfont">&#xe6a8;</i> 导入</button>
         </div>
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
+
+      <!-- <table width="100%" cellspacing="0" cellpadding="0" class="table">
         <thead>
         <tr>
           <th width="32%">终端名称</th>
@@ -97,7 +95,8 @@
 
           </div>
         </li>
-      </ul>
+      </ul> -->
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPickupRecordList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -114,6 +113,7 @@
   import DatePicker from '@/components/DatePicker';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'OrderPickupData',
@@ -123,6 +123,122 @@
     },
     data() {
       return {
+        tab: {
+          // <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
+          //   <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
+          //   <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
+          tableHeader: [{
+            label: '订单号',
+            prop: 'opmOrderNo',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: '<p class="date-color"><b>订单号：{{data.row.opmOrderNo}}</b>【{{data.row.orderDt}}】</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '零售商',
+            prop: 'retailerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-center">订单号：{{data.row.retailerName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '供货商',
+            prop: 'retailerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-right">供货商：{{data.row.retailerName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }],
+
+          tableTitle: [{
+            label: '终端名称',
+            prop: 'opmName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
+                  <div class="device-pic fn-left">
+                    <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
+                    <img v-else src="/static/img/icon-dhhui-default.png" alt="">
+                  </div>
+                  <div class="device-info fn-right">
+                    <p class="name">{{data.row.opmName}}</p>
+                    <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
+                  </div>
+                </div>
+                `,
+                data: function () {
+                  return {
+                    data: params
+                  }
+                },
+                methods: {
+                  detailOrder(item) {
+                    localStorage.setItem('opMeeting', JSON.stringify(item));
+                    this.$router.push({path: '/order/orderIndex'});
+                  }
+                }
+              })
+            }
+          }, {
+            label: '终端品牌',
+            prop: 'brandName',
+            colSpan: 4
+          }, {
+            label: '终端型号',
+            prop: 'offerModelName',
+            colSpan: 4
+          }, {
+            label: '订购数量',
+            prop: 'offerQty',
+            colSpan: 2
+          }, {
+            label: '提货数量',
+            prop: 'pickupGoodsAmount',
+            colSpan: 2
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button @click="editDeliveryData(data.row)" class="updown-btn red">编辑</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  editDeliveryData: (item) => {
+                    this.editDeliveryData(item)
+                  }
+                }
+              })
+            }
+          }]
+        },
         orderPickupRecordList: [], //查询返回的数据
         orderDeliveryData: {
           isCentman: '',
@@ -190,7 +306,8 @@
       Pagination,
       DatePicker,
       ChooseMerchants,
-      Input
+      Input,
+      TableList
     }
   }
 </script>
