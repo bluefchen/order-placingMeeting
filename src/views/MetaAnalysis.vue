@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="result-table">
-              <Table :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+              <Table :tableTitle="tableTitle" :tableData="tableData"/>
             </div>
             <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
           </div>
@@ -92,7 +92,7 @@
               </div>
             </div>
             <div class="result-table">
-              <Table :border="false" :tableTitle="brandTableTitle" :tableData="brandTableData"/>
+              <Table :tableTitle="brandTableTitle" :tableData="brandTableData"/>
             </div>
             <Pagination :total="brandTotal" :pageSize="pageSize" :currentPage="brandCurrentPage" @pageChanged="brandPageChanged"/>
           </div>
@@ -127,7 +127,7 @@
               </div>
             </div>
             <div class="result-table">
-              <Table :border="false" :tableTitle="BusinessTableTitle" :tableData="BusinessTableData"/>
+              <Table :tableTitle="BusinessTableTitle" :tableData="BusinessTableData"/>
             </div>
             <Pagination :total="busiTotal" :pageSize="pageSize" :currentPage="busiCurrentPage" @pageChanged="busiPageChanged"/>
           </div>

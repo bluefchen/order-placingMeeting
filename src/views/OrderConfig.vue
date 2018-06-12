@@ -27,21 +27,21 @@
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="16" :offset="2">
-                  <el-form-item label="订货会名称：" prop="opmName" :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                  <el-form-item label="订货会名称：" prop="opmName" :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
                     <Input :value.sync="orderPlacingMeeting.opmName"/>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="6" :offset="2">
-                  <el-form-item label="订货会地址：" prop="commonRegionId" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'}]">
+                  <el-form-item label="订货会地址：" prop="commonRegionId" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'change'}]">
                     <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="10">
                   <div class="condition-item-address">
                     <label class="label-address">--</label>
-                    <el-form-item label-width="0" prop="opmAddr" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                    <el-form-item label-width="0" prop="opmAddr" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'change'}]">
                       <Input :value.sync="orderPlacingMeeting.opmAddr"/>
                     </el-form-item>
                   </div>
@@ -110,7 +110,7 @@
               </el-row>
               <el-row :gutter="0">
                 <el-col :span="18" :offset="2">
-                  <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl" :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'blur'}]">
+                  <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl" :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
                     <el-upload
                       class="condition-upload fn-left"
                       action="/commonCfgController/upload"
@@ -531,6 +531,15 @@
         return isImg;
       },
       orderSubmit() {
+        let supplierIdList = [];
+        let retailerIdList = [];
+        _.forEach(this.supplierList.tableData, (item, index) => {
+          supplierIdList.push(item.supplierId);
+        });
+
+        _.forEach(this.retailerList.tableData, (item, index) => {
+          retailerIdList.push(item.retailerId);
+        });
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
@@ -544,8 +553,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('新增成功！');
           });
@@ -563,8 +572,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('修改成功！');
           });
@@ -575,6 +584,15 @@
         this.$message.success('订货会基本信息保存成功');
       },
       finish() {
+        let supplierIdList = [];
+        let retailerIdList = [];
+        _.forEach(this.supplierList.tableData, (item, index) => {
+          supplierIdList.push(item.supplierId);
+        });
+
+        _.forEach(this.retailerList.tableData, (item, index) => {
+          retailerIdList.push(item.retailerId);
+        });
         if (this.title === '新增订购会') {
           //新增
           this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
@@ -588,8 +606,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('新增成功！');
             this.next();
@@ -608,8 +626,8 @@
             'logoUrl': this.orderPlacingMeeting.logoUrl,
             'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
             'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': this.supplierList.tableData,
-            'retailerArr': this.retailerList.tableData
+            'supplierArr': supplierIdList,
+            'retailerArr': retailerIdList
           }).then((rsp) => {
             console.log('修改成功！');
             this.next();
@@ -744,7 +762,7 @@
     }
     .date-text {
       width: 30px;
-      margin-top: 5px;
+      margin-top: 10px;
       text-align: center;
       line-height: 30px;
     }

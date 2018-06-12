@@ -56,7 +56,7 @@
         <TitlePlate class="fn-left" title="订单提货清单明细"/>
       </div>
       <div class="result-table">
-        <Table :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
