@@ -1,6 +1,6 @@
 <template>
   <div class="v_input-with-select">
-    <el-input placeholder="输入终端编码或名称搜索" v-model="input" class="input-with-select" :size="size">
+    <el-input :placeholder="placeholder" v-model="input" class="input-with-select" :size="size">
       <el-select v-model="select" slot="prepend" placeholder="请选择" v-if="!isHideSelect">
         <el-option
           v-for="item in options"
@@ -21,6 +21,10 @@
       size: {
         type: String,
         default: 'small'
+      },
+      placeholder: {
+        type: String,
+        default: '输入终端编码或名称搜索'
       },
       options: {
         type: Array,
