@@ -39,7 +39,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" :border="true" :isSelection="false" @currentChange="selectionChange"
+        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange"
                :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
@@ -445,7 +445,6 @@
     }
     .el-table td, .el-table th.is-leaf {
       border-color: #e6e6e6;
-      height: 33px;
     }
     .el-table--small td, .el-table--small th {
       padding: 0;

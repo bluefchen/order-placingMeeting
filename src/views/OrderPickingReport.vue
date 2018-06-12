@@ -41,7 +41,7 @@
         <TitlePlate class="fn-left" title="各省订单提货上报分析"/>
       </div>
       <div class="result-table">
-        <Table :border="false" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :tableTitle="tableTitle" :tableData="tableData"/>
       </div>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
