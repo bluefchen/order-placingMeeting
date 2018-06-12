@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-import qs from 'qs'
 import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
@@ -48,7 +47,6 @@ axios.interceptors.response.use(response => {
 });
 
 export function fetchPost(url, params) {
-  debugger;
   return new Promise((resolve, reject) => {
     axios
       .post(url, 'param=' + JSON.stringify(params))
