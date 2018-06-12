@@ -79,15 +79,16 @@
 <style lang="less">
   .v_table-list{
     .table-list-box{
-      height: 40px;
-      line-height: 40px;
+      height: 28px;
+      line-height: 28px;
       background-color: #efefef;
       border: 1px solid #dcdcdc;
       color: #131212;
+      font-size: 12px;
       font-weight: bold;
     }
     .li-list {
-      margin-top: 16px;
+      margin-top: 10px;
       border: 1px solid #e0e0e0;
       &:hover {
         border: 1px solid #f00;
@@ -123,17 +124,18 @@
     }
     .dll {
       padding: 0 10px;
-      line-height: 90px;
+      height: 84px;
+      line-height: 84px;
       text-align: center;
     }
 
     .device-wrap {
-      padding: 10px;
+      padding: 9px;
       text-align: left;
       cursor: pointer;
       .device-pic {
-        width: 85px;
-        height: 71px;
+        width: 66px;
+        height: 66px;
         box-sizing: border-box;
         border: 1px solid #e5e5e5;
         img {

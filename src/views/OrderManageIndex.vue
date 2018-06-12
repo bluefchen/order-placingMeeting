@@ -106,7 +106,8 @@
               template: `
               <div class="device-wrap fn-clear" @click="detailOrder(data.row)">
                 <div class="device-pic fn-left">
-                  <img :src="data.row.logoUrl" alt="">
+                  <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
+                  <img v-else src="/static/img/icon-dhhui-default.png" alt="">
                 </div>
                 <div class="device-info fn-right">
                   <p class="name">{{data.row.opmName}}</p>
@@ -307,22 +308,21 @@
 
     /* 条件搜索 */
     .search {
-      margin: 10px auto;
-      height: 28px;
+      margin: 15px auto;
+      height: 30px;
       .search-input {
         width: 310px;
-        height: 26px;
+        height: 30px;
         input {
           width: 238px;
-          height: 26px;
+          height: 28px;
           padding: 0 5px;
-          line-height: 26px;
+          line-height: 28px;
           border: 1px solid #d0d0d0;
           &:hover {
             border-color: #c0c4cc;
             & + .search-btn {
               width: 60px;
-              height: 28px;
               background: #f8f8f8;
               border: none;
               border: 1px solid #c0c4cc;
@@ -334,7 +334,6 @@
             border-color: #ff7a7a;
             & + .search-btn {
               width: 60px;
-              height: 28px;
               background: #f8f8f8;
               border: none;
               border: 1px solid #ff7a7a;
@@ -344,7 +343,7 @@
           }
           & + .search-btn {
             width: 60px;
-            height: 28px;
+            height: 30px;
             background: #f8f8f8;
             border: none;
             border: 1px solid #d5d5d5;
@@ -357,7 +356,7 @@
       .search-query {
         button {
           width: 92px;
-          height: 28px;
+          height: 30px;
           background: #fa0000;
           color: #fff;
           border: none;
