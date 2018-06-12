@@ -211,7 +211,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferList'), {
       'offerModelId': '@id',
       'offerModelName': '@word(3,6)',
       'isCentman|1': ['Y', 'N'],
-      'salePrice|10-100': 1,
+      'salePrice|10-100.1-2': 1,
       'statusCd|1': ['1001', '1002'],
       'offerBaseParam': {
         'listDt': '@date',

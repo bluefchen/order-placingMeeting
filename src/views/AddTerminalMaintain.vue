@@ -49,9 +49,10 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <el-form-item label="终端图片上传：" prop="offerPicList">
+              <div class="condition-item">
+                <label class="label-wrds text-right"><span class="red-star">*</span> 终端图片上传：</label>
                 <div class="upload-img-list fn-clear">
-                  <ul>
+                  <ul class="fn-left">
                     <el-upload
                       action="/commonCfgController/upload"
                       :file-list="offerPicList"
@@ -66,9 +67,10 @@
                       <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
                   </ul>
-                  <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
+                  <div v-if="nullError" class="upload-list-null fn-left">请上传终端图片</div>
                 </div>
-              </el-form-item>
+                <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
+              </div>
             </el-col>
           </el-row>
         </div>
@@ -236,9 +238,9 @@
         </div>
       </div>
       <div class="foot-btn">
-          <button class="btns" @click="submitForm('terminalMaintainInfo')">保&nbsp;存</button>
+          <button class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
           <!-- <button class="btns" @click="saveOffer">保&nbsp;存</button> -->
-          <button class="btns" @click="previewOffer">预&nbsp;览</button>
+          <button class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
           <!-- <button class="btns" @click="previewOffer">预&nbsp;览</button> -->
       </div>
     </el-form>
@@ -319,6 +321,9 @@
     },
     data() {
       return {
+        nullError: null,
+
+
         terminalInfo: {
           offerCode: ''
         },
@@ -393,10 +398,16 @@
           });
         });
       },
-      submitForm(formName) {
+      submitForm(formName, title) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            if(this.offerPicList.length){
+              if(title === '保存'){
+                this.saveOffer();
+              }else{
+                this.previewOffer();
+              }
+            }
           } else {
             return false;
           }
@@ -625,6 +636,13 @@
         }else{
           this.flag++
         }
+      },
+      'offerPicList': function(newVal, oldVal){
+        if(!newVal.length){
+          this.nullError = true;
+        }else{
+          this.nullError = false;
+        }
       }
     }
   }
@@ -714,9 +732,10 @@
           }
         }
       }
-      .attention{
-        color: #ffa132;
-      }
+    }
+
+    .attention{
+      color: #ffa132;
     }
 
     .result-head{
@@ -935,6 +954,13 @@
       margin: 10px 0;
     }
 
+    .upload-list-null{
+      z-index: 999;
+      color: #f56c6c;
+      height: 92px;
+      line-height: 92px;
+      font-size: 12px;
+    }
     .editor-error{
       position: absolute;
       left: 0;
