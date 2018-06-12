@@ -21,7 +21,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户类型：</label>
-            <Select :value.sync="usermanData.userType" :options="usermanList"/>
+            <Select :value.sync="usermanData.userType" :options="usermanList" :clearable="true"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -41,7 +41,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户状态：</label>
-            <Select :value.sync="usermanData.statusCd" :options="statusList"/>
+            <Select :value.sync="usermanData.statusCd" :options="statusList" :clearable="true"/>
           </div>
         </el-col>
       </el-row>
@@ -103,8 +103,8 @@
         }],
         usermanData: {
           codeOrPhone: '',
-          userType: 1,
-          statusCd: 1000,//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+          userType: '',
+          statusCd: '',//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
           retailerId: '',
         },
         tableTitle: [{
