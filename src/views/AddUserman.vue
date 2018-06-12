@@ -1,5 +1,5 @@
 <template>
-  <div class="vue_add-supplier">
+  <div class="add-userman">
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="新增/修改账号"/>
@@ -280,8 +280,7 @@
 </script>
 
 <style lang="less">
-
-  .vue_add-supplier {
+  .add-userman {
     .text-right {
       text-align: right;
     }
@@ -328,9 +327,6 @@
       padding-top: 0;
       top: 42px;
       left: 114px;
-    }
-    .choose-merchants .choose-input-box .choose-input{
-      margin-top: -1px;
     }
   }
 

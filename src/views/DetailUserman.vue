@@ -1,5 +1,5 @@
 <template>
-  <div class="vue_details-supplier">
+  <div class="detail-userman">
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="用户管理详情"/>
@@ -14,7 +14,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户类型：</label>
-                  <p><b>{{usermanData.userType}}</b></p>
+                  <p><b v-if="usermanData.userType == 1">运营商</b><b v-else-if="usermanData.userType == 2">供货商</b><b v-else>零售商</b></p>
                 </div>
               </el-col>
             </el-row>
@@ -91,8 +91,7 @@
 </script>
 
 <style lang="less">
-
-  .vue_details-supplier {
+  .detail-userman {
     .order-titl {
       height: 28px;
       margin: 15px 0 8px;
@@ -106,6 +105,10 @@
         color: #000;
         font-weight: 800;
       }
+    }
+    .condition-item{
+      line-height: 28px;
+      font-size: 14px;
     }
     .supplier-info-box{
       width: 100%;
@@ -143,6 +146,7 @@
         }
       }
     }
+
   }
 
 </style>

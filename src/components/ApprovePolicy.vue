@@ -15,7 +15,7 @@
           <el-col :span="18" :offset="2">
             <div class="condition-item">
               <label class="label-wrds">审批备注：</label>
-              <Input type="textarea" :value.sync="remark"/>
+              <Input type="textarea" :value.sync="reviewRemark"/>
             </div>
           </el-col>
         </el-row>
@@ -61,7 +61,8 @@
         this.$post('/opmPolicyController/approveOpmPolicy', {
           policyId: this.data.policyId,
           statusCd: this.statusCd,
-          remark: this.remark
+          reviewPartyId: '',
+          reviewRemark: this.reviewRemark
         }).then((rsp) => {
           this.$message.success('优惠政策审批成功!');
           this.$emit('update');

@@ -1,7 +1,7 @@
 <template>
-  <div class="add-relevant box-1200">
+  <div class="add-relevant-person box-1200">
     <div class="top-titl fn-clear">
-      <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>零售商</span></label>
+      <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{}}</span></label>
     </div>
     <!-- 条件搜索 -->
     <div class="condition-search">
@@ -190,7 +190,7 @@
 </script>
 
 <style lang="less">
-  .add-relevant{
+  .add-relevant-person{
     .top-titl {
       height: 36px;
       margin: 15px 0 8px;
