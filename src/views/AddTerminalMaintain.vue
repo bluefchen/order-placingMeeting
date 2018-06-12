@@ -810,13 +810,13 @@
           position: relative;
           display: block;
           width: 102px;
-          height: 32px;
+          height: 28px;
           padding: 0;
           color: #f01919;
           border: 1px solid #f01919;
           text-align: center;
           font-size: 14px;
-          line-height: 32px;
+          line-height: 28px;
           cursor: pointer;
           border-radius: 3px;
         }
@@ -952,13 +952,13 @@
     }
 
     .el-form-item__label{
-      height: 30px;
-      line-height: 30px;
+      height: 28px;
+      line-height: 28px;
       padding: 0;
       color: #333;
     }
     .el-form-item__content{
-      line-height: 30px;
+      line-height: 26px;
     }
     //表单提示样式
 
