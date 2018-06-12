@@ -891,5 +891,8 @@
     color: #ff7a7a;
     font-weight: 700;
   }
+  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell{
+    color: #ff7a7a;
+  }
 
 </style>
