@@ -350,7 +350,6 @@
 
       .search-query {
         button {
-          width: 92px;
           height: 30px;
           background: #fa0000;
           color: #fff;
