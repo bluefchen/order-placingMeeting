@@ -17,14 +17,16 @@
 <script>
   export default {
     name: 'InputWithSelect',
+    created() {
+      this.placeholder = this.placeholderText ? this.placeholderText : '输入终端编码或名称搜索';
+    },
     props: {
       size: {
         type: String,
         default: 'small'
       },
-      placeholder: {
-        type: String,
-        default: '输入终端编码或名称搜索'
+      placeholderText: {
+        type: String
       },
       options: {
         type: Array,
