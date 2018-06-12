@@ -175,7 +175,7 @@
       this.terminalInfo = JSON.parse(localStorage.getItem('offerCode'));
       _.forEach(this.terminalInfo.offerPicList, (item, index) => {
         this.offerPicList.push(item.url);
-      }); 
+      });
     },
     data() {
       return {

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-import './mockdb'
+// import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-axios.defaults.baseURL = 'http://192.168.74.17:9086/';
+// axios.defaults.baseURL = 'http://192.168.74.17:9086/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
   'token': _.get(user, 'token')
@@ -16,7 +16,6 @@ axios.interceptors.request.use(config => {
   loadingInstance = Loading.service({
     lock: true,
     text: '数据加载中，请稍后...',
-    // spinner: 'el-icon-loading',
     background: 'rgba(0, 0, 0, 0.7)'
   });
   return config
