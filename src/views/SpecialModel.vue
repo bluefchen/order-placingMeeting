@@ -540,7 +540,7 @@
     .category-more, .category-pick-up {
       display: inline-block;
       height: 22px;
-      margin-top: 7px;
+      margin-top: 5px;
       padding: 0 5px;
       line-height: 22px;
       background-color: #fff;

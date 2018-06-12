@@ -358,6 +358,7 @@
         cursor: pointer;
       }
       &.disabled{
+        background-color: #f5f7fa;
         .choose-input{
           background-color: #f5f7fa;
           border-color: #e4e7ed;

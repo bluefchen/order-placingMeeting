@@ -12,8 +12,6 @@
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 用户类型：</label>
                   <Select :value.sync="usermanData.userType" :options="usermanList" :disabled="modify"/>
-                  <!--当身份为管理员时-->
-                  <!--<Select :value.sync="usermanData.manageUserType" :options="manageUserList" :disabled="modify"/>-->
                 </div>
               </el-form-item>
             </el-col>
@@ -50,17 +48,21 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item prop="commonRegionId">
+              <el-form-item prop="commonRegionId" v-if="usermanData.userType == 1">
                 <div class="condition-item">
                   <!-- 当为管理人员时，* 存在，表示为必填项 -->
                   <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
                   <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" name="commonRegionId"/>
                 </div>
               </el-form-item>
+              <div class="condition-item" v-else>
+                <label class="label-wrds">归属省份：</label>
+                <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" name="commonRegionId"/>
+              </div>
             </el-col>
           </el-row>
-          <el-row :gutter="20">
-            <!-- 当为管理人员时，此项不存在 -->
+          <!-- 当为管理人员时，此项不存在 -->
+          <el-row :gutter="20" v-show="usermanData.userType != 1">
             <el-col :span="8" :offset="2">
               <el-form-item prop="relaId">
                 <div class="condition-item">
@@ -90,19 +92,13 @@
           </el-row>
         </div>
         <div class="foot-btn">
-          <!--<div>-->
-            <!--&lt;!&ndash;新增&ndash;&gt;-->
-            <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-if="!this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.password || !usermanData.relaId">保&nbsp;存</el-button>-->
-            <!--&lt;!&ndash;修改&ndash;&gt;-->
-            <!--<el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId || !usermanData.relaId">保&nbsp;存</el-button>-->
-            <!--<el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>-->
-          <!--</div>-->
-          <!--当身份为管理人员时-->
-          <div>
-            <el-button size="small" type="success" @click="addUsermanSubmit" v-if="this.$route.query.usermanInfo" :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.password || !usermanData.commonRegionId">保&nbsp;存</el-button>
-            <el-button size="small" type="success" @click="addUsermanSubmit" v-else :disabled="!usermanData.userType || !usermanData.systemUserCode || !usermanData.name || !usermanData.linktelenumber || !usermanData.commonRegionId">保&nbsp;存</el-button>
-            <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
-          </div>
+            <el-form-item>
+              <!--新增-->
+              <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')" v-if="!this.$route.query.usermanInfo">保&nbsp;存</el-button>
+              <!--修改-->
+              <el-button size="small" type="primary" @click="addUsermanSubmit('usermanData')" v-else>保&nbsp;存</el-button>
+              <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
+            </el-form-item>
         </div>
       </el-form>
     </div>
@@ -130,7 +126,7 @@
         if (!value) {
           return callback(new Error('不能为空'));
         };
-        let reg=/^\d{3,5}-\d{6,8}$|^\(\d{3,5}\)-\d{6,8}$|^\d{6,8}$|^1[34578]\d{9}$/;;
+        let reg=/^(\+86)?1[345789]\d{9}$/;
         if(!(reg.test(value))){
           callback(new Error('请输入正确的电话号码'));
         }
@@ -139,8 +135,7 @@
         modify: false,
         level: 'province',
         usermanData: {
-          userType: 1000,
-          manageUserType: 1000,
+          userType: 1,
           password: '',
           systemUserCode:'',
           name:'',
@@ -152,7 +147,7 @@
           ],
           systemUserCode: [
             { required: true, message: '请输入用户账号', trigger: 'blur' },
-            { min: 1, max: 5, message: '长度不能超过40个字符', trigger: 'blur' }
+            { min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'blur' }
           ],
           name: [
             { required: true, message: '请输入用户名称', trigger: 'blur' },
@@ -161,25 +156,25 @@
           linktelenumber: [
             { validator: checkTel, trigger: 'blur' },
           ],
-          commonRegionId: [
-            { validator: checkTel, trigger: 'blur' },
-          ],
-          relaId: [
-            { required: true, message: '请选择省份', trigger: 'blur' },
-          ],
+          // commonRegionId: [
+          //   { required: true, message: '请选择省份', trigger: 'blur' },
+          // ],
+          // relaId: [
+          //   { required: true, message: '请选择商户', trigger: 'blur' },
+          // ],
         },
         usermanSelect:{},
         usermanList: [{
-          value: 1000,
-          label: '零售商'
-        },{
-          value: 1001,
+          value: 1,
+          label: '运营商'
+        }, {
+          value: 2,
           label: '供应商'
+        }, {
+          value: 3,
+          label: '零售商'
         }],
-        manageUserList:[{
-          value: 1000,
-          label: '管理人员'
-        }]
+        merchantsTitle: '',
       }
     },
     methods: {
@@ -187,43 +182,53 @@
       selectRetailer(val){
         this.usermanData.relaId = val;
       },
-      addUsermanSubmit(){
-        //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
-        if(!this.$route.query.usermanInfo){
-          this.$post('/systemUserController/addSystemUser', {
-            commonRegionId: this.usermanData.commonRegionId,
-            userType: this.usermanData.userType,
-            relaId: this.usermanData.relaId,//归属商户
-            systemUserCode: this.usermanData.systemUserCode,//用户账号
-            password: md5(this.usermanData.password, 32),
-            name: this.usermanData.name,
-            linktelenumber: this.usermanData.linktelenumber,
-            remark: this.usermanData.remark,
-          }).then((rsp) => {
-            this.$alert('添加成功！', '提示', {
-              confirmButtonText: '确定',
-              type: 'success'
-            }).then(() => {
-              this.$router.push({
-                path: '/orderManage/usermanManage'
-              });
-            });
-          })
-        }else{
-          this.$post('/systemUserController/updateSystemUser', {
-            linktelenumber: this.usermanData.linktelenumber,
-            remark: this.usermanData.remark,
-          }).then((rsp) => {
-            this.$alert('修改成功！', '提示', {
-              confirmButtonText: '确定',
-              type: 'success'
-            }).then(() => {
-              this.$router.push({
-                path: '/orderManage/usermanManage'
-              });
-            });
-          })
-        }
+      addUsermanSubmit(formName){
+        debugger;
+        this.$refs[formName].validate((valid) => {
+          alert(valid);
+          if (valid) {
+            debugger;
+            //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
+            if(!this.$route.query.usermanInfo){
+              this.$post('/systemUserController/addSystemUser', {
+                commonRegionId: this.usermanData.commonRegionId,
+                userType: this.usermanData.userType,
+                relaId: this.usermanData.relaId,//归属商户
+                systemUserCode: this.usermanData.systemUserCode,//用户账号
+                password: md5(this.usermanData.password, 32),
+                name: this.usermanData.name,
+                linktelenumber: this.usermanData.linktelenumber,
+                remark: this.usermanData.remark,
+              }).then((rsp) => {
+                this.$alert('添加成功！', '提示', {
+                  confirmButtonText: '确定',
+                  type: 'success'
+                }).then(() => {
+                  this.$router.push({
+                    path: '/orderManage/usermanManage'
+                  });
+                });
+              })
+            }else{
+              this.$post('/systemUserController/updateSystemUser', {
+                linktelenumber: this.usermanData.linktelenumber,
+                remark: this.usermanData.remark,
+              }).then((rsp) => {
+                this.$alert('修改成功！', '提示', {
+                  confirmButtonText: '确定',
+                  type: 'success'
+                }).then(() => {
+                  this.$router.push({
+                    path: '/orderManage/usermanManage'
+                  });
+                });
+              })
+            }
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       },
       cancel(){
         this.$router.push({
@@ -231,14 +236,16 @@
         });
       }
     },
-    computed:{
-      merchantsTitle:function() {
-        if(this.usermanData.userType == 1000){
-          return '零售商';
-        }else{
-          return '供应商';
-        }
-      }
+    watch: {
+      "usermanData.userType": function () {
+        if (this.usermanData.userType == 3) {
+          this.merchantsTitle = '零售商';
+        } else if(this.usermanData.userType == 2){
+          this.merchantsTitle = '供应商';
+        };
+        this.usermanData.relaId = '';
+        this.usermanData.commonRegionId = '';
+      },
     },
     components: {
       TitlePlate,
@@ -293,13 +300,16 @@
       margin-left: -100px;
     }
     .el-form-item__content{
-      line-height: 32px;
+      line-height: 24px;
     }
     .el-form-item__error {
       position: absolute;
       padding-top: 0;
-      top: 48px;
+      top: 42px;
       left: 114px;
+    }
+    .choose-merchants .choose-input-box .choose-input{
+      margin-top: -1px;
     }
   }
 

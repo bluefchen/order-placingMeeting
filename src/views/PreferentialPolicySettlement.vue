@@ -256,7 +256,7 @@
       }
       .category-more {
         height: 22px;
-        margin: 7px 0 0 20px;
+        margin: 5px 0 0 20px;
         padding: 0 5px;
         line-height: 22px;
         background-color: #fff;
