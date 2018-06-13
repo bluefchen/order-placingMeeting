@@ -125,7 +125,13 @@
                     :show-file-list="false"
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
+                    :on-change="uploadOnChange"
+                    :on-error="uploadOnError"
+                    :on-progress="uploadOnProgress"
                     :before-upload="beforeAvatarUpload">
+                    <div v-if="!pass && progress !== 0" class="img-content img-progress">
+                      <el-progress type="circle" :width="80" :percentage="progress" :status="proStatus"></el-progress>
+                    </div>
                     <img v-if="orderPlacingMeeting.logoUrl"
                          :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
                     <i v-else class="avatar-uploader-icon"></i>
@@ -136,8 +142,7 @@
             </el-row>
             <el-row :gutter="0">
               <el-col :span="18" :offset="2">
-                <el-form-item label="订购会描述：" prop="discription"
-                              :rules="[{ required: true }]">
+                <el-form-item label="订购会描述：" prop="discription">
                   <div class="editor editor-box">
                     <quill-editor ref="orderPlacingMeeting" v-model="orderPlacingMeeting.discription"></quill-editor>
                     <div class="editor-error" v-if="nullError">订购会描述不能为空</div>
@@ -439,6 +444,19 @@
             }
           }],
           tableData: []
+        },
+        progress: 0,//上传进度
+        pass: null,//是否上传成功
+      }
+    },
+    computed: {
+      proStatus() {
+        if (this.pass) {
+          return 'success'
+        } else if (this.pass == false) {
+          return 'exception'
+        } else {
+          return ''
         }
       }
     },
@@ -518,8 +536,25 @@
       delRetailer(val, index) {
         this.retailerList.tableData.splice(index, 1);
       },
+      uploadOnProgress(e, file) {
+        console.log(e.percent, file)
+        this.progress = Math.floor(e.percent)
+      },
+      uploadOnChange(file) {
+        if (file.status == 'ready') {
+          this.pass = null;
+          this.progress = 0;
+        } else if (file.status == 'fail') {
+          this.$message.error("图片上传出错，请刷新重试！")
+        }
+      },
+      uploadOnError(e, file) {
+        this.pass = false;
+      },
       //图片上传
       handleAvatarSuccess(res, file) {
+        this.pass = true;
+        this.$message.success("上传成功");
         this.orderPlacingMeeting.logoUrl = res.data.url;
       },
       beforeAvatarUpload(file) {
@@ -954,5 +989,10 @@
 
   .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus, .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus, .el-message-box__input input.invalid, .el-message-box__input input.invalid:focus {
     border-color: #f00;
+  }
+
+  .img-progress {
+    margin-top: 4px;
+    text-align: center;
   }
 </style>
