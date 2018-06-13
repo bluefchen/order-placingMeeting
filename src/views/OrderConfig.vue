@@ -18,125 +18,133 @@
       <el-form :model="orderPlacingMeeting" ref="orderPlacingMeeting" label-width="135px" class="demo-ruleForm">
         <div class="box-1200">
           <div class="roder-config-info-box">
-              <el-row :gutter="0">
-                <el-col :span="8" :offset="2">
-                  <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
-                    <Input :value.sync="orderPlacingMeeting.opMeetingNo"/>
+            <el-row :gutter="0">
+              <el-col :span="8" :offset="2">
+                <el-form-item label="订货会编码：" prop="opMeetingNo"
+                              :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
+                  <Input :value.sync="orderPlacingMeeting.opMeetingNo"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="16" :offset="2">
+                <el-form-item label="订货会名称：" prop="opmName"
+                              :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
+                  <Input :value.sync="orderPlacingMeeting.opmName"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="6" :offset="2">
+                <el-form-item label="订货会地址：" prop="commonRegionId"
+                              :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'change'}]">
+                  <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10">
+                <div class="condition-item-address">
+                  <label class="label-address">--</label>
+                  <el-form-item label-width="0" prop="opmAddr"
+                                :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'change'}]">
+                    <Input :value.sync="orderPlacingMeeting.opmAddr"/>
                   </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="16" :offset="2">
-                  <el-form-item label="订货会名称：" prop="opmName" :rules="[{ required: true, message: '订购会名称不能为空', trigger: 'blur'},{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
-                    <Input :value.sync="orderPlacingMeeting.opmName"/>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="6" :offset="2">
-                  <el-form-item label="订货会地址：" prop="commonRegionId" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'change'}]">
-                    <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="10">
-                  <div class="condition-item-address">
-                    <label class="label-address">--</label>
-                    <el-form-item label-width="0" prop="opmAddr" :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'blur'},{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'change'}]">
-                      <Input :value.sync="orderPlacingMeeting.opmAddr"/>
-                    </el-form-item>
-                  </div>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="24" :offset="2" class="fn-clear">
-                    <el-form-item class="fn-left" label="活动起止日期：" prop="startDt" :rules="[{ required: true, message: '活动起止日期不能为空'}]">
-                        <el-date-picker
-                        class="fn-left"
-                        v-model="orderPlacingMeeting.startDt"
-                        type="date"
-                        size="small"
-                        :picker-options="pickerBeginDateBefore"
-                        format="yyyy-MM-dd"
-                        value-format="yyyy-MM-dd"
-                        placeholder="选择日期"
-                        :editable="false">
-                      </el-date-picker>
-                    </el-form-item>
-                    <div class="date-text fn-left">至</div>
-                    <el-form-item label-width="0" class="fn-left" prop="endDt" :rules="[{ required: true, message: '活动起止日期不能为空'}]">
-                      <el-date-picker
-                        class="fn-left"
-                        v-model="orderPlacingMeeting.endDt"
-                        type="date"
-                        size="small"
-                        format="yyyy-MM-dd"
-                        value-format="yyyy-MM-dd"
-                        :picker-options="pickerBeginDateAfter"
-                        placeholder="选择日期"
-                        :editable="false">
-                      </el-date-picker>
-                    </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="8" :offset="2">
-                  <el-form-item label="定金补录截止日期：" class="fn-left" prop="depositRecordEnddt" :rules="[{ required: true, message: '定金补录截止日期不能为空'}]">
-                      <el-date-picker
-                      v-model="orderPlacingMeeting.depositRecordEnddt"
-                      type="date"
-                      size="small"
-                      placeholder="选择日期"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      :picker-options="beginDate"
-                      :editable="false">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8" :offset="2">
-                  <el-form-item label="提货上报截止日期：" class="fn-left" prop="pickupRecordEnddt" :rules="[{ required: true, message: '提货上报截止日期不能为空'}]">
-                      <el-date-picker
-                      v-model="orderPlacingMeeting.pickupRecordEnddt"
-                      type="date"
-                      size="small"
-                      placeholder="选择日期"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      :picker-options="beginDate"
-                      :editable="false">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="18" :offset="2">
-                  <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl" :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
-                    <el-upload
-                      class="condition-upload fn-left"
-                      action="/commonCfgController/upload"
-                      :show-file-list="false"
-                      :data="upLoadData"
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="beforeAvatarUpload">
-                      <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
-                      <span v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></span>
-                    </el-upload>
-                    <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX</div>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="24" :offset="2" class="fn-clear">
+                <el-form-item class="fn-left" label="活动起止日期：" prop="startDt"
+                              :rules="[{ required: true, message: '活动起止日期不能为空'}]">
+                  <el-date-picker
+                    class="fn-left"
+                    v-model="orderPlacingMeeting.startDt"
+                    type="date"
+                    size="small"
+                    :picker-options="pickerBeginDateBefore"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择日期"
+                    :editable="false">
                   </el-date-picker>
                 </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="0">
-                <el-col :span="18" :offset="2">
-                  <el-form-item label="订购会描述：" prop="discription">
-                    <div class="editor editor-box">
-                      <quill-editor ref="orderPlacingMeeting" v-model="orderPlacingMeeting.discription"></quill-editor>
-                      <div class="editor-error" v-if="nullError">订购会描述不能为空</div>
-                      <div class="editor-error" v-if="overError">长度不能超过1000个字符</div>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                <div class="date-text fn-left">至</div>
+                <el-form-item label-width="0" class="fn-left" prop="endDt"
+                              :rules="[{ required: true, message: '活动起止日期不能为空'}]">
+                  <el-date-picker
+                    class="fn-left"
+                    v-model="orderPlacingMeeting.endDt"
+                    type="date"
+                    size="small"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    :picker-options="pickerBeginDateAfter"
+                    placeholder="选择日期"
+                    :editable="false">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="8" :offset="2">
+                <el-form-item label="定金补录截止日期：" class="fn-left" prop="depositRecordEnddt"
+                              :rules="[{ required: true, message: '定金补录截止日期不能为空'}]">
+                  <el-date-picker
+                    v-model="orderPlacingMeeting.depositRecordEnddt"
+                    type="date"
+                    size="small"
+                    placeholder="选择日期"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    :picker-options="beginDate"
+                    :editable="false">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" :offset="2">
+                <el-form-item label="提货上报截止日期：" class="fn-left" prop="pickupRecordEnddt"
+                              :rules="[{ required: true, message: '提货上报截止日期不能为空'}]">
+                  <el-date-picker
+                    v-model="orderPlacingMeeting.pickupRecordEnddt"
+                    type="date"
+                    size="small"
+                    placeholder="选择日期"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    :picker-options="beginDate"
+                    :editable="false">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="18" :offset="2">
+                <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl"
+                              :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
+                  <el-upload
+                    class="condition-upload fn-left"
+                    action="/orderPlacingMeeting/commonCfgController/upload"
+                    :show-file-list="false"
+                    :data="upLoadData"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
+                    <span v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></span>
+                  </el-upload>
+                  <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX</div>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="0">
+              <el-col :span="18" :offset="2">
+                <el-form-item label="订购会描述：" prop="discription">
+                  <div class="editor editor-box">
+                    <quill-editor ref="orderPlacingMeeting" v-model="orderPlacingMeeting.discription"></quill-editor>
+                    <div class="editor-error" v-if="nullError">订购会描述不能为空</div>
+                    <div class="editor-error" v-if="overError">长度不能超过1000个字符</div>
+                  </div>
+                </el-form-item>
+              </el-col>
+            </el-row>
           </div>
         </div>
         <div class="footer-btn">
@@ -288,9 +296,9 @@
     name: 'OrderConfig',
     created() {
       let operation = this.$route.query.operation;
-      if(operation === 'add'){
+      if (operation === 'add') {
         this.title = '新增订购会';
-      }else{
+      } else {
         this.title = '编辑订购会';
         this.orderPlacingMeeting = JSON.parse(localStorage.getItem('opMeeting'));
         this.qryOpmSupplierList();
@@ -445,22 +453,22 @@
         this.active--;
       },
       submitForm(formName, title) {
-        if(this.orderPlacingMeeting.discription){
+        if (this.orderPlacingMeeting.discription) {
           this.nullError = false;
-          if(this.orderPlacingMeeting.discription.length < 1000){
+          if (this.orderPlacingMeeting.discription.length < 1000) {
             this.overError = false;
-          }else{
+          } else {
             this.overError = true;
           }
-        }else{
+        } else {
           this.nullError = true;
-        };
+        }
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if(!this.nullError && !this.overError){
-              if(title === '保存'){
+            if (!this.nullError && !this.overError) {
+              if (title === '保存') {
                 this.orderSave();
-              }else{
+              } else {
                 this.next();
               }
             }
@@ -555,7 +563,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if(rps.resultMsg.resultMsg === 0){
+            if (rps.resultMsg.resultMsg === 0) {
               console.log('新增成功！');
               this.next();
             }
@@ -577,7 +585,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if(rps.resultMsg.resultMsg === 0){
+            if (rps.resultMsg.resultMsg === 0) {
               console.log('新增成功！');
               this.next();
             }
@@ -600,15 +608,15 @@
       DialogPopup
     },
     watch: {
-      'orderPlacingMeeting.discription': function(newVal, oldVal){
-        if(!newVal){
+      'orderPlacingMeeting.discription': function (newVal, oldVal) {
+        if (!newVal) {
           this.nullError = true;
-        }else if(!!newVal){
+        } else if (!!newVal) {
           this.nullError = false;
         }
-        if(newVal && newVal.length > 1000){
+        if (newVal && newVal.length > 1000) {
           this.overError = true;
-        }else{
+        } else {
           this.overError = false;
         }
       }
@@ -698,7 +706,7 @@
     .red-star {
       color: #f00;
     }
-    .condition-item-address{
+    .condition-item-address {
       position: relative;
       margin: 5px 0;
       padding-left: 20px;
@@ -717,33 +725,33 @@
       line-height: 30px;
     }
     .condition-upload {
-        width: 163px;
-        height: 86px;
-        margin-right: 10px;
-        background: #fcfcfc;
-        border: 1px solid #dedede;
-        text-align: center;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
+      width: 163px;
+      height: 86px;
+      margin-right: 10px;
+      background: #fcfcfc;
+      border: 1px solid #dedede;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      img {
+        max-width: 161px;
+        max-height: 84px;
+      }
+      .el-upload {
+        vertical-align: middle;
         img {
-          max-width: 161px;
-          max-height: 84px;
-        }
-        .el-upload {
           vertical-align: middle;
-          img{
-            vertical-align: middle;
-          }
         }
       }
-      .logo-notice{
-        margin-left: 5px;
-        color: #ffa132;
-        line-height: 88px;
-      }
+    }
+    .logo-notice {
+      margin-left: 5px;
+      color: #ffa132;
+      line-height: 88px;
+    }
     .condition-item {
       margin: 5px 0;
       padding-left: 135px;
@@ -752,9 +760,9 @@
         line-height: 30px;
       }
     }
-    .editor-box{
+    .editor-box {
       height: 270px;
-      .quill-editor{
+      .quill-editor {
         height: 200px;
       }
     }
@@ -888,11 +896,11 @@
     //步骤条
 
     //表单提示样式
-    .el-form-item{
+    .el-form-item {
       margin: 10px 0;
     }
 
-    .editor-error{
+    .editor-error {
       position: absolute;
       left: 0;
       bottom: -30px;
@@ -903,18 +911,18 @@
       line-height: 1;
       padding-top: 4px;
     }
-    .el-form-item__error{
+    .el-form-item__error {
       padding: 5px;
       z-index: 999;
     }
 
-    .el-form-item__label{
+    .el-form-item__label {
       height: 30px;
       line-height: 30px;
       padding: 0;
       color: #333;
     }
-    .el-form-item__content{
+    .el-form-item__content {
       line-height: 30px;
     }
     //表单提示样式
@@ -933,20 +941,24 @@
     color: #ff7a7a;
     font-weight: 700;
   }
-  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell{
+
+  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell {
     color: #ff7a7a;
   }
 
-  .el-form-item.is-success .el-input__inner{
-      border-color: #dcdfe6;
+  .el-form-item.is-success .el-input__inner {
+    border-color: #dcdfe6;
   }
-  .el-form-item.is-success .el-input__inner:hover{
+
+  .el-form-item.is-success .el-input__inner:hover {
     border-color: #c0c4cc;
   }
-  .el-form-item.is-success .el-input__inner:focus{
+
+  .el-form-item.is-success .el-input__inner:focus {
     border-color: #ff7a7a;
   }
-  .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus, .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus, .el-message-box__input input.invalid, .el-message-box__input input.invalid:focus{
+
+  .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus, .el-form-item.is-error .el-textarea__inner, .el-form-item.is-error .el-textarea__inner:focus, .el-message-box__input input.invalid, .el-message-box__input input.invalid:focus {
     border-color: #f00;
   }
 </style>
