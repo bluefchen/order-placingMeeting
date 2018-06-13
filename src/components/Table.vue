@@ -211,6 +211,7 @@
         border: 1px solid #f82134;
         border-radius: 3px;
         color: #e52941;
+        background: #fff;
         text-decoration: none;
       }
     }
