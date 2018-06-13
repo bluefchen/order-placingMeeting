@@ -118,8 +118,7 @@
             </el-row>
             <el-row :gutter="0">
               <el-col :span="18" :offset="2">
-                <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl"
-                              :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
+                <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl">
                   <el-upload
                     class="condition-upload fn-left"
                     action="http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/upload"

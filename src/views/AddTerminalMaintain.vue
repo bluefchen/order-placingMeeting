@@ -55,7 +55,7 @@
                   <ul class="fn-left">
                     <el-upload
                       action="http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/upload"
-                      :file-list="offerPicList"
+                      :file-list="showOfferPicList"
                       list-type="picture-card"
                       :limit= "6"
                       :data="upLoadItem"
@@ -296,27 +296,70 @@
         this.flag = 1;
       }else{
         this.title = '修改终端';
-        this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerId'));
-        this.qryOfferModelList(this.terminalMaintainInfo.brandCd);
+        this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
 
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl})
-        };
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl2){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl2})
-        };
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl3){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl3})
-        };
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl4){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl4})
-        };
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl5){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl5})
-        };
-        if(this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6){
-          this.offerPicList.push({url: this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicUrl6})
-        };
+        this.qryOfferModelList(this.maintainInfo.brandCd);
+
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl')});
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl2')})
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl3')})
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl4')})
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl5')})
+        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl6')})
+        this.showOfferPicList = [];
+        _.forEach(this.offerPicList, (item, index) => {
+          this.showOfferPicList.push({url: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
+        });
+        this.terminalMaintainInfo = {
+          offerCode: _.get(this.maintainInfo, 'offerCode'),
+          offerName: _.get(this.maintainInfo, 'offerName'),
+          brandCd: _.get(this.maintainInfo, 'brandCd'),
+          brandName: _.get(this.maintainInfo, 'brandName'),
+          offerModelId: _.get(this.maintainInfo, 'offerModelId'),
+          offerModelName: _.get(this.maintainInfo, 'offerModelName'),
+          isCentman: _.get(this.maintainInfo, 'isCentman'),
+          salePrice: _.get(this.maintainInfo, 'salePrice'),
+          statusCd: _.get(this.maintainInfo, 'statusCd'),
+          offerBaseParam: {
+            listDt: _.get(this.maintainInfo, 'offerBaseParam.listDt'),
+            termType: _.get(this.maintainInfo, 'offerBaseParam.termType'),
+            os: _.get(this.maintainInfo, 'offerBaseParam.os'),
+          },
+          offerScreenParam:{
+            screenType: _.get(this.maintainInfo, 'offerScreenParam.screenType'),
+            screenSize: _.get(this.maintainInfo, 'offerScreenParam.screenSize'),
+            screenMaterial: _.get(this.maintainInfo, 'offerScreenParam.screenMaterial'),
+            resolutionRatio: _.get(this.maintainInfo, 'offerScreenParam.resolutionRatio'),
+            screenPiexl: _.get(this.maintainInfo, 'offerScreenParam.screenPiexl'),
+            screenTech: _.get(this.maintainInfo, 'offerScreenParam.screenTech'),
+            frame: _.get(this.maintainInfo, 'offerScreenParam.frame'),
+            otherParam: _.get(this.maintainInfo, 'offerScreenParam.otherParam'),
+          },
+          offerHardwardParam:{
+            cpuModel: _.get(this.maintainInfo, 'offerHardwardParam.cpuModel'),
+            cpuRate: _.get(this.maintainInfo, 'offerHardwardParam.cpuRate'),
+            core: _.get(this.maintainInfo, 'offerHardwardParam.core'),
+            gpuModel: _.get(this.maintainInfo, 'offerHardwardParam.gpuModel'),
+            ram: _.get(this.maintainInfo, 'offerHardwardParam.ram'),
+            rom: _.get(this.maintainInfo, 'offerHardwardParam.rom'),
+            memoryType: _.get(this.maintainInfo, 'offerHardwardParam.memoryType'),
+            memoryCard: _.get(this.maintainInfo, 'offerHardwardParam.memoryCard'),
+            extendedCapacity: _.get(this.maintainInfo, 'offerHardwardParam.extendedCapacity'),
+            rearCamera: _.get(this.maintainInfo, 'offerHardwardParam.rearCamera'),
+            frontCamera: _.get(this.maintainInfo, 'offerHardwardParam.frontCamera'),
+            batteryCapacity: _.get(this.maintainInfo, 'offerHardwardParam.batteryCapacity'),
+            batteryType: _.get(this.maintainInfo, 'offerHardwardParam.batteryType'),
+            batteryCharge: _.get(this.maintainInfo, 'offerHardwardParam.batteryCharge'),
+          },
+            offerPic:{
+            offerPicUrl: _.get(this.maintainInfo, 'offerPic.offerPicUrl'),
+            offerPicUrl2: _.get(this.maintainInfo, 'offerPic.offerPicUrl2'),
+            offerPicUrl3: _.get(this.maintainInfo, 'offerPic.offerPicUrl3'),
+            offerPicUrl4: _.get(this.maintainInfo, 'offerPic.offerPicUrl4'),
+            offerPicUrl5: _.get(this.maintainInfo, 'offerPic.offerPicUrl5'),
+            offerPicUrl6: _.get(this.maintainInfo, 'offerPic.offerPicUrl6')
+          }
+        }
       }
     },
     data() {
@@ -383,6 +426,7 @@
         brandOptions: [],
         modelOptions: [],
         offerPicList: [],
+        showOfferPicList: [],
         imgBigVisible: false,
         dialogImageUrl: '',
         brandList: [],
@@ -409,10 +453,22 @@
       //图片上传成功
       handleAvatarSuccess(res, file, fileList){
         this.offerPicList.push(res.data);
+        this.showOfferPicList[this.showOfferPicList.length] = {
+          url: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url='  + file.url
+        };
+        console.log(this.offerPicList);
       },
       //图片删除
       handleRemove(file, fileList) {
-        this.offerPicList = fileList
+        var fileIndex = null;
+        var fileUrl = file.url;
+        _.forEach(this.offerPicList, (item, index) => {
+          if(item.url === fileUrl.slice(79)){
+            fileIndex = index;
+          }
+        });
+        this.offerPicList.splice(fileIndex, 1)
+        this.showOfferPicList = fileList;
       },
       visibleChange(val) {
         this.dialogVisible = val;
