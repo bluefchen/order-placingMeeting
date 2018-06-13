@@ -139,7 +139,7 @@
               </el-row>
           </div>
         </div>
-        <div class="foot-btn">
+        <div class="footer-btn">
           <el-button type="primary" class="btns" @click="submitForm('orderPlacingMeeting', '下一步')">下一步</el-button>
         </div>
       </el-form>
@@ -262,7 +262,7 @@
         </div>
       </div>
     </div>
-    <div class="foot-btn" v-show="active !== 4 && active !== 1">
+    <div class="footer-btn" v-show="active !== 4 && active !== 1">
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
       <button v-show="active !== 3" class="btns" @click="next">下一步</button>
@@ -821,9 +821,10 @@
       }
     }
 
-    .foot-btn {
+    .footer-btn {
       width: 100%;
       padding: 35px 0;
+      border: none;
       border-top: 1px solid #dcdcdc;
       text-align: center;
       .btns {
