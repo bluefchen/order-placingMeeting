@@ -2,7 +2,7 @@
   <div class="v_order-menu">
     <el-menu :default-active="$route.path" class="fn-right" mode="horizontal" router>
       <el-menu-item index="/order/orderIndex">首页</el-menu-item>
-      <el-submenu index="/order/orderModel">
+      <el-submenu index="2" :disabled="this.opMeetingInfo.statusCd === '1002'">
         <template slot="title">机型管理</template>
         <el-menu-item index="/order/orderModel">机型维护</el-menu-item>
         <el-menu-item index="/order/importModelAdd" style="display: none;">机型导入新增</el-menu-item>
@@ -10,20 +10,20 @@
         <el-menu-item index="/order/specialModel">特种机型分配量维护</el-menu-item>
         <el-menu-item index="/order/importSpecialModel" style="display: none;">特种机型导入新增</el-menu-item>
       </el-submenu>
-      <el-submenu index="/order/orderPickupData">
+      <el-submenu index="3" :disabled="this.opMeetingInfo.statusCd === '1002'">
         <template slot="title">订单管理</template>
         <el-menu-item index="/order/importPickupAdd">订单批量导入</el-menu-item>
         <el-menu-item index="/order/orderPickupData">订单提货数据维护</el-menu-item>
         <el-menu-item index="/order/importPickupData" style="display: none;">订单提货数据导入</el-menu-item>
         <el-menu-item index="/order/orderPickupGoodsConfirm" style="display: none;">订单提货确认</el-menu-item>
       </el-submenu>
-      <el-submenu index="4">
+      <el-submenu index="4" :disabled="this.opMeetingInfo.statusCd === '1002'">
         <template slot="title">定金管理</template>
         <el-menu-item index="/order/depositConfigure">定金配置</el-menu-item>
         <el-menu-item index="/order/depositAddRecord">定金补录</el-menu-item>
         <el-menu-item index="/order/cyjDepositAddRecord">诚意金补录</el-menu-item>
       </el-submenu>
-      <el-submenu index="5">
+      <el-submenu index="5" :disabled="this.opMeetingInfo.statusCd === '1002'">
         <template slot="title">政策管理</template>
         <el-menu-item index="/order/policyManage">政策投入</el-menu-item>
         <el-menu-item index="/order/importPolicyAdd" style="display: none;">上传政策</el-menu-item>
@@ -50,10 +50,14 @@
   export default {
     name: 'OrderMenu',
     props: {},
-    data() {
-      return {}
+    created() {
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
     },
-    methods: {},
+    computed: {
+      statusCd() {
+        return this.opMeetingInfo.statusCd
+      }
+    }
   }
 </script>
 
