@@ -310,15 +310,15 @@
       return {
         pickerBeginDateBefore: {
           disabledDate: (time) => {
-            let beginDateVal = this.orderPlacingMeeting.endDt;
+            let beginDateVal = moment(this.orderPlacingMeeting.endDt).format('YYYY-MM-DD');
             if (beginDateVal) {
-              return moment(time).format('YYYY-MM-DD') > beginDateVal;
+              return moment(time).format('YYYY-MM-DD') > beginDateVal || moment(time).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD');
             }
           }
         },
         pickerBeginDateAfter: {
           disabledDate: (time) => {
-            let beginDateVal = this.orderPlacingMeeting.startDt;
+            let beginDateVal = moment(this.orderPlacingMeeting.startDt).format('YYYY-MM-DD')
             if (beginDateVal) {
               return moment(time).format('YYYY-MM-DD') < beginDateVal;
             }
