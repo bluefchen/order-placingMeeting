@@ -359,7 +359,7 @@
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
-        downloadUrl: '/commonCfgController/downloadModel?modelType=',
+        downloadUrl: 'http://192.168.74.17:9086/commonCfgController/downloadModel?modelType=OfferParam',
         upLoadItem: {
           fileType: '2'
         }

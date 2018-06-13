@@ -1,7 +1,7 @@
 <template>
   <div class="v_import">
     <div class="file-import">
-      <UploadFile :url="url" @callback="uploadData"/>
+      <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
     </div>
 
     <div class="result-header">
@@ -24,6 +24,10 @@
     name: 'Import',
     props: {
       url: {
+        type: String,
+        require: true
+      },
+      downloadUrl: {
         type: String,
         require: true
       },
