@@ -77,7 +77,7 @@
         <div class="result-head fn-clear">
           <div class="result-title fn-left">规格详情</div>
           <div class="buttons fn-right">
-            <button class="btns" @click="importInfo"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
+            <button type="button" class="btns" @click="importInfo"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
           </div>
         </div>
         <div class="result-box">
@@ -246,8 +246,8 @@
         </div>
       </div>
       <div class="foot-btn">
-          <button class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
-          <button class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
+          <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
+          <button type="button"class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
       </div>
     </el-form>
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
