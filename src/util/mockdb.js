@@ -798,7 +798,7 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryRetailerById'), {
   }
 });
 
-//38、订单查询列表接口
+//38、订单查询列表接口 discountAmount
 Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
   'data': {
     'totalSize|1-99': 1,
@@ -826,6 +826,7 @@ Mock.mock(new RegExp('/opmOrderController/queryOpmOrderList'), {
       'statusCd|1': [1000, 1001, 1002],
       'statusCdName|1': ['进行中', '已完成', '已撤销'],
       'remarks': '@cword(15,30)',
+      'discountAmount|1-1000': 1,
       'offerPic': {
         'offerPicUrl|1': ['./static/img/telephone1.jpg', './static/img/telephone2.jpg', './static/img/telephone3.jpg', './static/img/telephone4.jpg'],
         'offerPicUrl2': '@url',

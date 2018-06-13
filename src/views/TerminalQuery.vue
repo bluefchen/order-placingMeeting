@@ -73,41 +73,9 @@
 
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
-        <TitlePlate class="fn-left" title="提货数据列表"/>
+        <TitlePlate class="fn-left" title="终端列表"/>
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="32%">终端名称</th>
-          <th width="17%">终端品牌</th>
-          <th width="17%">终端型号</th>
-          <th width="11%">终端价格</th>
-          <th width="10%">上架数量</th>
-          <th width="13%">操作</th>
-        </tr>
-        </thead>
-      </table>
-      <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in tableData" :key="index">
-          <p class="p-line text-right">
-            <span>供货商：{{item.supplierName}}</span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="fn-left wid32">
-              <div class="pd5">
-                <DeviceInfo :data="item"/>
-              </div>
-            </dl>
-            <dl class="dll wid17 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid17 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid11 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid10 fn-left"><p>{{item.pickupGoodsAmount}}</p></dl>
-            <dl class="dll wid13 fn-left">
-              <button @click="editDeliveryData(item)" class="updown-btn red">商品详情</button>
-            </dl>
-          </div>
-        </li>
-      </ul>
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="tab.tableData" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -123,6 +91,7 @@
   import DatePicker from '@/components/DatePicker';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'TerminalQuery',
@@ -135,7 +104,82 @@
     },
     data() {
       return {
-        tableData: [], //查询返回的数据
+        tab: {
+          tableTitle: [{
+            label: '终端名称',
+            prop: 'opmName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h(DeviceInfo, {
+                props: {
+                  data: params.row,
+                }
+              });
+            }
+          }, {
+            label: '终端型号',
+            prop: 'offerModelName',
+            colSpan: 4
+          }, {
+            label: '终端品牌',
+            prop: 'brandName',
+            colSpan: 4
+          }, {
+            label: '终端价格',
+            prop: 'salePrice',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `<span>¥ {{data.row.salePrice}}</span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '上级数量',
+            prop: 'offerQty',
+            colSpan: 2
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button class="updown-btn red" @click="editDeliveryData(data.row)">商品详情</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  editDeliveryData: (item) => {
+                    this.editDeliveryData(item)
+                  }
+                }
+              })
+            }
+          }],
+          tableHeader: [{
+            label: '供货商',
+            prop: 'supplierName',
+            colSpan: 24,
+            render: (h, params) => {
+              return h({
+                template: '<p class="text-right">供货商名称：{{data.row.supplierName}}</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }],
+          tableData: [],
+        },
+
         //分类选择
         isFoldBrand: true, //是否折叠品牌
         isFoldModel: true, //是否折叠型好
@@ -289,7 +333,7 @@
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
-          this.tableData = rsp.rows;
+          this.tab.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
@@ -315,7 +359,8 @@
       Pagination,
       DatePicker,
       ChooseMerchants,
-      Input
+      Input,
+      TableList
     }
   }
 </script>

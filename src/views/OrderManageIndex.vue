@@ -252,6 +252,11 @@
             });
             this.queryOrderPlacingMeetingList();
           });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消删除!'
+          });
         });
       }
     },
