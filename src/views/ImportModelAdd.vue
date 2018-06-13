@@ -141,10 +141,7 @@
             })
           }
         });
-        console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', {
-          tableDataIsSueccess
-        }).then(rsp => {
+        this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/orderModel'});
           // this.$message.success('导入新增数据成功');
           console.log('19、批量导入新增机型接口：', rsp);
