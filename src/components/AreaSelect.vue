@@ -7,6 +7,7 @@
     :multiple="multiple"
     :collapse-tags="collapseTags"
     :multiple-limit="multipleLimit"
+    :filterable="filterable"
     @change="onChange"
     v-model="copyValue">
     <el-option
@@ -42,6 +43,10 @@
         type: String
       },
       clearable: {
+        type: Boolean,
+        default: true
+      },
+      filterable: {
         type: Boolean,
         default: true
       },

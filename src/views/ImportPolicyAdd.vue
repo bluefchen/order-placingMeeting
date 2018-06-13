@@ -46,7 +46,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList',
-        downloadUrl: 'http://192.168.74.17:9086/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
+        downloadUrl: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
         data: null,
         uploadDone: false
       }

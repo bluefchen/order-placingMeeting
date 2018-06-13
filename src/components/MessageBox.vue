@@ -31,11 +31,11 @@
       },
       title: {
         type: String,
-        default: '标题'
+        default: '操作提示'
       },
       content: {
         type: String,
-        default: '这是弹框内容'
+        default: '弹框内容'
       },
       errStack: {
         type: String,

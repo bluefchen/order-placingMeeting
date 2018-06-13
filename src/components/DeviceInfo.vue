@@ -1,7 +1,7 @@
 <template>
   <div class="device-wrap fn-clear">
     <div class="device-pic fn-left">
-      <img :src="data.offerPic.offerPicUrl">
+      <img :src="offerPicUrl">
     </div>
     <div class="device-info fn-left">
       <p class="name" title="data.offerName">{{data.offerName}}</p>
@@ -30,16 +30,16 @@
             offerCode: '',
             isCentman: '',
             isSpecial: '',
-            offerPicId: '',
-            offerPic: ''
+            offerPic: null
           }
         }
       }
     },
-    data() {
-      return {}
+    computed: {
+      offerPicUrl() {
+        return _.get(this.data, 'offerPic.offerPicUrl') || './static/img/icon-tel-default.jpg'
+      }
     },
-    methods: {},
     components: {
       ReductionPop
     }

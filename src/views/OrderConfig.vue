@@ -1,5 +1,5 @@
 <template>
-  <div class="vue_add-supplier">
+  <div class="vue_order-config">
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" :title="title"/>
@@ -529,59 +529,6 @@
         }
         return isImg;
       },
-      orderSubmit() {
-        let supplierIdList = [];
-        let retailerIdList = [];
-        _.forEach(this.supplierList.tableData, (item, index) => {
-          supplierIdList.push(item.supplierId);
-        });
-
-        _.forEach(this.retailerList.tableData, (item, index) => {
-          retailerIdList.push(item.retailerId);
-        });
-        if (this.title === '新增订购会') {
-          //新增
-          this.$post('/orderPlacingMeetingController/insertOrderPlacingMeeting', {
-            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
-            'opmName': this.orderPlacingMeeting.opmName,
-            'opmAddr': this.orderPlacingMeeting.opmAddr,
-            'startDt': this.orderPlacingMeeting.startDt,
-            'endDt': this.orderPlacingMeeting.endDt,
-            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
-            'discription': this.orderPlacingMeeting.discription,
-            'logoUrl': this.orderPlacingMeeting.logoUrl,
-            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
-            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': supplierIdList,
-            'retailerArr': retailerIdList
-          }).then((rsp) => {
-            console.log('新增成功！');
-          });
-        } else {
-          //修改
-          this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
-            'opMeetingId': this.orderPlacingMeeting.opMeetingId,
-            'opMeetingNo': this.orderPlacingMeeting.opMeetingNo,
-            'opmName': this.orderPlacingMeeting.opmName,
-            'opmAddr': this.orderPlacingMeeting.opmAddr,
-            'startDt': this.orderPlacingMeeting.startDt,
-            'endDt': this.orderPlacingMeeting.endDt,
-            'commonRegionId': this.orderPlacingMeeting.commonRegionId,
-            'discription': this.orderPlacingMeeting.discription,
-            'logoUrl': this.orderPlacingMeeting.logoUrl,
-            'depositRecordEnddt': this.orderPlacingMeeting.depositRecordEnddt,
-            'pickupRecordEnddt': this.orderPlacingMeeting.pickupRecordEnddt,
-            'supplierArr': supplierIdList,
-            'retailerArr': retailerIdList
-          }).then((rsp) => {
-            console.log('修改成功！');
-          });
-        }
-      },
-      orderSave() {
-        this.orderSubmit();
-        this.$message.success('订货会基本信息保存成功');
-      },
       finish() {
         let supplierIdList = [];
         let retailerIdList = [];
@@ -608,8 +555,10 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            console.log('新增成功！');
-            this.next();
+            if(rps.resultMsg.resultMsg === 0){
+              console.log('新增成功！');
+              this.next();
+            }
           });
         } else {
           //修改
@@ -628,8 +577,10 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            console.log('修改成功！');
-            this.next();
+            if(rps.resultMsg.resultMsg === 0){
+              console.log('新增成功！');
+              this.next();
+            }
           });
         }
       },
@@ -667,7 +618,7 @@
 
 <style lang="less">
 
-  .vue_add-supplier {
+  .vue_order-config {
     .text-right {
       text-align: right;
     }
