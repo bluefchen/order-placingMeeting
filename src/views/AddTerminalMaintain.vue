@@ -1,6 +1,6 @@
 <template>
   <div class="vue_terminal-maintain">
-    
+
     <div style="width: 500px; margin: 50px auto 0; padding: 10px; border: 1px solid #d6d6d6;">
       <SelectComponents :value.sync="value" :placement="'bottom-start'" :list="brandOptions"" :width="625" />
       {{value}}
@@ -60,7 +60,7 @@
                 <div class="upload-img-list fn-clear">
                   <ul class="fn-left">
                     <el-upload
-                      action="/orderPlacingMeeting/commonCfgController/upload"
+                      action="http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/upload"
                       :file-list="offerPicList"
                       list-type="picture-card"
                       :limit= "6"

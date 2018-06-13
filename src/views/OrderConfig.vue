@@ -122,13 +122,13 @@
                               :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
                   <el-upload
                     class="condition-upload fn-left"
-                    action="/orderPlacingMeeting/commonCfgController/upload"
+                    action="http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/upload"
                     :show-file-list="false"
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
-                    <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
-                    <span v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></span>
+                    <img v-if="orderPlacingMeeting.logoUrl" :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
+                    <i v-else class="avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
                 </el-form-item>
@@ -722,24 +722,19 @@
       width: 163px;
       height: 86px;
       margin-right: 10px;
-      background: #fcfcfc;
+      background: #fcfcfc url('../assets/images/icon-add.png') no-repeat center center;
       border: 1px solid #dedede;
       text-align: center;
       cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 5px;
       img {
-        max-width: 161px;
-        max-height: 84px;
+        width: 163px;
+        height: 86px;
       }
-      .el-upload {
-        vertical-align: middle;
-        img {
-          vertical-align: middle;
-        }
-      }
+      .avatar-uploader-icon {
+        display: block;
+        width: 163px;
+        height: 86px;
+       }
     }
     .logo-notice {
       margin-left: 5px;
