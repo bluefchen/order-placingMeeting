@@ -66,7 +66,7 @@
             <el-col :span="18" :offset="2">
               <div class="condition-item">
                 <label class="label-wrds text-right">备注：</label>
-                <Input type="textarea" v-model="supplierInfo.remarks" />
+                <Input type="textarea" :value.sync="supplierInfo.remarks" />
               </div>
             </el-col>
           </el-row>

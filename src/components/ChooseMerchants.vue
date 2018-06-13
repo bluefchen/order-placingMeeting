@@ -374,6 +374,10 @@
           color: #c0c4cc;
           cursor: not-allowed;
         }
+        .el-input__inner{
+          background-color: #f5f7fa;
+          color: #c0c4cc;
+        }
         .choose-input-icon{
           background-color: #f5f7fa;
           border-color: #e4e7ed;
