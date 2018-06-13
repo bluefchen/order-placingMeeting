@@ -1,11 +1,5 @@
 <template>
   <div class="vue_terminal-maintain">
-    
-    <div style="width: 500px; margin: 50px auto 0; padding: 10px; border: 1px solid #d6d6d6;">
-      <SelectComponents :value.sync="value" :placement="'bottom-start'" :list="brandOptions"" :width="625" />
-      {{value}}
-    </div>
-
     <el-form :model="terminalMaintainInfo" ref="terminalMaintainInfo" label-width="110px" class="demo-ruleForm">
       <div class="box-1200">
         <div class="order-titl fn-clear">
@@ -48,7 +42,7 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端价格：" prop="salePrice" :rules="[{ required: true, message: '请输入终端价格', trigger: 'blur' },{ type: 'number', message: '终端价格必须为数字值'}]">
+              <el-form-item label="终端价格：" prop="salePrice" :rules="[{ required: true, message: '请输入终端价格', trigger: 'blur' },{ type: 'number', message: '终端价格必须为数字值', trigger: 'blur'}]">
                 <Input :type="'number'" :value.sync="terminalMaintainInfo.salePrice"/>
               </el-form-item>
             </el-col>
@@ -83,7 +77,7 @@
         <div class="result-head fn-clear">
           <div class="result-title fn-left">规格详情</div>
           <div class="buttons fn-right">
-            <button type="button" class="btns" @click="importInfo"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
+            <button type="button" class="btns" @click="importInfo()"><i class="iconfont">&#xe6a8;</i> 导入规格</button>
           </div>
         </div>
         <div class="result-box">
@@ -256,7 +250,7 @@
           <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
       </div>
     </el-form>
-    <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
+    <DialogPopup class="dialog-choose-merchants" :visible.sync="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
         <div class="import-result-box fn-clear" v-if="showSuccee">
@@ -267,7 +261,7 @@
         </div>
       </div>
       <div slot="footer">
-        <el-button type="success" @click="dialogVisible = false">关&nbsp;闭</el-button>
+        <el-button type="success" @click="visibleChange(false)">关&nbsp;闭</el-button>
       </div>
     </DialogPopup>
 
@@ -299,13 +293,6 @@
       var operation = this.$route.query.operation;
       if(operation === 'add'){
         this.title = '新增终端';
-        this.terminalMaintainInfo = {
-          brandCd: '',
-          offerModelId: ''
-        };
-        this.terminalMaintainInfo.offerBaseParam = {};
-        this.terminalMaintainInfo.offerScreenParam = {};
-        this.terminalMaintainInfo.offerHardwardParam = {};
         this.flag = 1;
       }else{
         this.title = '修改终端';
@@ -342,8 +329,53 @@
           offerCode: ''
         },
         terminalMaintainInfo: {
+          offerCode: '',
+          offerName: '',
           brandCd: '',
-          offerModelId: ''
+          brandName: '',
+          offerModelId: '',
+          offerModelName: '',
+          isCentman: '',
+          salePrice: '',
+          statusCd: '',
+          offerBaseParam: {
+            listDt: '',
+            termType: '',
+            os:''
+          },
+          offerScreenParam:{
+            screenType: '',
+            screenSize: '',
+            screenMaterial: '',
+            resolutionRatio: '',
+            screenPiexl: '',
+            screenTech: '',
+            frame: '',
+            otherParam:''
+          },
+          offerHardwardParam:{
+            cpuModel: '',
+            cpuRate: '',
+            core: '',
+            gpuModel: '',
+            ram: '',
+            rom: '',
+            memoryType: '',
+            memoryCard: '',
+            extendedCapacity: '',
+            rearCamera: '',
+            frontCamera: '',
+            batteryCapacity: '',
+            batteryType: '',
+            batteryCharge:''},
+            offerPic:{
+            offerPicUrl: '',
+            offerPicUrl2: '',
+            offerPicUrl3: '',
+            offerPicUrl4: '',
+            offerPicUrl5: '',
+            offerPicUrl6: ''
+          }
         },
         flag: 0,
         title: '',
@@ -391,12 +423,14 @@
       },
       //导入
       uploadData(data) {
-        this.$nextTick(function () {
-          this.showSuccee = true;
-          this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
-          this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
-          this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
-        })
+        if(data.data){
+          this.$nextTick(function () {
+            this.showSuccee = true;
+            this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
+            this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
+            this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
+          })
+        };
       },
       //查询终端型号
       qryOfferModelList(val){
@@ -421,8 +455,15 @@
               }else{
                 this.previewOffer();
               }
+            }else{
+              window.scroll(0, 0);
+              this.nullError = true;
             }
           } else {
+            if(!this.offerPicList.length){
+              this.nullError = true;
+            };
+            window.scroll(0, 0);
             return false;
           }
         });
@@ -455,32 +496,32 @@
         });
         if(this.title === '新增终端'){
           this.$post('/orderPlacingMeetingController/insertOffer', {
-            'offerCode': this.terminalMaintainInfo.offerCode,
-            'offerName': this.terminalMaintainInfo.offerName,
-            'brandCd': this.terminalMaintainInfo.brandCd,
-            'brandName': this.terminalMaintainInfo.brandName,
-            'offerModelId': this.terminalMaintainInfo.offerModelId,
-            'offerModelName': this.terminalMaintainInfo.offerModelName,
-            'isCentman': this.terminalMaintainInfo.isCentman,
-            'salePrice': this.terminalMaintainInfo.salePrice,
-            'statusCd': this.terminalMaintainInfo.statusCd,
-            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
-            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
+            'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
+            'brandCd': _.get(this.terminalMaintainInfo, 'brandCd'),
+            'brandName': _.get(this.terminalMaintainInfo, 'brandName'),
+            'offerModelId': _.get(this.terminalMaintainInfo, 'offerModelId'),
+            'offerModelName': _.get(this.terminalMaintainInfo, 'offerModelName'),
+            'isCentman': _.get(this.terminalMaintainInfo, 'isCentman'),
+            'salePrice': _.get(this.terminalMaintainInfo, 'salePrice'),
+            'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
+            'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
+            'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
             'offerHardwardParam':{
-              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
-              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
-              'core': this.terminalMaintainInfo.offerHardwardParam.core,
-              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
-              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
-              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
-              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
-              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
-              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
-              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
-              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
-              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
-              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
-              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+              'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
+              'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
+              'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
+              'gpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'gpuModel'),
+              'ram': _.get(this.terminalMaintainInfo.offerHardwardParam, 'ram'),
+              'rom': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rom'),
+              'memoryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryType'),
+              'memoryCard': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryCard'),
+              'extendedCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'extendedCapacity'),
+              'rearCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rearCamera'),
+              'frontCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'frontCamera'),
+              'batteryCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCapacity'),
+              'batteryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryType'),
+              'batteryCharge': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCharge')
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
@@ -491,33 +532,33 @@
         }else{
           this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
           this.$post('/orderPlacingMeetingController/updateOffer', {
-            'offerId': this.terminalMaintainInfo.offerId,
-            'offerCode': this.terminalMaintainInfo.offerCode,
-            'offerName': this.terminalMaintainInfo.offerName,
-            'brandCd': this.terminalMaintainInfo.brandCd,
-            'brandName': this.terminalMaintainInfo.brandName,
-            'offerModelId': this.terminalMaintainInfo.offerModelId,
-            'offerModelName': this.terminalMaintainInfo.offerModelName,
-            'isCentman': this.terminalMaintainInfo.isCentman,
-            'salePrice': this.terminalMaintainInfo.salePrice,
-            'statusCd': this.terminalMaintainInfo.statusCd,
-            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
-            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
+            'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
+            'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
+            'brandCd': _.get(this.terminalMaintainInfo, 'brandCd'),
+            'brandName': _.get(this.terminalMaintainInfo, 'brandName'),
+            'offerModelId': _.get(this.terminalMaintainInfo, 'offerModelId'),
+            'offerModelName': _.get(this.terminalMaintainInfo, 'offerModelName'),
+            'isCentman': _.get(this.terminalMaintainInfo, 'isCentman'),
+            'salePrice': _.get(this.terminalMaintainInfo, 'salePrice'),
+            'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
+            'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
+            'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
             'offerHardwardParam':{
-              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
-              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
-              'core': this.terminalMaintainInfo.offerHardwardParam.core,
-              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
-              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
-              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
-              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
-              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
-              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
-              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
-              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
-              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
-              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
-              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+              'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
+              'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
+              'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
+              'gpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'gpuModel'),
+              'ram': _.get(this.terminalMaintainInfo.offerHardwardParam, 'ram'),
+              'rom': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rom'),
+              'memoryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryType'),
+              'memoryCard': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryCard'),
+              'extendedCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'extendedCapacity'),
+              'rearCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rearCamera'),
+              'frontCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'frontCamera'),
+              'batteryCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCapacity'),
+              'batteryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryType'),
+              'batteryCharge': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCharge')
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
@@ -555,32 +596,32 @@
         });
         if(this.title === '新增终端'){
           this.$post('/orderPlacingMeetingController/insertOffer', {
-            'offerCode': this.terminalMaintainInfo.offerCode,
-            'offerName': this.terminalMaintainInfo.offerName,
-            'brandCd': this.terminalMaintainInfo.brandCd,
-            'brandName': this.terminalMaintainInfo.brandName,
-            'offerModelId': this.terminalMaintainInfo.offerModelId,
-            'offerModelName': this.terminalMaintainInfo.offerModelName,
-            'isCentman': this.terminalMaintainInfo.isCentman,
-            'salePrice': this.terminalMaintainInfo.salePrice,
-            'statusCd': this.terminalMaintainInfo.statusCd,
-            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
-            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
+            'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
+            'brandCd': _.get(this.terminalMaintainInfo, 'brandCd'),
+            'brandName': _.get(this.terminalMaintainInfo, 'brandName'),
+            'offerModelId': _.get(this.terminalMaintainInfo, 'offerModelId'),
+            'offerModelName': _.get(this.terminalMaintainInfo, 'offerModelName'),
+            'isCentman': _.get(this.terminalMaintainInfo, 'isCentman'),
+            'salePrice': _.get(this.terminalMaintainInfo, 'salePrice'),
+            'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
+            'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
+            'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
             'offerHardwardParam':{
-              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
-              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
-              'core': this.terminalMaintainInfo.offerHardwardParam.core,
-              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
-              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
-              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
-              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
-              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
-              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
-              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
-              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
-              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
-              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
-              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+              'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
+              'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
+              'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
+              'gpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'gpuModel'),
+              'ram': _.get(this.terminalMaintainInfo.offerHardwardParam, 'ram'),
+              'rom': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rom'),
+              'memoryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryType'),
+              'memoryCard': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryCard'),
+              'extendedCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'extendedCapacity'),
+              'rearCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rearCamera'),
+              'frontCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'frontCamera'),
+              'batteryCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCapacity'),
+              'batteryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryType'),
+              'batteryCharge': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCharge')
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
@@ -589,33 +630,33 @@
         }else{
           this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
           this.$post('/orderPlacingMeetingController/updateOffer', {
-            'offerId': this.terminalMaintainInfo.offerId,
-            'offerCode': this.terminalMaintainInfo.offerCode,
-            'offerName': this.terminalMaintainInfo.offerName,
-            'brandCd': this.terminalMaintainInfo.brandCd,
-            'brandName': this.terminalMaintainInfo.brandName,
-            'offerModelId': this.terminalMaintainInfo.offerModelId,
-            'offerModelName': this.terminalMaintainInfo.offerModelName,
-            'isCentman': this.terminalMaintainInfo.isCentman,
-            'salePrice': this.terminalMaintainInfo.salePrice,
-            'statusCd': this.terminalMaintainInfo.statusCd,
-            'offerBaseParam': this.terminalMaintainInfo.offerBaseParam,
-            'offerScreenParam': this.terminalMaintainInfo.offerScreenParam,
+            'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
+            'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
+            'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
+            'brandCd': _.get(this.terminalMaintainInfo, 'brandCd'),
+            'brandName': _.get(this.terminalMaintainInfo, 'brandName'),
+            'offerModelId': _.get(this.terminalMaintainInfo, 'offerModelId'),
+            'offerModelName': _.get(this.terminalMaintainInfo, 'offerModelName'),
+            'isCentman': _.get(this.terminalMaintainInfo, 'isCentman'),
+            'salePrice': _.get(this.terminalMaintainInfo, 'salePrice'),
+            'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
+            'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
+            'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
             'offerHardwardParam':{
-              'cpuModel': this.terminalMaintainInfo.offerHardwardParam.cpuModel,
-              'cpuRate': this.terminalMaintainInfo.offerHardwardParam.cpuRate,
-              'core': this.terminalMaintainInfo.offerHardwardParam.core,
-              'gpuModel': this.terminalMaintainInfo.offerHardwardParam.gpuModel,
-              'ram': this.terminalMaintainInfo.offerHardwardParam.ram,
-              'rom': this.terminalMaintainInfo.offerHardwardParam.rom,
-              'memoryType': this.terminalMaintainInfo.offerHardwardParam.memoryType,
-              'memoryCard': this.terminalMaintainInfo.offerHardwardParam.memoryCard,
-              'extendedCapacity': this.terminalMaintainInfo.offerHardwardParam.extendedCapacity,
-              'rearCamera': this.terminalMaintainInfo.offerHardwardParam.rearCamera,
-              'frontCamera': this.terminalMaintainInfo.offerHardwardParam.frontCamera,
-              'batteryCapacity': this.terminalMaintainInfo.offerHardwardParam.batteryCapacity,
-              'batteryType': this.terminalMaintainInfo.offerHardwardParam.batteryType,
-              'batteryCharge': this.terminalMaintainInfo.offerHardwardParam.batteryCharge
+              'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
+              'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
+              'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
+              'gpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'gpuModel'),
+              'ram': _.get(this.terminalMaintainInfo.offerHardwardParam, 'ram'),
+              'rom': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rom'),
+              'memoryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryType'),
+              'memoryCard': _.get(this.terminalMaintainInfo.offerHardwardParam, 'memoryCard'),
+              'extendedCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'extendedCapacity'),
+              'rearCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'rearCamera'),
+              'frontCamera': _.get(this.terminalMaintainInfo.offerHardwardParam, 'frontCamera'),
+              'batteryCapacity': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCapacity'),
+              'batteryType': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryType'),
+              'batteryCharge': _.get(this.terminalMaintainInfo.offerHardwardParam, 'batteryCharge')
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
