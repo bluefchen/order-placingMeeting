@@ -159,10 +159,10 @@
           width: 220,
           render: (h, params) => {
             return h({
-              template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
-              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1002 || usermanInfo.stautsCd == 9999">激活</el-button>' +
-              '<el-button type="text" @click="modifyUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">删除</el-button>' +
+              template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == 1000">冻结</el-button>' +
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == 1002 || usermanInfo.statusCd == 9999">激活</el-button>' +
+              '<el-button type="text" @click="modifyUserman(usermanInfo)" v-if="usermanInfo.statusCd == 1000" class="delete-btn">修改</el-button>' +
+              '<el-button type="text" @click="deleteUserman(usermanInfo)" v-if="usermanInfo.statusCd == 1000" class="delete-btn">删除</el-button>' +
               '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
               data() {
                 return {
@@ -260,7 +260,7 @@
           return;
         }else{
           _.map(this.selectionChangeList, function (item) {
-            if(item.stautsCd == 1000){
+            if(item.statusCd == 1000){
               flag = true;
               return;
             }
@@ -287,7 +287,7 @@
           return;
         }else{
           _.map(this.selectionChangeList, function (item) {
-            if(item.stautsCd != 1000){
+            if(item.statusCd != 1000){
               flag = true;
               return;
             }
@@ -314,7 +314,7 @@
           return;
         }else{
           _.map(this.selectionChangeList, function (item) {
-            if(item.stautsCd != 1000){
+            if(item.statusCd != 1000){
               flag = true;
               return;
             }

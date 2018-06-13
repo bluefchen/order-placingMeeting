@@ -124,6 +124,18 @@
               </el-form-item>
             </el-col>
           </el-row>
+          
+          <!-- 密码规则 -->
+          <div class="password-rule">
+            <p class="p-titl"><img src="../assets/images/icon-remind.png">提示</p>
+            <p class="p1">新密码需要满足如下<span class="org">2个条件：</span></p>
+            <p class="p2">1、密码长度8位以上（含8位）</p>
+            <p class="p2">2、密码包含以下3种组成部分</span></p>
+            <p class="p3">（1）小写英文字母（从a到z）</span></p>
+            <p class="p3">（2）大写英文字母（从A到Z）</span></p>
+            <p class="p3">（3）10个基本数字（从0到9）</span></p>
+            <p class="p4">注意：请勿在新密码中包含特殊字符！请牢记修改后的密码，然后使用新的密码进行登录</p>
+          </div>
         </div>
         <div class="foot-btn">
           <el-form-item>
@@ -234,13 +246,13 @@
         },
         usermanSelect: {},
         usermanList: [{
-          value: 1,
+          value: '1',
           label: '运营商'
         }, {
-          value: 2,
+          value: '2',
           label: '供应商'
         }, {
-          value: 3,
+          value: '3',
           label: '零售商'
         }],
         merchantsTitle: '',
@@ -346,6 +358,7 @@
       }
     }
     .terminal-info-box {
+      position: relative;
       width: 100%;
       padding: 10px 0;
       border: 1px solid #dfdfdf;
@@ -375,6 +388,50 @@
         background:none;
       }
     }
+    .password-rule{
+      position: absolute;
+      top: 20px;
+      right: 60px;
+      width: 200px;
+      padding: 10px 30px;
+      border: 1px solid #f8e3ce;
+      background: #fffaf5;
+      color: #242424;
+      font-size: 12px;
+      border-radius: 8px;
+      .p-titl{
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 14px;
+        img{
+          margin-right: 8px;
+          vertical-align: middle;
+        }
+      }
+      .p1{
+        margin-bottom: 14px;
+        span{
+          color: #ff6d0b;
+        }
+      }
+      .p2{
+        margin-bottom: 12px;
+        color: #9a9a9a;
+        span{
+          color: #ff6d0b;
+        }
+      }
+      .p3{
+        margin-bottom: 12px;
+        color: #9a9a9a;
+        text-indent: 14px;
+      }
+      .p4{
+        line-height: 20px;
+        color: #ff6d0b;
+      }
+    }
+
     /*表单验证*/
     .el-form-item {
       margin-bottom: 0;
