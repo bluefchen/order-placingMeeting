@@ -311,7 +311,7 @@
           this.tableTitle = this.tableRetailerTitle;
           this.isShowSupplierType = false;
         }
-        this.handleSearch();
+        // this.handleSearch();
       },
     },
     components: {
