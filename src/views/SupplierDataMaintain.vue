@@ -142,7 +142,7 @@
                 <el-button class="delete-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeSupplier([data.row.supplierId])">激活</el-button>
                 <el-button class="delete-btn" v-if="data.row.statusCd === '1000'" @click="freezeSupplier([data.row.supplierId])">冻结</el-button>
                 <el-button class="delete-btn" @click="addSupplier('修改', data.row)">修改</el-button>
-                <el-button class="delete-btn" @click="deleteSupplier([data.row.supplierId])">删除</el-button>
+                <el-button :disabled="data.row.statusCd === '1001'" class="delete-btn" @click="deleteSupplier([data.row.supplierId])">删除</el-button>
                 <el-button class="delete-btn" @click="detailSupplier(data.row)">详情</el-button>
               </div>`,
               data() {

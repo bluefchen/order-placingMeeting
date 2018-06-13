@@ -461,7 +461,7 @@
       //图片删除
       handleRemove(file, fileList) {
         var fileIndex = null;
-        var fileUrl = file.url;
+        var fileUrl = file.url; //需根据url添加字符串的长度截取，然后比较获得index值
         _.forEach(this.offerPicList, (item, index) => {
           if(item.url === fileUrl.slice(79)){
             fileIndex = index;
