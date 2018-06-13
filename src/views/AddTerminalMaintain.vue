@@ -247,7 +247,7 @@
       </div>
       <div class="foot-btn">
           <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
-          <button type="button"class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
+          <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
       </div>
     </el-form>
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">

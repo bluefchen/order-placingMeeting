@@ -1,5 +1,5 @@
 <template>
-  <div class="vue_add-supplier">
+  <div class="vue_order-config">
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" :title="title"/>
@@ -667,7 +667,7 @@
 
 <style lang="less">
 
-  .vue_add-supplier {
+  .vue_order-config {
     .text-right {
       text-align: right;
     }

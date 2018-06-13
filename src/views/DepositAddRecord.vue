@@ -20,7 +20,7 @@
 
       <!-- 搜索 -->
       <div class="box-1200 search">
-        <InputWithSelect @search="search"/>
+        <InputWithSelect @search="search" :clearable="true"/>
         <div class="category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
       </div>
@@ -37,7 +37,7 @@
           <el-col :span="8">
             <div class="condition-item">
               <label class="label-wrds">零售商名称：</label>
-              <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
+              <ChooseMerchants title="零售商" @selectOptions="selectRetailer" :clearable="true"/>
             </div>
           </el-col>
           <el-col :span="8">
