@@ -304,7 +304,6 @@
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
       }
-
     },
     data() {
       return {
@@ -338,14 +337,11 @@
         },
         dialogVisible: false,
         dislogTitle: '保存',
-
         nullError: null,
         overError: null,
-
         active: 1,
         title: '',
         opMeetingInfo: {},
-
         orderPlacingMeeting: {
           logoUrl: ''
         },
@@ -563,8 +559,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rps.resultMsg.resultMsg === 0) {
-              console.log('新增成功！');
+            if (rsp.resultCode === '0') {
               this.next();
             }
           });
@@ -585,8 +580,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rps.resultMsg.resultMsg === 0) {
-              console.log('新增成功！');
+            if (rsp.resultCode === '0') {
               this.next();
             }
           });

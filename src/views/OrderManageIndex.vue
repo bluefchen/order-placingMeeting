@@ -148,7 +148,7 @@
                   <p class="device-type underway" v-if="data.row.statusCd === '1001'">进行中</p>
                   <p class="device-type done" v-if="data.row.statusCd === '1002'">已完成</p>
                 </div>
-                `,
+               `,
                 data: function () {
                   return {
                     data: params,
@@ -162,7 +162,12 @@
             colSpan: 4,
             render: (h, params) => {
               return h({
-                template: `<button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>`,
+                template: `
+                  <div style="text-align: right;">
+                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
+                    <button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>
+                  </div>
+                `,
                 data: function () {
                   return {
                     data: params,
@@ -171,6 +176,10 @@
                 methods: {
                   compileOrder: (title, item) => {
                     this.compileOrder(title, item)
+                  },
+                  detailOrder(item) {
+                    localStorage.setItem('opMeeting', JSON.stringify(item));
+                    this.$router.push({path: '/order/orderIndex'});
                   }
                 }
               })
