@@ -54,7 +54,7 @@
                 <div class="upload-img-list fn-clear">
                   <ul class="fn-left">
                     <el-upload
-                      action="/commonCfgController/upload"
+                      action="/orderPlacingMeeting/commonCfgController/upload"
                       :file-list="offerPicList"
                       list-type="picture-card"
                       :limit= "6"

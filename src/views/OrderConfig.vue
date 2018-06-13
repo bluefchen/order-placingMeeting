@@ -122,7 +122,7 @@
                               :rules="[{ required: true, message: '订购会logo不能为空', trigger: 'change'}]">
                   <el-upload
                     class="condition-upload fn-left"
-                    action="/commonCfgController/upload"
+                    action="/orderPlacingMeeting/commonCfgController/upload"
                     :show-file-list="false"
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
