@@ -69,7 +69,7 @@
         _.map(this.systemMenuAllList, function (item) {
           _.map(item.menus, function (it) {
             if (it.isHold === 'Y') {
-              newMenu.push(it);
+              newMenu.push(it.systemMenuId);
             }
           })
         });

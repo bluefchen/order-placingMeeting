@@ -22,7 +22,7 @@
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 用户账号：</label>
                   <Input :value.sync="usermanData.systemUserCode" :disabled="modify"/>
-                  <el-button class="pwd-edit" @click="pwdEdit = true" v-if="modify">更改密码</el-button>
+                  <el-button class="pwd-edit" @click="pwdEdit = true" v-if="!pwdEdit && modify">更改密码</el-button>
                 </div>
               </el-form-item>
             </el-col>
@@ -299,33 +299,43 @@
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                this.$alert('添加成功！', '提示', {
-                  confirmButtonText: '确定',
-                  type: 'success'
-                }).then(() => {
-                  this.$router.push({
-                    path: '/orderManage/usermanManage'
+                if(!rsp.resultCode){
+                  this.$alert('添加成功！', '提示', {
+                    confirmButtonText: '确定',
+                    type: 'success'
+                  }).then(() => {
+                    this.$router.push({
+                      path: '/orderManage/usermanManage'
+                    });
                   });
-                });
+                }else{
+                  this.$message.success(rsp.resultMsg);
+                }              
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
+                partyId: this.usermanData.partyId,
                 commonRegionId: this.usermanData.commonRegionId,
                 userType: this.usermanData.userType,
                 relaId: this.usermanData.relaId,//归属商户
                 systemUserCode: this.usermanData.systemUserCode,//用户账号
+                password: md5(this.usermanData.password, 32),
                 name: this.usermanData.name,
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                this.$alert('修改成功！', '提示', {
-                  confirmButtonText: '确定',
-                  type: 'success'
-                }).then(() => {
-                  this.$router.push({
-                    path: '/orderManage/usermanManage'
+                if(!rsp.resultCode){
+                  this.$alert('修改成功！', '提示', {
+                    confirmButtonText: '确定',
+                    type: 'success'
+                  }).then(() => {
+                    this.$router.push({
+                      path: '/orderManage/usermanManage'
+                    });
                   });
-                });
+                }else{
+                  this.$message.success(rsp.resultMsg);
+                }              
               })
             }
           } else {
