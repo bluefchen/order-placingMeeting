@@ -1,7 +1,7 @@
 <template>
   <div class="v_input-with-select">
     <el-input :placeholder="placeholder" v-model="input" class="input-with-select" :size="size">
-      <el-select v-model="select" slot="prepend" placeholder="请选择" v-if="!isHideSelect">
+      <el-select v-model="select" slot="prepend" placeholder="请选择" v-if="!isHideSelect" :clearable="clearable">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -42,6 +42,9 @@
       },
       isHideSelect: {
         type: Boolean //是否隐藏下拉框
+      },
+      clearable: {
+        type: Boolean
       }
     },
     data() {
