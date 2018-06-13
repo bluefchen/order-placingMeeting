@@ -83,7 +83,8 @@
 		</div>
 
 		<div class="order-num box-1200">
-			<span class="wrds fn-left">提货数量：</span><input type="text" v-model="pickupGoodsAmount" name="" class="fn-left">
+			<span class="wrds fn-left">提货数量：</span>
+			<input type="number" v-model="pickupGoodsAmount" name="" class="fn-left">
 			<button class="button fn-left" :disabled="!pickupGoodsAmount" @click="confirmDelivery">确认提货</button>
 			<button @click="countermandDelivery" class="button cancel-btn fn-left">取消提货</button>
 		</div>
@@ -262,7 +263,7 @@
 			background-color: #fff8ef;
 			margin: 23px auto;
 		}
-		.order-num input[type="text"]{
+		.order-num input[type="number"]{
 			width: 153px;
 			height: 32px;
 			padding: 0 10px;
