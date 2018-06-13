@@ -67,7 +67,7 @@
                       <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
                   </ul>
-                  <div v-if="nullError" class="upload-list-null fn-left">请上传终端图片</div>
+                  <div v-if="nullError" class="upload-list-null fn-left">请至少上传4张终端图片</div>
                 </div>
                 <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
               </div>
@@ -449,7 +449,7 @@
       submitForm(formName, title) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if(this.offerPicList.length){
+            if(this.offerPicList.length > 3){
               if(title === '保存'){
                 this.saveOffer();
               }else{
