@@ -1,13 +1,13 @@
 <template>
   <div class="choose-merchants">
     <div class="choose-input-box" @click="isShow = true" v-show="!disabled">
-      <input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly/>
-      <input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly/>
+      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <div class="choose-input-box disabled" v-show="disabled">
-      <input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly/>
-      <input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly/>
+      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
@@ -39,8 +39,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange"
-               :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
       <div slot="footer">
@@ -90,6 +89,7 @@
           this.checkedOption.supplierName = this.selectionFor.relaName;
         }
       }
+      this.selectionChangeList = [];
     },
     data() {
       return {
@@ -351,13 +351,20 @@
       }
       .choose-input {
         border: none;
-        width: calc(100% - 45px);
+        width: calc(100% - 25px);
         height: 22px;
-        padding: 2px 10px;
         color: #606266;
         font-size: 14px;
         vertical-align: top;
         cursor: pointer;
+        .el-input__inner{
+          height: 26px;
+          line-height: 26px;
+          border:0;
+        }
+        .el-input__suffix{
+          top:2px;
+        }
       }
       &.disabled{
         background-color: #f5f7fa;

@@ -1,7 +1,6 @@
 <template>
   <div class="v_table">
-    <el-table :size="size" :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange"
-              :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange" tooltip-effect="light">
+    <el-table ref="multipleTable" :size="size" :data="tableData" :stripe="stripe" :border="border" @selection-change="handleSelectionChange" :highlight-current-row="highlightCurrentRow" @current-change="handleCurrentChange" tooltip-effect="light">
       <el-table-column v-if="isIndex" type="index" label="序号" width="50"></el-table-column>
       <el-table-column v-if="isSelection" type="selection" width="50"></el-table-column>
       <el-table-column v-for="(column, index) in tableTitle" :key="index" :prop="column.prop" :label="column.label" :width="column.width" :show-overflow-tooltip="true">
