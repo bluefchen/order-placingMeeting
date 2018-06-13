@@ -129,10 +129,7 @@
             })
           }
         });
-        console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/opmOrderController/batchInsertOpmOrderPickupRecord', {
-          tableDataIsSueccess
-        }).then(rsp => {
+        this.$post('/opmOrderController/batchInsertOpmOrderPickupRecord', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/orderPickupData'});
           // this.$message.success('导入订单提货数据成功');
           console.log('34、批量导入订单提货数据接口：', rsp);

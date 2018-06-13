@@ -128,10 +128,7 @@
             })
           }
         });
-        console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/opmOrderController/batchInsertOpmOffer', {
-          tableDataIsSueccess
-        }).then(rsp => {
+        this.$post('/opmOrderController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {
           this.$message.success('导入新增数据成功');
           console.log('31、批量导入订单数据接口：', rsp);
         })
