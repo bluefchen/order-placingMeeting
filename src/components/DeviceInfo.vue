@@ -10,7 +10,7 @@
         <span v-if="data.isCentman === 'N'" class="sc">社采</span>
         <span v-if="data.isCentman === 'Y'" class="jc">集采</span>
         <span v-if="data.isSpecial === 'Y'" class="spec">特</span>
-        <ReductionPop/>
+        <ReductionPop v-if="policyList.length" :list="data.contents"/>
       </p>
     </div>
   </div>
@@ -30,7 +30,8 @@
             offerCode: '',
             isCentman: '',
             isSpecial: '',
-            offerPic: null
+            offerPic: null,
+            contents: []
           }
         }
       }
@@ -38,6 +39,9 @@
     computed: {
       offerPicUrl() {
         return _.get(this.data, 'offerPic.offerPicUrl') || './static/img/icon-tel-default.jpg'
+      },
+      policyList() {
+        return _.get(this.data, 'contents') || [];
       }
     },
     components: {
@@ -68,7 +72,7 @@
       width: calc(100% - 82px);
       padding-left: 15px;
       line-height: 22px;
-      .name{
+      .name {
         height: 22px;
         line-height: 22px;
         color: #050505;

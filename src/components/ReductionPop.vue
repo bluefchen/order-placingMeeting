@@ -5,8 +5,7 @@
       ref="popover"
       width="100"
       trigger="hover">
-      <p class="rule">满<span>10000</span>减<span>200</span></p>
-      <p class="rule">满<span>20000</span>减<span>400</span></p>
+      <p class="rule" v-for="item in list">{{item}}</p>
     </el-popover>
   </span>
 </template>
@@ -14,7 +13,14 @@
 <script>
   export default {
     name: 'Popover',
-    props: {},
+    props: {
+      list: {
+        type: Array,
+        default: function () {
+          return ['暂无优惠政策'];
+        }
+      }
+    },
     data() {
       return {}
     }
