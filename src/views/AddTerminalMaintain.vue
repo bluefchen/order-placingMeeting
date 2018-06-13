@@ -1,5 +1,11 @@
 <template>
   <div class="vue_terminal-maintain">
+    
+    <div style="width: 500px; margin: 50px auto 0; padding: 10px; border: 1px solid #d6d6d6;">
+      <SelectComponents :value.sync="value" :placement="'bottom-start'" :list="brandOptions"" :width="625" />
+      {{value}}
+    </div>
+
     <el-form :model="terminalMaintainInfo" ref="terminalMaintainInfo" label-width="110px" class="demo-ruleForm">
       <div class="box-1200">
         <div class="order-titl fn-clear">
@@ -274,6 +280,7 @@
   import Select from '@/components/Select';
   import DialogPopup from '@/components/DialogPopup';
   import UploadFile from '@/components/UploadFile';
+  import SelectComponents from '@/components/SelectComponents';
 
   export default {
     name: 'AddTerminalMaintain',
@@ -328,6 +335,7 @@
     data() {
       return {
         nullError: null,
+        value: '',
 
 
         terminalInfo: {
@@ -626,7 +634,8 @@
       Input,
       Select,
       DialogPopup,
-      UploadFile
+      UploadFile,
+      SelectComponents
     },
     watch: {
       'terminalMaintainInfo.brandCd': function(newVal, oldVal){

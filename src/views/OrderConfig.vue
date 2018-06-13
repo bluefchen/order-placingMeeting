@@ -130,7 +130,7 @@
                     <img v-if="orderPlacingMeeting.logoUrl" :src="orderPlacingMeeting.logoUrl">
                     <span v-if="!orderPlacingMeeting.logoUrl"><img src="@/assets/images/icon-add.png"></span>
                   </el-upload>
-                  <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX</div>
+                  <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -533,7 +533,7 @@
           isImg = false;
         }
         if (!isImg) {
-          this.$message.error('订购会logo只能是图片格式!');
+          this.$message.error('订购会logo只能是规定的图片格式!');
         }
         return isImg;
       },
