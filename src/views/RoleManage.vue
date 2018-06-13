@@ -85,7 +85,7 @@
                     query: {
                       postRoleId: item.postRoleId,
                       roleName: item.name,
-                      userType: item.userType
+                      roleTypeCd: item.roleTypeCd
                     }
                   });
                 }
