@@ -306,12 +306,12 @@
       "title": function () {
         if (this.title === '供应商') {
           this.tableTitle = this.tableSupplierTitle;
-          this.isShowSupplierType = true;
+          this.isShowSupplierType = true; 
         } else if (this.title === '零售商') {
           this.tableTitle = this.tableRetailerTitle;
           this.isShowSupplierType = false;
         }
-        // this.handleSearch();
+        this.handleSearch();
       },
     },
     components: {

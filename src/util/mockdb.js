@@ -415,9 +415,9 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOpMeetingOfferList'), 
 });
 
 //18、批量导入新增机型数据解析接口
-Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpMeetingOfferList'), {
+Mock.mock(new RegExp('/orderPlacingMeetingController/analyzeInsertOpmOfferList'), {
   rsphead: 's',
-  success: 'true', //是否成功true/失败false
+  success: 'true', //是否成功true/失败false   
   code: null,
   msg: null, //失败信息
   error: null,
