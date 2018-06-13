@@ -84,10 +84,12 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds">备注：</label>
-                <Input type="textarea" :value.sync="usermanData.remark"/>
-              </div>
+              <el-form-item prop="remark" class="textarea">
+                <div class="condition-item">
+                  <label class="label-wrds">备注：</label>
+                  <Input type="textarea" :value.sync="usermanData.remark"/>
+                </div>
+              </el-form-item>
             </el-col>
           </el-row>
         </div>
@@ -200,6 +202,9 @@
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
             {min: 1, max: 32, message: '长度在不能超过32个字符', trigger: 'blur'}
+          ],
+          remark: [
+            {min: 0, max: 400, message: '长度在不能超过400个字符', trigger: 'blur'}
           ],
         },
         usermanSelect: {},
@@ -343,6 +348,13 @@
       padding-top: 0;
       top: 42px;
       left: 114px;
+    }
+    .el-form-item{
+      &.textarea{
+        .el-form-item__error{
+          top: 62px;
+        }
+      }
     }
   }
 
