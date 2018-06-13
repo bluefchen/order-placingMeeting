@@ -36,38 +36,48 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds text-right">联系人：</label>
-                <Input :value.sync="supplierInfo.linkMan"/>
-              </div>
+              <el-form-item prop="linkMan">
+                <div class="condition-item">
+                  <label class="label-wrds text-right">联系人：</label>
+                  <Input :value.sync="supplierInfo.linkMan"/>
+                </div>
+              </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds text-right">联系人手机：</label>
-                <Input :value.sync="supplierInfo.linkNbr"/>
-              </div>
+              <el-form-item prop="linkNbr">
+                <div class="condition-item">
+                  <label class="label-wrds text-right">联系人手机：</label>
+                  <Input :value.sync="supplierInfo.linkNbr"/>
+                </div>
+              </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds text-right">公司电话：</label>
-                <Input :value.sync="supplierInfo.supplierPhone"/>
-              </div>
+              <el-form-item prop="supplierPhone">
+                <div class="condition-item">
+                  <label class="label-wrds text-right">公司电话：</label>
+                  <Input :value.sync="supplierInfo.supplierPhone"/>
+                </div>
+              </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds text-right">公司传真：</label>
-                <Input :value.sync="supplierInfo.supplierFax"/>
-              </div>
+              <el-form-item prop="supplierFax">
+                <div class="condition-item">
+                  <label class="label-wrds text-right">公司传真：</label>
+                  <Input :value.sync="supplierInfo.supplierFax"/>
+                </div>
+              </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <div class="condition-item">
-                <label class="label-wrds text-right">备注：</label>
-                <Input type="textarea" :value.sync="supplierInfo.remarks" />
-              </div>
+              <el-form-item prop="remarks">
+                <div class="condition-item">
+                  <label class="label-wrds text-right">备注：</label>
+                  <Input type="textarea" :value.sync="supplierInfo.remarks" />
+                </div>
+              </el-form-item>
             </el-col>
           </el-row>
         </div>
@@ -103,6 +113,28 @@
 
     },
     data() {
+      var checkPhone = (rule, value, callback) => {
+        if (value) {
+          let reg = /^(\+86)?1[345789]\d{9}$/;
+          if (!(reg.test(value))) {
+            callback(new Error('请输入正确的手机号码'));
+          }
+          callback();
+        }else{
+          callback();
+        }
+      };
+      var checkTel = (rule, value, callback) => {
+        if (value) {
+          let reg = /^0\d{2,3}-?\d{7,8}$/;
+          if (!(reg.test(value))) {
+            callback(new Error('请输入正确的电话号码'));
+          }
+          callback();
+        }else{
+          callback();
+        }
+      };
       return {
         title: '',
         supplierInfo: {},
@@ -116,6 +148,21 @@
           ],
           supplierType: [
             {required: true, message: '请选择供货商类型', trigger: 'blur'},
+          ],
+          linkMan: [
+            {min: 0, max: 20, message: '长度不能超过20个字符', trigger: 'blur'}
+          ],
+          linkNbr: [
+            {validator: checkPhone, message: '请输入正确手机号码', trigger: 'blur'}
+          ],
+          supplierPhone: [
+            {validator: checkTel, message: '请输入正确的公司号码', trigger: 'blur'}
+          ],
+          supplierFax: [
+            {validator: checkTel, message: '请输入正确的公司传真', trigger: 'blur'}
+          ],
+          remarks: [
+            {min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}
           ]
         },
         level: 'province',
