@@ -103,7 +103,7 @@
                 <div class="photo-wrap fn-clear" @click="detailOrder(data.row)">
                   <div class="photo-pic fn-left">
                     <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
-                    <img v-else src="./static/img/icon-dhhui-default.png" alt="">
+                    <img v-else src="./static/img/icon-dhhui-default.jpg" alt="">
                   </div>
                   <div class="photo-info fn-right">
                     <p class="name">{{data.row.opmName}}</p>

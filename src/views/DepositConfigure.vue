@@ -109,11 +109,10 @@
       this.queryOpmDepositInfo();
     },
     data() {
-      var checkProportion = (rule, value, callback) => {
+      let checkProportion = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('不能为空'));
         }
-        ;
         if (value < 1 || value > 100) {
           callback(new Error('请输入1-100之间的数字'));
         } else {
