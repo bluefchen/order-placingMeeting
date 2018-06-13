@@ -20,7 +20,7 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <Import :url="url" :tableTitle="tableTitle" ref="importComponent"/>
+        <Import :url="url" :downloadUrl="downloadUrl" :tableTitle="tableTitle" ref="importComponent"/>
       </div>
 
       <div class="bottom-btns">
@@ -42,6 +42,7 @@
     data() {
       return {
         url: '/opmDepositController/analyzeInsertOpmRetailerDepositList',
+        downloadUrl: 'http://192.168.74.17:9086/commonCfgController/downloadModel?modelType=OpmRetailerDeposit',
         tableTitle: [{
           label: '零售商编码',
           prop: 'retailerCode',

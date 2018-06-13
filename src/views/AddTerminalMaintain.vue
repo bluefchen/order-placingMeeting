@@ -49,7 +49,7 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="18" :offset="2">
-              <div class="condition-item">
+              <div class="upload-item fn-clear">
                 <label class="label-wrds text-right"><span class="red-star">*</span> 终端图片上传：</label>
                 <div class="upload-img-list fn-clear">
                   <ul class="fn-left">
@@ -100,9 +100,6 @@
                         :editable="false">
                       </el-date-picker>
                     </el-form-item>
-                    <!-- <el-form-item label="上市日期" prop="offerBaseParam.listDt" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.listDt"/>
-                    </el-form-item> -->
                   </el-row>
                   <el-row>
                     <el-form-item label="手机类型" prop="offerBaseParam.termType" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
@@ -250,9 +247,7 @@
       </div>
       <div class="foot-btn">
           <button class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
-          <!-- <button class="btns" @click="saveOffer">保&nbsp;存</button> -->
           <button class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
-          <!-- <button class="btns" @click="previewOffer">预&nbsp;览</button> -->
       </div>
     </el-form>
     <DialogPopup class="dialog-choose-merchants" :visible="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
@@ -364,7 +359,7 @@
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
-        downloadUrl: '/commonCfgController/downloadModel?modelType=',
+        downloadUrl: 'http://192.168.74.17:9086/commonCfgController/downloadModel?modelType=OfferParam',
         upLoadItem: {
           fileType: '2'
         }
@@ -742,6 +737,25 @@
             }
           }
         }
+      }
+    }
+
+    .upload-item {
+      position: relative;
+      margin: 10px 0;
+      padding-left: 110px;
+      .label-wrds{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 110px;
+        text-align: right;
+        height: 28px;
+        line-height: 28px;
+        padding: 0;
+        color: #333;
+        text-align: right;
+        font-size: 14px;
       }
     }
 

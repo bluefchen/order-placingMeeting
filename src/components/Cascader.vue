@@ -52,7 +52,9 @@
       }
     },
     created() {
-      this.$post('/commonCfgController/getCommonRegionTreeList').then((rsp) => {
+      this.$post('/commonCfgController/getCommonRegionTreeList', {
+        commonRegionId: ''
+      }).then((rsp) => {
         this.areaList = rsp;
       });
     },

@@ -17,7 +17,7 @@
     <div v-show="active === 1">
       <el-form :model="orderPlacingMeeting" ref="orderPlacingMeeting" label-width="135px" class="demo-ruleForm">
         <div class="box-1200">
-          <div class="terminal-info-box">
+          <div class="roder-config-info-box">
               <el-row :gutter="0">
                 <el-col :span="8" :offset="2">
                   <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
@@ -139,14 +139,14 @@
               </el-row>
           </div>
         </div>
-        <div class="foot-btn">
+        <div class="footer-btn">
           <el-button type="primary" class="btns" @click="submitForm('orderPlacingMeeting', '下一步')">下一步</el-button>
         </div>
       </el-form>
     </div>
     <div v-show="active === 2">
       <div class="box-1200">
-        <div class="terminal-info-box">
+        <div class="roder-config-info-box">
           <div class="order-info fn-clear">
             <div class="order-info-left fn-left">
               <img src="@/assets/images/icon-order.png" alt="">
@@ -198,7 +198,7 @@
     </div>
     <div v-show="active === 3">
       <div class="box-1200">
-        <div class="terminal-info-box">
+        <div class="roder-config-info-box">
           <div class="order-info fn-clear">
             <div class="order-info-left fn-left">
               <img src="@/assets/images/icon-order.png" alt="">
@@ -262,7 +262,7 @@
         </div>
       </div>
     </div>
-    <div class="foot-btn" v-show="active !== 4 && active !== 1">
+    <div class="footer-btn" v-show="active !== 4 && active !== 1">
       <button v-show="active !== 1" class="btns" @click="previous">上一步</button>
       <button v-show="active === 3" class="btns" @click="finish">完成</button>
       <button v-show="active !== 3" class="btns" @click="next">下一步</button>
@@ -676,7 +676,7 @@
       margin: 15px 0 8px;
       line-height: 28px;
     }
-    .terminal-info-box {
+    .roder-config-info-box {
       width: 100%;
       margin-top: 20px;
       margin-bottom: 20px;
@@ -821,9 +821,10 @@
       }
     }
 
-    .foot-btn {
+    .footer-btn {
       width: 100%;
       padding: 35px 0;
+      border: none;
       border-top: 1px solid #dcdcdc;
       text-align: center;
       .btns {
