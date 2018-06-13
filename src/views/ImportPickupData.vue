@@ -42,7 +42,7 @@
     data() {
       return {
         url: '/opmOrderController/analyzeInsertOpmOrderPickupRecordList',
-        downloadUrl: 'http://192.168.74.17:9086/commonCfgController/downloadModel?modelType=OpmOrderPickupRecord',
+        downloadUrl: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmOrderPickupRecord',
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',
