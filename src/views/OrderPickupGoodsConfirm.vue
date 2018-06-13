@@ -30,7 +30,7 @@
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
-						<p class="detail-p"><span>所属省份：</span>{{retailerInfo.province}}</p>
+						<p class="detail-p"><span>所属省份：</span>{{retailerInfo.commonRegionName}}</p>
 						<p class="detail-p"><span>联系人：</span>{{retailerInfo.linkMan}}</p>
 					</div>
 				</li>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
-						<p class="detail-p"><span>所属省分：</span>{{supplierInfo.province}}</p>
+						<p class="detail-p"><span>所属省分：</span>{{supplierInfo.commonRegionName}}</p>
 						<p class="detail-p"><span>联系人：</span>{{supplierInfo.linkMan}}</p>
 					</div>
 				</li>
@@ -52,7 +52,7 @@
 				<div class="info-table fn-clear">
     				<p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
 					<p class="detail-table fn-left"><span>订单时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
-					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupGoodsDt}}</p>
+					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickUpGoodsDt}}</p>
 				</div>
 				<table width="100%" cellspacing="0" cellpadding="0" class="table">
 					<thead>
