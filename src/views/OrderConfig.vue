@@ -17,7 +17,7 @@
     <div v-show="active === 1">
       <el-form :model="orderPlacingMeeting" ref="orderPlacingMeeting" label-width="135px" class="demo-ruleForm">
         <div class="box-1200">
-          <div class="terminal-info-box">
+          <div class="roder-config-info-box">
               <el-row :gutter="0">
                 <el-col :span="8" :offset="2">
                   <el-form-item label="订货会编码：" prop="opMeetingNo" :rules="[{ min: 0, max: 30, message: '长度不能超过30个字符', trigger: 'blur'}]">
@@ -146,7 +146,7 @@
     </div>
     <div v-show="active === 2">
       <div class="box-1200">
-        <div class="terminal-info-box">
+        <div class="roder-config-info-box">
           <div class="order-info fn-clear">
             <div class="order-info-left fn-left">
               <img src="@/assets/images/icon-order.png" alt="">
@@ -198,7 +198,7 @@
     </div>
     <div v-show="active === 3">
       <div class="box-1200">
-        <div class="terminal-info-box">
+        <div class="roder-config-info-box">
           <div class="order-info fn-clear">
             <div class="order-info-left fn-left">
               <img src="@/assets/images/icon-order.png" alt="">
@@ -676,7 +676,7 @@
       margin: 15px 0 8px;
       line-height: 28px;
     }
-    .terminal-info-box {
+    .roder-config-info-box {
       width: 100%;
       margin-top: 20px;
       margin-bottom: 20px;
