@@ -179,8 +179,7 @@
             callback(new Error('请输入正确的电话号码'));
           }
           callback();
-        }
-        ;
+        };
       };
       var passwordValid = (rule, value, callback) => {
         if (value === '') {
@@ -195,6 +194,7 @@
             }
             callback();
           }
+          callback();
         }
       };
       var checkPasswordValid = (rule, value, callback) => {
@@ -202,6 +202,28 @@
           callback(new Error('请再次输入密码'));
         } else if (value !== this.usermanData.password) {
           callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+      var checkCommonRegionId = (rule, value, callback) => {        
+        if (this.usermanData.userType == 1) {
+          if (!value) {
+            return callback(new Error('请选择归属省份'));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }       
+      };
+      var checkRelaId = (rule, value, callback) => {
+        if (this.usermanData.userType != '1') {
+          if (!value) {
+            return callback(new Error('请选择归属商户'));
+          } else {
+            callback();
+          }
         } else {
           callback();
         }
@@ -229,10 +251,10 @@
             {validator: checkTel, trigger: 'blur'},
           ],
           commonRegionId: [
-            {required: true, message: '请选择省市', trigger: 'blur'},
+            {validator: checkCommonRegionId, trigger: 'blur'},
           ],
           relaId: [
-            {required: true, message: '请选择商户', trigger: 'blur'},
+            {validator: checkRelaId, trigger: 'blur'},
           ],
           password: [
             {validator: passwordValid, trigger: 'blur'}
