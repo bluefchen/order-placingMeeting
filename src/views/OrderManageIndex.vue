@@ -164,8 +164,8 @@
               return h({
                 template: `
                   <div style="text-align: right;">
-                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
                     <button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>
+                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
                   </div>
                 `,
                 data: function () {
