@@ -136,7 +136,8 @@
             </el-row>
             <el-row :gutter="0">
               <el-col :span="18" :offset="2">
-                <el-form-item label="订购会描述：" prop="discription">
+                <el-form-item label="订购会描述：" prop="discription"
+                              :rules="[{ required: true }]">
                   <div class="editor editor-box">
                     <quill-editor ref="orderPlacingMeeting" v-model="orderPlacingMeeting.discription"></quill-editor>
                     <div class="editor-error" v-if="nullError">订购会描述不能为空</div>
