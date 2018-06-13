@@ -67,45 +67,8 @@
       <div class="order-titl fn-clear">
         <TitlePlate title="订单列表"/>
       </div>
-      <table width="100%" cellspacing="0" cellpadding="0" class="table">
-        <thead>
-        <tr>
-          <th width="30%">终端名称</th>
-          <th width="15%">终端品牌</th>
-          <th width="15%">终端型号</th>
-          <th width="8%">终端价格</th>
-          <th width="8%">订购数量</th>
-          <th width="8%">实付金额</th>
-          <th width="8%">付款状态</th>
-          <th width="8%">操作</th>
-        </tr>
-        </thead>
-      </table>
-      <ul class="ul-tab">
-        <li class="li-list" v-for="(item, index) in qryOpmOrderList" :key="index">
-          <p class="p-line fn-clear">
-            <span class="fn-left date-color"><b>订单号：{{item.opmOrderNo}}</b>【{{item.orderDt}}】</span>
-            <span class="fn-left text-center">零售商：{{item.retailerName}}</span>
-            <span class="fn-left text-right">供货商：{{item.supplierName}}</span>
-          </p>
-          <div class="tabs fn-clear">
-            <dl class="fn-left wid30">
-              <div class="pd5">
-                <DeviceInfo :data="item"/>
-              </div>
-            </dl>
-            <dl class="dll wid15 fn-left"><p>{{item.brandName}}</p></dl>
-            <dl class="dll wid15 fn-left"><p>{{item.offerModelName}}</p></dl>
-            <dl class="dll wid8 fn-left"><b>¥ {{item.salePrice}}</b></dl>
-            <dl class="dll wid8 fn-left"><b>{{item.offerQty}}</b></dl>
-            <dl class="dll wid8 fn-left"><b>--</b></dl>
-            <dl class="dll wid8 fn-left" :class="{red: item.paymentStatusCd === 1000}"><p>{{item.paymentStatusCdName}}</p></dl>
-            <dl class="dll wid8 fn-left">
-              <button class="updown-btn red" @click="orderdetail(item)">订单详情</button>
-            </dl>
-          </div>
-        </li>
-      </ul>
+
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="qryOpmOrderList" />
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -123,6 +86,7 @@
   import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
+  import TableList from '@/components/TableList';
 
   export default {
     name: 'PreferentialPolicySettlement',
@@ -132,6 +96,157 @@
     },
     data() {
       return {
+        tab: {
+          tableHeader: [{
+            label: '订单号',
+            prop: 'opmOrderNo',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: '<p class="date-color"><b>订单号：{{data.row.opmOrderNo}}</b>【{{data.row.orderDt}}】</p>',
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '零售商',
+            prop: 'retailerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-center">零售商：{{data.row.retailerName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '供货商',
+            prop: 'supplierName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h({
+                template: `<p class="text-right">供货商：{{data.row.supplierName}}</p>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }],
+
+          tableTitle: [{
+            label: '终端名称',
+            prop: 'offerName',
+            colSpan: 8,
+            render: (h, params) => {
+              return h(DeviceInfo, {
+                props: {
+                  data: params.row,
+                }
+              });
+            }
+          }, {
+            label: '终端价格',
+            prop: 'salePrice',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<span><b>¥ {{(data.row.salePrice)}}</b></span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '订购数量',
+            prop: 'offerQty',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `<span><b>{{(data.row.offerQty)}}</b></span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '总金额',
+            prop: 'amount',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty).toFixed(2)}}</b></span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '优惠金额',
+            prop: 'discountAmount',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="discount red">
+                  <p><b>- ¥ {{data.row.discountAmount}}</b></p>
+                  <p><img src="./static/img/discount.png"> {{((data.row.salePrice * data.row.offerQty - data.row.discountAmount) / (data.row.salePrice * data.row.offerQty) * 10).toFixed(1)}}折</p>
+                </div>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          },{
+            label: '应付金额',
+            prop: 'amountPay',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty - data.row.discountAmount).toFixed(2)}}</b></span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '操作',
+            prop: 'operation',
+            colSpan: 4,
+            render: (h, params) => {
+              return h({
+                template: `<button class="updown-btn red" @click="orderdetail(data.row)">订单详情</button>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                },
+                methods: {
+                  orderdetail: (item) => {
+                    this.orderdetail(item)
+                  }
+                }
+              })
+            }
+          }]
+        },
         paymentStatusList: [{ //付款状态列表
           value: 1000,
           label: '未交定金'
@@ -216,7 +331,8 @@
       Table,
       DeviceInfo,
       Pagination,
-      ChooseMerchants
+      ChooseMerchants,
+      TableList
     }
   }
 </script>

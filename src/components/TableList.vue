@@ -206,6 +206,13 @@
       text-decoration: none;
       cursor: pointer;
     }
+    .discount{
+      line-height: 20px;
+      padding-top: 24px;
+      b{
+        font-size: 16px;
+      }
+    }
 
     .updown-btn {
       padding: 2px 5px;
