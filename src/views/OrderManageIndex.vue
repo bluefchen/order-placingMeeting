@@ -32,7 +32,7 @@
           <button @click="compileOrder('新增')"><span class="iconfont">&#xe6a8;</span>&nbsp;新增订购会</button>
         </div>
       </div>
-      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPlacingMeetingList" />
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPlacingMeetingList"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -73,7 +73,7 @@
                 }
               })
             }
-          },{
+          }, {
             label: '操作',
             prop: 'operation',
             colSpan: 10,
@@ -238,35 +238,21 @@
       },
       delOrder(item) {
         this.$msgBox({
-          type: 'error',
-          title: '添加分类',
-          content: '请填写分类名称'
-        }).then((val) => {
-          console.log('ok', val);
-        }).catch(() => {
-          console.log('err');
+          type: 'info',
+          title: '操作提示',
+          isShowConfimrBtn: true,
+          content: '确定要删除该订货会吗？'
+        }).then(() => {
+          this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
+            opMeetingId: item.opMeetingId
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.queryOrderPlacingMeetingList();
+          });
         });
-        // this.$confirm('确定要删除该订货会吗?', '提示', {
-        //   confirmButtonText: '确定',
-        //   cancelButtonText: '取消',
-        //   type: 'warning'
-        // }).then(() => {
-        //   this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
-        //     opMeetingId: item.opMeetingId
-        //   }).then((rsp) => {
-        //     console.log(rsp.resultMsg, rsp.resultCode);
-        //   });
-        //   this.$message({
-        //     type: 'success',
-        //     message: '删除成功!'
-        //   });
-        //   this.queryOrderPlacingMeetingList(this.currentPage);
-        // }).catch(() => {
-        //   this.$message({
-        //     type: 'info',
-        //     message: '已取消删除'
-        //   });
-        // });
       }
     },
     components: {
