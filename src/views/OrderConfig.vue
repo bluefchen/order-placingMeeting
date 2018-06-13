@@ -595,13 +595,14 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode === 0) {
               this.next();
             } else {
               this.$message.warning(rsp.resultMsg);
             }
           });
         } else {
+          debugger;
           //修改
           this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
             'opMeetingId': this.orderPlacingMeeting.opMeetingId,
@@ -618,7 +619,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode === 0) {
               this.next();
             } else {
               this.$message.warning(rsp.resultMsg);
