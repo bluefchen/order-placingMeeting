@@ -58,8 +58,8 @@
           </el-row>
         </div>
         <div class="foot-btn">
-          <button class="btns" @click="submitForm('retailerInfo')">保&nbsp;存</button>
-          <button class="btns" @click="cancelSetailerData">取&nbsp;消</button>
+          <button type="button" class="btns" @click="submitForm('retailerInfo')">保&nbsp;存</button>
+          <button type="button" class="btns" @click="cancelSetailerData">取&nbsp;消</button>
         </div>
       </el-form>
     </div>
