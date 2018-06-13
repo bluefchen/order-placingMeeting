@@ -105,10 +105,7 @@
             })
           }
         });
-        console.log('待提交确定信息：', tableDataIsSueccess);
-        this.$post('/opmDepositController/batchInsertOpmRetailerDeposit', {
-          tableDataIsSueccess
-        }).then(rsp => {
+        this.$post('/opmDepositController/batchInsertOpmRetailerDeposit', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/CyjDepositAddRecord'});
           // this.$message.success('导入新增数据成功');
           console.log('诚意金导入接口', rsp);
