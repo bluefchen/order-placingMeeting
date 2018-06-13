@@ -103,7 +103,7 @@
                   offerName: params.row.offerName,
                   offerCode: params.row.offerCode,
                   isCentman: params.row.isCentman,
-                  offerPic: params.row.offerHardwardParam.offerPic
+                  offerPic: params.row.offerHardwardParam ? params.row.offerHardwardParam.offerPic : ''
                 }
               }
             });
