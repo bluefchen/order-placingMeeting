@@ -45,7 +45,6 @@ axios.interceptors.response.use(response => {
 });
 
 export function fetchPost(url, params) {
-  debugger;
   return new Promise((resolve, reject) => {
     axios
       .post(url, 'param=' + encodeURI(encodeURI(JSON.stringify(params))))
