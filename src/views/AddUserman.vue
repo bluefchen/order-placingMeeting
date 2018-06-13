@@ -210,7 +210,7 @@
         modify: false,
         level: 'province',
         usermanData: {
-          userType: 1
+          userType: '1'
         },
         pwdEdit: false,
         rules: {
