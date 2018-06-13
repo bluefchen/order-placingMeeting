@@ -126,7 +126,8 @@
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
-                    <img v-if="orderPlacingMeeting.logoUrl" :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
+                    <img v-if="orderPlacingMeeting.logoUrl"
+                         :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
                     <i v-else class="avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
@@ -309,9 +310,7 @@
       return {
         pickerBeginDateBefore: {
           disabledDate: (time) => {
-
             let beginDateVal = this.orderPlacingMeeting.endDt ? moment(this.orderPlacingMeeting.endDt).format('YYYY-MM-DD') : true;
-
             if (beginDateVal) {
               return moment(time).format('YYYY-MM-DD') > beginDateVal || moment(time).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD');
             }
@@ -563,6 +562,8 @@
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
               this.next();
+            } else {
+              this.$message.warning(rsp.resultMsg);
             }
           });
         } else {
@@ -584,6 +585,8 @@
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
               this.next();
+            } else {
+              this.$message.warning(rsp.resultMsg);
             }
           });
         }
@@ -736,7 +739,7 @@
         display: block;
         width: 163px;
         height: 86px;
-       }
+      }
     }
     .logo-notice {
       margin-left: 5px;

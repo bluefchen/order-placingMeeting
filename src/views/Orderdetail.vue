@@ -57,9 +57,8 @@
 			<div class="info-list">
 				<div class="info-table fn-clear">
     				<p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
-					<p class="detail-table fn-left"><span>创建时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
-					<p class="detail-table fn-left"><span>付款时间：</span>--</p>
-					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupDt}}</p>
+					<p class="detail-table fn-left"><span>订单时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
+					<p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupGoodsDt}}</p>
 				</div>
 				<table width="100%" cellspacing="0" cellpadding="0" class="table">
 					<thead>

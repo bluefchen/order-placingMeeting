@@ -102,7 +102,7 @@
                 template: `
                 <div class="photo-wrap fn-clear" @click="detailOrder(data.row)">
                   <div class="photo-pic fn-left">
-                    <img v-if="!!data.row.logoUrl" :src="data.row.logoUrl" alt="">
+                    <img v-if="!!data.row.logoUrl" :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + data.row.logoUrl" alt="">
                     <img v-else src="./static/img/icon-dhhui-default.jpg" alt="">
                   </div>
                   <div class="photo-info fn-right">
@@ -164,8 +164,8 @@
               return h({
                 template: `
                   <div style="text-align: right;">
-                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
                     <button class="edit-btn" v-show="data.row.statusCd === '1000'" @click="compileOrder('修改', data.row)">编辑订购会</button>
+                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
                   </div>
                 `,
                 data: function () {
