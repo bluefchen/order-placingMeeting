@@ -22,6 +22,48 @@
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 用户账号：</label>
                   <Input :value.sync="usermanData.systemUserCode" :disabled="modify"/>
+                  <el-button class="pwd-edit" @click="pwdEdit = true" v-if="modify">更改密码</el-button>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8" :offset="2">
+              <el-form-item prop="password" v-if="!modify">
+                <div class="condition-item">
+                  <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
+                  <Input type="password" :value.sync="usermanData.password"/>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8" :offset="2">
+              <el-form-item prop="checkPassword" v-if="!modify">
+                <div class="condition-item">
+                  <label class="label-wrds"><span class="red-star">*</span> 确认密码：</label>
+                  <Input type="password" :value.sync="usermanData.checkPassword"/>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8" :offset="2">
+              <el-form-item prop="password" v-if="pwdEdit">
+                <div class="condition-item">
+                  <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
+                  <Input type="password" :value.sync="usermanData.password"/>
+                  <el-button class="pwd-edit" @click="pwdEdit = false" v-if="pwdEdit">取消更改密码</el-button>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8" :offset="2">
+              <el-form-item prop="checkPassword" v-if="pwdEdit">
+                <div class="condition-item">
+                  <label class="label-wrds"><span class="red-star">*</span> 确认密码：</label>
+                  <Input type="password" :value.sync="usermanData.checkPassword"/>
                 </div>
               </el-form-item>
             </el-col>
@@ -68,16 +110,6 @@
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
                   <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
-                </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20">
-            <el-col :span="8" :offset="2">
-              <el-form-item prop="password" v-if="!$route.query.usermanInfo">
-                <div class="condition-item">
-                  <label class="label-wrds"><span class="red-star">*</span> 密码：</label>
-                  <Input type="password" :value.sync="usermanData.password"/>
                 </div>
               </el-form-item>
             </el-col>
@@ -138,32 +170,26 @@
         }
         ;
       };
-      var checkCommonRegionId = (rule, value, callback) => {
-        if (!this.modify) {
-          if (this.usermanData.userType == 1) {
-            if (!value) {
-              return callback(new Error('请选择归属省份'));
-            } else {
-              callback();
+      var passwordValid = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          let reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,32}$/;
+          if (!(reg.test(value))) {
+            callback(new Error('请输入正确的密码'));
+          }else{
+            if (this.usermanData.checkPassword !== '') {
+              this.$refs.usermanData.validateField('checkPassword');
             }
-          } else {
             callback();
           }
-        } else {
-          callback();
         }
       };
-      var checkRelaId = (rule, value, callback) => {
-        if (!this.modify) {
-          if (this.usermanData.userType != 1) {
-            if (!value) {
-              return callback(new Error('请选择归属商户'));
-            } else {
-              callback();
-            }
-          } else {
-            callback();
-          }
+      var checkPasswordValid = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.usermanData.password) {
+          callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
         }
@@ -172,12 +198,9 @@
         modify: false,
         level: 'province',
         usermanData: {
-          userType: 1,
-          password: '',
-          systemUserCode: '',
-          name: '',
-          linktelenumber: ''
+          userType: 1
         },
+        pwdEdit: false,
         rules: {
           userType: [
             {required: true, message: '请选择用户类型', trigger: 'blur'},
@@ -194,14 +217,16 @@
             {validator: checkTel, trigger: 'blur'},
           ],
           commonRegionId: [
-            {validator: checkCommonRegionId, trigger: 'blur'},
+            {required: true, message: '请选择省市', trigger: 'blur'},
           ],
           relaId: [
-            {validator: checkRelaId, trigger: 'blur'},
+            {required: true, message: '请选择商户', trigger: 'blur'},
           ],
           password: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            {min: 1, max: 32, message: '长度在不能超过32个字符', trigger: 'blur'}
+            {validator: passwordValid, trigger: 'blur'}
+          ],
+          checkPassword: [
+            {validator: checkPasswordValid, trigger: 'blur'}
           ],
           remark: [
             {min: 0, max: 400, message: '长度在不能超过400个字符', trigger: 'blur'}
@@ -229,7 +254,6 @@
       addUsermanSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            //当身份为零售商或者供应商时，userType取的是userType；当身份为管理员时，userType取的是manageUserType
             if (!this.$route.query.usermanInfo) {
               this.$post('/systemUserController/addSystemUser', {
                 commonRegionId: this.usermanData.commonRegionId,
@@ -252,6 +276,11 @@
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
+                commonRegionId: this.usermanData.commonRegionId,
+                userType: this.usermanData.userType,
+                relaId: this.usermanData.relaId,//归属商户
+                systemUserCode: this.usermanData.systemUserCode,//用户账号
+                name: this.usermanData.name,
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
@@ -283,10 +312,7 @@
           this.merchantsTitle = '零售商';
         } else if (this.usermanData.userType == 2) {
           this.merchantsTitle = '供应商';
-        }
-        ;
-        this.usermanData.relaId = '';
-        this.usermanData.commonRegionId = '';
+        };
       },
     },
     components: {
@@ -334,6 +360,20 @@
       border: 1px solid #dcdcdc;
       border-top: none;
       text-align: center;
+    }
+    .pwd-edit{
+      position: absolute;
+      top: 6px;
+      right: -100px;
+      width: 90px;
+      padding: 0;
+      border: 0;
+      font-size: 14px;
+      color: #168fe4;
+      text-align: left;
+      &:hover,&:active,&:focus{
+        background:none;
+      }
     }
     /*表单验证*/
     .el-form-item {

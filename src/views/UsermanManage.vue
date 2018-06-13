@@ -131,7 +131,7 @@
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType === 1">运营商</span><span v-else-if="data.row.userType === 2">供货商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供货商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
@@ -152,25 +152,15 @@
           prop: 'relaName',
         }, {
           label: '状态',
-          prop: 'stautsCd',
+          prop: 'statusCdName',
           width: 100,
-          render: (h, params) => {
-            return h({
-              template: '<div><span v-if="data.row.stautsCd == 1000">有效</span><span v-else-if="data.row.stautsCd == 1001">失效</span><span v-else-if="data.row.stautsCd == 1002">冻结</span><span v-else>密码错误锁定</span></div>',
-              data() {
-                return {
-                  data: params
-                }
-              }
-            });
-          }
         }, {
           label: '操作',
           width: 220,
           render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1000">冻结</el-button>' +
-              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-else-if="usermanInfo.stautsCd == 1002 || usermanInfo.stautsCd == 9999">激活</el-button>' +
+              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.stautsCd == 1002 || usermanInfo.stautsCd == 9999">激活</el-button>' +
               '<el-button type="text" @click="modifyUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">修改</el-button>' +
               '<el-button type="text" @click="deleteUserman(usermanInfo)" v-if="usermanInfo.stautsCd == 1000" class="delete-btn">删除</el-button>' +
               '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
