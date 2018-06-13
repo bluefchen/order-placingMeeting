@@ -18,8 +18,8 @@
             <el-button class="btns" @click="addRelevantPerson"><i class="iconfont">&#xe642;</i> 添加角色人员</el-button>
           </div>
         </div>
-        <Table :tableTitle="tableTitle1" :tableData="tableData" v-if="roleData.userType != 1"/>
-        <Table :tableTitle="tableTitle2" :tableData="tableData" v-if="roleData.userType == 1"/>
+        <Table :tableTitle="tableTitle1" :tableData="tableData" v-if="roleData.roleTypeCd != 1"/>
+        <Table :tableTitle="tableTitle2" :tableData="tableData" v-if="roleData.roleTypeCd == 1"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
     </div>
@@ -42,8 +42,8 @@
       if(this.$route.query.roleName){
         this.roleData.name = this.$route.query.roleName;
       }
-      if(this.$route.query.userType){
-        this.roleData.userType = this.$route.query.userType;
+      if(this.$route.query.roleTypeCd){
+        this.roleData.roleTypeCd = this.$route.query.roleTypeCd;
       }
       this.queryPostRoleRelaUserList();
     },
@@ -76,7 +76,7 @@
           width: 145,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 1">供应商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
@@ -144,7 +144,7 @@
           width: 200,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data() {
                 return {
                   data: params

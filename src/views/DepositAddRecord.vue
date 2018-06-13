@@ -128,7 +128,7 @@
         }, {
           label: '终端名称',
           prop: 'offerName',
-          width: 140
+          width: 130
         }, {
           label: '产品类型',
           prop: 'isCentman',
