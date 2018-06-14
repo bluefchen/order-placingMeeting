@@ -79,7 +79,7 @@
           width: 100
         }, {
           label: '终端价格',
-          prop: 'costPrice',
+          prop: 'salePrice',
           width: 80,
           render: (h, params) => {
             return h({
