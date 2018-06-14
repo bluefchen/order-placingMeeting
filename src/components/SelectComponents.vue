@@ -7,8 +7,8 @@
             <div class="all fn-left">全部：</div>
             <div class="first-letter-list fn-left">
               <ul>
-                <li @click="showAllLetterFilter">所有品牌</li>
-                <li @click="firstLetterFilter(item)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
+                <li :class="{'checked': checkedIndex === null}" @click="showAllLetterFilter">所有品牌</li>
+                <li :class="{'checked': checkedIndex === index}" @click="firstLetterFilter(item, index)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
               </ul>
             </div>
           </div>
@@ -70,11 +70,13 @@
         this.visible = false;
         this.$emit('update:value', item.value);
       },
-      firstLetterFilter(item){
+      firstLetterFilter(item, index){
         this.firstLetter = item;
+        this.checkedIndex = index;
         this.showAllLetter = false;
       },
       showAllLetterFilter(){
+        this.checkedIndex = null,
         this.showAllLetter = true;
         this.firstLetter = null;
       }
@@ -153,6 +155,11 @@
             &:hover{
               border: 1px solid #f01919;
             }
+            &.checked{
+              background: #f01919;
+              color: #fff;
+              border: 1px solid #f01919;
+            }
           }
         }
       }
@@ -175,16 +182,16 @@
             color: #fff;
             border: 1px solid #f01919;
           };
+          &.checked{
+            background: #f01919;
+            color: #fff;
+            border: 1px solid #f01919;
+          }
         }
       }
       &.ml40{
         margin-left: 40px;
       }
-    }
-    .checked{
-      background: #f01919;
-      color: #fff;
-      border: 1px solid #f01919;
     }
   }
   
