@@ -137,8 +137,8 @@
       text-align: left;
       cursor: pointer;
       .photo-pic {
-        width: 66px;
-        height: 66px;
+        width: 77px;
+        height: 68px;
         box-sizing: border-box;
         border: 1px solid #e5e5e5;
         img {
