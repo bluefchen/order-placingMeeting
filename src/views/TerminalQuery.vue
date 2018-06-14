@@ -385,7 +385,7 @@
       color: #fcfdff;
     }
     .img-bg .info .activity {
-      width: 306px;
+      width: 330px;
       margin: 10px 0 0 0;
       line-height: 18px;
       font-size: 12px;
