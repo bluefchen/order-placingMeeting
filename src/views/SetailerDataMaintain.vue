@@ -136,11 +136,11 @@
           render: (h, params) => {
             return h({
               template: `<div>
-                <el-button class="updown-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeRetailer([data.row.retailerId])">激活</el-button>
-                <el-button class="updown-btn" v-if="data.row.statusCd === '1000'" @click="freezeRetailer([data.row.retailerId])">冻结</el-button>
-                <el-button class="updown-btn" @click="addRetailer('修改', data.row)">修改</el-button>
-                <el-button :disabled="data.row.statusCd === '1001'" class="updown-btn" @click="deleteRetailer([data.row.retailerId])">删除</el-button>
-                <el-button class="updown-btn" @click="detailRetailer(data.row)">详情</el-button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeRetailer([data.row.retailerId])">激活</el-button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1000'" @click="freezeRetailer([data.row.retailerId])">冻结</el-button>
+                <el-button class="delete-btn" @click="addRetailer('修改', data.row)">修改</el-button>
+                <el-button :disabled="data.row.statusCd === '1001'" class="delete-btn" @click="deleteRetailer([data.row.retailerId])">删除</el-button>
+                <el-button class="delete-btn" @click="detailRetailer(data.row)">详情</el-button>
               </div>`,
               data() {
                 return {
@@ -419,6 +419,9 @@
     }
     .buttons .btns:hover {
       background-color: #e20606;
+    }
+    .v_table .delete-btn{
+      background: none;
     }
   }
 </style>

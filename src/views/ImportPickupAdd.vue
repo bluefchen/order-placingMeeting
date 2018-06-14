@@ -60,11 +60,11 @@
           prop: 'offerName'
         }, {
           label: '终端品牌',
-          prop: 'brandCd',
+          prop: 'brandName',
           width: 80
         }, {
           label: '终端型号',
-          prop: 'offerModelId',
+          prop: 'offerModelName',
           width: 80
         }, {
           label: '产品类型',

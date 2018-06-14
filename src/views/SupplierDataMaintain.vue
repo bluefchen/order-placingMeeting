@@ -210,49 +210,63 @@
         this.selectList = val;
       },
       batchFreezeSupplier(){
-        var supplierList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1000') {
-            supplierList.push(item.supplierId)
-          }
-        });
-        if(supplierList.length){
-          this.freezeSupplier(supplierList);
+        let supplierList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要冻结的供应商！');
         }else{
-          this.$message({
-            message: '请选择需要冻结的供应商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            supplierList.push(item.supplierId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要冻结的有效供应商！');
+        }else{
+          this.freezeSupplier(supplierList);
         }
       },
       batchUnfreezeSupplier(){
-        var supplierList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1001') {
-            supplierList.push(item.supplierId)
-          }
-        });
-        if(supplierList.length){
-          this.unfreezeSupplier(supplierList);
+        let supplierList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要激活的供应商！');
         }else{
-          this.$message({
-            message: '请选择需要激活的供应商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1000'){
+              flag = true;
+              return;
+            }
+            supplierList.push(item.supplierId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要激活的有效供应商！');
+        }else{
+          this.unfreezeSupplier(supplierList);
         }
       },
       batchDeleteSupplier(){
-        var supplierList = [];
-        this.selectList.forEach((item, index) => {
-          supplierList.push(item.supplierId);
-        });
-        if(supplierList.length){
-          this.deleteSupplier(supplierList);
+        let supplierList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要删除的供应商！');
         }else{
-          this.$message({
-            message: '请选择需要删除的供应商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            supplierList.push(item.supplierId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要删除的有效供应商！');
+        }else{
+          this.deleteSupplier(supplierList);
         }
       },
 
