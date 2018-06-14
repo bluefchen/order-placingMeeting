@@ -226,7 +226,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="电池类型" prop="offerHardwardParam.batteryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
