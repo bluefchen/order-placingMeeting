@@ -32,7 +32,7 @@
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
-          this.$post('/systemUserController/loginOut', {
+          this.$post('http://192.168.74.17:9086/psm/systemUserController/loginOut', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
