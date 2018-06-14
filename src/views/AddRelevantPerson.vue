@@ -160,18 +160,29 @@
           postRoleId: this.$route.query.postRoleId,
           partyIds: partyIds,
         }).then((rsp) => {
-          this.$alert('添加成功！', '提示', {
-            confirmButtonText: '确定',
-            type: 'success'
-          }).then(() => {
-            this.$router.push({
-              path: '/orderManage/userRoleManage',
-              query: {
-                postRoleId: this.$route.query.postRoleId,
-                roleName: this.$route.query.roleName
-              }
+          if(rsp.resultCode == '0'){
+            this.$msgBox({
+              type: 'success',
+              title: '成功提示',
+              content: '添加成功'
+            }).catch(() => {
+              this.$router.push({
+                path: '/orderManage/userRoleManage',
+                query: {
+                  postRoleId: this.$route.query.postRoleId,
+                  roleName: this.$route.query.roleName
+                }
+              });
             });
-          });
+          }else{
+            this.$msgBox({
+              type: 'error',
+              title: '失败提示',
+              content: rsp.resultMsg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }               
         })
       },
       cancel(){
