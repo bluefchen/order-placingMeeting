@@ -52,7 +52,8 @@
       //查询所有菜单
       querySystemMenuList() {
         this.$post('/systemUserController/querySystemMenuList', {
-          postRoleId: _.get(this.roleData, 'postRoleId') || ''
+          postRoleId: _.get(this.roleData, 'postRoleId') || '',
+          roleTypeCd: _.get(this.roleData, 'roleTypeCd') || ''
         }).then((rsp) => {
           this.systemMenuAllList = rsp;
         });
