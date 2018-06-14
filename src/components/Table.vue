@@ -191,6 +191,7 @@
       color: #ff0000;
       font-size: 12px;
       text-decoration: underline;
+      background: none;
       &:hover {
         border: 1px solid #f82134;
         border-radius: 3px;
