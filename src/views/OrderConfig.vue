@@ -52,7 +52,7 @@
               </el-col>
             </el-row>
             <el-row :gutter="0">
-              <el-col :span="24" :offset="2" class="fn-clear">
+              <el-col :span="14" :offset="2" class="fn-clear">
                 <el-form-item class="fn-left" label="活动起止日期：" prop="startDt"
                               :rules="[{ required: true, message: '活动起止日期不能为空'}]">
                   <el-date-picker
@@ -602,7 +602,6 @@
             }
           });
         } else {
-          debugger;
           //修改
           this.$post('/orderPlacingMeetingController/updateOrderPlacingMeeting', {
             'opMeetingId': this.orderPlacingMeeting.opMeetingId,
