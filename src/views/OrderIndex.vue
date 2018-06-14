@@ -6,7 +6,7 @@
         <p class="p-titl">2018夏季VIVO品牌新品订货会</p>
         <div class="activity">
           <p>活动日期：2018/04/10-2018/04/11</p>
-          <p>活动地址：XXX市XXXXXXXXX街XXX路XX号</p>
+          <p>活动地址：江苏省南京市玄武区龙蟠路88号-南京国展中心</p>
         </div>
       </div>
     </div>
@@ -15,12 +15,14 @@
     <div class="content">
       <div class="mid-cnt">
         <p class="tit"><span>订货会介绍</span></p>
-        <div class="cnt-info">
-          <label>4月22日，中国电信股份有限公司XX分公司2017春季订货会在石家庄隆重召开。本次盛会由中国电信XX分公司举办，22家国内知名品牌手机厂商和全省上百家手机分销商、零售商代表等2000余人均到场参观交流、洽商合作，盛况空前。</label>
-          <label>4本次订货会突出两大主题： <span class="red">全网通天下，生态赢未来。</span></label>
-          <label><span class="red">全网通天下，销售更无忧</span></label>
-          <label>XX电信传承创业、创新、创造的企业文化，推出六模全网通，共建互联网生态。助力实体经济振兴和产业链发展壮大，构建良好的终端产业生态。</label>
-          <label>XX电信作为省内通信行业翘楚，本次订货会吸引了华为、三星、OPPO、VIVO、酷派、金立、荣耀、小米、魅族等二十二家知名厂商参展，各厂家纷纷携多款全网通手机终端亮相。终端价位从高到低覆盖完全，周边产品和业务选择多样化，手机终端的竞争力扩展至农村，实现了产业链的多元发展。</label>
+        <div class="cnt-info fn-clear">
+          <div class="cnt-img fn-left">
+            <img v-if="!!opMeetingInfo.logoUrl" :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + opMeetingInfo.logoUrl" alt="">
+            <img v-else src="@/assets/images/some-logo-default.png" alt="">
+          </div>
+          <div class="cnt-wrds fn-right">
+            <div v-html="opMeetingInfo.discription"></div>
+          </div>        
         </div>
       </div>
       <div class="stores">
@@ -226,17 +228,27 @@
     }
 
     .cnt-info {
-      width: 1084px;
+      width: 1200px;
       margin: 16px auto;
     }
-
-    .cnt-info label {
-      display: block;
-      line-height: 28px;
-      text-indent: 32px;
-      font-size: 14px;
+    .cnt-info .cnt-img{
+      width: 278px;
+      height: 246px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+      overflow: hidden;
+      img{
+        width: 278px;
+        height: 246px;
+      }
     }
-
+    .cnt-info .cnt-wrds{
+      width: 900px;
+      height: 254px;
+      line-height: 28px;
+      overflow-y: auto;
+    }
     .red {
       color: #ff0404;
     }

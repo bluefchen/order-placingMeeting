@@ -293,15 +293,27 @@
         })
       },
       deleteSupplier(val, index){
-        this.$post('/orderPlacingMeetingController/deleteSupplier', {
-          supplierIds: val
-        }).then((rsp) => {
+        this.$msgBox({
+          type: 'info',
+          title: '操作提示',
+          isShowConfimrBtn: true,
+          content: '确定要删除该供货商吗？'
+        }).then(() => {
+          this.$post('/orderPlacingMeetingController/deleteSupplier', {
+            supplierIds: val
+          }).then((rsp) => {
+            this.$message({
+              message: '删除成功！',
+              type: 'success'
+            });
+            this.qrySupplierList(this.currentPage);
+          })
+        }).catch(() => {
           this.$message({
-            message: '删除成功！',
-            type: 'success'
+            type: 'info',
+            message: '取消删除!'
           });
-          this.qrySupplierList(this.currentPage);
-        })
+        });
       },
       addSupplier(title, val){
         if(title === '新增'){

@@ -6,7 +6,7 @@
         <p class="p-titl">2018夏季VIVO品牌新品订货会即将开启</p>
         <div class="activity">
           <p>活动日期：2018/04/10-2018/04/11</p>
-          <p>活动地址：XXX市XXXXXXXXX街XXX路XX号</p>
+          <p>活动地址：江苏省南京市玄武区龙蟠路88号-南京国展中心</p>
         </div>
       </div>
     </div>
@@ -253,6 +253,9 @@
       checkedBrand(val, index) {
         if (this.checkedBrandIndex !== index) {
           this.checkedBrandIndex = index;
+          this.categoryItem.brandCd = val.brandCd;
+          this.categoryItem.offerModelId = '';
+          this.queryOpmOfferAllotList();
           this.checkedCategoryList.map((item) => {
             if (item.name === '品牌') {
               item.categoryName = val.brandName;
@@ -265,9 +268,6 @@
           }).then((rsp) => {
             this.modelList = rsp;
           });
-          this.categoryItem.brandCd = val.brandCd;
-          this.categoryItem.offerModelId = '';
-          this.queryOpmOfferAllotList();
         } else {
           this.delCategoryItem('品牌');
         }
@@ -275,14 +275,14 @@
       checkedModel(val, index) {
         if (this.checkedModelIndex !== index) {
           this.checkedModelIndex = index;
+          this.categoryItem.offerModelId = val.offerModelId;
+          this.queryOpmOfferAllotList();
           this.checkedCategoryList.map((item) => {
             if (item.name === '型号') {
               item.categoryName = val.offerModelName;
               item.categoryCode = val.offerModelId;
             }
           });
-          this.categoryItem.offerModelId = val.offerModelId;
-          this.queryOpmOfferAllotList();
         } else {
           this.delCategoryItem('型号');
         }
@@ -290,15 +290,14 @@
       checkedProvince(val, index){
         if(this.checkedProvinceIndex !== index){
           this.checkedProvinceIndex = index;
-
+          this.categoryItem.commonRegionId = val.id;
+          this.queryOpmOfferAllotList();
           this.checkedCategoryList.map((item) => {
             if (item.name === '省份') {
               item.categoryName = val.name;
               item.categoryCode = val.id;
             }
           });
-          this.categoryItem.commonRegionId = val.id;
-          this.queryOpmOfferAllotList();
         } else {
           this.delCategoryItem('省份');
         }

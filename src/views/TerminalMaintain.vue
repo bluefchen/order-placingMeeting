@@ -371,25 +371,61 @@
         this.$post('/orderPlacingMeetingController/updateOfferGround', {
           offerIds: val
         }).then((rsp) => {
-          this.$message.success('终端上架成功!');
-          this.queryOfferList(this.currentPage);
+          if(rsp.resultCode === '0'){
+            this.$message.success('终端上架成功!');
+            this.queryOfferList(this.currentPage);
+          }else{
+            this.$message({
+              showClose: true,
+              message: '终端上架失败！' + rsp.resultMsg,
+              type: 'error'
+            });
+          };
         })
       },
       unUpdateOffer(val){
         this.$post('/orderPlacingMeetingController/updateOfferUnground', {
           offerIds: val
         }).then((rsp) => {
-          this.$message.success('终端下架成功!');
-          this.queryOfferList(this.currentPage);
+          if(rsp.resultCode === '0'){
+            this.$message.success('终端下架成功!');
+            this.queryOfferList(this.currentPage);
+          }else{
+            this.$message({
+              showClose: true,
+              message: '终端下架失败！' + rsp.resultMsg,
+              type: 'error'
+            });
+          };
         })
       },
       deleteOffer(val){
-        this.$post('/orderPlacingMeetingController/deleteOffer', {
-          offerId: val
-        }).then((rsp) => {
-          this.$message.success('终端删除成功!');
-          this.queryOfferList(this.currentPage);
-        })
+        this.$msgBox({
+          type: 'info',
+          title: '操作提示',
+          isShowConfimrBtn: true,
+          content: '确定要删除该产品吗？'
+        }).then(() => {
+          this.$post('/orderPlacingMeetingController/deleteOffer', {
+            offerId: val
+          }).then((rsp) => {
+            if(rsp.resultCode === '0'){
+              this.$message.success('终端删除成功!');
+              this.queryOfferList(this.currentPage);
+            }else{
+              this.$message({
+                showClose: true,
+                message: '终端删除失败！' + rsp.resultMsg,
+                type: 'error'
+              });
+            };  
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消删除!'
+          });
+        });
       }
     },
     components: {
