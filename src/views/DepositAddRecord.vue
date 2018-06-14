@@ -87,7 +87,7 @@
           retailerId: '',
           orderDate: [],
         },
-        opMeetingInfo: [], //订货会数据
+        opMeetingInfo: null, //订货会数据
         isShowMoreCondition: false, //是否显示更多条件
         total: 1, //列表总数
         pageSize: 10, //每页展示条数

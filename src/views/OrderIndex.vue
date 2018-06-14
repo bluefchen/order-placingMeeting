@@ -41,18 +41,18 @@
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
 
-      // 获取定金配置的模式      
+      // 获取定金配置的模式
       this.$post('/opmDepositController/queryOpmDepositInfo', {
         opMeetingId: this.opMeetingInfo.opMeetingId,
       }).then((rsp) => {
         if (rsp) {
           localStorage.setItem('opmDeposit', JSON.stringify(rsp));
-        } 
-      })    
+        }
+      })
     },
     data() {
       return {
-        opMeetingInfo: '', //订货会基本信息
+        opMeetingInfo: null, //订货会基本信息
         supplierList: [], //关联供应商列表
         retailerList: [], //关联零售商列表
         pageSize: 10, //每页展示条数

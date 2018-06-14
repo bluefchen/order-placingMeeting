@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-// import './mockdb'
+import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
 // axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
-// axios.defaults.baseURL = 'http://192.168.16.110:8080/orderPlacingMeeting/';
+// axios.defaults.baseURL = 'http://192.168.16.44:8080/orderPlacingMeeting/';
 // axios.defaults.baseURL = 'http://192.168.16.87/orderPlacingMeeting/';
-axios.defaults.baseURL = '/orderPlacingMeeting/';
+// axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
   'token': _.get(user, 'token')
@@ -33,34 +33,27 @@ axios.interceptors.response.use(response => {
   setTimeout(function () {
     loadingInstance.close();
   }, 500);
-
-  if (!response.data.success) {
-    setTimeout(function () {
-      Vue.prototype.$msgBox({
-        type: 'error',
-        title: '操作提示',
-        content: response.data.msg
-      });
-    }, 500);
-  }
-
   return response.data;
 }, error => {
   setTimeout(function () {
     loadingInstance.close();
   }, 500);
   if (error.response.status === 504 || error.response.status === 404) {
-    Vue.prototype.$msgBox({
-      type: 'info',
-      title: '操作提示',
-      content: '您请求资源URL不存在!'
-    });
+    setTimeout(function () {
+      Vue.prototype.$msgBox({
+        type: 'info',
+        title: '操作提示',
+        content: '您请求资源URL不存在!'
+      });
+    }, 500);
   } else {
-    Vue.prototype.$msgBox({
-      type: 'info',
-      title: '操作提示',
-      content: '服务器出小差了，请稍后再试!'
-    });
+    setTimeout(function () {
+      Vue.prototype.$msgBox({
+        type: 'info',
+        title: '操作提示',
+        content: '服务器出小差了，请稍后再试!'
+      });
+    }, 500);
   }
   return Promise.reject(error);
 });
@@ -90,7 +83,17 @@ export function fetchGet(url, params) {
         params: params
       })
       .then(res => {
-        resolve(res.data)
+        if (!response.data.success) {
+          setTimeout(function () {
+            Vue.prototype.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: response.data.msg
+            });
+          }, 500);
+        } else {
+          resolve(res.data)
+        }
       })
       .catch(err => {
         reject(err.data)

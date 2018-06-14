@@ -27,7 +27,7 @@ MessageBox.install = function (Vue, options) {
       })
       .catch(err => {
         currentMsg = null;
-        // return Promise.reject(err);
+        return Promise.reject(err);
       });
   }
 };
