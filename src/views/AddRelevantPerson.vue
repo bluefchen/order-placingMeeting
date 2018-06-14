@@ -48,6 +48,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
   import Input from '@/components/Input';
   import TitlePlate from '@/components/TitlePlate';
+  import AreaSelect from '@/components/AreaSelect';
 
   export default {
     name: 'AddRelevantPerson',
@@ -93,7 +94,7 @@
           width: 160,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType === 1000">零售商</span><span v-else>供应商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
@@ -200,9 +201,9 @@
     },
     computed:{
       merchantsTitle:function() {
-        if(this.relevantData.userType == 1000){
+        if(this.relevantData.userType == 3){
           return '零售商';
-        }else{
+        }else if(this.relevantData.userType == 2){
           return '供应商';
         }
       }
@@ -212,7 +213,8 @@
       Pagination,
       ChooseMerchants,
       Input,
-      TitlePlate
+      TitlePlate,
+      AreaSelect
     }
   }
 </script>
