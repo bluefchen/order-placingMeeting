@@ -249,9 +249,12 @@
           this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
             opMeetingId: item.opMeetingId
           }).then(() => {
-            this.$message({
+            this.$msgBox({
               type: 'success',
-              message: '删除成功!'
+              title: '操作提示',
+              content: '删除成功'
+            }).catch(() => {
+              // console.log('cancel');
             });
             this.queryOrderPlacingMeetingList();
           });

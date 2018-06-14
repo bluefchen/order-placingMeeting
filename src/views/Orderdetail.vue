@@ -87,7 +87,7 @@
 	import Breadcrumb from '@/components/Breadcrumb';
 	import DeviceInfo from '@/components/DeviceInfo';
 	import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-	
+
 	export default {
 		name: 'Orderdetail',
 		created() {
@@ -120,14 +120,26 @@
 					'opmOrderId': this.orderPickGoodsInfo.opmOrderId,
 					'pickupGoodsAmount': this.pickupGoodsAmount
 				}).then((rsp) => {
-					this.$message.success('确认提货成功！');
+					this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '确认提货成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
 					this.$router.push({
 						path: `/order/OrderPickupData`
 					});
 				});
 			},
 			countermandDelivery(){
-				this.$message.warning('取消提货成功！');
+        this.$msgBox({
+          type: 'info',
+          title: '操作提示',
+          content: '取消提货成功'
+        }).catch(() => {
+          // console.log('cancel');
+        });
 				this.$router.push({
 					path: `/order/OrderPickupData`
 				});

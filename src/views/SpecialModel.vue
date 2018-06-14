@@ -360,15 +360,21 @@
           }).then((rsp) => {
             console.log('删除成功！');
           });
-          this.$message({
+          this.$msgBox({
             type: 'success',
-            message: '删除成功!'
+            title: '操作提示',
+            content: '删除成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.queryOpmOfferAllotList(this.currentPage);
         }).catch(() => {
-          this.$message({
+          this.$msgBox({
             type: 'info',
-            message: '已取消删除'
+            title: '操作提示',
+            content: '已取消删除'
+          }).catch(() => {
+            // console.log('cancel');
           });
         });
       }

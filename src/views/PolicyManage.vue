@@ -36,7 +36,7 @@
   import ButtonWithDialog from '@/components/ButtonWithDialog';
   import Pagination from '@/components/Pagination';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'PolicyManage',
     created() {
@@ -119,7 +119,13 @@
         this.$post('/opmPolicyController/deleteOpmPolicy', {
           policyId: id
         }).then((rsp) => {
-          this.$message.success('删除政策成功！');
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '删除政策成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           this.queryOpmPolicyList();
         })
       },

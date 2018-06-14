@@ -130,7 +130,13 @@
       batchInsertOpmOfferAllot() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
-          this.$message.warning('导入数据不能为空');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '导入数据不能为空'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
         }
         let tableDataIsSueccess = [];
@@ -144,8 +150,6 @@
         });
         this.$post('/orderPlacingMeetingController/batchInsertOpmOfferAllot', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/specialModel'});
-          // this.$message.success('导入新增数据成功');
-          console.log('25、批量导入新增机型接口：', rsp);
         })
       }
     },
