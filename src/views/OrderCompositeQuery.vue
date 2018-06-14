@@ -184,7 +184,20 @@
           }, {
             label: '已付定金',
             prop: 'depositAmount',
-            colSpan: 3
+            colSpan: 3,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="red">
+                  <p>¥ {{data.row.depositAmount || '--'}}</p>
+                </div>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
           }, {
             label: '订单付款状态',
             prop: 'paymentStatusCdName',
@@ -192,7 +205,7 @@
             render: (h, params) => {
               return h({
                 template: `
-                  <p :class="{'red': data.row.paymentStatusCd=='1001'}"><b>{{data.row.paymentStatusCdName}}</b></p>
+                  <p :class="{'red': data.row.paymentStatusCd==='1000'}"><b>{{data.row.paymentStatusCdName}}</b></p>
                 `,
                 data: function () {
                   return {
