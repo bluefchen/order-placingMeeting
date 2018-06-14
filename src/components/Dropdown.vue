@@ -31,10 +31,10 @@
     },
     computed: {
       postRoleName() {
-        return _.get(this.user, 'postRoleName') || '角色';
+        return _.get(this.user, 'postRoleName');
       },
       partyName() {
-        return _.get(this.user, 'partyName') || '用户名';
+        return _.get(this.user, 'partyName');
       }
     },
     methods: {
