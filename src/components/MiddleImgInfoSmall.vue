@@ -37,12 +37,11 @@
         color: #fcfdff;
       }
       .activity {
-        width: 306px;
         margin: 10px 0 0 0;
         line-height: 18px;
         font-size: 12px;
         color: #fcfdff;
-        text-align: center;
+        text-align: left;
       }
     }
   }
