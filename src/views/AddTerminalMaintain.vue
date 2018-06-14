@@ -31,12 +31,12 @@
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
               <el-form-item label="终端品牌：" prop="brandCd" :rules="[{ required: true, message: '请选择终端品牌', trigger: 'change' }]">
-                <Select :value.sync="terminalMaintainInfo.brandCd" :options="brandOptions"/>
+                <SelectComponents :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="625" />
               </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端型号：" prop="offerModelId" :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
-                <Select :value.sync="terminalMaintainInfo.offerModelId" :options="modelOptions"/>
+                <Select :value.sync="terminalMaintainInfo.offerModelId" :clearable="true" :options="modelOptions"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -297,9 +297,7 @@
       }else{
         this.title = '修改终端';
         this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
-
         this.qryOfferModelList(this.maintainInfo.brandCd);
-
         this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl')});
         this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl2')})
         this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl3')})
@@ -366,6 +364,8 @@
       return {
         nullError: null,
         value: '',
+        brandCdItem: '',
+        offerModelItem: '',
 
 
         terminalInfo: {
