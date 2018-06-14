@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-import './mockdb'
+// import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-// axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
+axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
 // axios.defaults.baseURL = 'http://192.168.16.44:8080/orderPlacingMeeting/';
 // axios.defaults.baseURL = 'http://192.168.16.87/orderPlacingMeeting/';
 // axios.defaults.baseURL = '/orderPlacingMeeting/';
@@ -41,7 +41,7 @@ axios.interceptors.response.use(response => {
   if (error.response.status === 504 || error.response.status === 404) {
     setTimeout(function () {
       Vue.prototype.$msgBox({
-        type: 'info',
+        type: 'error',
         title: '操作提示',
         content: '您请求资源URL不存在!'
       });
@@ -49,7 +49,7 @@ axios.interceptors.response.use(response => {
   } else {
     setTimeout(function () {
       Vue.prototype.$msgBox({
-        type: 'info',
+        type: 'error',
         title: '操作提示',
         content: '服务器出小差了，请稍后再试!'
       });
@@ -64,6 +64,15 @@ export function fetchPost(url, params) {
       .post(url, 'param=' + JSON.stringify(params))
       .then(
         res => {
+          if (!res.success) {
+            setTimeout(function () {
+              Vue.prototype.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: res.msg
+              });
+            }, 500);
+          }
           resolve(res.data)
         },
         err => {
@@ -83,17 +92,7 @@ export function fetchGet(url, params) {
         params: params
       })
       .then(res => {
-        if (!response.data.success) {
-          setTimeout(function () {
-            Vue.prototype.$msgBox({
-              type: 'error',
-              title: '操作提示',
-              content: response.data.msg
-            });
-          }, 500);
-        } else {
-          resolve(res.data)
-        }
+        resolve(res.data)
       })
       .catch(err => {
         reject(err.data)

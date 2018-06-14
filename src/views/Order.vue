@@ -3,7 +3,7 @@
     <!-- 顶部 -->
     <div class="toper">
       <div class="box-1200 top-header fn-clear">
-        <img src="@/assets/images/small-logo.png" class="fn-left">
+        <!-- <img src="@/assets/images/small-logo.png" class="fn-left"> -->
         <el-menu class="iterms fn-left" :default-active="$route.path" mode="horizontal" router>
           <el-menu-item index="/orderManage/orderManageIndex">订购会管理</el-menu-item>
           <el-menu-item index="/orderManage/terminalMaintain">基础数据维护</el-menu-item>
@@ -18,7 +18,7 @@
     <!-- 顶部 -->
     <!-- 头部切换 -->
     <div class="header fn-clear">
-      <img src="@/assets/images/vivo-logo.png" class="fn-left">
+      <img src="@/assets/images/some-logo.png" class="fn-left">
       <OrderMenu/>
     </div>
     <!-- 头部切换 -->
@@ -88,9 +88,11 @@
     float: left;
     height: 35px;
     line-height: 35px;
-    padding: 0 25px;
+    padding: 0 40px 0 10px;
     font-size: 14px;
     color: #000;
+    text-align: left;
+    font-weight: bold;
   }
 
   .header {
@@ -98,7 +100,7 @@
     height: 80px;
     margin: 0 auto;
     img {
-      margin-top: 10px;
+      margin-top: 18px;
     }
   }
 </style>
