@@ -63,7 +63,7 @@
                 <div class="upload-img-list fn-clear">
                   <ul class="fn-left">
                     <el-upload
-                      action="http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/upload"
+                      action="http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/upload"
                       :file-list="showOfferPicList"
                       list-type="picture-card"
                       :limit="6"
@@ -371,7 +371,7 @@
         }
         this.showOfferPicList = [];
         _.forEach(this.offerPicList, (item, index) => {
-          this.showOfferPicList.push({url: 'http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
+          this.showOfferPicList.push({url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
         });
         this.terminalMaintainInfo = {
           offerId: _.get(this.maintainInfo, 'offerId'),
@@ -733,7 +733,7 @@
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
-        downloadUrl: 'http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OfferParam',
+        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OfferParam',
         upLoadItem: {
           fileType: '2'
         }
@@ -744,7 +744,7 @@
       handleAvatarSuccess(res, file, fileList) {
         this.offerPicList.push(res.data);
         this.showOfferPicList[this.showOfferPicList.length] = {
-          url: 'http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/download?url=' + file.url
+          url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + file.url
         };
       },
       //图片删除

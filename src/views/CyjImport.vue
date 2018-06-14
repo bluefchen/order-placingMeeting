@@ -42,7 +42,7 @@
     data() {
       return {
         url: '/opmDepositController/analyzeInsertOpmRetailerDepositList',
-        downloadUrl: 'http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmRetailerDeposit',
+        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmRetailerDeposit',
         tableTitle: [{
           label: '零售商编码',
           prop: 'retailerCode',
