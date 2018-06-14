@@ -17,12 +17,11 @@
         <p class="tit"><span>订货会介绍</span></p>
         <div class="cnt-info fn-clear">
           <div class="cnt-img fn-left">
-            <!-- <img src="@/assets/images/some-logo-default.png"> -->
             <img v-if="!!opMeetingInfo.logoUrl" :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + opMeetingInfo.logoUrl" alt="">
             <img v-else src="@/assets/images/some-logo-default.png" alt="">
           </div>
           <div class="cnt-wrds fn-right">
-            {{opMeetingInfo.discription}}
+            <div v-html="opMeetingInfo.discription"></div>
           </div>        
         </div>
       </div>
@@ -239,6 +238,10 @@
       border: 1px solid #ccc;
       text-align: center;
       overflow: hidden;
+      img{
+        width: 278px;
+        height: 246px;
+      }
     }
     .cnt-info .cnt-wrds{
       width: 900px;
