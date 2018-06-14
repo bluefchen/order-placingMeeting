@@ -78,14 +78,25 @@
           postRoleId: this.roleData.postRoleId || 'id',
           systemMenuId: newMenu,
         }).then((rsp) => {
-          this.$alert('菜单配置成功！', '提示', {
-            confirmButtonText: '确定',
-            type: 'success'
-          }).then(() => {
-            this.$router.push({
-              path: '/orderManage/RoleManage'
+          if(rsp.resultCode == '0'){
+            this.$msgBox({
+              type: 'success',
+              title: '成功提示',
+              content: '菜单配置成功！'
+            }).catch(() => {
+              this.$router.push({
+                path: '/orderManage/RoleManage',
+              });
             });
-          });
+          }else{
+            this.$msgBox({
+              type: 'error',
+              title: '失败提示',
+              content: rsp.resultMsg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }               
         });
       }
     },

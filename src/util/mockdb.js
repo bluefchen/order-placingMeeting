@@ -1300,7 +1300,7 @@ Mock.mock(new RegExp('/systemUserController/deleteSystemUser'), {
   error: null,
   data: {
     'resultMsg': '成功',
-    'resultCode': '0'
+    'resultCode|+1': ['0', '1']
   }
 });
 //66、	新增用户接口
