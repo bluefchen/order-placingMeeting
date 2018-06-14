@@ -90,7 +90,6 @@
           })
 
         })
-        
       }
     },
     data() {
@@ -153,6 +152,18 @@
     watch: {
       'value': function(val) {
         this.copyValue = val;
+        if(this.model === 'multi'){
+          this.valueList = this.value ? this.value.split("，") : [];
+          _.forEach(this.valueList, (val, valIndex) => {
+            _.forEach(this.list, (item, index) => {
+              if(item.label === val){
+                item.checked = true;
+                this.checkedPopoverTextList.push(item);
+              }
+            })
+
+          })
+        }
       }
     },
   }
