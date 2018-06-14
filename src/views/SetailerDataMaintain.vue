@@ -136,11 +136,11 @@
           render: (h, params) => {
             return h({
               template: `<div>
-                <el-button class="updown-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeRetailer([data.row.retailerId])">激活</el-button>
-                <el-button class="updown-btn" v-if="data.row.statusCd === '1000'" @click="freezeRetailer([data.row.retailerId])">冻结</el-button>
-                <el-button class="updown-btn" @click="addRetailer('修改', data.row)">修改</el-button>
-                <el-button :disabled="data.row.statusCd === '1001'" class="updown-btn" @click="deleteRetailer([data.row.retailerId])">删除</el-button>
-                <el-button class="updown-btn" @click="detailRetailer(data.row)">详情</el-button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1001'" @click="unfreezeRetailer([data.row.retailerId])">激活</el-button>
+                <el-button class="delete-btn" v-if="data.row.statusCd === '1000'" @click="freezeRetailer([data.row.retailerId])">冻结</el-button>
+                <el-button class="delete-btn" @click="addRetailer('修改', data.row)">修改</el-button>
+                <el-button :disabled="data.row.statusCd === '1001'" class="delete-btn" @click="deleteRetailer([data.row.retailerId])">删除</el-button>
+                <el-button class="delete-btn" @click="detailRetailer(data.row)">详情</el-button>
               </div>`,
               data() {
                 return {
@@ -212,49 +212,103 @@
         this.selectList = val;
       },
       batchFreezeRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1000') {
-            retailerList.push(item.retailerId)
-          }
-        });
-        if(retailerList.length){
-          this.freezeRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   if (item.statusCd === '1000') {
+        //     retailerList.push(item.retailerId)
+        //   }
+        // });
+        // if(retailerList.length){
+        //   this.freezeRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要冻结的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要冻结的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要冻结的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要冻结的有效零售商！');
+        }else{
+          this.freezeRetailer(retailerList);
         }
       },
       batchUnfreezeRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1001') {
-            retailerList.push(item.retailerId)
-          }
-        });
-        if(retailerList.length){
-          this.unfreezeRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   if (item.statusCd === '1001') {
+        //     retailerList.push(item.retailerId)
+        //   }
+        // });
+        // if(retailerList.length){
+        //   this.unfreezeRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要激活的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要激活的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要激活的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1000'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要激活的有效零售商！');
+        }else{
+          this.unfreezeRetailer(retailerList);
         }
       },
       batchDeleteRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          retailerList.push(item.retailerId);
-        });
-        if(retailerList.length){
-          this.deleteRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   retailerList.push(item.retailerId);
+        // });
+        // if(retailerList.length){
+        //   this.deleteRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要删除的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要删除的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要删除的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要删除的有效零售商！');
+        }else{
+          this.deleteRetailer(retailerList);
         }
       },
       freezeRetailer(val){
@@ -419,6 +473,9 @@
     }
     .buttons .btns:hover {
       background-color: #e20606;
+    }
+    .v_table .delete-btn{
+      background: none;
     }
   }
 </style>

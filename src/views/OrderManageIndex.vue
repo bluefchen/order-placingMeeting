@@ -48,7 +48,7 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.$post('/systemUserController/loginInitialize', {
+      this.$post('http://192.168.74.17:9086/psm/systemUserController/loginInitialize', {
         userId: this.$route.query.userId,
         token: this.$route.query.token
       }).then((rsp) => {

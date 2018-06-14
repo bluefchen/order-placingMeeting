@@ -21,7 +21,7 @@
 
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
-      <InputWithSelect class="fn-left" @search="search"/>
+      <InputWithSelect class="fn-left" @search="search" :clearable="true"/>
       <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
                                                                             class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
@@ -33,7 +33,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
-            <Input :value.sync="orderQueryData.opmOrderNo"/>
+            <Input :value.sync="orderQueryData.opmOrderNo" :clearable="true"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -53,7 +53,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
-            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList" :clearable="true"/>
           </div>
         </el-col>
         <el-col :span="8">

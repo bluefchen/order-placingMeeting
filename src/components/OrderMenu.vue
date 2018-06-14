@@ -20,8 +20,10 @@
       <el-submenu index="4">
         <template slot="title">定金管理</template>
         <el-menu-item index="/order/depositConfigure" :disabled="this.opMeetingInfo.statusCd === '1001' || this.opMeetingInfo.statusCd === '1002'">定金配置</el-menu-item>
-        <el-menu-item index="/order/depositAddRecord" :disabled="this.opMeetingInfo.statusCd === '1000'" v-show="this.opmDepositInfo.depositType == '2'">定金补录</el-menu-item>
-        <el-menu-item index="/order/depositAddRecord" :disabled="this.opMeetingInfo.statusCd === '1000'" v-show="this.opmDepositInfo.depositType == '3'">诚意金补录</el-menu-item>
+        <div v-show="this.opMeetingInfo.statusCd != '1000'">
+          <el-menu-item index="/order/depositAddRecord" v-show="this.opmDepositInfo.depositType == '2'">定金补录</el-menu-item>
+          <el-menu-item index="/order/depositAddRecord" v-show="this.opmDepositInfo.depositType == '3'">诚意金补录</el-menu-item>
+        </div>
       </el-submenu>
       <el-submenu index="5">
         <template slot="title">政策管理</template>
@@ -52,12 +54,6 @@
     props: {},
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
-      this.opmDepositInfo = JSON.parse(localStorage.getItem('opmDeposit'));
-      if(!this.opmDepositInfo){
-        this.opmDepositInfo = {
-          depositType: ''
-        }
-      }
       this.handleSelect();
     },
     data() {
@@ -72,7 +68,13 @@
         this.$post('/opmDepositController/queryOpmDepositInfo', {
           opMeetingId: this.opMeetingInfo.opMeetingId
         }).then((rsp) => {
-          localStorage.setItem('opmDeposit', JSON.stringify(rsp));
+          // localStorage.setItem('opmDeposit', JSON.stringify(rsp));
+          this.opmDepositInfo = rsp;
+          if(!this.opmDepositInfo){
+            this.opmDepositInfo = {
+              depositType: ''
+            }
+          }   
         });
       }
     },
