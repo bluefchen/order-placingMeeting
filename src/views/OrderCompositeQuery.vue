@@ -184,7 +184,20 @@
           }, {
             label: '已付定金',
             prop: 'depositAmount',
-            colSpan: 3
+            colSpan: 3,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="red">
+                  <p>¥ {{data.row.depositAmount || '--'}}</p>
+                </div>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
           }, {
             label: '订单付款状态',
             prop: 'paymentStatusCdName',
