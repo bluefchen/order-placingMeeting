@@ -42,7 +42,7 @@
             <button class="btn-submit" @click="saveCheckedPop">确定</button>
           </div>
         </div>
-        <Select :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
         <Select :disabled="true" v-if="model === 'multi'" :value.sync="copyValue" slot="reference"/>
       </el-popover>
       <div :class="{'hide': disabled}" class="visible-hide" v-if="visible"></div>
@@ -203,6 +203,9 @@
         left: 0;
         top: 0;
       }
+    }
+    .disabled-select .el-input.is-disabled .el-input__inner{
+      background: #f9f9f9;
     }
     .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon, .el-input.is-disabled .el-input__inner{
       cursor: pointer;
