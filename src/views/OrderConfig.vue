@@ -135,6 +135,7 @@
                     <img v-if="orderPlacingMeeting.logoUrl"
                          :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
                     <i v-else class="avatar-uploader-icon"></i>
+                    <div v-if="orderPlacingMeeting.logoUrl" class="edit"><i class="iconfont">&#xe656;</i> 编辑</div>
                   </el-upload>
                   <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
                 </el-form-item>
@@ -759,6 +760,7 @@
       line-height: 30px;
     }
     .condition-upload {
+      position: relative;
       width: 163px;
       height: 86px;
       margin-right: 10px;
@@ -766,6 +768,20 @@
       border: 1px solid #dedede;
       text-align: center;
       cursor: pointer;
+      .edit{
+        position: absolute;
+        content:'';
+        left:0;
+        bottom:10px;
+        width: calc(100% - 20px);
+        height: 24px;
+        padding: 0 10px;
+        line-height: 24px;
+        background: rgba(87, 80, 75, 0.5);
+        font-size: 12px;
+        color: #fff;
+        text-align: right;
+      }
       img {
         width: 163px;
         height: 86px;
