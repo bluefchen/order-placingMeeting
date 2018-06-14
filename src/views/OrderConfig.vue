@@ -991,8 +991,13 @@
     border-color: #f00;
   }
 
-  .img-progress {
-    margin-top: 4px;
-    text-align: center;
+  .el-upload {
+    position: relative;
+    .img-progress {
+      position: absolute;
+      top: 3px;
+      left: 42px;
+      text-align: center;
+    }
   }
 </style>
