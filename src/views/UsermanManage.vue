@@ -184,14 +184,23 @@
                   this.$post('/systemUserController/freezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$msgBox({
-                      type: 'success',
-                      title: '操作提示',
-                      content: '冻结成功'
-                    }).catch(() => {
-                      // console.log('cancel');
-                    });
-                    this.queryUsermanSubmit(this.currentPage);
+                    if(rsp.resultCode == '0'){
+                      this.$msgBox({
+                        type: 'success',
+                        title: '操作提示',
+                        content: '冻结成功'
+                      }).catch(() => {
+                        this.queryUsermanSubmit(this.currentPage);
+                      });
+                    }else{
+                      this.$msgBox({
+                        type: 'error',
+                        title: '操作提示',
+                        content: rsp.resultMsg
+                      }).catch(() => {
+                        // console.log('cancel');
+                      });
+                    }                   
                   })
                 },
                 //激活
@@ -199,14 +208,23 @@
                   this.$post('/systemUserController/unfreezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$msgBox({
-                      type: 'success',
-                      title: '操作提示',
-                      content: '激活成功'
-                    }).catch(() => {
-                      // console.log('cancel');
-                    });
-                    this.queryUsermanSubmit(this.currentPage);
+                    if(rsp.resultCode == '0'){
+                      this.$msgBox({
+                        type: 'success',
+                        title: '操作提示',
+                        content: '激活成功'
+                      }).catch(() => {
+                        this.queryUsermanSubmit(this.currentPage);
+                      });
+                    }else{
+                      this.$msgBox({
+                        type: 'error',
+                        title: '操作提示',
+                        content: rsp.resultMsg
+                      }).catch(() => {
+                        // console.log('cancel');
+                      });
+                    }                   
                   })
                 },
                 //删除
@@ -214,14 +232,23 @@
                   this.$post('/systemUserController/deleteSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$msgBox({
-                      type: 'success',
-                      title: '操作提示',
-                      content: '删除成功'
-                    }).catch(() => {
-                      // console.log('cancel');
-                    });
-                    this.queryUsermanSubmit(this.currentPage);
+                    if(rsp.resultCode == '0'){
+                      this.$msgBox({
+                        type: 'success',
+                        title: '操作提示',
+                        content: '删除成功'
+                      }).catch(() => {
+                        this.queryUsermanSubmit(this.currentPage);
+                      });                    
+                    }else{
+                      this.$msgBox({
+                        type: 'error',
+                        title: '操作提示',
+                        content: rsp.resultMsg
+                      }).catch(() => {
+                        // console.log('cancel');
+                      });
+                    }
                   })
                 },
                 //详情
@@ -312,7 +339,7 @@
             }).catch(() => {
               this.queryUsermanSubmit();
             });  
-           }else{
+          }else{
             this.$msgBox({
               type: 'error',
               title: '操作提示',
