@@ -203,7 +203,7 @@
         })
       },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+        this.queryUsermanSubmit(curPage);
       }
     },
     computed: {
