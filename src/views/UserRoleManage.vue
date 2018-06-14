@@ -76,7 +76,7 @@
           width: 145,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 1">供应商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
@@ -149,7 +149,7 @@
           width: 200,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 1">供应商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
