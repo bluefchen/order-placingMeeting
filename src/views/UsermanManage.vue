@@ -159,11 +159,11 @@
           width: 220,
           render: (h, params) => {
             return h({
-              template: '<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == 1000">冻结</el-button>' +
-              '<el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == 1002 || usermanInfo.statusCd == 9999">激活</el-button>' +
-              '<el-button type="text" @click="modifyUserman(usermanInfo)" :disabled="usermanInfo.statusCd != 1000" class="delete-btn">修改</el-button>' +
-              '<el-button type="text" @click="deleteUserman(usermanInfo)" :disabled="usermanInfo.statusCd != 1000" class="delete-btn">删除</el-button>' +
-              '<el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>',
+              template: `<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1000'">冻结</el-button>
+              <el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1002' || usermanInfo.statusCd == '9999'">激活</el-button>
+              <el-button type="text" @click="modifyUserman(usermanInfo)" :disabled="usermanInfo.statusCd != '1000'" class="delete-btn">修改</el-button>
+              <el-button type="text" @click="deleteUserman(usermanInfo)" :disabled="usermanInfo.statusCd != '1000'" class="delete-btn">删除</el-button>
+              <el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>`,
               data() {
                 return {
                   usermanInfo: params.row
