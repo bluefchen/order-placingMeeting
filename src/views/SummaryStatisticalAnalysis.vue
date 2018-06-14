@@ -100,7 +100,7 @@
         })
       },
       exportReport() {
-        location.href = 'http://192.168.74.17:9086/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
+        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
       },
       pageChanged(curPage) {
         this.queryOpmOrderPickupReport(curPage);

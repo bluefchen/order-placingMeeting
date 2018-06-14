@@ -46,7 +46,7 @@
     data() {
       return {
         url: '/opmPolicyController/batchInsertOpmPolicy',
-        downloadUrl: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
+        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
         data: null,
         uploadDone: false
       }

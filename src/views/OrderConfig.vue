@@ -121,7 +121,7 @@
                 <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl">
                   <el-upload
                     class="condition-upload fn-left"
-                    action="http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/upload"
+                    action="http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/upload"
                     :show-file-list="false"
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
@@ -133,7 +133,7 @@
                       <el-progress type="circle" :width="80" :percentage="progress" :status="proStatus"></el-progress>
                     </div>
                     <img v-if="orderPlacingMeeting.logoUrl"
-                         :src="'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
+                         :src="'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
                     <i v-else class="avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
