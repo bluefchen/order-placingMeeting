@@ -111,7 +111,7 @@
             colSpan: 8,
             render: (h, params) => {
               return h({
-                template: `<p class="text-center">订单号：{{data.row.retailerName}}</p>`,
+                template: `<p class="text-center">零售商：{{data.row.retailerName}}</p>`,
                 data: function () {
                   return {
                     data: params,
