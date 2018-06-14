@@ -147,21 +147,60 @@
               });
             }
           }, {
-            label: '终端品牌',
-            prop: 'brandName',
-            colSpan: 4
-          }, {
-            label: '终端型号',
-            prop: 'offerModelName',
-            colSpan: 4
-          }, {
             label: '订购数量',
             prop: 'offerQty',
             colSpan: 2
           }, {
-            label: '提货数量',
-            prop: 'pickupGoodsAmount',
-            colSpan: 2
+            label: '总金额',
+            prop: 'amount',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty).toFixed(2)}}</b></span>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '优惠金额',
+            prop: 'offerQty',
+            colSpan: 2,
+            render: (h, params) => {
+              return h({
+                template: `
+                <div class="discount red">
+                  <p><b>- ¥ {{data.row.discountAmount}}</b></p>
+                </div>`,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
+          }, {
+            label: '已付定金',
+            prop: 'depositAmount',
+            colSpan: 3
+          }, {
+            label: '订单付款状态',
+            prop: 'paymentStatusCdName',
+            colSpan: 3,
+            render: (h, params) => {
+              return h({
+                template: `
+                  <p :class="{'red': data.row.paymentStatusCd=='1001'}"><b>{{data.row.paymentStatusCdName}}</b></p>
+                `,
+                data: function () {
+                  return {
+                    data: params,
+                  }
+                }
+              })
+            }
           }, {
             label: '操作',
             prop: 'operation',

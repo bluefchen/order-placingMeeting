@@ -195,7 +195,6 @@
                 template: `
                 <div class="discount red">
                   <p><b>- ¥ {{data.row.discountAmount}}</b></p>
-                  <p><img src="./static/img/discount.png"> {{((data.row.salePrice * data.row.offerQty - data.row.discountAmount) / (data.row.salePrice * data.row.offerQty) * 10).toFixed(1)}}折</p>
                 </div>`,
                 data: function () {
                   return {
