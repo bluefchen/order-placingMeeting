@@ -37,7 +37,6 @@
     <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     <div class="foot-btn">
       <el-button size="small" type="success" @click="addRelevantRoleSubmit">确 定</el-button>
-      <el-button size="small" type="success" @click="cancel">取&nbsp;消</el-button>
     </div>
   </div>
 </template>
@@ -153,7 +152,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: rsp.resultMsg
+            content: '请选择至少一个人员'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -191,9 +190,6 @@
             });
           }
         })
-      },
-      cancel(){
-
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);
