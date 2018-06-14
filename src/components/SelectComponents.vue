@@ -222,7 +222,7 @@
           font-family: 'iconfont';
           content: '\e608';
           position: absolute;
-          right: 5px;
+          right: 10px;
           top: 2px;
           font-weight: normal;
           color: #ccc;
