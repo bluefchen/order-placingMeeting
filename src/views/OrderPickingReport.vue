@@ -169,10 +169,6 @@
 
     .tabs-list {
       margin: 0 auto 20px;
-      .result-table{
-        border: 1px solid #ebeef5;
-        border-bottom: none;
-      }
     }
 
     .order-titl {

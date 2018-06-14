@@ -197,6 +197,12 @@
         color: #ff0000;
         text-decoration: none;
       }
+      &:disabled {
+        color: #d0d0d0;
+        &:hover{
+          border: 1px solid #d0d0d0;
+        }
+      }
     }
 
     .updown-btn {
