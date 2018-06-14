@@ -612,7 +612,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
@@ -657,7 +657,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
@@ -728,7 +728,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
@@ -775,7 +775,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
