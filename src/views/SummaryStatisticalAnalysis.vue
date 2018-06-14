@@ -48,7 +48,7 @@
   import Input from '@/components/Input';
   import AreaSelect from '@/components/AreaSelect';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'summaryStatisticalAnalysis',
     created() {

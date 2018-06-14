@@ -15,8 +15,8 @@
         <div class="alert-err-stack" v-show="isShowErrStack">{{errStack}}</div>
       </div>
       <div class="widget-foot">
-        <button @click="cancel" v-show="isShowCancelBtn">{{cancelBtnText}}</button>
         <button class="btn-ok" @click="confirm" v-show="isShowConfimrBtn">{{confirmBtnText}}</button>
+        <button @click="cancel" v-show="isShowCancelBtn">{{cancelBtnText}}</button>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
       },
       cancelBtnText: {
         type: String,
-        default: '关闭'
+        default: '取消'
       },
       confirmBtnText: {
         type: String,

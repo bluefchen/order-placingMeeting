@@ -175,7 +175,7 @@
         });
         this.$post('/systemUserController/addPostRoleRelaUser', {
           postRoleId: this.$route.query.postRoleId,
-          partyIds: partyIds,
+          partyId: partyIds,
         }).then((rsp) => {
           if (rsp.resultCode == '0') {
             this.$msgBox({

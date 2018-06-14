@@ -81,7 +81,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
   import TableList from '@/components/TableList';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderCompositeQuery',
     created() {
