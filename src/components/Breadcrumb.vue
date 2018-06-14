@@ -2,7 +2,10 @@
   <div class="v_breadcrumb">
     <el-breadcrumb separator=">">
       <label>我的位置：</label>
-      <el-breadcrumb-item v-for="(item, index) in list" :key="index">{{item}}</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="(item, index) in list" :key="index">
+        <span v-if="linkList[item]"><router-link :to=linkList[item]>{{item}}</router-link></span>
+        <span v-else>{{item}}</span>
+      </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -20,7 +23,15 @@
       }
     },
     data() {
-      return {}
+      return {
+        linkList: {
+          '首页': '/',
+          '角色管理': '/orderManage/roleManage',
+          '管理人员': '',
+          '角色编辑': '',
+          '新增角色': ''
+        }
+      }
     },
     methods: {},
   }

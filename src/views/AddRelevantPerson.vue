@@ -3,7 +3,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['系统维护', '角色管理', '管理人员']"/>
+        <Breadcrumb :list="['系统维护', '角色管理', '新增角色']"/>
       </div>
     </div>
     <div class="add-relevant-person box-1200">
@@ -65,7 +65,6 @@
       if (this.$route.query.postRoleId) {
         this.relevantData.postRoleId = this.$route.query.postRoleId;
       }
-      ;
       if (this.$route.query.roleName) {
         this.relevantData.name = this.$route.query.roleName;
       }

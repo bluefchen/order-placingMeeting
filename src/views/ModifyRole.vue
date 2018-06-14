@@ -3,7 +3,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['系统维护', '角色管理']"/>
+        <Breadcrumb :list="['系统维护', '角色管理', '角色编辑']"/>
       </div>
     </div>
     <div class="box-1200">
@@ -104,7 +104,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }               
+          }
         });
       }
     },

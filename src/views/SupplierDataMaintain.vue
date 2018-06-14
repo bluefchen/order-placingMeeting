@@ -341,6 +341,7 @@
           type: 'info',
           title: '操作提示',
           isShowConfimrBtn: true,
+          cancelBtnText: '取消',
           content: '确定要删除该供货商吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteSupplier', {

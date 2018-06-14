@@ -59,7 +59,7 @@
       },
       cancelBtnText: {
         type: String,
-        default: '取消'
+        default: '关闭'
       },
       confirmBtnText: {
         type: String,

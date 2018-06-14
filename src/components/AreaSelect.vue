@@ -8,6 +8,7 @@
     :collapse-tags="collapseTags"
     :multiple-limit="multipleLimit"
     :filterable="filterable"
+    :default-first-option="defaultFirstOption"
     @change="onChange"
     v-model="copyValue">
     <el-option
@@ -47,6 +48,10 @@
         default: true
       },
       filterable: {
+        type: Boolean,
+        default: true
+      },
+      defaultFirstOption: {
         type: Boolean,
         default: true
       },

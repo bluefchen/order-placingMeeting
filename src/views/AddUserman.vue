@@ -1,5 +1,11 @@
 <template>
   <div class="add-userman">
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '用户管理', '修改密码']"/>
+      </div>
+    </div>
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="新增/修改账号"/>
@@ -109,7 +115,8 @@
               <el-form-item prop="relaId">
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
-                  <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
+                  <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData"
+                                   :disabled="modify"/>
                 </div>
               </el-form-item>
             </el-col>
@@ -130,10 +137,10 @@
             <p class="p-titl"><img src="../assets/images/icon-remind.png">提示</p>
             <p class="p1">新密码需要满足如下<span class="org">2个条件：</span></p>
             <p class="p2">1、密码长度8位以上（含8位）</p>
-            <p class="p2">2、密码包含以下3种组成部分</span></p>
-            <p class="p3">（1）小写英文字母（从a到z）</span></p>
-            <p class="p3">（2）大写英文字母（从A到Z）</span></p>
-            <p class="p3">（3）10个基本数字（从0到9）</span></p>
+            <p class="p2">2、密码包含以下3种组成部分</p>
+            <p class="p3">（1）小写英文字母（从a到z）</p>
+            <p class="p3">（2）大写英文字母（从A到Z）</p>
+            <p class="p3">（3）10个基本数字（从0到9）</p>
             <p class="p4">注意：请勿在新密码中包含特殊字符！请牢记修改后的密码，然后使用新的密码进行登录</p>
           </div>
         </div>
@@ -159,6 +166,7 @@
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import AreaSelect from '@/components/AreaSelect';
+  import Breadcrumb from '@/components/Breadcrumb';
   import {md5} from 'md5js';
 
   export default {
@@ -179,7 +187,8 @@
             callback(new Error('请输入正确的电话号码'));
           }
           callback();
-        };
+        }
+        ;
       };
       var passwordValid = (rule, value, callback) => {
         if (value === '') {
@@ -188,7 +197,7 @@
           let reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,32}$/;
           if (!(reg.test(value))) {
             callback(new Error('请输入正确的密码'));
-          }else{
+          } else {
             if (this.usermanData.checkPassword !== '') {
               this.$refs.usermanData.validateField('checkPassword');
             }
@@ -299,7 +308,7 @@
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if(rsp.resultCode == '0'){
+                if (rsp.resultCode == '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -309,7 +318,7 @@
                       path: '/orderManage/usermanManage'
                     });
                   });
-                }else{
+                } else {
                   this.$msgBox({
                     type: 'error',
                     title: '操作提示',
@@ -321,17 +330,17 @@
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
-                partyId: _.get(this.usermanData, 'partyId')||'',
-                commonRegionId: _.get(this.usermanData, 'commonRegionId')||'',
-                userType: _.get(this.usermanData, 'userType')||'',
-                relaId: _.get(this.usermanData, 'relaId')||'',//归属商户
-                systemUserCode:  _.get(this.usermanData, 'systemUserCode')||'',//用户账号
-                password: md5(_.get(this.usermanData, 'password')||'', 32),
-                name: _.get(this.usermanData, 'name')||'',
-                linktelenumber: _.get(this.usermanData, 'linktelenumber')||'',
+                partyId: _.get(this.usermanData, 'partyId') || '',
+                commonRegionId: _.get(this.usermanData, 'commonRegionId') || '',
+                userType: _.get(this.usermanData, 'userType') || '',
+                relaId: _.get(this.usermanData, 'relaId') || '',//归属商户
+                systemUserCode: _.get(this.usermanData, 'systemUserCode') || '',//用户账号
+                password: md5(_.get(this.usermanData, 'password') || '', 32),
+                name: _.get(this.usermanData, 'name') || '',
+                linktelenumber: _.get(this.usermanData, 'linktelenumber') || '',
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if(rsp.resultCode == '0'){
+                if (rsp.resultCode == '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -341,7 +350,7 @@
                       path: '/orderManage/usermanManage'
                     });
                   });
-                }else{
+                } else {
                   this.$msgBox({
                     type: 'error',
                     title: '操作提示',
@@ -370,7 +379,7 @@
           this.merchantsTitle = '零售商';
         } else if (this.usermanData.userType == 2) {
           this.merchantsTitle = '供应商';
-        };
+        }
       },
     },
     components: {
@@ -379,6 +388,7 @@
       Select,
       ChooseMerchants,
       AreaSelect,
+      Breadcrumb,
       md5
     }
   }
@@ -386,6 +396,11 @@
 
 <style lang="less">
   .add-userman {
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
     .text-right {
       text-align: right;
     }
@@ -420,7 +435,7 @@
       border-top: none;
       text-align: center;
     }
-    .pwd-edit{
+    .pwd-edit {
       position: absolute;
       top: 6px;
       right: -100px;
@@ -430,11 +445,11 @@
       font-size: 14px;
       color: #168fe4;
       text-align: left;
-      &:hover,&:active,&:focus{
-        background:none;
+      &:hover, &:active, &:focus {
+        background: none;
       }
     }
-    .password-rule{
+    .password-rule {
       position: absolute;
       top: 16px;
       right: 20px;
@@ -445,34 +460,34 @@
       color: #242424;
       font-size: 12px;
       border-radius: 8px;
-      .p-titl{
+      .p-titl {
         text-align: center;
         font-size: 16px;
         margin-bottom: 8px;
-        img{
+        img {
           margin-right: 8px;
           vertical-align: middle;
         }
       }
-      .p1{
+      .p1 {
         margin-bottom: 8px;
-        span{
+        span {
           color: #ff6d0b;
         }
       }
-      .p2{
+      .p2 {
         margin-bottom: 8px;
         color: #9a9a9a;
-        span{
+        span {
           color: #ff6d0b;
         }
       }
-      .p3{
+      .p3 {
         margin-bottom: 8px;
         color: #9a9a9a;
         text-indent: 14px;
       }
-      .p4{
+      .p4 {
         line-height: 18px;
         color: #ff6d0b;
       }
@@ -492,9 +507,9 @@
       top: 42px;
       left: 114px;
     }
-    .el-form-item{
-      &.textarea{
-        .el-form-item__error{
+    .el-form-item {
+      &.textarea {
+        .el-form-item__error {
           top: 62px;
         }
       }

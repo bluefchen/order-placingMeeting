@@ -1,5 +1,11 @@
 <template>
   <div class="detail-userman">
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '用户管理', '用户详情']"/>
+      </div>
+    </div>
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="用户管理详情"/>
@@ -72,6 +78,7 @@
 
 <script>
   import TitlePlate from '@/components/TitlePlate';
+  import Breadcrumb from '@/components/Breadcrumb';
 
   export default {
     name: 'DetailUserman',
@@ -86,12 +93,18 @@
     },
     components: {
       TitlePlate,
+      Breadcrumb
     }
   }
 </script>
 
 <style lang="less">
   .detail-userman {
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
     .order-titl {
       height: 28px;
       margin: 15px 0 8px;
