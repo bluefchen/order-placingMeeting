@@ -171,12 +171,12 @@
                 <div class="result-table-content">
                   <el-row>
                     <el-form-item label="后置摄像头" prop="offerHardwardParam.rearCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera" :list="rearCameraList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera" :list="rearCameraList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
                     <el-form-item label="前置摄像头" prop="offerHardwardParam.frontCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera" :list="frontCameraList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera" :list="frontCameraList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -191,7 +191,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="核心数" prop="offerHardwardParam.core" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.core" :list="coreList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.core" :list="coreList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -201,12 +201,12 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="RAM容量" prop="offerHardwardParam.ram" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.ram" :list="ramList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.ram" :list="ramList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
                     <el-form-item label="ROM容量" prop="offerHardwardParam.rom" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rom" :list="romList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rom" :list="romList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
