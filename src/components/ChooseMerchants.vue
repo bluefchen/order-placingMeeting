@@ -335,6 +335,7 @@
       border: 1px solid #e5e5e5;
       height: 26px;
       font-size: 14px;
+      cursor: pointer;
       .choose-input-icon {
         position: absolute;
         right: 0;
@@ -361,6 +362,8 @@
           height: 26px;
           line-height: 26px;
           border:0;
+          vertical-align: top;
+          cursor: pointer;
         }
         .el-input__suffix{
           top:2px;
