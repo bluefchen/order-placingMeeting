@@ -2,8 +2,8 @@
   <div class="vue_select-components">
     <div class="el-popover-box">  
       <el-popover :placement="placement" :width="width" height="200" trigger="click" v-model="visible">
-        <div class="popover-box">
-          <div class="fn-clear popover-head-list">
+        <div class="popover-box" v-show="model === 'letter' || model === 'single'">
+          <div class="fn-clear popover-head-list" v-show="model === 'letter'">
             <div class="all fn-left">全部：</div>
             <div class="first-letter-list fn-left">
               <ul>
@@ -12,13 +12,14 @@
               </ul>
             </div>
           </div>
-          <div class="popover-item-list fn-clear">
+          <div class="popover-item-list fn-clear" :class="{'ml40': model === 'letter'}">
             <ul>
               <li v-show="showAllLetter || item.firstLetter === firstLetter" @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
             </ul>
           </div>
         </div>
-        <Select :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select v-if="model === 'multi'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
       </el-popover>
     </div>
   </div>
@@ -34,6 +35,10 @@
         type: [String, Number]
       },
       placement: {
+        type: String,
+        require: true
+      },
+      model: {
         type: String,
         require: true
       },
@@ -137,7 +142,6 @@
     }
     .popover-item-list{
       margin-top: 5px;
-      margin-left: 40px;
       height: 200px;
       overflow: auto;
       ul{
@@ -155,6 +159,9 @@
             border: 1px solid #f01919;
           };
         }
+      }
+      &.ml40{
+        margin-left: 40px;
       }
     }
     .checked{
