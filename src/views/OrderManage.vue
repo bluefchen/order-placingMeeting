@@ -7,7 +7,7 @@
         <OrderManageMenu class="fn-left mange-menu"/>
         <div class="user fn-right">
           <span class="area">{{user.commonReginName}}</span>
-          <Dropdown :role="user.postRoleName" :name="user.partyName"/>
+          <Dropdown :user="user"/>
         </div>
       </div>
     </div>
@@ -37,6 +37,7 @@
           userId: this.$route.query.userId,
           token: this.$route.query.token
         }).then((rsp) => {
+          this.user = rsp;
           localStorage.setItem('user', JSON.stringify(rsp));
         });
       }
