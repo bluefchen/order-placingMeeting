@@ -209,7 +209,7 @@
           query: {
             postRoleId: this.roleData.postRoleId,
             roleName: this.roleData.name,
-            userType: this.tableData[0].userType
+            userType: this.roleData.roleTypeCd
           }
         });
       },

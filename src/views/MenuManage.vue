@@ -52,7 +52,8 @@
       //查询所有菜单
       querySystemMenuList() {
         this.$post('/systemUserController/querySystemMenuList', {
-          postRoleId: _.get(this.roleData, 'postRoleId') || ''
+          postRoleId: _.get(this.roleData, 'postRoleId') || '',
+          roleTypeCd: _.get(this.roleData, 'roleTypeCd') || ''
         }).then((rsp) => {
           this.systemMenuAllList = rsp;
         });
@@ -69,7 +70,7 @@
         _.map(this.systemMenuAllList, function (item) {
           _.map(item.menus, function (it) {
             if (it.isHold === 'Y') {
-              newMenu.push(it);
+              newMenu.push(it.systemMenuId);
             }
           })
         });

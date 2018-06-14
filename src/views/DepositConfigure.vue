@@ -263,6 +263,7 @@
         }).then((rsp) => {
           if (rsp) {
             this.depositInfoList = rsp;
+            localStorage.setItem('opmDeposit', JSON.stringify(rsp));
           } else {
             this.depositInfoList = {};
           }
