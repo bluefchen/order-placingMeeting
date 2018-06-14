@@ -103,7 +103,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="手机类型" prop="offerBaseParam.termType" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerBaseParam.termType"/>
+                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerBaseParam.termType" :list="termTypeList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -122,7 +122,7 @@
                 <div class="result-table-content">
                   <el-row>
                     <el-form-item label="触摸屏类型" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenType"/>
+                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerScreenParam.screenType" :list="screenTypeList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -171,12 +171,12 @@
                 <div class="result-table-content">
                   <el-row>
                     <el-form-item label="后置摄像头" prop="offerHardwardParam.rearCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera"/>
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera" :list="rearCameraList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
                     <el-form-item label="前置摄像头" prop="offerHardwardParam.frontCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera"/>
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera" :list="frontCameraList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -191,7 +191,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="核心数" prop="offerHardwardParam.core" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.core"/>
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.core" :list="coreList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -201,12 +201,12 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="RAM容量" prop="offerHardwardParam.ram" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.ram"/>
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.ram" :list="ramList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
                     <el-form-item label="ROM容量" prop="offerHardwardParam.rom" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.rom"/>
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rom" :list="romList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -226,7 +226,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="电池类型" prop="offerHardwardParam.batteryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
+                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -378,7 +378,219 @@
     },
     data() {
       return {
+        //手机类型
+        termTypeList: [{
+          'value': '001',
+          'label': '4G手机'
+        },{
+          'value': '002',
+          'label': '3G手机'
+        },{
+          'value': '003',
+          'label': '智能手机'
+        },{
+          'value': '004',
+          'label': '平板手机'
+        },{
+          'value': '005',
+          'label': '快充手机'
+        },{
+          'value': '006',
+          'label': '游戏手机'
+        },{
+          'value': '007',
+          'label': '音乐手机'
+        },{
+          'value': '008',
+          'label': '女性手机'
+        },{
+          'value': '009',
+          'label': '老人手机'
+        },{
+          'value': '010',
+          'label': '电视手机'
+        },{
+          'value': '011',
+          'label': '儿童手机'
+        },{
+          'value': '012',
+          'label': '三防手机'
+        },{
+          'value': '013',
+          'label': '备用手机'
+        },{
+          'value': '014',
+          'label': '商务手机'
+        }],
 
+        //触摸屏类型
+        screenTypeList: [{
+          'value': '001',
+          'label': '电容屏'
+        },{
+          'value': '002',
+          'label': '多点触控'
+        }],
+
+        //前置摄像头
+        rearCameraList: [{
+          'value': '001',
+          'label': '2100万'
+        },{
+          'value': '002',
+          'label': '1600万'
+        },{
+          'value': '003',
+          'label': '1300万'
+        },{
+          'value': '004',
+          'label': '1300万像素'
+        },{
+          'value': '005',
+          'label': '1200万'
+        },{
+          'value': '006',
+          'label': '1200万*2'
+        },{
+          'value': '007',
+          'label': '800万'
+        },{
+          'value': '008',
+          'label': '800万像素'
+        },{
+          'value': '009',
+          'label': '500万'
+        },{
+          'value': '010',
+          'label': '200万'
+        },{
+          'value': '011',
+          'label': '无摄像头'
+        }],
+        //后置摄像头
+        frontCameraList: [{
+          'value': '001',
+          'label': '2100万'
+        },{
+          'value': '002',
+          'label': '1600万'
+        },{
+          'value': '003',
+          'label': '1300万'
+        },{
+          'value': '004',
+          'label': '1300万像素'
+        },{
+          'value': '005',
+          'label': '1200万'
+        },{
+          'value': '006',
+          'label': '1200万*2'
+        },{
+          'value': '007',
+          'label': '800万'
+        },{
+          'value': '008',
+          'label': '800万像素'
+        },{
+          'value': '009',
+          'label': '500万'
+        },{
+          'value': '010',
+          'label': '200万'
+        },{
+          'value': '011',
+          'label': '无摄像头'
+        }],
+
+        //核心数
+        coreList: [{
+          'value': '001',
+          'label': '八核'
+        },{
+          'value': '002',
+          'label': '四核'
+        },{
+          'value': '003',
+          'label': '八核 1.8Ghz'
+        },{
+          'value': '004',
+          'label': '单核心'
+        },{
+          'value': '005',
+          'label': '四核心'
+        },{
+          'value': '006',
+          'label': '真8核'
+        },{
+          'value': '007',
+          'label': '双核'
+        },{
+          'value': '008',
+          'label': '双核心'
+        },{
+          'value': '009',
+          'label': '八核（四大核1.5GHz+四小核1.2GHz）'
+        }],
+
+        //RAM容量
+        ramList: [{
+          'value': '001',
+          'label': '512M'
+        },{
+          'value': '002',
+          'label': '6GB'
+        },{
+          'value': '003',
+          'label': '6G'
+        },{
+          'value': '004',
+          'label': '4GB'
+        },{
+          'value': '005',
+          'label': '3GB'
+        },{
+          'value': '006',
+          'label': '2GB'
+        },{
+          'value': '007',
+          'label': '1GB'
+        }],
+
+        //ROM容量
+        romList: [{
+          'value': '001',
+          'label': '256GB'
+        },{
+          'value': '002',
+          'label': '128G'
+        },{
+          'value': '003',
+          'label': '64g'
+        },{
+          'value': '004',
+          'label': '64G以上'
+        },{
+          'value': '005',
+          'label': '32G'
+        },{
+          'value': '006',
+          'label': '32M'
+        },{
+          'value': '007',
+          'label': '16g'
+        },{
+          'value': '008',
+          'label': '16M'
+        },{
+          'value': '009',
+          'label': '8g'
+        },{
+          'value': '010',
+          'label': '4G'
+        }],
+
+        //电池类型 
         batteryTypeList: [{
           'value': '001',
           'label': '可拆卸式电池',

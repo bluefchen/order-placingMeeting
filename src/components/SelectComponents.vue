@@ -66,7 +66,7 @@
         require: true
       },
       model: {
-        type: String,
+        type: String,  //letter：带字母搜索，single：单选， multi多选
         require: true
       },
       width: {
@@ -153,6 +153,7 @@
       'value': function(val) {
         this.copyValue = val;
         if(this.model === 'multi'){
+          this.checkedPopoverTextList = [];
           this.valueList = this.value ? this.value.split("，") : [];
           _.forEach(this.valueList, (val, valIndex) => {
             _.forEach(this.list, (item, index) => {
