@@ -210,10 +210,9 @@
               title: '操作提示',
               content: '修改配置成功'
             }).catch(() => {
-              // console.log('cancel');
-            });
-            this.queryOpmDepositInfo();
-            this.editshow = true;
+              this.queryOpmDepositInfo();
+              this.editshow = true;
+            });          
           })
         }else if(type == 2) {
           this.$refs[formName].validate((valid) => {
@@ -224,15 +223,24 @@
                 depositType: type,
                 depositProportion: this.depositInfoList.depositProportion,
               }).then((rsp) => {
-                this.$msgBox({
-                  type: 'success',
-                  title: '操作提示',
-                  content: '修改配置成功'
-                }).catch(() => {
-                  // console.log('cancel');
-                });
-                this.queryOpmDepositInfo();
-                this.editshow = true;
+                if(rsp.resultCode == '0'){
+                  this.$msgBox({
+                    type: 'success',
+                    title: '操作提示',
+                    content: '修改配置成功'
+                  }).catch(() => {
+                    this.queryOpmDepositInfo();
+                    this.editshow = true;
+                  });                
+                }else{
+                  this.$msgBox({
+                    type: 'error',
+                    title: '操作提示',
+                    content: rsp.resultMsg
+                  }).catch(() => {
+                    // console.log('cancel');
+                  });
+                }         
               })
             } else {
               console.log('error submit!!');
@@ -256,15 +264,25 @@
             depositType: type,
             opmRetailerDepositList: this.opmRetailerUpate
           }).then((rsp) => {
-            this.$msgBox({
-              type: 'success',
-              title: '操作提示',
-              content: '修改配置成功'
-            }).catch(() => {
-              // console.log('cancel');
-            });
-            this.queryOpmDepositInfo();
-            this.editshow = true;
+            if(rsp.resultCode == '0'){
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '修改配置成功'
+              }).catch(() => {
+                this.queryOpmDepositInfo();
+                this.editshow = true;
+              });
+             
+            }else{
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
+              });
+            }         
           })
         }
       },
@@ -274,7 +292,6 @@
         }).then((rsp) => {
           if (rsp) {
             this.depositInfoList = rsp;
-            // localStorage.setItem('opmDeposit', JSON.stringify(rsp));
           } else {
             this.depositInfoList = {};
           }

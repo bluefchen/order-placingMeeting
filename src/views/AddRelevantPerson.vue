@@ -169,7 +169,7 @@
           if(rsp.resultCode == '0'){
             this.$msgBox({
               type: 'success',
-              title: '成功提示',
+              title: '操作提示',
               content: '添加成功'
             }).catch(() => {
               this.$router.push({
@@ -183,7 +183,7 @@
           }else{
             this.$msgBox({
               type: 'error',
-              title: '失败提示',
+              title: '操作提示',
               content: rsp.resultMsg
             }).catch(() => {
               // console.log('cancel');
