@@ -285,7 +285,8 @@
         _.forEach(this.brandList, (item) => {
           this.brandOptions.push({
             value: item.brandCd,
-            label: item.brandName
+            label: item.brandName,
+            firstLetter: item.firstLetter
           })
         });
       });
@@ -497,7 +498,8 @@
           _.forEach(this.modelList, (item) => {
             this.modelOptions.push({
               value: item.offerModelId,
-              label: item.offerModelName
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
             })
           });
         });

@@ -266,7 +266,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferBrandList'), {
   error: null,
   'data|10-20': [{
     'brandCd': '@id',
-    'brandName': '@cword(3, 5)'
+    'brandName': '@cword(3, 5)',
+    'firstLetter|1': ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
   }]
 });
 
@@ -279,7 +280,8 @@ Mock.mock(new RegExp('/orderPlacingMeetingController/queryOfferModelList'), {
   error: null,
   'data|10-20': [{
     'offerModelId': '@id',
-    'offerModelName': '@word(5, 10)'
+    'offerModelName': '@word(5, 10)',
+    'firstLetter|1': ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
   }]
 });
 
