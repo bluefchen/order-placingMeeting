@@ -11,7 +11,7 @@
         </el-menu>
         <div class="user fn-right">
           <span class="area">{{user.commonReginName}}</span>
-          <Dropdown :role="user.postRoleName" :name="user.partyName"/>
+          <Dropdown :user="user"/>
         </div>
       </div>
     </div>
@@ -33,15 +33,7 @@
   export default {
     name: 'Order',
     created() {
-      this.user = JSON.parse(localStorage.getItem('user')) || {
-        commonReginId: '', //当前登录人员的地区ID
-        commonReginName: '', //当前登录人员的地区名
-        postRoleId: '', //当前登录人员的角色ID
-        postRoleName: '', //当前登录人员的角色名称
-        partyId: '', //当前登录人员的ID
-        partyName: '', //当前登录人员的名称
-        token: '' //新的会话令牌
-      };
+      this.user = JSON.parse(localStorage.getItem('user'));
     },
     data() {
       return {
