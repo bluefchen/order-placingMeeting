@@ -212,49 +212,103 @@
         this.selectList = val;
       },
       batchFreezeRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1000') {
-            retailerList.push(item.retailerId)
-          }
-        });
-        if(retailerList.length){
-          this.freezeRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   if (item.statusCd === '1000') {
+        //     retailerList.push(item.retailerId)
+        //   }
+        // });
+        // if(retailerList.length){
+        //   this.freezeRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要冻结的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要冻结的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要冻结的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要冻结的有效零售商！');
+        }else{
+          this.freezeRetailer(retailerList);
         }
       },
       batchUnfreezeRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          if (item.statusCd === '1001') {
-            retailerList.push(item.retailerId)
-          }
-        });
-        if(retailerList.length){
-          this.unfreezeRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   if (item.statusCd === '1001') {
+        //     retailerList.push(item.retailerId)
+        //   }
+        // });
+        // if(retailerList.length){
+        //   this.unfreezeRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要激活的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要激活的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要激活的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1000'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要激活的有效零售商！');
+        }else{
+          this.unfreezeRetailer(retailerList);
         }
       },
       batchDeleteRetailer(){
-        var retailerList = [];
-        this.selectList.forEach((item, index) => {
-          retailerList.push(item.retailerId);
-        });
-        if(retailerList.length){
-          this.deleteRetailer(retailerList);
+        // var retailerList = [];
+        // this.selectList.forEach((item, index) => {
+        //   retailerList.push(item.retailerId);
+        // });
+        // if(retailerList.length){
+        //   this.deleteRetailer(retailerList);
+        // }else{
+        //   this.$message({
+        //     message: '请选择需要删除的零售商！',
+        //     type: 'warning'
+        //   });
+        // }
+        let retailerList = [],
+            flag = false;
+        if (!this.selectList.length) {
+          this.$message.warning('请选择需要删除的零售商！');
         }else{
-          this.$message({
-            message: '请选择需要删除的零售商！',
-            type: 'warning'
-          });
+          _.map(this.selectList, function (item) {
+            if(item.statusCd == '1001'){
+              flag = true;
+              return;
+            }
+            retailerList.push(item.retailerId);
+          })  
+        };
+        if(flag){
+          this.$message.warning('请选择需要删除的有效零售商！');
+        }else{
+          this.deleteRetailer(retailerList);
         }
       },
       freezeRetailer(val){
