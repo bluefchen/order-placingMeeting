@@ -259,9 +259,12 @@
             this.queryOrderPlacingMeetingList();
           });
         }).catch(() => {
-          this.$message({
+          this.$msgBox({
             type: 'info',
-            message: '取消删除!'
+            title: '操作提示',
+            content: '取消删除'
+          }).catch(() => {
+            // console.log('cancel');
           });
         });
       }

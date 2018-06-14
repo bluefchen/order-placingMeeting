@@ -67,7 +67,13 @@
           reviewPartyId: this.user.userId,
           reviewRemark: this.reviewRemark
         }).then((rsp) => {
-          this.$message.success('优惠政策审批成功!');
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '优惠政策审批成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           this.$emit('update');
         });
       }
