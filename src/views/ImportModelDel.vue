@@ -79,7 +79,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<span>￥{{data.row.costPrice}}</span>',
+              template: '<span>￥{{data.row.salePrice}}</span>',
               data() {
                 return {
                   data: params
