@@ -107,7 +107,7 @@
                   </div>
                   <div class="photo-info fn-right">
                     <p class="name">{{data.row.opmName}}</p>
-                    <p class="date">{{data.row.startDt}}-{{data.row.endDt}}</p>
+                    <p class="date">{{data.row.startDt}} 至 {{data.row.endDt}}</p>
                   </div>
                 </div>
                 `,
