@@ -160,11 +160,11 @@
         }
         let partyIds = [];
         _.map(this.selectionChangeList, function (item) {
-          partyIds.push(item.partyId);
+          partyId.push(item.partyId);
         });
         this.$post('/systemUserController/addPostRoleRelaUser', {
           postRoleId: this.$route.query.postRoleId,
-          partyIds: partyIds,
+          partyId: partyIds,
         }).then((rsp) => {
           if(rsp.resultCode == '0'){
             this.$msgBox({
