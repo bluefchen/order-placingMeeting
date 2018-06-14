@@ -22,7 +22,7 @@
         <el-menu-item index="/order/depositConfigure" :disabled="this.opMeetingInfo.statusCd === '1001' || this.opMeetingInfo.statusCd === '1002'">定金配置</el-menu-item>
         <div v-show="this.opMeetingInfo.statusCd != '1000'">
           <el-menu-item index="/order/depositAddRecord" v-show="this.opmDepositInfo.depositType == '2'">定金补录</el-menu-item>
-          <el-menu-item index="/order/depositAddRecord" v-show="this.opmDepositInfo.depositType == '3'">诚意金补录</el-menu-item>
+          <el-menu-item index="/order/CyjDepositAddRecord" v-show="this.opmDepositInfo.depositType == '3'">诚意金补录</el-menu-item>
         </div>
       </el-submenu>
       <el-submenu index="5">
