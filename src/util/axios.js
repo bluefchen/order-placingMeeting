@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import {Loading, Message} from 'element-ui'
-// import './mockdb'
+import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
+// axios.defaults.baseURL = 'http://192.168.74.17:9086/orderPlacingMeeting/';
 // axios.defaults.baseURL = 'http://192.168.16.44:8080/orderPlacingMeeting/';
 // axios.defaults.baseURL = 'http://192.168.16.87/orderPlacingMeeting/';
 // axios.defaults.baseURL = '/orderPlacingMeeting/';
@@ -33,17 +33,6 @@ axios.interceptors.response.use(response => {
   setTimeout(function () {
     loadingInstance.close();
   }, 500);
-
-  if (!response.data.success) {
-    setTimeout(function () {
-      Vue.prototype.$msgBox({
-        type: 'error',
-        title: '操作提示',
-        content: response.data.msg
-      });
-    }, 500);
-  }
-
   return response.data;
 }, error => {
   setTimeout(function () {
@@ -94,7 +83,17 @@ export function fetchGet(url, params) {
         params: params
       })
       .then(res => {
-        resolve(res.data)
+        if (!response.data.success) {
+          setTimeout(function () {
+            Vue.prototype.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: response.data.msg
+            });
+          }, 500);
+        } else {
+          resolve(res.data)
+        }
       })
       .catch(err => {
         reject(err.data)

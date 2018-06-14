@@ -1,7 +1,7 @@
 <template>
   <el-dropdown @command="handleCommand">
     <span class="el-dropdown-link">
-      【{{user.postRoleName}}】{{user.partyName}}<i class="el-icon-arrow-down el-icon--right"></i>
+      【{{postRoleName}}】{{partyName}}<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="">个人信息维护</el-dropdown-item>
@@ -27,6 +27,14 @@
             token: '' //新的会话令牌
           };
         }
+      }
+    },
+    computed: {
+      postRoleName() {
+        return _.get(this.user, 'postRoleName') || '角色';
+      },
+      partyName() {
+        return _.get(this.user, 'partyName') || '用户名';
       }
     },
     methods: {
