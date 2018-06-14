@@ -251,7 +251,7 @@
         });
       },
       exportOpmOrder() {
-        location.href = 'http://192.168.74.17:9086/orderPlacingMeeting/opmOrderController/exportOpmOrderList?isCentman=' + this.orderQueryData.isCentman + '&offerNameOrCode=' + this.orderQueryData.offerNameOrCode + '&opmOrderNo=' + this.orderQueryData.opmOrderNo + '&supplierId=' + this.orderQueryData.supplierId + '&retailerId=' + this.orderQueryData.retailerId + '&fromDate=' + this.orderQueryData.dateValue[0] + '&toDate=' + this.orderQueryData.dateValue[1] + '&statusCd=' + this.orderQueryData.statusCd;
+        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderList?isCentman=' + this.orderQueryData.isCentman + '&offerNameOrCode=' + this.orderQueryData.offerNameOrCode + '&opmOrderNo=' + this.orderQueryData.opmOrderNo + '&supplierId=' + this.orderQueryData.supplierId + '&retailerId=' + this.orderQueryData.retailerId + '&fromDate=' + this.orderQueryData.dateValue[0] + '&toDate=' + this.orderQueryData.dateValue[1] + '&statusCd=' + this.orderQueryData.statusCd;
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);

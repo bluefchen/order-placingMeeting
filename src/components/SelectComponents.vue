@@ -1,7 +1,7 @@
 <template>
   <div class="vue_select-components">
     <div class="el-popover-box">
-      <el-popover :placement="placement" :width="width" height="200" trigger="click" v-model="visible">
+      <el-popover :placement="placement" :disabled="disabled" :width="width" height="200" trigger="click" v-model="visible">
         <div class="popover-box" v-show="model === 'letter' || model === 'single'">
           <div class="popover-padding">
             <div class="fn-clear popover-head-list" v-show="model === 'letter'">
@@ -42,12 +42,10 @@
             <button class="btn-submit" @click="saveCheckedPop">确定</button>
           </div>
         </div>
-
-        <Select :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
         <Select :disabled="true" v-if="model === 'multi'" :value.sync="copyValue" slot="reference"/>
-
       </el-popover>
-      <div class="visible-hide" v-show="visible"></div>
+      <div :class="{'hide': disabled}" class="visible-hide" v-if="visible"></div>
     </div>
   </div>
 </template>
@@ -75,6 +73,10 @@
       },
       list: {
         type: Array,
+        require: true
+      },
+      disabled: {
+        type: Boolean,
         require: true
       }
     },
@@ -165,6 +167,9 @@
 
           })
         }
+      },
+      'disabled': function(val){
+        this.visible = false;
       }
     },
   }
@@ -181,6 +186,9 @@
   }
 
   .vue_select-components{
+    .hide{
+      display: none;
+    }
     .el-popover-box{
       height: 30px;
       line-height: 30px;
@@ -195,6 +203,9 @@
         left: 0;
         top: 0;
       }
+    }
+    .disabled-select .el-input.is-disabled .el-input__inner{
+      background: #f9f9f9;
     }
     .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon, .el-input.is-disabled .el-input__inner{
       cursor: pointer;
