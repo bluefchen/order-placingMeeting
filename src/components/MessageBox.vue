@@ -9,7 +9,7 @@
       <div class="widget-body">
         <div class="alert-info-wrap" :class="type">
           <p class="alert-title">{{content}}</p>
-          <span class="errstack-btn" v-show="type === 'error'" @click="toggle">详细信息<i
+          <span class="errstack-btn" v-show="type === 'abnormal'" @click="toggle">详细信息<i
             class="iconfont">&#xe608;</i></span>
         </div>
         <div class="alert-err-stack" v-show="isShowErrStack">{{errStack}}</div>
@@ -175,7 +175,7 @@
             height: 250px;
             background: url('../assets/images/icon-succ.png') no-repeat 0 0;
           }
-          &.error {
+          &.error, &.abnormal {
             background: url('../assets/images/icon-err.png') no-repeat 0 0;
           }
           &.info {
