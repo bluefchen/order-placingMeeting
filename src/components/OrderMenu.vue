@@ -127,9 +127,16 @@
       background-color: #f13939;
     }
   }
+  .el-menu--horizontal .el-menu .el-menu-item, .el-menu--horizontal .el-menu .el-submenu__title{
+    color: #000;
+  }
 
   .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu__title.is-active {
     color: #fff;
     background-color: #f13939;
   }
+  .el-menu--horizontal .el-menu .el-menu-item.is-disabled:hover {
+    color: #000;
+    background-color: #f13939;
+}
 </style>
