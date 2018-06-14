@@ -31,12 +31,12 @@
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
               <el-form-item label="终端品牌：" prop="brandCd" :rules="[{ required: true, message: '请选择终端品牌', trigger: 'change' }]">
-                <SelectComponents :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="625" />
+                <SelectComponents :model="'letter'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="625" />
               </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端型号：" prop="offerModelId" :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
-                <SelectComponents :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="625" />
+                <SelectComponents :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="625" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -480,14 +480,18 @@
       },
       //导入
       uploadData(data) {
-        if(data.data){
-          this.$nextTick(function () {
-            this.showSuccee = true;
+        this.$nextTick(function () {
+          this.showSuccee = true;
+          if(data.offerBaseParam){
             this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
+          };
+          if(data.offerHardwardParam){
             this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
+          };
+          if(data.offerScreenParam){
             this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
-          })
-        };
+          };
+        })
       },
       //查询终端型号
       qryOfferModelList(val){
