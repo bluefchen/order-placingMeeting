@@ -53,6 +53,11 @@
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.opmDepositInfo = JSON.parse(localStorage.getItem('opmDeposit'));
+      if(!this.opmDepositInfo){
+        this.opmDepositInfo = {
+          depositType: ''
+        }
+      }
       this.handleSelect();
     },
     data() {
