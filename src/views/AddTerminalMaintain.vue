@@ -36,7 +36,8 @@
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端型号：" prop="offerModelId" :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
-                <SelectComponents :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="650" />
+                <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="650" />
+               
               </el-form-item>
             </el-col>
           </el-row>
