@@ -289,7 +289,7 @@
       },
       //按机型导出
       exportOpmOrderPickupReportByModel(){
-        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
+        location.href = 'http://192.168.74.32:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupReportByModel(curPage);
@@ -311,7 +311,7 @@
       },
       //按品牌导出
       exportOpmOrderPickupReportByBrand(){
-        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
+        location.href = 'http://192.168.74.32:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
       },
       brandPageChanged(curPage) {
         this.queryOpmOrderPickupReportByBrand(curPage);
@@ -333,7 +333,7 @@
       },
       //按商户导出
       exportOpmOrderPickupReportByBusi(){
-        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
+        location.href = 'http://192.168.74.32:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
       },
       busiPageChanged(curPage) {
         this.qryOpmOrderPickupReportByBusi(curPage);

@@ -451,7 +451,7 @@
               this.queryOfferList(this.currentPage);
             } else {
               this.$msgBox({
-                type: 'info',
+                type: 'error',
                 title: '操作提示',
                 content: '终端删除失败'
               }).catch(() => {
@@ -460,14 +460,8 @@
             }
           })
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
-        });
+          // console.log('cancel');
+        })
       }
     },
     components: {

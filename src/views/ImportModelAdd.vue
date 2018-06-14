@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpmOfferList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOffer',
+        downloadUrl: 'http://192.168.74.32:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOffer',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',

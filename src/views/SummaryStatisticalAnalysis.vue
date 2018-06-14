@@ -48,7 +48,7 @@
   import Input from '@/components/Input';
   import AreaSelect from '@/components/AreaSelect';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'summaryStatisticalAnalysis',
     created() {
@@ -92,7 +92,7 @@
         })
       },
       exportReport() {
-        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
+        location.href = 'http://192.168.74.32:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReport?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&commonRegionId=' + this.commonRegionId;
       },
       pageChanged(curPage) {
         this.queryOpmOrderPickupReport(curPage);
