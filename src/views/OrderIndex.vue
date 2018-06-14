@@ -40,6 +40,15 @@
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
+
+      // 获取定金配置的模式      
+      this.$post('/opmDepositController/queryOpmDepositInfo', {
+        opMeetingId: this.opMeetingInfo.opMeetingId,
+      }).then((rsp) => {
+        if (rsp) {
+          localStorage.setItem('opmDeposit', JSON.stringify(rsp));
+        } 
+      })    
     },
     data() {
       return {

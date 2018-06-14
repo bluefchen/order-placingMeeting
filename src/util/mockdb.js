@@ -852,7 +852,7 @@ Mock.mock(new RegExp('/opmDepositController/queryOpmDepositInfo'), {
     'opMeetingId': '@id',
     'provinceCommonRegionId': '@id',
     'provinceCommonRegionName': '@cword(4, 6)',
-    'depositType|+1': [1, 2, 3],
+    'depositType|1': ['', '1', '2', '3'],
     'depositTypeName|+1': ['全额付款', '定金', '诚意金'],
     'depositProportion|1-100': 10,
     'opmRetailerDepositList|8': [{

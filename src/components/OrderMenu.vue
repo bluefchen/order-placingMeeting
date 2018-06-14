@@ -20,7 +20,8 @@
       <el-submenu index="4">
         <template slot="title">定金管理</template>
         <el-menu-item index="/order/depositConfigure" :disabled="this.opMeetingInfo.statusCd === '1001' || this.opMeetingInfo.statusCd === '1002'">定金配置</el-menu-item>
-        <el-menu-item index="/order/depositAddRecord" :disabled="this.opMeetingInfo.statusCd === '1000'">定金补录</el-menu-item>
+        <el-menu-item index="/order/depositAddRecord" :disabled="this.opMeetingInfo.statusCd === '1000'" v-show="this.opmDepositInfo.depositType == '2'">定金补录</el-menu-item>
+        <el-menu-item index="/order/depositAddRecord" :disabled="this.opMeetingInfo.statusCd === '1000'" v-show="this.opmDepositInfo.depositType == '3'">诚意金补录</el-menu-item>
       </el-submenu>
       <el-submenu index="5">
         <template slot="title">政策管理</template>
@@ -51,11 +52,14 @@
     props: {},
     created() {
       this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opmDepositInfo = JSON.parse(localStorage.getItem('opmDeposit'));
       this.handleSelect();
     },
     data() {
       return {
-        opmDepositInfo: {},
+        opmDepositInfo: {
+          depositType: ''
+        },       
       }
     },
     methods: {
