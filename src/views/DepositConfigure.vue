@@ -205,7 +205,13 @@
             provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
             depositType: type,
           }).then((rsp) => {
-            this.$message.success('修改配置成功！');
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '修改配置成功'
+            }).catch(() => {
+              // console.log('cancel');
+            });
             this.queryOpmDepositInfo();
             this.editshow = true;
           })
@@ -218,7 +224,13 @@
                 depositType: type,
                 depositProportion: this.depositInfoList.depositProportion,
               }).then((rsp) => {
-                this.$message.success('修改配置成功！');
+                this.$msgBox({
+                  type: 'success',
+                  title: '操作提示',
+                  content: '修改配置成功'
+                }).catch(() => {
+                  // console.log('cancel');
+                });
                 this.queryOpmDepositInfo();
                 this.editshow = true;
               })
@@ -244,7 +256,13 @@
             depositType: type,
             opmRetailerDepositList: this.opmRetailerUpate
           }).then((rsp) => {
-            this.$message.success('修改配置成功！');
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '修改配置成功'
+            }).catch(() => {
+              // console.log('cancel');
+            });
             this.queryOpmDepositInfo();
             this.editshow = true;
           })

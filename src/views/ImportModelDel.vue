@@ -26,6 +26,7 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import Import from '@/components/Import';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
+
   export default {
     name: 'ImportModelDel',
     created() {
@@ -121,7 +122,13 @@
       batchDeleteOpmOffer() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
-          this.$message.warning('导入数据不能为空');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '导入数据不能为空'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
         }
         let tableDataIsSueccess = [];
@@ -135,8 +142,6 @@
         });
         this.$post('/orderPlacingMeetingController/batchDeleteOpmOffer', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/orderModel'});
-          // this.$message.success('导入删除数据成功');
-          console.log('21、批量导入删除机型接口：', rsp);
         })
       }
     },

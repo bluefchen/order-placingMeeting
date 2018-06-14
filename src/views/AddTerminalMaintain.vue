@@ -8,42 +8,50 @@
         <div class="terminal-info-box">
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端编码：" prop="offerCode" :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'blur'}]">
+              <el-form-item label="终端编码：" prop="offerCode"
+                            :rules="[{ min: 0, max: 32, message: '长度不能超过32个字符', trigger: 'blur'}]">
                 <Input :value.sync="terminalMaintainInfo.offerCode"/>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-                <el-form-item label="产品类型：" prop="isCentman" :rules="[{ required: true, message: '请选择产品类型', trigger: 'change' }]">
-                  <el-radio-group v-model="terminalMaintainInfo.isCentman">
-                    <el-radio :label="'Y'">集采</el-radio>
-                    <el-radio :label="'N'">社采</el-radio>
-                  </el-radio-group>
-                </el-form-item>
+              <el-form-item label="产品类型：" prop="isCentman"
+                            :rules="[{ required: true, message: '请选择产品类型', trigger: 'change' }]">
+                <el-radio-group v-model="terminalMaintainInfo.isCentman">
+                  <el-radio :label="'Y'">集采</el-radio>
+                  <el-radio :label="'N'">社采</el-radio>
+                </el-radio-group>
+              </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端名称：" prop="offerName" :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+              <el-form-item label="终端名称：" prop="offerName"
+                            :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                 <Input :value.sync="terminalMaintainInfo.offerName"/>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端品牌：" prop="brandCd" :rules="[{ required: true, message: '请选择终端品牌', trigger: 'change' }]">
-                <SelectComponents :model="'letter'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="650" />
+              <el-form-item label="终端品牌：" prop="brandCd"
+                            :rules="[{ required: true, message: '请选择终端品牌', trigger: 'change' }]">
+                <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                  :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="650"/>
               </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端型号：" prop="offerModelId" :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
-                <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="650" />
-               
+              <el-form-item label="终端型号：" prop="offerModelId"
+                            :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
+                <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'"
+                                  :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="650"/>
+
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item label="终端价格：" prop="salePrice" :rules="[{ required: true, message: '请输入终端价格', trigger: 'blur' },{ type: 'number', message: '终端价格必须为数字值', trigger: 'blur'}]">
+              <el-form-item label="终端价格：" prop="salePrice"
+                            :rules="[{ required: true, message: '请输入终端价格', trigger: 'blur' },{ type: 'number', message: '终端价格必须为数字值', trigger: 'blur'}]">
                 <Input :type="'number'" :value.sync="terminalMaintainInfo.salePrice"/>
               </el-form-item>
             </el-col>
@@ -58,7 +66,7 @@
                       action="http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/upload"
                       :file-list="showOfferPicList"
                       list-type="picture-card"
-                      :limit= "6"
+                      :limit="6"
                       :data="upLoadItem"
                       :on-success="handleAvatarSuccess"
                       :on-remove="handleRemove">
@@ -90,7 +98,7 @@
               <td>
                 <div class="result-table-content">
                   <el-row>
-                    <el-form-item label="上市日期" prop="offerBaseParam.listDt" >
+                    <el-form-item label="上市日期" prop="offerBaseParam.listDt">
                       <el-date-picker
                         v-model="terminalMaintainInfo.offerBaseParam.listDt"
                         type="date"
@@ -103,12 +111,16 @@
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="手机类型" prop="offerBaseParam.termType" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerBaseParam.termType" :list="termTypeList" :width="625" />
+                    <el-form-item label="手机类型" prop="offerBaseParam.termType"
+                                  :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'multi'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerBaseParam.termType" :list="termTypeList"
+                                        :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="操作系统" prop="offerBaseParam.os" :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
+                    <el-form-item label="操作系统" prop="offerBaseParam.os"
+                                  :rules="[{ min: 0, max: 300, message: '长度不能超过300个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerBaseParam.os"/>
                     </el-form-item>
                   </el-row>
@@ -122,43 +134,53 @@
               <td>
                 <div class="result-table-content">
                   <el-row>
-                    <el-form-item label="触摸屏类型" prop="offerScreenParam.screenType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerScreenParam.screenType" :list="screenTypeList" :width="625" />
+                    <el-form-item label="触摸屏类型" prop="offerScreenParam.screenType"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'multi'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerScreenParam.screenType"
+                                        :list="screenTypeList" :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="主屏尺寸" prop="offerScreenParam.screenSize" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="主屏尺寸" prop="offerScreenParam.screenSize"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenSize"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="主屏材质" prop="offerScreenParam.screenMaterial" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="主屏材质" prop="offerScreenParam.screenMaterial"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenMaterial"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="主屏分辨率" prop="offerScreenParam.resolutionRatio" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="主屏分辨率" prop="offerScreenParam.resolutionRatio"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.resolutionRatio"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="屏幕像素密度" prop="offerScreenParam.screenPiexl" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="屏幕像素密度" prop="offerScreenParam.screenPiexl"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenPiexl"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="屏幕技术" prop="offerScreenParam.screenTech" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="屏幕技术" prop="offerScreenParam.screenTech"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.screenTech"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="窄边框" prop="offerScreenParam.frame" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="窄边框" prop="offerScreenParam.frame"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerScreenParam.frame"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="其他屏幕参数" prop="offerScreenParam.otherParam" :rules="[{ min: 0, max: 500, message: '长度不能超过500个字符', trigger: 'blur'}]">
-                      <Input type="textarea" :value.sync="terminalMaintainInfo.offerScreenParam.otherParam" />
+                    <el-form-item label="其他屏幕参数" prop="offerScreenParam.otherParam"
+                                  :rules="[{ min: 0, max: 500, message: '长度不能超过500个字符', trigger: 'blur'}]">
+                      <Input type="textarea" :value.sync="terminalMaintainInfo.offerScreenParam.otherParam"/>
                     </el-form-item>
                   </el-row>
                 </div>
@@ -171,72 +193,98 @@
               <td>
                 <div class="result-table-content">
                   <el-row>
-                    <el-form-item label="后置摄像头" prop="offerHardwardParam.rearCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera" :list="rearCameraList" :width="625" />
+                    <el-form-item label="后置摄像头" prop="offerHardwardParam.rearCamera"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.rearCamera"
+                                        :list="rearCameraList" :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="前置摄像头" prop="offerHardwardParam.frontCamera" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera" :list="frontCameraList" :width="625" />
+                    <el-form-item label="前置摄像头" prop="offerHardwardParam.frontCamera"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.frontCamera"
+                                        :list="frontCameraList" :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="CPU型号" prop="offerHardwardParam.cpuModel" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="CPU型号" prop="offerHardwardParam.cpuModel"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.cpuModel"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="CPU频率" prop="offerHardwardParam.cpuRate" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="CPU频率" prop="offerHardwardParam.cpuRate"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.cpuRate"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="核心数" prop="offerHardwardParam.core" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.core" :list="coreList" :width="625" />
+                    <el-form-item label="核心数" prop="offerHardwardParam.core"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.core" :list="coreList"
+                                        :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="GPU型号" prop="offerHardwardParam.gpuModel" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="GPU型号" prop="offerHardwardParam.gpuModel"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.gpuModel"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="RAM容量" prop="offerHardwardParam.ram" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.ram" :list="ramList" :width="625" />
+                    <el-form-item label="RAM容量" prop="offerHardwardParam.ram"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.ram" :list="ramList"
+                                        :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="ROM容量" prop="offerHardwardParam.rom" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.rom" :list="romList" :width="625" />
+                    <el-form-item label="ROM容量" prop="offerHardwardParam.rom"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.rom" :list="romList"
+                                        :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="存储类型" prop="offerHardwardParam.memoryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="存储类型" prop="offerHardwardParam.memoryType"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.memoryType"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="存储卡" prop="offerHardwardParam.memoryCard" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="存储卡" prop="offerHardwardParam.memoryCard"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.memoryCard"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="扩展容量" prop="offerHardwardParam.extendedCapacity" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="扩展容量" prop="offerHardwardParam.extendedCapacity"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.extendedCapacity"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="电池类型" prop="offerHardwardParam.batteryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <SelectComponents :model="'single'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
+                    <el-form-item label="电池类型" prop="offerHardwardParam.batteryType"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                      <SelectComponents :model="'single'" :placement="'bottom-start'"
+                                        :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType"
+                                        :list="batteryTypeList" :width="625"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="电池容量" prop="offerHardwardParam.batteryCapacity" :rules="[{max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="电池容量" prop="offerHardwardParam.batteryCapacity"
+                                  :rules="[{max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCapacity"/>
                     </el-form-item>
                   </el-row>
                   <el-row>
-                    <el-form-item label="电池充电" prop="offerHardwardParam.batteryCharge" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                    <el-form-item label="电池充电" prop="offerHardwardParam.batteryCharge"
+                                  :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
                       <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryCharge"/>
                     </el-form-item>
                   </el-row>
@@ -247,11 +295,12 @@
         </div>
       </div>
       <div class="foot-btn">
-          <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
-          <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
+        <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '保存')">保&nbsp;存</button>
+        <button type="button" class="btns" @click="submitForm('terminalMaintainInfo', '预览')">预&nbsp;览</button>
       </div>
     </el-form>
-    <DialogPopup class="dialog-choose-merchants" :visible.sync="dialogVisible" :title="dislogTitle" @visibleChange="visibleChange">
+    <DialogPopup class="dialog-choose-merchants" :visible.sync="dialogVisible" :title="dislogTitle"
+                 @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
         <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
         <div class="import-result-box fn-clear" v-if="showSuccee">
@@ -293,30 +342,30 @@
       });
 
       var operation = this.$route.query.operation;
-      if(operation === 'add'){
+      if (operation === 'add') {
         this.title = '新增终端';
         this.flag = 1;
-      }else{
+      } else {
         this.title = '修改终端';
         this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
         this.qryOfferModelList(this.maintainInfo.brandCd);
-        if(this.maintainInfo.offerPic){
-          if(this.maintainInfo.offerPic.offerPicUrl){
+        if (this.maintainInfo.offerPic) {
+          if (this.maintainInfo.offerPic.offerPicUrl) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl});
           }
-          if(this.maintainInfo.offerPic.offerPicUrl2){
+          if (this.maintainInfo.offerPic.offerPicUrl2) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl2});
           }
-          if(this.maintainInfo.offerPic.offerPicUrl3){
+          if (this.maintainInfo.offerPic.offerPicUrl3) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl3});
           }
-          if(this.maintainInfo.offerPic.offerPicUrl4){
+          if (this.maintainInfo.offerPic.offerPicUrl4) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl4});
           }
-          if(this.maintainInfo.offerPic.offerPicUrl5){
+          if (this.maintainInfo.offerPic.offerPicUrl5) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl5});
           }
-          if(this.maintainInfo.offerPic.offerPicUrl6){
+          if (this.maintainInfo.offerPic.offerPicUrl6) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl6});
           }
         }
@@ -340,7 +389,7 @@
             termType: _.get(this.maintainInfo, 'offerBaseParam.termType'),
             os: _.get(this.maintainInfo, 'offerBaseParam.os'),
           },
-          offerScreenParam:{
+          offerScreenParam: {
             screenType: _.get(this.maintainInfo, 'offerScreenParam.screenType'),
             screenSize: _.get(this.maintainInfo, 'offerScreenParam.screenSize'),
             screenMaterial: _.get(this.maintainInfo, 'offerScreenParam.screenMaterial'),
@@ -350,7 +399,7 @@
             frame: _.get(this.maintainInfo, 'offerScreenParam.frame'),
             otherParam: _.get(this.maintainInfo, 'offerScreenParam.otherParam'),
           },
-          offerHardwardParam:{
+          offerHardwardParam: {
             cpuModel: _.get(this.maintainInfo, 'offerHardwardParam.cpuModel'),
             cpuRate: _.get(this.maintainInfo, 'offerHardwardParam.cpuRate'),
             core: _.get(this.maintainInfo, 'offerHardwardParam.core'),
@@ -366,7 +415,7 @@
             batteryType: _.get(this.maintainInfo, 'offerHardwardParam.batteryType'),
             batteryCharge: _.get(this.maintainInfo, 'offerHardwardParam.batteryCharge'),
           },
-            offerPic:{
+          offerPic: {
             offerPicUrl: _.get(this.maintainInfo, 'offerPic.offerPicUrl'),
             offerPicUrl2: _.get(this.maintainInfo, 'offerPic.offerPicUrl2'),
             offerPicUrl3: _.get(this.maintainInfo, 'offerPic.offerPicUrl3'),
@@ -383,43 +432,43 @@
         termTypeList: [{
           'value': '001',
           'label': '4G手机'
-        },{
+        }, {
           'value': '002',
           'label': '3G手机'
-        },{
+        }, {
           'value': '003',
           'label': '智能手机'
-        },{
+        }, {
           'value': '004',
           'label': '平板手机'
-        },{
+        }, {
           'value': '005',
           'label': '快充手机'
-        },{
+        }, {
           'value': '006',
           'label': '游戏手机'
-        },{
+        }, {
           'value': '007',
           'label': '音乐手机'
-        },{
+        }, {
           'value': '008',
           'label': '女性手机'
-        },{
+        }, {
           'value': '009',
           'label': '老人手机'
-        },{
+        }, {
           'value': '010',
           'label': '电视手机'
-        },{
+        }, {
           'value': '011',
           'label': '儿童手机'
-        },{
+        }, {
           'value': '012',
           'label': '三防手机'
-        },{
+        }, {
           'value': '013',
           'label': '备用手机'
-        },{
+        }, {
           'value': '014',
           'label': '商务手机'
         }],
@@ -428,7 +477,7 @@
         screenTypeList: [{
           'value': '001',
           'label': '电容屏'
-        },{
+        }, {
           'value': '002',
           'label': '多点触控'
         }],
@@ -437,34 +486,34 @@
         rearCameraList: [{
           'value': '001',
           'label': '2100万'
-        },{
+        }, {
           'value': '002',
           'label': '1600万'
-        },{
+        }, {
           'value': '003',
           'label': '1300万'
-        },{
+        }, {
           'value': '004',
           'label': '1300万像素'
-        },{
+        }, {
           'value': '005',
           'label': '1200万'
-        },{
+        }, {
           'value': '006',
           'label': '1200万*2'
-        },{
+        }, {
           'value': '007',
           'label': '800万'
-        },{
+        }, {
           'value': '008',
           'label': '800万像素'
-        },{
+        }, {
           'value': '009',
           'label': '500万'
-        },{
+        }, {
           'value': '010',
           'label': '200万'
-        },{
+        }, {
           'value': '011',
           'label': '无摄像头'
         }],
@@ -472,34 +521,34 @@
         frontCameraList: [{
           'value': '001',
           'label': '2100万'
-        },{
+        }, {
           'value': '002',
           'label': '1600万'
-        },{
+        }, {
           'value': '003',
           'label': '1300万'
-        },{
+        }, {
           'value': '004',
           'label': '1300万像素'
-        },{
+        }, {
           'value': '005',
           'label': '1200万'
-        },{
+        }, {
           'value': '006',
           'label': '1200万*2'
-        },{
+        }, {
           'value': '007',
           'label': '800万'
-        },{
+        }, {
           'value': '008',
           'label': '800万像素'
-        },{
+        }, {
           'value': '009',
           'label': '500万'
-        },{
+        }, {
           'value': '010',
           'label': '200万'
-        },{
+        }, {
           'value': '011',
           'label': '无摄像头'
         }],
@@ -508,28 +557,28 @@
         coreList: [{
           'value': '001',
           'label': '八核'
-        },{
+        }, {
           'value': '002',
           'label': '四核'
-        },{
+        }, {
           'value': '003',
           'label': '八核 1.8Ghz'
-        },{
+        }, {
           'value': '004',
           'label': '单核心'
-        },{
+        }, {
           'value': '005',
           'label': '四核心'
-        },{
+        }, {
           'value': '006',
           'label': '真8核'
-        },{
+        }, {
           'value': '007',
           'label': '双核'
-        },{
+        }, {
           'value': '008',
           'label': '双核心'
-        },{
+        }, {
           'value': '009',
           'label': '八核（四大核1.5GHz+四小核1.2GHz）'
         }],
@@ -538,22 +587,22 @@
         ramList: [{
           'value': '001',
           'label': '512M'
-        },{
+        }, {
           'value': '002',
           'label': '6GB'
-        },{
+        }, {
           'value': '003',
           'label': '6G'
-        },{
+        }, {
           'value': '004',
           'label': '4GB'
-        },{
+        }, {
           'value': '005',
           'label': '3GB'
-        },{
+        }, {
           'value': '006',
           'label': '2GB'
-        },{
+        }, {
           'value': '007',
           'label': '1GB'
         }],
@@ -562,31 +611,31 @@
         romList: [{
           'value': '001',
           'label': '256GB'
-        },{
+        }, {
           'value': '002',
           'label': '128G'
-        },{
+        }, {
           'value': '003',
           'label': '64g'
-        },{
+        }, {
           'value': '004',
           'label': '64G以上'
-        },{
+        }, {
           'value': '005',
           'label': '32G'
-        },{
+        }, {
           'value': '006',
           'label': '32M'
-        },{
+        }, {
           'value': '007',
           'label': '16g'
-        },{
+        }, {
           'value': '008',
           'label': '16M'
-        },{
+        }, {
           'value': '009',
           'label': '8g'
-        },{
+        }, {
           'value': '010',
           'label': '4G'
         }],
@@ -596,10 +645,10 @@
           'value': '001',
           'label': '可拆卸式电池',
         },
-        {
-          'value': '002',
-          'label': '不可拆卸式电池',
-        }],
+          {
+            'value': '002',
+            'label': '不可拆卸式电池',
+          }],
 
 
         nullError: null,
@@ -624,9 +673,9 @@
           offerBaseParam: {
             listDt: '',
             termType: '',
-            os:''
+            os: ''
           },
-          offerScreenParam:{
+          offerScreenParam: {
             screenType: '',
             screenSize: '',
             screenMaterial: '',
@@ -634,9 +683,9 @@
             screenPiexl: '',
             screenTech: '',
             frame: '',
-            otherParam:''
+            otherParam: ''
           },
-          offerHardwardParam:{
+          offerHardwardParam: {
             cpuModel: '',
             cpuRate: '',
             core: '',
@@ -650,8 +699,9 @@
             frontCamera: '',
             batteryCapacity: '',
             batteryType: '',
-            batteryCharge:''},
-            offerPic:{
+            batteryCharge: ''
+          },
+          offerPic: {
             offerPicUrl: '',
             offerPicUrl2: '',
             offerPicUrl3: '',
@@ -671,7 +721,7 @@
         dialogImageUrl: '',
         brandList: [],
         modelList: [],
-        uploadOfferPicList:{
+        uploadOfferPicList: {
           'offerPicUrl': '',
           'offerPicUrl2': '',
           'offerPicUrl3': '',
@@ -691,10 +741,10 @@
     },
     methods: {
       //图片上传成功
-      handleAvatarSuccess(res, file, fileList){
+      handleAvatarSuccess(res, file, fileList) {
         this.offerPicList.push(res.data);
         this.showOfferPicList[this.showOfferPicList.length] = {
-          url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url='  + file.url
+          url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + file.url
         };
       },
       //图片删除
@@ -702,7 +752,7 @@
         var fileIndex = null;
         var fileUrl = file.url; //需根据url添加字符串的长度截取，然后比较获得index值
         _.forEach(this.offerPicList, (item, index) => {
-          if(item.url === fileUrl.slice(79)){
+          if (item.url === fileUrl.slice(79)) {
             fileIndex = index;
           }
         });
@@ -712,7 +762,7 @@
       visibleChange(val) {
         this.dialogVisible = val;
       },
-      importInfo(){
+      importInfo() {
         this.dialogVisible = true;
         this.showSuccee = false;
       },
@@ -720,19 +770,22 @@
       uploadData(data) {
         this.$nextTick(function () {
           this.showSuccee = true;
-          if(data.offerBaseParam){
+          if (data.offerBaseParam) {
             this.terminalMaintainInfo.offerBaseParam = data.offerBaseParam;
-          };
-          if(data.offerHardwardParam){
+          }
+          ;
+          if (data.offerHardwardParam) {
             this.terminalMaintainInfo.offerHardwardParam = data.offerHardwardParam;
-          };
-          if(data.offerScreenParam){
+          }
+          ;
+          if (data.offerScreenParam) {
             this.terminalMaintainInfo.offerScreenParam = data.offerScreenParam;
-          };
+          }
+          ;
         })
       },
       //查询终端型号
-      qryOfferModelList(val){
+      qryOfferModelList(val) {
         this.$post('/orderPlacingMeetingController/queryOfferModelList', {
           'brandCd': val
         }).then((rsp) => {
@@ -749,52 +802,53 @@
       submitForm(formName, title) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if(this.offerPicList.length > 3){
-              if(title === '保存'){
+            if (this.offerPicList.length > 3) {
+              if (title === '保存') {
                 this.saveOffer();
-              }else{
+              } else {
                 this.previewOffer();
               }
-            }else{
+            } else {
               window.scroll(0, 0);
               this.nullError = true;
             }
           } else {
-            if(!this.offerPicList.length){
+            if (!this.offerPicList.length) {
               this.nullError = true;
-            };
+            }
+            ;
             window.scroll(0, 0);
             return false;
           }
         });
       },
-      saveOffer(){
+      saveOffer() {
         _.some(this.brandList, (item, index) => {
-          if(item.brandCd === this.terminalMaintainInfo.brandCd){
-             this.terminalMaintainInfo.brandName =  item.brandName
+          if (item.brandCd === this.terminalMaintainInfo.brandCd) {
+            this.terminalMaintainInfo.brandName = item.brandName
           }
         });
         _.some(this.modelList, (item, index) => {
-          if(item.offerModelId === this.terminalMaintainInfo.offerModelId){
-             this.terminalMaintainInfo.offerModelName =  item.offerModelName
+          if (item.offerModelId === this.terminalMaintainInfo.offerModelId) {
+            this.terminalMaintainInfo.offerModelName = item.offerModelName
           }
         });
         _.forEach(this.offerPicList, (item, index) => {
-          if(index === 0){
+          if (index === 0) {
             this.uploadOfferPicList.offerPicUrl = item.url
-          }else if(index === 1){
+          } else if (index === 1) {
             this.uploadOfferPicList.offerPicUrl2 = item.url
-          }else if(index === 2){
+          } else if (index === 2) {
             this.uploadOfferPicList.offerPicUrl3 = item.url
-          }else if(index === 3){
+          } else if (index === 3) {
             this.uploadOfferPicList.offerPicUrl4 = item.url
-          }else if(index === 4){
+          } else if (index === 4) {
             this.uploadOfferPicList.offerPicUrl5 = item.url
-          }else if(index === 5){
+          } else if (index === 5) {
             this.uploadOfferPicList.offerPicUrl6 = item.url
           }
         });
-        if(this.title === '新增终端'){
+        if (this.title === '新增终端') {
           this.$post('/orderPlacingMeetingController/insertOffer', {
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
             'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
@@ -807,7 +861,7 @@
             'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
             'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
             'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
-            'offerHardwardParam':{
+            'offerHardwardParam': {
               'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
               'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
               'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
@@ -825,19 +879,21 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === '0'){
+            if (rsp.resultCode === '0') {
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
-            }else{
-              this.$message({
-                showClose: true,
-                message: '新增商品失败！' + rsp.resultMsg,
-                type: 'error'
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: '新增商品失败'
+              }).catch(() => {
+                // console.log('cancel');
               });
             }
           });
-        }else{
+        } else {
           this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
@@ -852,7 +908,7 @@
             'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
             'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
             'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
-            'offerHardwardParam':{
+            'offerHardwardParam': {
               'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
               'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
               'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
@@ -870,47 +926,49 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === '0'){
+            if (rsp.resultCode === '0') {
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
-            }else{
-              this.$message({
-                showClose: true,
-                message: '修改商品失败！' + rsp.resultMsg,
-                type: 'error'
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: '修改商品失败'
+              }).catch(() => {
+                // console.log('cancel');
               });
             }
           });
         }
       },
-      previewOffer(){
+      previewOffer() {
         _.some(this.brandList, (item, index) => {
-          if(item.brandCd === this.terminalMaintainInfo.brandCd){
-             this.terminalMaintainInfo.brandName =  item.brandName
+          if (item.brandCd === this.terminalMaintainInfo.brandCd) {
+            this.terminalMaintainInfo.brandName = item.brandName
           }
         });
         _.some(this.modelList, (item, index) => {
-          if(item.offerModelId === this.terminalMaintainInfo.offerModelId){
-             this.terminalMaintainInfo.offerModelName =  item.offerModelName
+          if (item.offerModelId === this.terminalMaintainInfo.offerModelId) {
+            this.terminalMaintainInfo.offerModelName = item.offerModelName
           }
         });
         _.forEach(this.offerPicList, (item, index) => {
-          if(index === 0){
+          if (index === 0) {
             this.uploadOfferPicList.offerPicUrl = item.url
-          }else if(index === 1){
+          } else if (index === 1) {
             this.uploadOfferPicList.offerPicUrl2 = item.url
-          }else if(index === 2){
+          } else if (index === 2) {
             this.uploadOfferPicList.offerPicUrl3 = item.url
-          }else if(index === 3){
+          } else if (index === 3) {
             this.uploadOfferPicList.offerPicUrl4 = item.url
-          }else if(index === 4){
+          } else if (index === 4) {
             this.uploadOfferPicList.offerPicUrl5 = item.url
-          }else if(index === 5){
+          } else if (index === 5) {
             this.uploadOfferPicList.offerPicUrl6 = item.url
           }
         });
-        if(this.title === '新增终端'){
+        if (this.title === '新增终端') {
           this.$post('/orderPlacingMeetingController/insertOffer', {
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
             'offerName': _.get(this.terminalMaintainInfo, 'offerName'),
@@ -923,7 +981,7 @@
             'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
             'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
             'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
-            'offerHardwardParam':{
+            'offerHardwardParam': {
               'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
               'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
               'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
@@ -941,21 +999,23 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === '0'){
+            if (rsp.resultCode === '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',
               });
-            }else{
-              this.$message({
-                showClose: true,
-                message: '错误提示！' + rsp.resultMsg,
-                type: 'error'
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
               });
             }
           });
-        }else{
+        } else {
           this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
@@ -970,7 +1030,7 @@
             'statusCd': _.get(this.terminalMaintainInfo, 'statusCd'),
             'offerBaseParam': _.get(this.terminalMaintainInfo, 'offerBaseParam'),
             'offerScreenParam': _.get(this.terminalMaintainInfo, 'offerScreenParam'),
-            'offerHardwardParam':{
+            'offerHardwardParam': {
               'cpuModel': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuModel'),
               'cpuRate': _.get(this.terminalMaintainInfo.offerHardwardParam, 'cpuRate'),
               'core': _.get(this.terminalMaintainInfo.offerHardwardParam, 'core'),
@@ -988,21 +1048,23 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === '0'){
+            if (rsp.resultCode === '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',
               });
-            }else{
-              this.$message({
-                showClose: true,
-                message: '错误提示！' + rsp.resultMsg,
-                type: 'error'
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
               });
             }
           });
-        };
+        }
       }
     },
     components: {
@@ -1014,24 +1076,25 @@
       SelectComponents
     },
     watch: {
-      'terminalMaintainInfo.brandCd': function(newVal, oldVal){
-        if(this.flag){
-          if(newVal !== oldVal){
+      'terminalMaintainInfo.brandCd': function (newVal, oldVal) {
+        if (this.flag) {
+          if (newVal !== oldVal) {
             this.modelOptions = [];
-            if(newVal){
+            if (newVal) {
               this.qryOfferModelList(newVal);
-            };
+            }
+            ;
             this.terminalMaintainInfo.offerModelId = '';
           }
 
-        }else{
+        } else {
           this.flag++
         }
       },
-      'offerPicList': function(newVal, oldVal){
-        if(!newVal.length){
+      'offerPicList': function (newVal, oldVal) {
+        if (!newVal.length) {
           this.nullError = true;
-        }else{
+        } else {
           this.nullError = false;
         }
       }
@@ -1042,7 +1105,7 @@
 <style lang="less">
 
   .vue_terminal-maintain {
-    .el-textarea{
+    .el-textarea {
       flex: 1;
     }
     .text-right {
@@ -1064,24 +1127,24 @@
       font-weight: 800;
     }
 
-    .terminal-info-box{
+    .terminal-info-box {
       width: 100%;
       padding: 10px 0;
       border: 1px solid #dfdfdf;
     }
-    .red-star{
+    .red-star {
       color: #f00;
     }
 
-    .upload-img-list{
-      ul{
+    .upload-img-list {
+      ul {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        div{
+        div {
           display: flex;
-          ul{
-            li{
+          ul {
+            li {
               position: relative;
               width: 90px;
               height: 92px;
@@ -1092,16 +1155,16 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              img{
+              img {
                 max-width: 100%;
                 max-height: 100%;
               }
-              &.btn-upload{
+              &.btn-upload {
                 cursor: pointer;
               }
             }
           }
-          div{
+          div {
             position: relative;
             width: 90px;
             height: 92px;
@@ -1113,11 +1176,11 @@
             justify-content: center;
             align-items: center;
             background: url('../assets/images/icon-add.png') #fcfcfc no-repeat center center;
-            img{
+            img {
               max-width: 100%;
               max-height: 100%;
             }
-            i{
+            i {
               display: none;
             }
           }
@@ -1129,7 +1192,7 @@
       position: relative;
       margin: 10px 0;
       padding-left: 110px;
-      .label-wrds{
+      .label-wrds {
         position: absolute;
         left: 0;
         top: 0;
@@ -1144,13 +1207,13 @@
       }
     }
 
-    .attention{
+    .attention {
       color: #ffa132;
     }
 
-    .result-head{
+    .result-head {
       margin-top: 28px;
-      .result-title{
+      .result-title {
         width: 129px;
         height: 34px;
         background: #f6f6f6;
@@ -1175,8 +1238,8 @@
         text-decoration: none;
       }
 
-      .buttons{
-        .btns{
+      .buttons {
+        .btns {
           &:hover {
             background-color: #e20606;
           }
@@ -1184,20 +1247,20 @@
       }
     }
 
-    .result-box{
+    .result-box {
       width: 100%;
       border-left: 1px solid #dcdcdc;
       border-top: 1px solid #dcdcdc;
-      table{
+      table {
         width: 100%;
         tr {
-          td{
+          td {
             border-right: 1px solid #dcdcdc;
             border-bottom: 1px solid #dcdcdc;
           }
         }
       }
-      .result-table-title{
+      .result-table-title {
         width: 89px;
         background: #fafafa;
         vertical-align: top;
@@ -1205,14 +1268,14 @@
         font-size: 16px;
         font-weight: bold;
       }
-      .result-table-content{
-        .el-form-item{
+      .result-table-content {
+        .el-form-item {
           font-size: 14px;
           font-weight: bold;
           text-align: left;
-          label{
+          label {
             color: #646466;
-            &.el-form-item__label{
+            &.el-form-item__label {
               text-align: left;
             }
           }
@@ -1233,9 +1296,9 @@
     }
 
     .terminal-info-box {
-      .el-radio__input{
+      .el-radio__input {
         display: none;
-        & + .el-radio__label{
+        & + .el-radio__label {
           position: relative;
           display: block;
           width: 102px;
@@ -1249,8 +1312,8 @@
           cursor: pointer;
           border-radius: 3px;
         }
-        &.is-checked + .el-radio__label{
-          &:after{
+        &.is-checked + .el-radio__label {
+          &:after {
             width: 30px;
             height: 24px;
             content: '';
@@ -1258,16 +1321,17 @@
             right: 0;
             bottom: 0;
             background: url('../assets/images/selected-icon.png');
-          };
+          }
+        ;
         }
       }
-      input[type=radio]{
+      input[type=radio] {
         margin: 0;
       }
-      input[type=radio] + label.label-radio{
+      input[type=radio] + label.label-radio {
         margin-right: 16px;
       }
-      input + label{
+      input + label {
         width: 102px;
         height: 32px;
         color: #f01919;
@@ -1278,7 +1342,7 @@
         cursor: pointer;
         border-radius: 3px;
       }
-      input:checked + label{
+      input:checked + label {
         position: relative;
         width: 102px;
         height: 32px;
@@ -1290,7 +1354,7 @@
         cursor: pointer;
         border-radius: 3px;
       }
-      input:checked + label:after{
+      input:checked + label:after {
         width: 30px;
         height: 24px;
         content: '';
@@ -1300,7 +1364,7 @@
         background: url('../assets/images/selected-icon.png');
       }
     }
-    .foot-btn{
+    .foot-btn {
       width: 100%;
       margin-top: 50px;
       padding: 24px 0;
@@ -1321,7 +1385,7 @@
         &:hover {
           background-color: #e20606;
         }
-        &:disabled{
+        &:disabled {
           opacity: 0.7
         }
       }
@@ -1332,7 +1396,7 @@
       }
     }
 
-    .import-result-box{
+    .import-result-box {
       width: 100%;
       height: 168px;
       margin: 20px auto 0;
@@ -1343,16 +1407,16 @@
       justify-content: center;
       align-items: center;
     }
-    .success{
+    .success {
       width: 330px;
       margin: auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      .suc-img{
+      .suc-img {
         margin-right: 16px;
       }
-      .import-text{
+      .import-text {
         color: #000;
         font-size: 16px;
         font-weight: bold;
@@ -1360,18 +1424,18 @@
     }
 
     //表单提示样式
-    .el-form-item{
+    .el-form-item {
       margin: 10px 0;
     }
 
-    .upload-list-null{
+    .upload-list-null {
       z-index: 999;
       color: #f56c6c;
       height: 92px;
       line-height: 92px;
       font-size: 12px;
     }
-    .editor-error{
+    .editor-error {
       position: absolute;
       left: 0;
       bottom: -30px;
@@ -1382,29 +1446,31 @@
       line-height: 1;
       padding-top: 4px;
     }
-    .el-form-item__error{
+    .el-form-item__error {
       padding: 5px;
       z-index: 999;
     }
 
-    .el-form-item__label{
+    .el-form-item__label {
       height: 28px;
       line-height: 28px;
       padding: 0;
       color: #333;
     }
-    .el-form-item__content{
+    .el-form-item__content {
       line-height: 26px;
     }
     //表单提示样式
-    .el-date-editor.el-input{
+    .el-date-editor.el-input {
       width: 100%;
     }
 
   }
-  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell{
+
+  .el-date-picker__header-label.active, .el-date-picker__header-label:hover, .el-month-table td .cell:hover, .el-month-table td.current:not(.disabled) .cell {
     color: #ff7a7a;
   }
+
   .el-date-table td.current:not(.disabled) span {
     color: #fff;
     background-color: #ff7a7a;

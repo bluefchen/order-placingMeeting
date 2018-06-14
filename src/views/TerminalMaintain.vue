@@ -62,12 +62,15 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="终端产品列表"/>
         <div class="buttons fn-right">
-          <router-link class="btns" :to="{path: '/orderManage/addTerminalMaintain', query: {operation: 'add'}}"><i class="iconfont">&#xe6a8;</i> 新增终端</router-link>
+          <router-link class="btns" :to="{path: '/orderManage/addTerminalMaintain', query: {operation: 'add'}}"><i
+            class="iconfont">&#xe6a8;</i> 新增终端
+          </router-link>
           <button @click="batchUpdateOffer" class="btns"><i class="iconfont">&#xe679;</i> 批量上架</button>
           <button @click="batchUnUpdateOffer" class="btns"><i class="iconfont">&#xe678;</i> 批量下架</button>
         </div>
       </div>
-      <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData" @selectionChange="selectionChange"/>
+      <Table :isSelection="true" :stripe="false" :border="false" :tableTitle="tableTitle" :tableData="tableData"
+             @selectionChange="selectionChange"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -128,18 +131,18 @@
             })
           }
         }, {
-            label: '终端状态',
-            prop: 'statusCd',
-            render: function(h, params){
-              return h({
-                template: `<div>{{param.row.statusCd ==='1001' ? '上架' : '下架'}}</div>`,
-                data: function(){
-                  return {
-                    param: params
-                  }
+          label: '终端状态',
+          prop: 'statusCd',
+          render: function (h, params) {
+            return h({
+              template: `<div>{{param.row.statusCd ==='1001' ? '上架' : '下架'}}</div>`,
+              data: function () {
+                return {
+                  param: params
                 }
-              })
-            }
+              }
+            })
+          }
         }, {
           label: '操作',
           prop: 'operation',
@@ -151,7 +154,7 @@
               <button @click="editTerminal(param.row)" class="updown-btn">修改</button>
               <button @click="deleteOffer(param.row)" class="updown-btn">删除</button>
               </div>`,
-              data: function(){
+              data: function () {
                 return {
                   param: params
                 }
@@ -232,7 +235,7 @@
         this.isFoldScreen = !this.isFoldScreen;
       },
       checkedStatusCdType(val, index) {
-        if(this.checkedStatusCdIndex != index){
+        if (this.checkedStatusCdIndex != index) {
           this.checkedStatusCdIndex = index;
           this.categoryItem.statusCd = val.statusCd;
           this.checkedCategoryList.map((item) => {
@@ -242,7 +245,7 @@
             }
           });
           this.queryOfferList();
-        }else{
+        } else {
           this.delCategoryItem('状态');
         }
       },
@@ -287,7 +290,7 @@
         if (val === '状态') {
           this.checkedStatusCdIndex = null;
           this.categoryItem.statusCd = '';
-        } else  if (val === '品牌') {
+        } else if (val === '品牌') {
           this.checkedBrandIndex = null;
           this.checkedModelIndex = null;
           this.modelList = [];
@@ -329,7 +332,7 @@
       pageChanged(curPage) {
         this.queryOfferList(curPage);
       },
-      editTerminalMaintain(val){
+      editTerminalMaintain(val) {
         localStorage.setItem('offerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/addTerminalMaintain',
@@ -338,68 +341,96 @@
           }
         });
       },
-      selectionChange(val){
+      selectionChange(val) {
         this.selectTerminalList = val;
       },
-      batchUpdateOffer(){
+      batchUpdateOffer() {
         let selectUpdateList = [];
         _.forEach(this.selectTerminalList, (item, index) => {
-          if(item.statusCd === '1002'){
+          if (item.statusCd === '1002') {
             selectUpdateList.push(item.offerId);
           }
         });
-        if(selectUpdateList.length){
+        if (selectUpdateList.length) {
           this.updateOffer(selectUpdateList);
-        }else{
-          this.$message.warning('请至少选择一项进行操作！');
+        } else {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请至少选择一项进行操作'
+          }).catch(() => {
+            // console.log('cancel');
+          });
         }
       },
-      batchUnUpdateOffer(){
+      batchUnUpdateOffer() {
         let selectUnUpdateList = [];
         _.forEach(this.selectTerminalList, (item, index) => {
-          if(item.statusCd === '1001'){
+          if (item.statusCd === '1001') {
             selectUnUpdateList.push(item.offerId);
           }
         });
-        if(selectUnUpdateList.length){
+        if (selectUnUpdateList.length) {
           this.unUpdateOffer(selectUnUpdateList);
-        }else{
-          this.$message.warning('请至少选择一项进行操作！');
+        } else {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请至少选择一项进行操作'
+          }).catch(() => {
+            // console.log('cancel');
+          });
         }
       },
-      updateOffer(val){
+      updateOffer(val) {
         this.$post('/orderPlacingMeetingController/updateOfferGround', {
           offerIds: val
         }).then((rsp) => {
-          if(rsp.resultCode === '0'){
-            this.$message.success('终端上架成功!');
-            this.queryOfferList(this.currentPage);
-          }else{
-            this.$message({
-              showClose: true,
-              message: '终端上架失败！' + rsp.resultMsg,
-              type: 'error'
+          if (rsp.resultCode === '0') {
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '终端上架成功'
+            }).catch(() => {
+              // console.log('cancel');
             });
-          };
+            this.queryOfferList(this.currentPage);
+          } else {
+            this.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: '终端上架失败'
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         })
       },
-      unUpdateOffer(val){
+      unUpdateOffer(val) {
         this.$post('/orderPlacingMeetingController/updateOfferUnground', {
           offerIds: val
         }).then((rsp) => {
-          if(rsp.resultCode === '0'){
-            this.$message.success('终端下架成功!');
-            this.queryOfferList(this.currentPage);
-          }else{
-            this.$message({
-              showClose: true,
-              message: '终端下架失败！' + rsp.resultMsg,
-              type: 'error'
+          if (rsp.resultCode === '0') {
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '终端下架成功'
+            }).catch(() => {
+              // console.log('cancel');
             });
-          };
+            this.queryOfferList(this.currentPage);
+          } else {
+            this.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: '终端下架失败'
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         })
       },
-      deleteOffer(val){
+      deleteOffer(val) {
         this.$msgBox({
           type: 'info',
           title: '操作提示',
@@ -409,21 +440,32 @@
           this.$post('/orderPlacingMeetingController/deleteOffer', {
             offerId: val
           }).then((rsp) => {
-            if(rsp.resultCode === '0'){
-              this.$message.success('终端删除成功!');
-              this.queryOfferList(this.currentPage);
-            }else{
-              this.$message({
-                showClose: true,
-                message: '终端删除失败！' + rsp.resultMsg,
-                type: 'error'
+            if (rsp.resultCode === '0') {
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '终端删除成功'
+              }).catch(() => {
+                // console.log('cancel');
               });
-            };  
+              this.queryOfferList(this.currentPage);
+            } else {
+              this.$msgBox({
+                type: 'info',
+                title: '操作提示',
+                content: '终端删除失败'
+              }).catch(() => {
+                // console.log('cancel');
+              });
+            }
           })
         }).catch(() => {
-          this.$message({
+          this.$msgBox({
             type: 'info',
-            message: '取消删除!'
+            title: '操作提示',
+            content: '取消删除'
+          }).catch(() => {
+            // console.log('cancel');
           });
         });
       }
@@ -724,17 +766,17 @@
         padding: 2px 5px;
         border: 1px solid #fff;
         text-decoration: underline;
-        &.green{
+        &.green {
           color: #46b02e;
         }
-        &:hover{
+        &:hover {
           border: 1px solid #f82134;
           border-radius: 3px;
           text-decoration: none;
         }
       }
-      .updown-btn{
-        &.green{
+      .updown-btn {
+        &.green {
           &:hover {
             border: 1px solid #46b02e;
           }

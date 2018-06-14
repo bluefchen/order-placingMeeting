@@ -10,11 +10,12 @@
     <!-- 搜索 -->
     <div class="box-1200">
       <div class="search fn-clear">
-        <InputWithSelect :placeholderText="'请输入零售商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true" />
-        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
-                                                                              class="iconfont">&#xe607;</i><i
+        <InputWithSelect :placeholderText="'请输入零售商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true"/>
+        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i
+          v-show="isShowMoreCondition"
+          class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-        </div>
+      </div>
     </div>
 
     <!-- 条件搜索 -->
@@ -53,7 +54,7 @@
           <button class="btns" @click="batchDeleteRetailer"><i class="iconfont">&#xe610;</i> 批量删除</button>
         </div>
       </div>
-      <Table :isSelection="true" :table-title="tableTitle" :table-data="tableData" @selectionChange="selectionChange" />
+      <Table :isSelection="true" :table-title="tableTitle" :table-data="tableData" @selectionChange="selectionChange"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -83,10 +84,10 @@
         retailerTypeList: [{
           value: '1001',
           label: '自营厅'
-        },{
+        }, {
           value: '1002',
           label: '大连锁'
-        },{
+        }, {
           value: '1003',
           label: '代理商'
         }],
@@ -94,7 +95,7 @@
         retailerStatusList: [{
           value: '1000',
           label: '有效'
-        },{
+        }, {
           value: '1001',
           label: '停用'
         }],
@@ -190,7 +191,7 @@
         this.orderQueryData.offerNameOrCode = obj.value;
         this.qryRetailerList()
       },
-      selectAddress(code, name){
+      selectAddress(code, name) {
         this.orderQueryData.commonRegionId = code;
         this.orderQueryData.commonRegionName = name;
       },
@@ -208,151 +209,156 @@
           this.total = rsp.totalSize;
         })
       },
-      selectionChange(val){
+      selectionChange(val) {
         this.selectList = val;
       },
-      batchFreezeRetailer(){
-        // var retailerList = [];
-        // this.selectList.forEach((item, index) => {
-        //   if (item.statusCd === '1000') {
-        //     retailerList.push(item.retailerId)
-        //   }
-        // });
-        // if(retailerList.length){
-        //   this.freezeRetailer(retailerList);
-        // }else{
-        //   this.$message({
-        //     message: '请选择需要冻结的零售商！',
-        //     type: 'warning'
-        //   });
-        // }
+      batchFreezeRetailer() {
         let retailerList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要冻结的零售商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1001'){
+            if (item.statusCd == '1001') {
               flag = true;
               return;
             }
             retailerList.push(item.retailerId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要冻结的有效零售商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的有效零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.freezeRetailer(retailerList);
         }
       },
-      batchUnfreezeRetailer(){
-        // var retailerList = [];
-        // this.selectList.forEach((item, index) => {
-        //   if (item.statusCd === '1001') {
-        //     retailerList.push(item.retailerId)
-        //   }
-        // });
-        // if(retailerList.length){
-        //   this.unfreezeRetailer(retailerList);
-        // }else{
-        //   this.$message({
-        //     message: '请选择需要激活的零售商！',
-        //     type: 'warning'
-        //   });
-        // }
+      batchUnfreezeRetailer() {
         let retailerList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要激活的零售商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1000'){
+            if (item.statusCd == '1000') {
               flag = true;
               return;
             }
             retailerList.push(item.retailerId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要激活的有效零售商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的有效零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.unfreezeRetailer(retailerList);
         }
       },
-      batchDeleteRetailer(){
-        // var retailerList = [];
-        // this.selectList.forEach((item, index) => {
-        //   retailerList.push(item.retailerId);
-        // });
-        // if(retailerList.length){
-        //   this.deleteRetailer(retailerList);
-        // }else{
-        //   this.$message({
-        //     message: '请选择需要删除的零售商！',
-        //     type: 'warning'
-        //   });
-        // }
+      batchDeleteRetailer() {
         let retailerList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要删除的零售商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1001'){
+            if (item.statusCd == '1001') {
               flag = true;
               return;
             }
             retailerList.push(item.retailerId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要删除的有效零售商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的有效零售商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.deleteRetailer(retailerList);
         }
       },
-      freezeRetailer(val){
+      freezeRetailer(val) {
         this.$post('/orderPlacingMeetingController/freezeRetailer', {
           retailerIds: val
         }).then((rsp) => {
-          this.$message({
-            message: '冻结成功！',
-            type: 'success'
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '冻结成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.qryRetailerList(this.currentPage);
         })
       },
-      unfreezeRetailer(val){
+      unfreezeRetailer(val) {
         this.$post('/orderPlacingMeetingController/unfreezeRetailer', {
           retailerIds: val
         }).then((rsp) => {
-          this.$message({
-            message: '激活成功！',
-            type: 'success'
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '激活成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.qryRetailerList(this.currentPage);
         })
       },
-      deleteRetailer(val){
+      deleteRetailer(val) {
         this.$post('/orderPlacingMeetingController/deleteRetailer', {
           retailerIds: val
         }).then((rsp) => {
-          this.$message({
-            message: '删除成功！',
-            type: 'success'
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '删除成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.qryRetailerList(this.currentPage);
         })
       },
-      addRetailer(title, val){
-        if(title === '新增'){
+      addRetailer(title, val) {
+        if (title === '新增') {
           this.$router.push({
             path: '/orderManage/AddSetailerData',
             query: {
               operation: 'add'
             }
           });
-        }else{
+        } else {
           localStorage.setItem('retailerId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSetailerData',
@@ -363,7 +369,7 @@
         }
 
       },
-      detailRetailer(val){
+      detailRetailer(val) {
         localStorage.setItem('retailerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSetailerData'
@@ -408,23 +414,23 @@
     /*中间背景图片*/
 
     /* 条件搜索 */
-    .title-plate{
+    .title-plate {
       margin-top: 13px;
       padding: 8px 0;
       border-bottom: 2px solid #e5e5e5;
     }
 
-    .btn-checkbox{
-      input{
+    .btn-checkbox {
+      input {
         display: none;
       }
-      input + label{
+      input + label {
         padding-left: 22px;
         background: url('../assets/images/checkbox.png') no-repeat left center;
         font-size: 14px;
         cursor: pointer;
       }
-      input:checked + label{
+      input:checked + label {
         background: url('../assets/images/checkedbox.png') no-repeat left center;
       }
     }
@@ -474,7 +480,7 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
-    .v_table .delete-btn{
+    .v_table .delete-btn {
       background: none;
     }
   }
