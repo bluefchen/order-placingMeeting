@@ -22,7 +22,7 @@
           </div>
           <div class="cnt-wrds fn-right">
             <div v-html="opMeetingInfo.discription"></div>
-          </div>        
+          </div>
         </div>
       </div>
       <div class="stores">
@@ -234,7 +234,6 @@
     .cnt-info .cnt-img{
       width: 278px;
       height: 246px;
-      margin-top: 6px;
       border: 1px solid #ccc;
       text-align: center;
       overflow: hidden;
@@ -245,7 +244,7 @@
     }
     .cnt-info .cnt-wrds{
       width: 900px;
-      height: 254px;
+      height: 246px;
       line-height: 28px;
       overflow-y: auto;
     }
