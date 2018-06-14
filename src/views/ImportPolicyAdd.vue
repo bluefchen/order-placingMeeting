@@ -15,7 +15,7 @@
         <div class="file-import">
           <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
         </div>
-        <div class="import-result-box" v-show="data">
+        <div class="import-result-box" v-show="isShowSuccess">
           <div class="success">
             <p class="title">上传政策成功，等待集团审批！</p>
             <p class="sub-title">您可到<router-link class="btns" to="/order/policyManage">政策投入</router-link>查看您制定的政策</p>
@@ -40,13 +40,23 @@
       return {
         url: '/opmPolicyController/batchInsertOpmPolicy',
         downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
-        data: null,
+        isShowSuccess: false,
         uploadDone: false
       }
     },
     methods: {
       uploadData(data) {
-        this.data = data;
+        if (data.resultCode === '0') {
+          this.isShowSuccess = true;
+        } else {
+          this.$msgBox({
+            type: 'error',
+            title: '操作提示',
+            content: data.resultMsg
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        }
         console.log('导入文件返回的数据：', data);
       },
       jumpLink() {
