@@ -7,14 +7,14 @@
             <div class="all fn-left">全部：</div>
             <div class="first-letter-list fn-left">
               <ul>
-                <li>所有品牌</li>
-                <li v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
+                <li @click="showAllLetterFilter">所有品牌</li>
+                <li @click="firstLetterFilter(item)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
               </ul>
             </div>
           </div>
           <div class="popover-item-list fn-clear">
             <ul>
-              <li @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
+              <li v-show="showAllLetter || item.firstLetter === firstLetter" @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
             </ul>
           </div>
         </div>
@@ -54,13 +54,23 @@
         visible: false,
         copyValue: '',
         checkedIndex: null,
-        copyValue: this.value
+        copyValue: this.value,
+        firstLetter: null,
+        showAllLetter: true,
       }
     },
     methods: {
       checkedPopover(item, index){
         this.visible = false;
         this.$emit('update:value', item.value);
+      },
+      firstLetterFilter(item){
+        this.firstLetter = item;
+        this.showAllLetter = false;
+      },
+      showAllLetterFilter(){
+        this.showAllLetter = true;
+        this.firstLetter = null;
       }
     },
     components: {
