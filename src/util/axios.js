@@ -32,15 +32,36 @@ axios.interceptors.response.use(response => {
   setTimeout(function () {
     loadingInstance.close();
   }, 500);
+
+  if (!response.data.success) {
+    setTimeout(function () {
+      Vue.prototype.$msgBox({
+        type: 'error',
+        title: '操作提示',
+        content: response.data.msg
+      });
+    }, 500);
+  }
+
   return response.data;
 }, error => {
   setTimeout(function () {
     loadingInstance.close();
   }, 500);
   if (error.response.status === 504 || error.response.status === 404) {
-    Message.error({message: '您请求资源URL不存在!'});
+    // Message.error({message: '您请求资源URL不存在!'});
+    Vue.prototype.$msgBox({
+      type: 'info',
+      title: '操作提示',
+      content: '您请求资源URL不存在!'
+    });
   } else {
-    Message.error({message: '服务器出小差了，请稍后再试!'});
+    // Message.error({message: '服务器出小差了，请稍后再试!'});
+    Vue.prototype.$msgBox({
+      type: 'info',
+      title: '操作提示',
+      content: '服务器出小差了，请稍后再试!'
+    });
   }
   return Promise.reject(error);
 });
