@@ -1,7 +1,7 @@
 <template>
   <div class="vue_select-components">
     <div class="el-popover-box">  
-      <el-popover :placement="placement" :width="width" trigger="click" v-model="visible">
+      <el-popover :placement="placement" :width="width" height="200" trigger="click" v-model="visible">
         <div class="popover-box">
           <div class="fn-clear popover-head-list">
             <div class="all fn-left">全部：</div>
@@ -14,21 +14,25 @@
           </div>
           <div class="popover-item-list fn-clear">
             <ul>
-              <li :class="{'checked': checkedIndex===index}" @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
+              <li @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
             </ul>
           </div>
         </div>
-        <input type="text" :value.sync="value" slot="reference" readonly />
+        <Select :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
       </el-popover>
     </div>
   </div>
 </template>
 
 <script>
-
+  import Input from '@/components/Input';
+  import Select from '@/components/Select';
   export default {
     name: 'SelectComponents',
     props: {
+      value: {
+        type: [String, Number]
+      },
       placement: {
         type: String,
         require: true
@@ -48,58 +52,46 @@
       return {
         firstLetterList: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
         visible: false,
-        value: '',
+        copyValue: '',
         checkedIndex: null,
+        copyValue: this.value
       }
     },
     methods: {
       checkedPopover(item, index){
-        this.value = item.label;
-        console.log(item, index);
-        this.checkedIndex = index;
         this.visible = false;
-        this.$emit('update:value', item);
+        this.$emit('update:value', item.value);
       }
     },
     components: {
-    }
+      Input,
+      Select
+    },
+    watch: {
+      'value': function(val) {
+        this.copyValue = val;
+      }
+    },
   }
 </script>
 
-<style lang="less">
+<style scope lang="less">
+
+  .el-select-dropdown{
+    display: none;
+  }
   
   .el-popover{
     border: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 0;
   }
-  .checked{
-
-  }
 
   .vue_select-components{
     .el-popover-box{
-      width: 100%;
       height: 30px;
       line-height: 30px;
       cursor: pointer;
-      position: relative;
-      &:after{
-        display: block;
-        content: '\E605';
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-      input{
-        width: 100%;
-        height: 28px;
-        line-height: 28px;
-        border: 1px solid #dcdfe6;
-        cursor: pointer;
-        position: relative;
-        text-indent: 15px;
-      }
     }
   }
 
@@ -136,6 +128,8 @@
     .popover-item-list{
       margin-top: 5px;
       margin-left: 40px;
+      height: 200px;
+      overflow: auto;
       ul{
         li{
           float: left;
@@ -146,6 +140,8 @@
           border: 1px solid #fff;
           cursor: pointer;
           &:hover{
+            background: #f01919;
+            color: #fff;
             border: 1px solid #f01919;
           };
         }
