@@ -122,7 +122,7 @@
       return {
         editshow: true,
         depositType: '',
-        opMeetingInfo: [],//订货会数据
+        opMeetingInfo: null,//订货会数据
         depositInfoList: {
           depositTypeName: '',
           depositProportion: '',

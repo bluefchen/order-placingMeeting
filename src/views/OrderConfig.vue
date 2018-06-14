@@ -347,7 +347,7 @@
         overError: null,
         active: 1,
         title: '',
-        opMeetingInfo: {},
+        opMeetingInfo: null,
         orderPlacingMeeting: {
           logoUrl: ''
         },

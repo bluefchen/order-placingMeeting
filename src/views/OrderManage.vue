@@ -32,6 +32,14 @@
         partyName: '', //当前登录人员的名称
         token: '' //新的会话令牌
       };
+      if (!this.user.token) {
+        this.$post('http://192.168.74.17:9086/psm/systemUserController/loginInitialize', {
+          userId: this.$route.query.userId,
+          token: this.$route.query.token
+        }).then((rsp) => {
+          localStorage.setItem('user', JSON.stringify(rsp));
+        });
+      }
     },
     data() {
       return {

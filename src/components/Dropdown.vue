@@ -21,14 +21,6 @@
         type: String
       }
     },
-    created() {
-      this.user = JSON.parse(localStorage.getItem('user'));
-    },
-    data() {
-      return {
-        user: null
-      }
-    },
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
