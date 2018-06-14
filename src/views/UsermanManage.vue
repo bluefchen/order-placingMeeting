@@ -92,9 +92,6 @@
           value: 1000,
           label: '有效'
         }, {
-          value: 1001,
-          label: '失效'
-        }, {
           value: 1002,
           label: '冻结'
         }, {
@@ -200,7 +197,7 @@
                       }).catch(() => {
                         // console.log('cancel');
                       });
-                    }                   
+                    }
                   })
                 },
                 //激活
@@ -224,7 +221,7 @@
                       }).catch(() => {
                         // console.log('cancel');
                       });
-                    }                   
+                    }
                   })
                 },
                 //删除
@@ -239,7 +236,7 @@
                         content: '删除成功'
                       }).catch(() => {
                         this.queryUsermanSubmit(this.currentPage);
-                      });                    
+                      });
                     }else{
                       this.$msgBox({
                         type: 'error',
@@ -338,7 +335,7 @@
               content: '激活成功'
             }).catch(() => {
               this.queryUsermanSubmit();
-            });  
+            });
           }else{
             this.$msgBox({
               type: 'error',
@@ -401,7 +398,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }         
+          }
         })
       },
       //批量删除
@@ -455,7 +452,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }         
+          }
         })
       },
       queryUsermanSubmit(curPage, pageSize) {

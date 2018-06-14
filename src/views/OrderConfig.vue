@@ -137,7 +137,7 @@
                     <i v-else class="avatar-uploader-icon"></i>
                     <div v-if="orderPlacingMeeting.logoUrl" class="edit"><i class="iconfont">&#xe656;</i> 编辑</div>
                   </el-upload>
-                  <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
+                  <div class="fn-left logo-notice">logo尺寸大小：高宽278*246PX，请上传png、jpeg、bmp、jpg格式的图片</div>
                 </el-form-item>
               </el-col>
             </el-row>
