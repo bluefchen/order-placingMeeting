@@ -41,7 +41,7 @@
     },
     computed: {
       commonReginName() {
-        return _.get(this.user, 'commonReginName') || '地区';
+        return _.get(this.user, 'commonReginName');
       }
     },
     components: {
