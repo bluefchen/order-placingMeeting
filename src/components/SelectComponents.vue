@@ -80,7 +80,7 @@
     },
     created() {
       if(this.model === 'multi'){
-        this.valueList = this.value.split("，")
+        this.valueList = this.value ? this.value.split("，") : [];
         _.forEach(this.valueList, (val, valIndex) => {
           _.forEach(this.list, (item, index) => {
             if(item.label === val){
