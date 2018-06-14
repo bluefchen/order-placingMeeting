@@ -546,7 +546,13 @@
           this.pass = null;
           this.progress = 0;
         } else if (file.status == 'fail') {
-          this.$message.error("图片上传出错，请刷新重试！")
+          this.$msgBox({
+            type: 'error',
+            title: '操作提示',
+            content: '图片上传出错,请刷新重试'
+          }).catch(() => {
+            // console.log('cancel');
+          });
         }
       },
       uploadOnError(e, file) {
@@ -555,7 +561,13 @@
       //图片上传
       handleAvatarSuccess(res, file) {
         this.pass = true;
-        this.$message.success("上传成功");
+        this.$msgBox({
+          type: 'success',
+          title: '操作提示',
+          content: '上传成功'
+        }).catch(() => {
+          // console.log('cancel');
+        });
         this.orderPlacingMeeting.logoUrl = res.data.url;
       },
       beforeAvatarUpload(file) {
@@ -566,7 +578,13 @@
           isImg = false;
         }
         if (!isImg) {
-          this.$message.error('订购会logo只能是规定的图片格式!');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '订购会logo只能是规定的图片格式'
+          }).catch(() => {
+            // console.log('cancel');
+          });
         }
         return isImg;
       },
@@ -599,7 +617,13 @@
             if (rsp.resultCode === 0) {
               this.next();
             } else {
-              this.$message.warning(rsp.resultMsg);
+              this.$msgBox({
+                type: 'info',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
+              });
             }
           });
         } else {
@@ -622,7 +646,13 @@
             if (rsp.resultCode === 0) {
               this.next();
             } else {
-              this.$message.warning(rsp.resultMsg);
+              this.$msgBox({
+                type: 'info',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
+              });
             }
           });
         }

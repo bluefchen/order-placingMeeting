@@ -184,7 +184,13 @@
                   this.$post('/systemUserController/freezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$message.success('冻结成功！');
+                    this.$msgBox({
+                      type: 'success',
+                      title: '操作提示',
+                      content: '冻结成功'
+                    }).catch(() => {
+                      // console.log('cancel');
+                    });
                     this.queryUsermanSubmit(this.currentPage);
                   })
                 },
@@ -193,7 +199,13 @@
                   this.$post('/systemUserController/unfreezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$message.success('激活成功！');
+                    this.$msgBox({
+                      type: 'success',
+                      title: '操作提示',
+                      content: '激活成功'
+                    }).catch(() => {
+                      // console.log('cancel');
+                    });
                     this.queryUsermanSubmit(this.currentPage);
                   })
                 },
@@ -202,7 +214,13 @@
                   this.$post('/systemUserController/deleteSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    this.$message.success('删除成功！');
+                    this.$msgBox({
+                      type: 'success',
+                      title: '操作提示',
+                      content: '删除成功'
+                    }).catch(() => {
+                      // console.log('cancel');
+                    });
                     this.queryUsermanSubmit(this.currentPage);
                   })
                 },
@@ -256,25 +274,43 @@
         let partyIds = [],
           flag = false;
         if (!this.selectionChangeList.length) {
-          this.$message.warning('请选择需要激活的用户！');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        }else{
+        } else {
           _.map(this.selectionChangeList, function (item) {
-            if(item.statusCd == 1000){
+            if (item.statusCd == 1000) {
               flag = true;
               return;
             }
             partyIds.push(item.partyId);
           })
-        };
-        if(flag){
-          this.$message.warning('请选择需要激活的有效用户！');
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的有效用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        };
+        }
         this.$post('/systemUserController/unfreezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          this.$message.success('激活成功！');
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '激活成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           this.queryUsermanSubmit();
         })
       },
@@ -283,25 +319,43 @@
         let partyIds = [],
           flag = false;
         if (!this.selectionChangeList.length) {
-          this.$message.warning('请选择需要冻结的用户！');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        }else{
+        } else {
           _.map(this.selectionChangeList, function (item) {
-            if(item.statusCd != 1000){
+            if (item.statusCd != 1000) {
               flag = true;
               return;
             }
             partyIds.push(item.partyId);
           })
-        };
-        if(flag){
-          this.$message.warning('请选择需要冻结的有效用户！');
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的有效用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        };
+        }
         this.$post('/systemUserController/freezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          this.$message.success('冻结成功！');
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '冻结成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           this.queryUsermanSubmit();
         })
       },
@@ -310,25 +364,43 @@
         let partyIds = [],
           flag = false;
         if (!this.selectionChangeList.length) {
-          this.$message.warning('请选择需要删除的用户！');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        }else{
+        } else {
           _.map(this.selectionChangeList, function (item) {
-            if(item.statusCd != 1000){
+            if (item.statusCd != 1000) {
               flag = true;
               return;
             }
             partyIds.push(item.partyId);
           })
-        };
-        if(flag){
-          this.$message.warning('请选择需要删除的有效用户！');
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的有效用户'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
-        };
+        }
         this.$post('/systemUserController/deleteSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          this.$message.success('删除成功！');
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '删除成功'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           this.queryUsermanSubmit();
         })
       },
@@ -356,10 +428,10 @@
         if (this.usermanData.userType == 3) {
           this.merchantsTitle = '零售商';
           this.disabled = false;
-        } else if(this.usermanData.userType == 2){
+        } else if (this.usermanData.userType == 2) {
           this.merchantsTitle = '供应商';
           this.disabled = false;
-        } else if(this.usermanData.userType == 1){
+        } else if (this.usermanData.userType == 1) {
           this.merchantsTitle = '';
           this.disabled = true;
         }
