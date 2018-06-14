@@ -124,7 +124,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <!-- 密码规则 -->
           <div class="password-rule">
             <p class="p-titl"><img src="../assets/images/icon-remind.png">提示</p>
@@ -206,7 +206,7 @@
           callback();
         }
       };
-      var checkCommonRegionId = (rule, value, callback) => {        
+      var checkCommonRegionId = (rule, value, callback) => {
         if (this.usermanData.userType == 1) {
           if (!value) {
             return callback(new Error('请选择归属省份'));
@@ -215,7 +215,7 @@
           }
         } else {
           callback();
-        }       
+        }
       };
       var checkRelaId = (rule, value, callback) => {
         if (this.usermanData.userType != '1') {
@@ -302,7 +302,7 @@
                 if(rsp.resultCode == '0'){
                   this.$msgBox({
                     type: 'success',
-                    title: '成功提示',
+                    title: '操作提示',
                     content: '添加成功'
                   }).catch(() => {
                     this.$router.push({
@@ -312,12 +312,12 @@
                 }else{
                   this.$msgBox({
                     type: 'error',
-                    title: '失败提示',
+                    title: '操作提示',
                     content: rsp.resultMsg
                   }).catch(() => {
                     // console.log('cancel');
                   });
-                }               
+                }
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
@@ -330,11 +330,11 @@
                 name: _.get(this.usermanData, 'name')||'',
                 linktelenumber: _.get(this.usermanData, 'linktelenumber')||'',
                 remark: this.usermanData.remark,
-              }).then((rsp) => {               
+              }).then((rsp) => {
                 if(rsp.resultCode == '0'){
                   this.$msgBox({
                     type: 'success',
-                    title: '成功提示',
+                    title: '操作提示',
                     content: '修改成功'
                   }).catch(() => {
                     this.$router.push({
@@ -344,12 +344,12 @@
                 }else{
                   this.$msgBox({
                     type: 'error',
-                    title: '失败提示',
+                    title: '操作提示',
                     content: rsp.resultMsg
                   }).catch(() => {
                     // console.log('cancel');
                   });
-                }                            
+                }
               })
             }
           } else {

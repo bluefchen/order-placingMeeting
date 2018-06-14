@@ -149,7 +149,13 @@
       //保存
       addRelevantRoleSubmit(){
         if(!this.selectionChangeList.length){
-          this.$message.warning('请至少选择一项进行操作！');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: rsp.resultMsg
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
         }
         let partyIds = [];
@@ -182,7 +188,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }               
+          }
         })
       },
       cancel(){

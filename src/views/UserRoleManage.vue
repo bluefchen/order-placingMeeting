@@ -112,8 +112,13 @@
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
-                    this.$message.success('删除成功！');
-                    //刷新数据
+                    this.$msgBox({
+                      type: 'success',
+                      title: '操作提示',
+                      content: '删除成功'
+                    }).catch(() => {
+                      // console.log('cancel');
+                    });
                   });
                 }
               },
@@ -176,8 +181,13 @@
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
-                    this.$message.success('删除成功！');
-                    //刷新数据
+                    this.$msgBox({
+                      type: 'success',
+                      title: '操作提示',
+                      content: '删除成功'
+                    }).catch(() => {
+                      // console.log('cancel');
+                    });
                   });
                 }
               },

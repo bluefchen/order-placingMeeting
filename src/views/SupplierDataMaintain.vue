@@ -10,10 +10,12 @@
     <!-- 搜索 -->
     <div class="box-1200">
       <div class="search fn-clear">
-        <InputWithSelect :placeholderText="'请输入供货商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true" :placeholder="placeholder"/>
-        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
+        <InputWithSelect :placeholderText="'请输入供货商名称或编码查询'" class="fn-left" @search="search" :isHideSelect="true"
+                         :placeholder="placeholder"/>
+        <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i
+          v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i
           v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-        </div>
+      </div>
     </div>
 
     <!-- 条件搜索 -->
@@ -52,7 +54,7 @@
           <button class="btns" @click="batchDeleteSupplier"><i class="iconfont">&#xe610;</i> 批量删除</button>
         </div>
       </div>
-      <Table :isSelection="true" :table-title="tableTitle" :table-data="tableData" @selectionChange="selectionChange" />
+      <Table :isSelection="true" :table-title="tableTitle" :table-data="tableData" @selectionChange="selectionChange"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -78,18 +80,18 @@
     },
     data() {
       return {
-        placeholder:'输入供货商编码或供货商名称查询',
+        placeholder: '输入供货商编码或供货商名称查询',
         //供货商类型
         supplierTypeList: [{
           value: '1001',
           label: '厂商'
-        },{
+        }, {
           value: '1002',
           label: '国代'
-        },{
+        }, {
           value: '1003',
           label: '省代'
-        },{
+        }, {
           value: '1004',
           label: '其他'
         }],
@@ -97,7 +99,7 @@
         supplierStatusList: [{
           value: '1000',
           label: '有效'
-        },{
+        }, {
           value: '1001',
           label: '停用'
         }],
@@ -206,93 +208,135 @@
           this.total = rsp.totalSize;
         })
       },
-      selectionChange(val){
+      selectionChange(val) {
         this.selectList = val;
       },
-      batchFreezeSupplier(){
+      batchFreezeSupplier() {
         let supplierList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要冻结的供应商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1001'){
+            if (item.statusCd == '1001') {
               flag = true;
               return;
             }
             supplierList.push(item.supplierId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要冻结的有效供应商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要冻结的有效供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.freezeSupplier(supplierList);
         }
       },
-      batchUnfreezeSupplier(){
+      batchUnfreezeSupplier() {
         let supplierList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要激活的供应商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1000'){
+            if (item.statusCd == '1000') {
               flag = true;
               return;
             }
             supplierList.push(item.supplierId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要激活的有效供应商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要激活的有效供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.unfreezeSupplier(supplierList);
         }
       },
-      batchDeleteSupplier(){
+      batchDeleteSupplier() {
         let supplierList = [],
-            flag = false;
+          flag = false;
         if (!this.selectList.length) {
-          this.$message.warning('请选择需要删除的供应商！');
-        }else{
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           _.map(this.selectList, function (item) {
-            if(item.statusCd == '1001'){
+            if (item.statusCd == '1001') {
               flag = true;
               return;
             }
             supplierList.push(item.supplierId);
-          })  
-        };
-        if(flag){
-          this.$message.warning('请选择需要删除的有效供应商！');
-        }else{
+          })
+        }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '请选择需要删除的有效供应商'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+        } else {
           this.deleteSupplier(supplierList);
         }
       },
 
-      freezeSupplier(val){
+      freezeSupplier(val) {
         this.$post('/orderPlacingMeetingController/freezeSupplier', {
           supplierIds: val
         }).then((rsp) => {
-          this.$message({
-            message: '冻结成功！',
-            type: 'success'
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '冻结成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.qrySupplierList(this.currentPage);
         })
       },
-      unfreezeSupplier(val){
+      unfreezeSupplier(val) {
         this.$post('/orderPlacingMeetingController/unfreezeSupplier', {
           supplierIds: val
         }).then((rsp) => {
-          this.$message({
-            message: '激活成功！',
-            type: 'success'
+          this.$msgBox({
+            type: 'success',
+            title: '操作提示',
+            content: '激活成功'
+          }).catch(() => {
+            // console.log('cancel');
           });
           this.qrySupplierList(this.currentPage);
         })
       },
-      deleteSupplier(val, index){
+      deleteSupplier(val, index) {
         this.$msgBox({
           type: 'info',
           title: '操作提示',
@@ -302,28 +346,34 @@
           this.$post('/orderPlacingMeetingController/deleteSupplier', {
             supplierIds: val
           }).then((rsp) => {
-            this.$message({
-              message: '删除成功！',
-              type: 'success'
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '删除成功'
+            }).catch(() => {
+              // console.log('cancel');
             });
             this.qrySupplierList(this.currentPage);
           })
         }).catch(() => {
-          this.$message({
+          this.$msgBox({
             type: 'info',
-            message: '取消删除!'
+            title: '操作提示',
+            content: '取消删除'
+          }).catch(() => {
+            // console.log('cancel');
           });
         });
       },
-      addSupplier(title, val){
-        if(title === '新增'){
+      addSupplier(title, val) {
+        if (title === '新增') {
           this.$router.push({
             path: '/orderManage/AddSupplierData',
             query: {
               operation: 'add'
             }
           });
-        }else{
+        } else {
           localStorage.setItem('supplierId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSupplierData',
@@ -334,7 +384,7 @@
         }
 
       },
-      detailSupplier(val){
+      detailSupplier(val) {
         localStorage.setItem('supplierId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSupplierData'
@@ -378,23 +428,23 @@
     /*中间背景图片*/
 
     /* 条件搜索 */
-    .title-plate{
+    .title-plate {
       margin-top: 13px;
       padding: 8px 0;
       border-bottom: 2px solid #e5e5e5;
     }
 
-    .btn-checkbox{
-      input{
+    .btn-checkbox {
+      input {
         display: none;
       }
-      input + label{
+      input + label {
         padding-left: 22px;
         background: url('../assets/images/checkbox.png') no-repeat left center;
         font-size: 14px;
         cursor: pointer;
       }
-      input:checked + label{
+      input:checked + label {
         background: url('../assets/images/checkedbox.png') no-repeat left center;
       }
     }
@@ -444,7 +494,7 @@
     .buttons .btns:hover {
       background-color: #e20606;
     }
-    .v_table .delete-btn{
+    .v_table .delete-btn {
       background: none;
     }
   }
