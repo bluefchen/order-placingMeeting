@@ -299,43 +299,35 @@
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if(!rsp.resultCode){
-                  this.$alert('添加成功！', '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success'
-                  }).then(() => {
-                    this.$router.push({
-                      path: '/orderManage/usermanManage'
-                    });
+                this.$alert('添加成功！', '提示', {
+                  confirmButtonText: '确定',
+                  type: 'success'
+                }).then(() => {
+                  this.$router.push({
+                    path: '/orderManage/usermanManage'
                   });
-                }else{
-                  this.$message.success(rsp.resultMsg);
-                }              
+                });    
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
-                partyId: this.usermanData.partyId,
-                commonRegionId: this.usermanData.commonRegionId,
-                userType: this.usermanData.userType,
-                relaId: this.usermanData.relaId,//归属商户
-                systemUserCode: this.usermanData.systemUserCode,//用户账号
-                password: md5(this.usermanData.password, 32),
-                name: this.usermanData.name,
-                linktelenumber: this.usermanData.linktelenumber,
+                partyId: _.get(this.usermanData, 'partyId')||'',
+                commonRegionId: _.get(this.usermanData, 'commonRegionId')||'',
+                userType: _.get(this.usermanData, 'userType')||'',
+                relaId: _.get(this.usermanData, 'relaId')||'',//归属商户
+                systemUserCode:  _.get(this.usermanData, 'systemUserCode')||'',//用户账号
+                password: md5(_.get(this.usermanData, 'password')||'', 32),
+                name: _.get(this.usermanData, 'name')||'',
+                linktelenumber: _.get(this.usermanData, 'linktelenumber')||'',
                 remark: this.usermanData.remark,
-              }).then((rsp) => {
-                if(!rsp.resultCode){
-                  this.$alert('修改成功！', '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success'
-                  }).then(() => {
-                    this.$router.push({
-                      path: '/orderManage/usermanManage'
-                    });
+              }).then((rsp) => {               
+                this.$alert('修改成功！', '提示', {
+                  confirmButtonText: '确定',
+                  type: 'success'
+                }).then(() => {
+                  this.$router.push({
+                    path: '/orderManage/usermanManage'
                   });
-                }else{
-                  this.$message.success(rsp.resultMsg);
-                }              
+                });                    
               })
             }
           } else {
@@ -422,10 +414,10 @@
     }
     .password-rule{
       position: absolute;
-      top: 20px;
-      right: 60px;
-      width: 200px;
-      padding: 10px 30px;
+      top: 16px;
+      right: 20px;
+      width: 180px;
+      padding: 5px 10px;
       border: 1px solid #f8e3ce;
       background: #fffaf5;
       color: #242424;
@@ -434,32 +426,32 @@
       .p-titl{
         text-align: center;
         font-size: 16px;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
         img{
           margin-right: 8px;
           vertical-align: middle;
         }
       }
       .p1{
-        margin-bottom: 14px;
+        margin-bottom: 8px;
         span{
           color: #ff6d0b;
         }
       }
       .p2{
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         color: #9a9a9a;
         span{
           color: #ff6d0b;
         }
       }
       .p3{
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         color: #9a9a9a;
         text-indent: 14px;
       }
       .p4{
-        line-height: 20px;
+        line-height: 18px;
         color: #ff6d0b;
       }
     }

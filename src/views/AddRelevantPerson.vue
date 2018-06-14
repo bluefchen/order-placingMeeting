@@ -156,7 +156,7 @@
         _.map(this.selectionChangeList, function (item) {
           partyIds.push(item.partyId);
         });
-        this.$post('/systemUserController/unfreezeSystemUser', {
+        this.$post('/systemUserController/addPostRoleRelaUser', {
           postRoleId: this.$route.query.postRoleId,
           partyIds: partyIds,
         }).then((rsp) => {
