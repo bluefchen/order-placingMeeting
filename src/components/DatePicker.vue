@@ -67,7 +67,7 @@
       },
       valueFormat: {
         type: String,
-        default: 'yyyy-MM-dd HH:mm:ss'
+        default: 'yyyy-MM-dd'
       }
     },
     data() {
