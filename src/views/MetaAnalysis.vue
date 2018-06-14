@@ -197,7 +197,22 @@
           prop: 'busiName'
         }, {
           label: '商户类型',
-          prop: 'busiType'
+          prop: 'busiType',
+          render: (h, params) => {
+            return h({
+              template: `<div>
+              <span v-if="data.row.busiType === '1001'">自营厅</span>
+              <span v-if="data.row.busiType === '1002'">大连锁</span>
+              <span v-if="data.row.busiType === '1003'">代理商</span>
+              <span v-if="data.row.busiType === '1004'">其他</span>
+              </div>`,
+              data() {
+                return {
+                  data: params,
+                }
+              }
+            });
+          }
         }, {
           label: '订购量',
           prop: 'offerQty'
@@ -210,10 +225,16 @@
         modelOptions: [],
         merchantsTypeList: [{
           value: '1001',
-          label: '零售商'
+          label: '自营厅'
         },{
           value: '1002',
-          label: '供应商'
+          label: '大连锁'
+        },{
+          value: '1003',
+          label: '代理商'
+        },{
+          value: '1004',
+          label: '其他'
         }],
         modelQueryData: {
           offerName: '',
