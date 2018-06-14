@@ -299,12 +299,26 @@
         this.title = '修改终端';
         this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
         this.qryOfferModelList(this.maintainInfo.brandCd);
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl')});
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl2')})
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl3')})
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl4')})
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl5')})
-        this.offerPicList.push({url: _.get(this.maintainInfo, 'offerHardwardParam.offerPic.offerPicUrl6')})
+        if(this.maintainInfo.offerPic){
+          if(this.maintainInfo.offerPic.offerPicUrl){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl});
+          }
+          if(this.maintainInfo.offerPic.offerPicUrl2){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl2});
+          }
+          if(this.maintainInfo.offerPic.offerPicUrl3){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl3});
+          }
+          if(this.maintainInfo.offerPic.offerPicUrl4){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl4});
+          }
+          if(this.maintainInfo.offerPic.offerPicUrl5){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl5});
+          }
+          if(this.maintainInfo.offerPic.offerPicUrl6){
+            this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl6});
+          }
+        }
         this.showOfferPicList = [];
         _.forEach(this.offerPicList, (item, index) => {
           this.showOfferPicList.push({url: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
@@ -457,7 +471,6 @@
         this.showOfferPicList[this.showOfferPicList.length] = {
           url: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url='  + file.url
         };
-        console.log(this.offerPicList);
       },
       //图片删除
       handleRemove(file, fileList) {
@@ -587,12 +600,20 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            this.$router.push({
-              path: '/orderManage/terminalMaintain'
-            });
+            if(rsp.resultCode === 0){
+              this.$router.push({
+                path: '/orderManage/terminalMaintain'
+              })
+            }else{
+              this.$message({
+                showClose: true,
+                message: '新增商品失败！' + rsp.resultMsg,
+                type: 'error'
+              });
+            }
           });
         }else{
-          this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
+          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -624,9 +645,17 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            this.$router.push({
-              path: '/orderManage/terminalMaintain'
-            });
+            if(rsp.resultCode === 0){
+              this.$router.push({
+                path: '/orderManage/terminalMaintain'
+              })
+            }else{
+              this.$message({
+                showClose: true,
+                message: '修改商品失败！' + rsp.resultMsg,
+                type: 'error'
+              });
+            }
           });
         }
       },
@@ -687,10 +716,22 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            console.log('新增成功！')
+            if(rsp.resultCode === 0){
+              this.terminalMaintainInfo.offerPicList = this.offerPicList
+              localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
+              this.$router.push({
+                path: '/orderManage/detailTerminalMaintain',
+              });
+            }else{
+              this.$message({
+                showClose: true,
+                message: '错误提示！' + rsp.resultMsg,
+                type: 'error'
+              });
+            }
           });
         }else{
-          this.uploadOfferPicList.offerPicId = this.terminalMaintainInfo.offerHardwardParam.offerPic.offerPicId
+          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -722,14 +763,21 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            console.log('修改成功！')
+            if(rsp.resultCode === 0){
+              this.terminalMaintainInfo.offerPicList = this.offerPicList
+              localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
+              this.$router.push({
+                path: '/orderManage/detailTerminalMaintain',
+              });
+            }else{
+              this.$message({
+                showClose: true,
+                message: '错误提示！' + rsp.resultMsg,
+                type: 'error'
+              });
+            }
           });
         };
-        this.terminalMaintainInfo.offerPicList = this.offerPicList
-        localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
-        this.$router.push({
-          path: '/orderManage/detailTerminalMaintain',
-        });
       }
     },
     components: {

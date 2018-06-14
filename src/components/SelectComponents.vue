@@ -1,14 +1,14 @@
 <template>
   <div class="vue_select-components">
-    <div class="el-popover-box">  
+    <div class="el-popover-box">
       <el-popover :placement="placement" :width="width" height="200" trigger="click" v-model="visible">
         <div class="popover-box" v-show="model === 'letter' || model === 'single'">
           <div class="fn-clear popover-head-list" v-show="model === 'letter'">
             <div class="all fn-left">全部：</div>
             <div class="first-letter-list fn-left">
               <ul>
-                <li @click="showAllLetterFilter">所有品牌</li>
-                <li @click="firstLetterFilter(item)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
+                <li :class="{'checked': checkedIndex === null}" @click="showAllLetterFilter">所有品牌</li>
+                <li :class="{'checked': checkedIndex === index}" @click="firstLetterFilter(item, index)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
               </ul>
             </div>
           </div>
@@ -18,9 +18,10 @@
             </ul>
           </div>
         </div>
-        <Select v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
         <Select v-if="model === 'multi'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
       </el-popover>
+      <div class="visible-hide" v-show="visible"></div>
     </div>
   </div>
 </template>
@@ -69,11 +70,13 @@
         this.visible = false;
         this.$emit('update:value', item.value);
       },
-      firstLetterFilter(item){
+      firstLetterFilter(item, index){
         this.firstLetter = item;
+        this.checkedIndex = index;
         this.showAllLetter = false;
       },
       showAllLetterFilter(){
+        this.checkedIndex = null,
         this.showAllLetter = true;
         this.firstLetter = null;
       }
@@ -90,16 +93,13 @@
   }
 </script>
 
-<style scope lang="less">
-
-  .el-select-dropdown{
-    display: none;
-  }
+<style lang="less">
   
   .el-popover{
     border: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 0;
+    z-index: 9999;
   }
 
   .vue_select-components{
@@ -107,12 +107,31 @@
       height: 30px;
       line-height: 30px;
       cursor: pointer;
+      .visible-hide{
+        background: #000;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        position: fixed;
+        left: 0;
+        top: 0;
+      }
+    }
+    .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon{
+      cursor: pointer;
+    }
+    .el-input.is-disabled .el-input__inner{
+      background: #fff;
+      color: #606266;
     }
   }
 
   .popover-box{
+    position: relative;
     width: 100%;
     font-size: 12px;
+      z-index: 999;
     .popover-head-list{
       .all{
         width: 40px;
@@ -134,6 +153,11 @@
             border: 1px solid #fff;
             cursor: pointer;
             &:hover{
+              border: 1px solid #f01919;
+            }
+            &.checked{
+              background: #f01919;
+              color: #fff;
               border: 1px solid #f01919;
             }
           }
@@ -158,16 +182,16 @@
             color: #fff;
             border: 1px solid #f01919;
           };
+          &.checked{
+            background: #f01919;
+            color: #fff;
+            border: 1px solid #f01919;
+          }
         }
       }
       &.ml40{
         margin-left: 40px;
       }
-    }
-    .checked{
-      background: #f01919;
-      color: #fff;
-      border: 1px solid #f01919;
     }
   }
   

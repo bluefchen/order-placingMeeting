@@ -49,7 +49,7 @@
 					</div>
 					<div class="info-detail fn-left">
 						<p class="detail-p"></p>
-						<p class="detail-p"><span>所属省分：</span>{{supplierInfo.commonRegionName}}</p>
+						<p class="detail-p"><span>所属省份：</span>{{supplierInfo.commonRegionName}}</p>
 						<p class="detail-p"><span>联系人：</span>{{supplierInfo.linkMan}}</p>
 					</div>
 				</li>
