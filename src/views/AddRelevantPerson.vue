@@ -20,7 +20,7 @@
             </div>
           </el-col>
           <el-col :span="7">
-            <div class="condition-item" v-if="relevantData.userType != 1">
+            <div class="condition-item" v-if="relevantData.userType == 2 || relevantData.userType == 3">
               <label class="label-wrds">所属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
             </div>
@@ -202,7 +202,7 @@
         })
       },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+        this.queryUsermanSubmit(curPage);
       }
     },
     computed: {

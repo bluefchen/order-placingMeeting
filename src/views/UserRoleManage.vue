@@ -98,7 +98,7 @@
         }, {
           label: '操作',
           width: 128,
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data: function () {
@@ -107,7 +107,7 @@
                 }
               },
               methods: {
-                deleteRelativeRole(item) {
+                deleteRelativeRole: (item) => {
                   this.$post('/systemUserController/deletePostRoleRelaUser', {
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
@@ -119,6 +119,7 @@
                     }).catch(() => {
                       // console.log('cancel');
                     });
+                    this.queryPostRoleRelaUserList();
                   });
                 }
               },
@@ -224,7 +225,7 @@
         });
       },
       pageChanged(curPage) {
-        this.queryOpmDepositList(curPage);
+        this.queryPostRoleRelaUserList(curPage);
       }
     },
     components: {
