@@ -31,12 +31,12 @@
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
               <el-form-item label="终端品牌：" prop="brandCd" :rules="[{ required: true, message: '请选择终端品牌', trigger: 'change' }]">
-                <SelectComponents :model="'letter'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="625" />
+                <SelectComponents :model="'letter'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.brandCd" :list="brandOptions" :width="650" />
               </el-form-item>
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端型号：" prop="offerModelId" :rules="[{ required: true, message: '请选择终端型号', trigger: 'change' }]">
-                <SelectComponents :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="625" />
+                <SelectComponents :model="'letter'" :placement="'bottom-end'" :value.sync="terminalMaintainInfo.offerModelId" :list="modelOptions" :width="650" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -226,7 +226,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item label="电池类型" prop="offerHardwardParam.batteryType" :rules="[{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
-                      <Input :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType"/>
+                      <SelectComponents :model="'multi'" :placement="'bottom-start'" :value.sync="terminalMaintainInfo.offerHardwardParam.batteryType" :list="batteryTypeList" :width="625" />
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -324,6 +324,7 @@
           this.showOfferPicList.push({url: 'http://192.168.74.17:9086/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
         });
         this.terminalMaintainInfo = {
+          offerId: _.get(this.maintainInfo, 'offerId'),
           offerCode: _.get(this.maintainInfo, 'offerCode'),
           offerName: _.get(this.maintainInfo, 'offerName'),
           brandCd: _.get(this.maintainInfo, 'brandCd'),
@@ -377,6 +378,17 @@
     },
     data() {
       return {
+
+        batteryTypeList: [{
+          'value': '001',
+          'label': '可拆卸式电池',
+        },
+        {
+          'value': '002',
+          'label': '不可拆卸式电池',
+        }],
+
+
         nullError: null,
         value: '',
         brandCdItem: '',
@@ -600,7 +612,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
@@ -645,7 +657,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.$router.push({
                 path: '/orderManage/terminalMaintain'
               })
@@ -716,7 +728,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
@@ -763,7 +775,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if(rsp.resultCode === 0){
+            if(rsp.resultCode === '0'){
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({

@@ -48,12 +48,6 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.$post('http://192.168.74.17:9086/psm/systemUserController/loginInitialize', {
-        userId: this.$route.query.userId,
-        token: this.$route.query.token
-      }).then((rsp) => {
-        localStorage.setItem('user', JSON.stringify(rsp));
-      });
       this.queryOrderPlacingMeetingList();
     },
     data() {
@@ -164,8 +158,8 @@
               return h({
                 template: `
                   <div style="text-align: right;">
-                    <button class="edit-btn" @click="compileOrder('修改', data.row)">编辑订购会</button>
-                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="detailOrder(data.row)">管理订购会</button>
+                    <button class="edit-btn" v-show="data.row.statusCd === '1000' || data.row.statusCd === '1001'" @click="compileOrder('修改', data.row)">编辑订购会</button>
+                    <button class="edit-btn" @click="detailOrder(data.row)">管理订购会</button>
                   </div>
                 `,
                 data: function () {

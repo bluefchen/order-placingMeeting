@@ -6,8 +6,8 @@
         <img class="fn-left" src="@/assets/images/big-logo.png">
         <OrderManageMenu class="fn-left mange-menu"/>
         <div class="user fn-right">
-          <span class="area">{{user.commonReginName}}</span>
-          <Dropdown :role="user.postRoleName" :name="user.partyName"/>
+          <span class="area">{{commonReginName}}</span>
+          <Dropdown :user="user"/>
         </div>
       </div>
     </div>
@@ -23,20 +23,26 @@
   export default {
     name: 'OrderManage',
     created() {
-      this.user = JSON.parse(localStorage.getItem('user')) || {
-        commonReginId: '', //当前登录人员的地区ID
-        commonReginName: '', //当前登录人员的地区名
-        postRoleId: '', //当前登录人员的角色ID
-        postRoleName: '', //当前登录人员的角色名称
-        partyId: '', //当前登录人员的ID
-        partyName: '', //当前登录人员的名称
-        token: '' //新的会话令牌
-      };
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if (!this.user) {
+        this.$post('http://192.168.74.17:9086/psm/systemUserController/loginInitialize', {
+          userId: this.$route.query.userId,
+          token: this.$route.query.token
+        }).then((rsp) => {
+          this.user = rsp;
+          localStorage.setItem('user', JSON.stringify(rsp));
+        });
+      }
     },
     data() {
       return {
         user: null
       };
+    },
+    computed: {
+      commonReginName() {
+        return _.get(this.user, 'commonReginName') || '地区';
+      }
     },
     components: {
       OrderManageMenu,

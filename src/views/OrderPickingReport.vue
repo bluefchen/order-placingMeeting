@@ -64,7 +64,7 @@
     },
     data() {
       return {
-        opMeetingInfo: '', //订货会基本信息
+        opMeetingInfo: null, //订货会基本信息
         commonRegionId: '',
         tableTitle: [{
           label: '省份',

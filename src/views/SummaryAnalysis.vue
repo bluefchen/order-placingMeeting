@@ -96,7 +96,7 @@
     },
     data() {
       return {
-        opMeetingInfo: '', //订货会基本信息
+        opMeetingInfo: null, //订货会基本信息
         commonRegionId: '',
         isCentman: '',
         isCentmanList: [{ //产品类型列表
