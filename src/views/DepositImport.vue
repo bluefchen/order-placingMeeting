@@ -125,7 +125,13 @@
       batchInsertOpmOffer() {
         let tableData = this.$refs.importComponent.tableData;
         if (!tableData.length) {
-          this.$message.warning('导入数据不能为空');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '导入数据不能为空'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return;
         }
         let tableDataIsSueccess = [];
@@ -139,8 +145,6 @@
         });
         this.$post('/opmDepositController/batchInsertOpmDeposit', tableDataIsSueccess).then(rsp => {
           this.$router.push({path: '/order/CyjDepositAddRecord'});
-          // this.$message.success('导入新增数据成功');
-          console.log('诚意金导入接口', rsp);
         })
       }
     },

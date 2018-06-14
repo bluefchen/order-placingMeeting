@@ -5,8 +5,8 @@ import {Loading} from 'element-ui'
 
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
-// axios.defaults.baseURL = 'http://192.168.74.17:8080/orderPlacingMeeting/';
-axios.defaults.baseURL = '/orderPlacingMeeting/';
+axios.defaults.baseURL = 'http://192.168.74.17:8080/orderPlacingMeeting/';
+// axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
   'token': _.get(user, 'token')
@@ -68,6 +68,8 @@ export function fetchPost(url, params) {
                 type: 'error',
                 title: '操作提示',
                 content: res.msg
+              }).catch(() => {
+                // console.log('cancel');
               });
             }, 500);
           }

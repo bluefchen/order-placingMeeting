@@ -1347,8 +1347,8 @@ Mock.mock(new RegExp('/systemUserController/querySystemUserList'), {
       'name': '@cname',
       'linktelenumber': '19899992222',
       'remark': '@cword(9)',
-      'stautsCd|1': [1000, 1002, 9999],//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
-      'statusCdName|+1': ['有效', '失效', '冻结', '密码错误锁定']
+      'statusCd|+1': ['1000', '1002', '9999'],//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+      'statusCdName|+1': ['有效', '冻结', '密码错误锁定']
     }]
   }
 });

@@ -60,7 +60,13 @@
         let excelfileExtend = '.xls,.xlsx';
         let fileExtend = this.fileList[0].name.substring(this.fileList[0].name.lastIndexOf('.')).toLowerCase();
         if (excelfileExtend.indexOf(fileExtend) <= -1) {
-          this.$message.warning('导入文件只能是Excel文件');
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '导入文件只能是Excel文件'
+          }).catch(() => {
+            // console.log('cancel');
+          });
           return false
         }
         let formdata = new FormData();
