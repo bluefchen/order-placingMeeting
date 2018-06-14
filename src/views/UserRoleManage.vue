@@ -149,7 +149,7 @@
           width: 200,
           render: (h, params) => {
             return h({
-              template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
+              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 1">供应商</span><span v-else>零售商</span></div>',
               data() {
                 return {
                   data: params
