@@ -205,7 +205,7 @@
             render: (h, params) => {
               return h({
                 template: `
-                  <p :class="{'red': data.row.paymentStatusCd=='1001'}"><b>{{data.row.paymentStatusCdName}}</b></p>
+                  <p :class="{'red': data.row.paymentStatusCd==='1000'}"><b>{{data.row.paymentStatusCdName}}</b></p>
                 `,
                 data: function () {
                   return {
