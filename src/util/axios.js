@@ -6,6 +6,7 @@ import {Loading} from 'element-ui'
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
 axios.defaults.baseURL = 'http://192.168.74.17:8080/orderPlacingMeeting/';
+// axios.defaults.baseURL = 'http://192.168.16.87/orderPlacingMeeting/';
 // axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
