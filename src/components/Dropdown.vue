@@ -4,7 +4,7 @@
       【{{postRoleName}}】{{partyName}}<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item command="">个人信息维护</el-dropdown-item>
+      <el-dropdown-item command="user">个人信息维护</el-dropdown-item>
       <el-dropdown-item command="logout">退出登录</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -47,6 +47,8 @@
             localStorage.removeItem('user');
             location.href = this.$global.jumpOut;
           })
+        } else if (command === 'user') {
+          location.href = this.$global.userCenter;
         }
       }
     }

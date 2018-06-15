@@ -139,7 +139,7 @@
           codeOrPhone: this.relevantData.codeOrPhone,
           commonRegionId: _.get(this.relevantData, 'commonRegionId') || '',
           relaId: _.get(this.relevantData, 'relaId') || '',
-          userType: _.get(this.relevantData, 'userType') || '',
+          userType: _.get(this.relevantData, 'roleTypeCd') || '',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -164,7 +164,7 @@
           partyIds.push(item.partyId);
         });
         this.$post('/systemUserController/addPostRoleRelaUser', {
-          postRoleId: this.$route.query.postRoleId,
+          postRoleId: _.get(this.relevantData, 'postRoleId'),
           partyId: partyIds,
         }).then((rsp) => {
           if (rsp.resultCode == '0') {

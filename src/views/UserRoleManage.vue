@@ -36,7 +36,6 @@
   export default {
     name: 'userRoleManage',
     created() {
-
       this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
       this.queryPostRoleRelaUserList();
     },
@@ -105,6 +104,7 @@
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
+                    this.queryPostRoleRelaUserList();
                     this.$msgBox({
                       type: 'success',
                       title: '操作提示',
@@ -112,7 +112,6 @@
                     }).catch(() => {
                       // console.log('cancel');
                     });
-                    this.queryPostRoleRelaUserList();
                   });
                 }
               },
@@ -161,7 +160,7 @@
         }, {
           label: '操作',
           width: 200,
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data: function () {
@@ -170,11 +169,12 @@
                 }
               },
               methods: {
-                deleteRelativeRole(item) {
+                deleteRelativeRole: (item) => {
                   this.$post('/systemUserController/deletePostRoleRelaUser', {
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
+                    this.queryPostRoleRelaUserList();
                     this.$msgBox({
                       type: 'success',
                       title: '操作提示',
