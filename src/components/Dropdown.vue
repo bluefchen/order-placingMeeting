@@ -45,13 +45,7 @@
             token: _.get(this.user, 'token')
           }).then(() => {
             localStorage.removeItem('user');
-            this.$msgBox({
-              type: 'success',
-              title: '操作提示',
-              content: '退出成功，TODO跳转回登录页面'
-            }).catch(() => {
-              // console.log('cancel');
-            });
+            location.href = this.$global.jumpOut;
           })
         }
       }
