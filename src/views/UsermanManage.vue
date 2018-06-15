@@ -128,7 +128,7 @@
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">供货商</span><span v-else-if="data.row.userType == 2">零售商</span><span v-else>运营商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -476,10 +476,10 @@
     },
     watch: {
       "usermanData.userType": function () {
-        if (this.usermanData.userType == 3) {
+        if (this.usermanData.userType == this.$global.retailer) {
           this.merchantsTitle = '零售商';
           this.disabled = false;
-        } else if (this.usermanData.userType == 2) {
+        } else if (this.usermanData.userType == this.$global.supplier) {
           this.merchantsTitle = '供货商';
           this.disabled = false;
         } else{
