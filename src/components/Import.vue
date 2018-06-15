@@ -57,6 +57,15 @@
       UploadFile,
       TitlePlate,
       Table
+    },
+    watch: {
+      'tableData': function(newVal, oldVal){
+        if(newVal.length === 0){
+          this.totalCnt = 0;
+          this.successCnt = 0;
+          this.failCnt = 0;
+        }
+      }
     }
   }
 </script>

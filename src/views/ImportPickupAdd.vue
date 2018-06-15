@@ -131,7 +131,7 @@
             title: '操作提示',
             content: '导入新增数据成功'
           }).catch(() => {
-            // console.log('cancel');
+            this.$refs.importComponent.tableData = [];
           });
         })
       }
