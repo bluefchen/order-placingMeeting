@@ -899,7 +899,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -1021,7 +1021,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
