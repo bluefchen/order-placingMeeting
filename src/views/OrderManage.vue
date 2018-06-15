@@ -25,7 +25,7 @@
     created() {
       this.user = JSON.parse(localStorage.getItem('user'));
       if (!this.user) {
-        this.$post(this.$global.fileUrl + '/auth/loginInitialize', {
+        this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
           userId: this.$route.query.userId,
           token: this.$route.query.token
         }).then((rsp) => {
