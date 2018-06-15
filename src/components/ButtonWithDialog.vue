@@ -3,8 +3,7 @@
     <el-button type="text" @click="isShow = true" class="hover-btn">{{title}}</el-button>
     <DialogPopup :visible="isShow" title="优惠政策详情" @visibleChange="visibleChange">
       <div slot="content" class="pop-cnt">
-        <p class="vivo">{{data.offerNames}}</p>
-        <p class="p-ttl"><b>{{data.discountTypeName}}</b></p>
+        <p class="p-ttl"><b>{{data.offerNames}}</b></p>
         <p class="cnt-info">{{data.content}}</p>
       </div>
       <div slot="footer">
