@@ -207,13 +207,13 @@
         }
       };
       var checkPasswordValid = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.usermanData.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
+          if (value === '') {
+            callback(new Error('请再次输入密码'));
+          } else if (value !== this.usermanData.password) {
+            callback(new Error('两次输入密码不一致!'));
+          } else {
+            callback();
+          }
       };
       var checkCommonRegionId = (rule, value, callback) => {
         if (this.usermanData.userType == 1) {
@@ -250,14 +250,15 @@
           ],
           systemUserCode: [
             {required: true, message: '请输入用户账号', trigger: 'blur'},
-            {min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'blur'}
+            {min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'change'}
           ],
           name: [
             {required: true, message: '请输入用户名称', trigger: 'blur'},
-            {min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'blur'}
+            {min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'change'}
           ],
           linktelenumber: [
             {validator: checkTel, trigger: 'blur'},
+            {trigger: 'change'}
           ],
           commonRegionId: [
             {validator: checkCommonRegionId, trigger: 'blur'},
@@ -266,10 +267,12 @@
             {validator: checkRelaId, trigger: 'blur'},
           ],
           password: [
-            {validator: passwordValid, trigger: 'blur'}
+            {validator: passwordValid, trigger: 'blur'},
+            {min: 0, trigger: 'change'}
           ],
           checkPassword: [
-            {validator: checkPasswordValid, trigger: 'blur'}
+            {validator: checkPasswordValid, trigger: 'blur'},
+            {min: 0, trigger: 'change'}
           ],
           remark: [
             {min: 0, max: 400, message: '长度在不能超过400个字符', trigger: 'blur'}
