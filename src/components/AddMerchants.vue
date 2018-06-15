@@ -148,18 +148,18 @@
 
         searchInput: '',
 
-        //供应商表头
+        //供货商表头
         tableSupplierTitle: [{
           label: '省份',
           prop: 'commonRegionName',
         }, {
-          label: '供应商编码',
+          label: '供货商编码',
           prop: 'supplierCode',
         }, {
-          label: '供应商名称',
+          label: '供货商名称',
           prop: 'supplierName',
         }, {
-          label: '供应商类型',
+          label: '供货商类型',
           prop: 'supplierTypeName',
         }, {
           label: '联系人',
@@ -232,7 +232,7 @@
       },
       handleSearch(curPage, pageSize) {
         if (this.title === '供货商') {
-          //查询供应商
+          //查询供货商
           this.$post('/orderPlacingMeetingController/querySupplierList', {
             commonRegionId: this.orderQueryData.commonRegionId,
             supplierNameOrCode: this.searchInput,

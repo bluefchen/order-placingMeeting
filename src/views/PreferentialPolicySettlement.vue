@@ -47,8 +47,8 @@
         </el-col>
         <el-col :span="8">
           <div class="condition-item">
-            <label class="label-wrds">供应商名称：</label>
-            <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+            <label class="label-wrds">供货商名称：</label>
+            <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
           </div>
         </el-col>
       </el-row>
@@ -79,7 +79,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
   import TableList from '@/components/TableList';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'PreferentialPolicySettlement',
     created() {

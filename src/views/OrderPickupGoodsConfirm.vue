@@ -110,7 +110,7 @@
     data() {
       return {
         orderPickGoodsInfo: {}, //传入的数据
-        supplierInfo: {}, //查询供应商信息
+        supplierInfo: {}, //查询供货商信息
         retailerInfo: {}, //查询零售商信息
         pickupGoodsAmount: null //提货数量
       }

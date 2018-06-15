@@ -73,10 +73,17 @@
           })
         });
         this.$post('/systemUserController/updateRoleShortuctMenu', {
-          postRoleId: this.roleData.postRoleId || 'id',
+          postRoleId: this.roleData.postRoleId,
           systemMenuId: newMenu,
         }).then((rsp) => {
-          if(rsp.resultCode == '0'){
+          if (rsp.resultCode == '0') {
+            //获取用户菜单权限，更新保存本地
+            this.$post('/systemUserController/querySystemMenuList', {
+              postRoleId: _.get(rsp, 'postRoleId')
+            }).then((rsp) => {
+              localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+            });
+
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -86,7 +93,7 @@
                 path: '/orderManage/RoleManage',
               });
             });
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',
@@ -94,7 +101,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }               
+          }
         });
       }
     },

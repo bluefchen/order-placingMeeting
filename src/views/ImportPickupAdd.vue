@@ -78,7 +78,7 @@
           prop: 'offerQty',
           width: 80
         }, {
-          label: '供应商',
+          label: '供货商',
           prop: 'supplierName',
           width: 80
         }, {

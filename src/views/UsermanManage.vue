@@ -83,7 +83,7 @@
           label: '运营商'
         }, {
           value: 2,
-          label: '供应商'
+          label: '供货商'
         }, {
           value: 3,
           label: '零售商'
@@ -128,7 +128,7 @@
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供货商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">供货商</span><span v-else-if="data.row.userType == 2">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -279,7 +279,7 @@
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      //选择零售商或供应商
+      //选择零售商或供货商
       selectRetailer(val) {
         this.usermanData.relaId = val;
       },
@@ -480,7 +480,7 @@
           this.merchantsTitle = '零售商';
           this.disabled = false;
         } else if (this.usermanData.userType == 2) {
-          this.merchantsTitle = '供应商';
+          this.merchantsTitle = '供货商';
           this.disabled = false;
         } else{
           this.merchantsTitle = '';
