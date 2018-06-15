@@ -3,7 +3,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['系统维护', '角色管理', '新增角色']"/>
+        <Breadcrumb :list="['系统维护', '角色管理', '添加角色人员']"/>
       </div>
     </div>
     <div class="add-relevant-person box-1200">
