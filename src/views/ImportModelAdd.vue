@@ -86,7 +86,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
+              template: '<div><span class="result-icon" v-if="data.row.isSpecial === \'Y\'"></span><span v-else>--</span></div>',
               data() {
                 return {
                   data: params
@@ -104,7 +104,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
+              template: '<span class="state-icon" :class="data.row.isSuccess === \'Y\' ? \'ok\' : \'error\'"></span>',
               data() {
                 return {
                   data: params
