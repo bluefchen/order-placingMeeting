@@ -77,6 +77,15 @@
             'Content-Type': 'multipart/form-data'
           }
         }).then(rsp => {
+          if (!rsp.success) {
+            this.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: rsp.msg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
           this.$emit('callback', rsp.data || []);
         })
       },
