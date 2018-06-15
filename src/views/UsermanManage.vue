@@ -482,7 +482,7 @@
         } else if (this.usermanData.userType == 2) {
           this.merchantsTitle = '供应商';
           this.disabled = false;
-        } else if (this.usermanData.userType == 1) {
+        } else{
           this.merchantsTitle = '';
           this.disabled = true;
         }

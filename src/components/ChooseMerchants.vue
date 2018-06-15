@@ -303,7 +303,7 @@
       }
     },
     watch: {
-      "title": function () {
+      'title': function () {
         if (this.title === '供应商') {
           this.tableTitle = this.tableSupplierTitle;
           this.isShowSupplierType = true; 
@@ -313,6 +313,10 @@
         }
         this.handleSearch();
       },
+      'disabled': function(){
+        this.checkedOption.retailerName = '';
+        this.checkedOption.supplierName = '';
+      }
     },
     components: {
       DialogPopup,
