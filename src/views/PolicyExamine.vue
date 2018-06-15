@@ -37,7 +37,7 @@
   import ApprovePolicy from '@/components/ApprovePolicy';
   import Pagination from '@/components/Pagination';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'PolicyExamine',
     created() {
@@ -119,7 +119,7 @@
           opMeetingId: this.opMeetingInfo.opMeetingId,
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
-          statusCd: '1001',
+          statusCd: '1000',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
