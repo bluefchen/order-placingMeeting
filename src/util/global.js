@@ -5,5 +5,6 @@ const userCenter = 'http://192.168.74.32:9512/terminal-channel-web/index.html#/u
 
 export default {
   fileUrl,
-  jumpOut
+  jumpOut,
+  userCenter
 }
