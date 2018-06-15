@@ -281,13 +281,13 @@
         usermanSelect: {},
         usermanList: [{
           value: '1',
-          label: '运营商'
-        }, {
-          value: '2',
           label: '供应商'
         }, {
-          value: '3',
+          value: '2',
           label: '零售商'
+        }, {
+          value: '3',
+          label: '运营商'
         }],
         merchantsTitle: '',
       }
