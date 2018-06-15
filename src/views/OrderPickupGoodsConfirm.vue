@@ -117,7 +117,7 @@
     },
     methods: {
       confirmDelivery() {
-        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+        this.$post('/opmOrderController/updateOpmOrderPickupRecord', {
           'opmOrderId': this.orderPickGoodsInfo.opmOrderId,
           'pickupGoodsAmount': this.pickupGoodsAmount
         }).then((rsp) => {

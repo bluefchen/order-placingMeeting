@@ -40,7 +40,7 @@
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
-          this.$post(this.$global.fileUrl + '/auth/systemUserController/loginOut4Http', {
+          this.$post(this.$global.fileUrl + '/auth/logOut', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
