@@ -236,13 +236,13 @@
           }]
         },
         paymentStatusList: [{ //付款状态列表
-          value: 1000,
+          value: '1000',
           label: '未交定金'
         }, {
-          value: 1001,
+          value: '1001',
           label: '已交定金'
         }, {
-          value: 1002,
+          value: '1002',
           label: '已付款'
         }],
         paymentCtatusCd: '', //付款状态CD
@@ -285,7 +285,7 @@
           retailerId: this.orderQueryData.retailerId,
           fromDate: this.orderQueryData.dateValue[0],
           toDate: this.orderQueryData.dateValue[1],
-          statusCd: this.orderQueryData.statusCd,
+          paymentStatusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {

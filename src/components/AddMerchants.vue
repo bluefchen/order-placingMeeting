@@ -17,12 +17,12 @@
             <div class="form-group">
               <label>{{title}}类型：</label>
               <el-select v-if="isShowSupplierType" class="condition-select" v-model="orderQueryData.supplierType"
-                         placeholder="请选择">
+                         placeholder="请选择" :clearable="true">
                 <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
               <el-select v-if="!isShowSupplierType" class="condition-select" v-model="orderQueryData.retailerType"
-                         placeholder="请选择">
+                         placeholder="请选择" :clearable="true">
                 <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
