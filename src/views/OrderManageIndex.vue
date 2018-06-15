@@ -112,7 +112,7 @@
                 },
                 computed: {
                   logoPicUrl() {
-                    return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + data.row.logoUrl
+                    return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + this.data.row.logoUrl
                   }
                 },
                 methods: {
