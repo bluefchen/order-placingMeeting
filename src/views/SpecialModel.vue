@@ -350,32 +350,37 @@
         this.queryOpmOfferAllotList();
       },
       deleteOpmOfferAllot(val, index){
-        this.$confirm('确定要删除该机型吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
+        this.$msgBox({
+          type: 'info',
+          title: '操作提示',
+          isShowConfimrBtn: true,
+          cancelBtnText: '取消',
+          content: '确定要删除该机型吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteOpmOfferAllot', {
             opmOaId: val.opmOaId
           }).then((rsp) => {
-            console.log('删除成功！');
-          });
-          this.$msgBox({
-            type: 'success',
-            title: '操作提示',
-            content: '删除成功'
-          }).catch(() => {
-            // console.log('cancel');
-          });
-          this.queryOpmOfferAllotList(this.currentPage);
+            if (rsp.resultCode === '0') {
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '机型删除成功'
+              }).catch(() => {
+                // console.log('cancel');
+              });
+              this.queryOpmOfferAllotList(this.currentPage);
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: '机型删除失败'
+              }).catch(() => {
+                // console.log('cancel');
+              });
+            }
+          })
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '已取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
+          // console.log('cancel');
         });
       }
     },

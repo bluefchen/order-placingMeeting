@@ -357,13 +357,7 @@
             this.qrySupplierList(this.currentPage);
           })
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
+          // console.log('cancel');
         });
       },
       addSupplier(title, val) {

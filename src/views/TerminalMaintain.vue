@@ -462,7 +462,7 @@
           })
         }).catch(() => {
           // console.log('cancel');
-        })
+        });
       }
     },
     components: {

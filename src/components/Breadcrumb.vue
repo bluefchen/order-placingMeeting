@@ -25,11 +25,7 @@
     data() {
       return {
         linkList: {
-          '首页': '/',
-          '角色管理': '/orderManage/roleManage',
-          '管理人员': '',
-          '角色编辑': '',
-          '新增角色': ''
+          '角色管理': '/orderManage/roleManage'
         }
       }
     },
