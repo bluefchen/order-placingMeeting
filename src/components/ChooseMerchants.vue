@@ -44,7 +44,7 @@
       </div>
       <div slot="footer">
         <el-button type="success" @click="saveChange">确定</el-button>
-        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
+        <el-button type="success" @click="visibleChange(false)">取消</el-button>
       </div>
     </DialogPopup>
   </div>
@@ -307,7 +307,7 @@
       'title': function () {
         if (this.title === '供应商') {
           this.tableTitle = this.tableSupplierTitle;
-          this.isShowSupplierType = true; 
+          this.isShowSupplierType = true;
         } else if (this.title === '零售商') {
           this.tableTitle = this.tableRetailerTitle;
           this.isShowSupplierType = false;

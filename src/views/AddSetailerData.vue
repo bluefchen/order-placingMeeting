@@ -177,10 +177,11 @@
             'retailerFax': this.retailerInfo.retailerFax,
             'remarks': this.retailerInfo.remarks
           }).then((rsp) => {
-            this.$alert('修改零售商成功！', '提示', {
-              confirmButtonText: '确定',
-              type: 'success'
-            }).then(() => {
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '修改零售商成功'
+            }).catch(() => {
               this.$router.push({
                 path: '/orderManage/setailerDataMaintain'
               });
@@ -197,10 +198,11 @@
             'retailerFax': this.retailerInfo.retailerFax,
             'remarks': this.retailerInfo.remarks
           }).then((rsp) => {
-            this.$alert('新增零售商成功！', '提示', {
-              confirmButtonText: '确定',
-              type: 'success'
-            }).then(() => {
+            this.$msgBox({
+              type: 'success',
+              title: '操作提示',
+              content: '新增零售商成功'
+            }).catch(() => {
               this.$router.push({
                 path: '/orderManage/setailerDataMaintain'
               });

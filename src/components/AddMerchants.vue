@@ -40,7 +40,7 @@
       </div>
       <div slot="footer">
         <el-button type="success" @click="saveChange">确定</el-button>
-        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
+        <el-button type="success" @click="visibleChange(false)">取消</el-button>
       </div>
     </DialogPopup>
   </div>
