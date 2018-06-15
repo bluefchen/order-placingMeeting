@@ -885,9 +885,16 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.$router.push({
-                path: '/orderManage/terminalMaintain'
-              })
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '新增终端成功！'
+              }).then(() => {
+              }).catch(() => {
+                this.$router.push({
+                  path: '/orderManage/terminalMaintain'
+                })
+              });
             } else {
               this.$msgBox({
                 type: 'error',
@@ -932,9 +939,16 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.$router.push({
-                path: '/orderManage/terminalMaintain'
-              })
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '修改终端成功！'
+              }).then(() => {
+              }).catch(() => {
+                this.$router.push({
+                  path: '/orderManage/terminalMaintain'
+                })
+              });
             } else {
               this.$msgBox({
                 type: 'error',
