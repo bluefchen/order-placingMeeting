@@ -26,13 +26,13 @@
       let basicList = _.find(this.systemMenuAllList, (item) => {
         return item.operationSpecDisptypeCd === 2;
       });
-      this.basicMenus = _.filter(basicList.menus, (item) => {
+      this.basicMenus = _.filter(_.get(basicList, 'menus'), (item) => {
         return item.isHold === 'Y';
       });
       let systemList = _.find(this.systemMenuAllList, (item) => {
         return item.operationSpecDisptypeCd === 3;
       });
-      this.sysMenus = _.filter(systemList.menus, (item) => {
+      this.sysMenus = _.filter(_.get(systemList, 'menus'), (item) => {
         return item.isHold === 'Y';
       });
     },

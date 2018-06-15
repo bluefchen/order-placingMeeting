@@ -78,7 +78,7 @@
       let systemMenu = _.find(this.systemMenuAllList, (item) => {
         return item.operationSpecDisptypeCd === 1;
       });
-      this.menus = _.filter(systemMenu.menus, (item) => {
+      this.menus = _.filter(_.get(systemMenu, 'menus'), (item) => {
         return item.isHold === 'Y';
       });
       this.handleSelect();
