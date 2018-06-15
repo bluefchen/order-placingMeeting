@@ -38,7 +38,7 @@
     },
     computed: {
       offerPicUrl() {
-        return _.get(this.data, 'offerPic.offerPicUrl') ? 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + _.get(this.data, 'offerPic.offerPicUrl') : './static/img/icon-tel-default.jpg'
+        return _.get(this.data, 'offerPic.offerPicUrl') ? this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + _.get(this.data, 'offerPic.offerPicUrl') : './static/img/icon-tel-default.jpg'
       },
       policyList() {
         return _.get(this.data, 'contents') || [];

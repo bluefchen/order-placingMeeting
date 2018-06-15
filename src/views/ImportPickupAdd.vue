@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/opmOrderController/analyzeInsertOpmOrderList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmOrder',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmOrder',
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',

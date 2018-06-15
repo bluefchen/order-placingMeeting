@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/opmDepositController/analyzeInsertOpmDepositList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmDeposit',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmDeposit',
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',

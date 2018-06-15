@@ -17,7 +17,7 @@
         <p class="tit"><span>订货会介绍</span></p>
         <div class="cnt-info fn-clear">
           <div class="cnt-img fn-left">
-            <img v-if="!!opMeetingInfo.logoUrl" :src="'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + opMeetingInfo.logoUrl" alt="">
+            <img v-if="!!opMeetingInfo.logoUrl" :src="logoPicUrl" alt="">
             <img v-else src="@/assets/images/some-logo-default.png" alt="">
           </div>
           <div class="cnt-wrds fn-right">
@@ -128,6 +128,11 @@
           total: 0,
           pageChanged: this.queryOpmRetailerList
         }]
+      }
+    },
+    computed: {
+      logoPicUrl() {
+        return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + this.opMeetingInfo.logoUrl
       }
     },
     methods: {

@@ -25,7 +25,7 @@
     created() {
       this.user = JSON.parse(localStorage.getItem('user'));
       if (!this.user) {
-        this.$post('http://192.168.74.17:8080/psm/systemUserController/loginInitialize', {
+        this.$post(this.$global.fileUrl + '/psm/systemUserController/loginInitialize', {
           userId: this.$route.query.userId,
           token: this.$route.query.token
         }).then((rsp) => {

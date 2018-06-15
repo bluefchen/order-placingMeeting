@@ -40,7 +40,7 @@
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
-          this.$post('http://192.168.74.17:8080/psm/systemUserController/loginOut4Http', {
+          this.$post(this.$global.fileUrl + '/psm/systemUserController/loginOut4Http', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
