@@ -10,7 +10,7 @@ let user = JSON.parse(localStorage.getItem('user'));
 axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-  // 'token': _.get(user, 'token')
+  'token': _.get(user, 'token')
 };
 
 let loadingInstance;
