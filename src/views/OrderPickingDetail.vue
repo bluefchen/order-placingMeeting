@@ -35,8 +35,8 @@
         </el-col>
         <el-col :span="8">
           <div class="condition-item">
-            <label class="label-wrds">供应商名称：</label>
-            <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+            <label class="label-wrds">供货商名称：</label>
+            <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
           </div>
         </el-col>
       </el-row>
@@ -63,7 +63,7 @@
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderPickingDetail',
     created() {
@@ -198,7 +198,7 @@
 
 <style scoped lang="less">
   .order_pickup-data {
-    
+
     /* 条件搜索 */
     .search {
       margin: 10px auto;

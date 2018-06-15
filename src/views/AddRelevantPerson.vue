@@ -93,7 +93,7 @@
           width: 160,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">供应商</span><span v-else-if="data.row.userType == 2">零售商</span><span v-else>运营商</span></div>',
+              template: '<div><span v-if="data.row.userType == 1">供货商</span><span v-else-if="data.row.userType == 2">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -129,7 +129,7 @@
       selectionChange(val) {
         this.selectionChangeList = val;
       },
-      //选择零售商或供应商
+      //选择零售商或供货商
       selectRetailer(val) {
         this.relevantData.relaId = val;
       },
@@ -201,7 +201,7 @@
         if (this.relevantData.userType == 3) {
           return '零售商';
         } else if (this.relevantData.userType == 2) {
-          return '供应商';
+          return '供货商';
         }
       }
     },

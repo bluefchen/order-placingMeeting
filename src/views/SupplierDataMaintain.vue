@@ -218,7 +218,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要冻结的供应商'
+            content: '请选择需要冻结的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -235,7 +235,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要冻结的有效供应商'
+            content: '请选择需要冻结的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -250,7 +250,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要激活的供应商'
+            content: '请选择需要激活的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -267,7 +267,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要激活的有效供应商'
+            content: '请选择需要激活的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -282,7 +282,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要删除的供应商'
+            content: '请选择需要删除的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -299,7 +299,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要删除的有效供应商'
+            content: '请选择需要删除的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });

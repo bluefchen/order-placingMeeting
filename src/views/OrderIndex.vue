@@ -55,7 +55,7 @@
     data() {
       return {
         opMeetingInfo: null, //订货会基本信息
-        supplierList: [], //关联供应商列表
+        supplierList: [], //关联供货商列表
         retailerList: [], //关联零售商列表
         pageSize: 10, //每页展示条数
         activeName: '参会供货商',
@@ -66,10 +66,10 @@
             prop: 'commonRegionName',
             width: 140
           }, {
-            label: '供应商名称',
+            label: '供货商名称',
             prop: 'supplierName'
           }, {
-            label: '供应商类型',
+            label: '供货商类型',
             prop: 'supplierTypeName',
             width: 140
           }, {

@@ -8,7 +8,7 @@
       <div class="step-box">
         <el-steps :active="active" align-center>
           <el-step title="填写基本资料" description=""></el-step>
-          <el-step title="选择供应商" description=""></el-step>
+          <el-step title="选择供货商" description=""></el-step>
           <el-step title="选择零售商" description=""></el-step>
           <el-step title="完成" description=""></el-step>
         </el-steps>

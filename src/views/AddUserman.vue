@@ -281,7 +281,7 @@
         usermanSelect: {},
         usermanList: [{
           value: '1',
-          label: '供应商'
+          label: '供货商'
         }, {
           value: '2',
           label: '零售商'
@@ -293,7 +293,7 @@
       }
     },
     methods: {
-      //选择零售商或供应商
+      //选择零售商或供货商
       selectRetailer(val) {
         this.usermanData.relaId = val;
       },
@@ -381,7 +381,7 @@
         if (this.usermanData.userType == 3) {
           this.merchantsTitle = '零售商';
         } else if (this.usermanData.userType == 2) {
-          this.merchantsTitle = '供应商';
+          this.merchantsTitle = '供货商';
         }
       },
     },

@@ -58,7 +58,7 @@
       <div class="queries-category fn-clear">
         <span class="category-label fn-left">供货商：</span>
         <div class="selection-supplier">
-          <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+          <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
         </div>
       </div>
     </div>
