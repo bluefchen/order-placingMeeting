@@ -35,7 +35,7 @@
 
       <div class="tabs-list box-1200">
         <div class="result-header">
-          <TitlePlate title="定金补录结果列表"/>
+          <TitlePlate title="诚意金补录结果列表"/>
           <router-link class="btns" to="/order/cyjImport"><i class="iconfont">&#xe6a8;</i> 诚意金导入</router-link>
         </div>
         <Table :tableTitle="tableTitle" :tableData="tableData"/>
