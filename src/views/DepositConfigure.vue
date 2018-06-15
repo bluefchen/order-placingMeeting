@@ -34,7 +34,7 @@
                 <div class="model-list-table">
                   <div class="order-titl fn-clear">
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
-                    <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                    <p class="warn-wrds fn-right">( 注：每个零售商的诚意金金额至少为10000元 )</p>
                   </div>
                   <Table :tableTitle="tableTitleDone" :tableData="tableData"/>
                 </div>
@@ -68,7 +68,7 @@
                   <div class="model-list-table">
                     <div class="order-titl fn-clear">
                       <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
-                      <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                      <p class="warn-wrds fn-right">( 注：每个零售商的诚意金金额至少为10000元 )</p>
                     </div>
                     <Table :tableTitle="tableTitle" :tableData="tableData"/>
                   </div>
