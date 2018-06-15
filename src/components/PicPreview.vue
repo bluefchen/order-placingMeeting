@@ -38,6 +38,12 @@
         this.imgList.unshift(imgItem);
         this.imgList.push(imgItem);
         this.checkedUrl(this.imgList[1], 1);
+      }else{
+        this.imgList.push({url: require('../assets/images/icon.png')})
+        let imgItem = this.imgList.pop();
+        this.imgList.unshift(imgItem);
+        this.imgList.push(imgItem);
+        this.checkedUrl(this.imgList[1], 1);
       }
     },
     props: {
