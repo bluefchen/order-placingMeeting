@@ -5,12 +5,6 @@
       <div class="info"></div>
     </div>
     <!-- 中间背景图片 -->
-    <!-- 我的位置 -->
-    <div class="my-location">
-      <div class="box-1200">
-        <Breadcrumb :list="['系统维护', '角色管理']"/>
-      </div>
-    </div>
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="角色管理列表"/>
