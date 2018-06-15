@@ -79,9 +79,7 @@
         return item.operationSpecDisptypeCd === 1;
       });
       this.menus = _.filter(systemMenu.menus, (item) => {
-        if (item.isHold === 'Y') {
-          return item.systemMenuName;
-        }
+        return item.isHold === 'Y';
       });
       console.log(this.menus, '已有权限的菜单');
       this.handleSelect();

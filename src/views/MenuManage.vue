@@ -73,7 +73,7 @@
           })
         });
         this.$post('/systemUserController/updateRoleShortuctMenu', {
-          postRoleId: this.roleData.postRoleId || 'id',
+          postRoleId: this.roleData.postRoleId,
           systemMenuId: newMenu,
         }).then((rsp) => {
           if (rsp.resultCode == '0') {
