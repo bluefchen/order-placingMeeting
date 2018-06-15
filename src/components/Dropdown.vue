@@ -48,7 +48,7 @@
             location.href = this.$global.jumpOut;
           })
         } else if (command === 'user') {
-          location.href = this.$global.userCenter;
+          location.href = this.$global.userCenter + _.get(this.user, 'partyId');
         }
       }
     }
