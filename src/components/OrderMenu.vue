@@ -81,7 +81,6 @@
       this.menus = _.filter(systemMenu.menus, (item) => {
         return item.isHold === 'Y';
       });
-      console.log(this.menus, '已有权限的菜单');
       this.handleSelect();
     },
     data() {
