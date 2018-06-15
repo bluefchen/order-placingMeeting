@@ -198,7 +198,7 @@
       background: #ffffff;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
-      line-height: 16px;
+      height: 22px;
     }
     .edit-btn:hover {
       color: #f82134;
