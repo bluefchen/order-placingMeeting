@@ -1,5 +1,5 @@
 <template>
-  <div class="device-wrap fn-clear">
+  <div class="device-wrap fn-clear" @click="detailTerminal">
     <div class="device-pic fn-left">
       <img :src="offerPicUrl">
     </div>
@@ -33,6 +33,19 @@
             offerPic: null,
             contents: []
           }
+        }
+      },
+      url: {
+        type: String
+      }
+    },
+    methods: {
+      detailTerminal(){
+        if(!!this.url){
+          localStorage.setItem('offerCode', JSON.stringify(this.data));
+          this.$router.push({
+            path: this.url,
+          });
         }
       }
     },

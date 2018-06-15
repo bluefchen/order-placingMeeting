@@ -102,12 +102,8 @@
           render: (h, params) => {
             return h(DeviceInfo, {
               props: {
-                data: {
-                  offerName: params.row.offerName,
-                  offerCode: params.row.offerCode,
-                  isCentman: params.row.isCentman,
-                  offerPic: params.row.offerHardwardParam ? params.row.offerHardwardParam.offerPic : ''
-                }
+                data: params.row,
+                url: '/orderManage/detailTerminalMaintain',
               }
             });
           }

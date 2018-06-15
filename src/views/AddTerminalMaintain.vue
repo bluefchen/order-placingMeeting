@@ -349,7 +349,7 @@
         this.title = '修改终端';
         this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
         this.qryOfferModelList(this.maintainInfo.brandCd);
-        if (this.maintainInfo.offerPic) {
+        if (!!this.maintainInfo.offerPic) {
           if (this.maintainInfo.offerPic.offerPicUrl) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl});
           }
@@ -899,7 +899,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -1021,7 +1021,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),

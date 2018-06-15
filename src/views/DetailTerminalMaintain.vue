@@ -172,10 +172,80 @@
   export default {
     name: 'DetailTerminalMaintain',
     created() {
-      this.terminalInfo = JSON.parse(localStorage.getItem('offerCode'));
-      _.forEach(this.terminalInfo.offerPicList, (item, index) => {
-        this.offerPicList.push(item.url);
-      });
+      this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerCode'));
+
+      this.terminalInfo = {
+        offerId: _.get(this.terminalMaintainInfo, 'offerId'),
+        offerCode: _.get(this.terminalMaintainInfo, 'offerCode'),
+        offerName: _.get(this.terminalMaintainInfo, 'offerName'),
+        brandCd: _.get(this.terminalMaintainInfo, 'brandCd'),
+        brandName: _.get(this.terminalMaintainInfo, 'brandName'),
+        offerModelId: _.get(this.terminalMaintainInfo, 'offerModelId'),
+        offerModelName: _.get(this.terminalMaintainInfo, 'offerModelName'),
+        isCentman: _.get(this.terminalMaintainInfo, 'isCentman'),
+        salePrice: _.get(this.terminalMaintainInfo, 'salePrice'),
+        statusCd: _.get(this.terminalMaintainInfo, 'statusCd'),
+        offerBaseParam: {
+          listDt: _.get(this.terminalMaintainInfo, 'offerBaseParam.listDt'),
+          termType: _.get(this.terminalMaintainInfo, 'offerBaseParam.termType'),
+          os: _.get(this.terminalMaintainInfo, 'offerBaseParam.os'),
+        },
+        offerScreenParam: {
+          screenType: _.get(this.terminalMaintainInfo, 'offerScreenParam.screenType'),
+          screenSize: _.get(this.terminalMaintainInfo, 'offerScreenParam.screenSize'),
+          screenMaterial: _.get(this.terminalMaintainInfo, 'offerScreenParam.screenMaterial'),
+          resolutionRatio: _.get(this.terminalMaintainInfo, 'offerScreenParam.resolutionRatio'),
+          screenPiexl: _.get(this.terminalMaintainInfo, 'offerScreenParam.screenPiexl'),
+          screenTech: _.get(this.terminalMaintainInfo, 'offerScreenParam.screenTech'),
+          frame: _.get(this.terminalMaintainInfo, 'offerScreenParam.frame'),
+          otherParam: _.get(this.terminalMaintainInfo, 'offerScreenParam.otherParam'),
+        },
+        offerHardwardParam: {
+          cpuModel: _.get(this.terminalMaintainInfo, 'offerHardwardParam.cpuModel'),
+          cpuRate: _.get(this.terminalMaintainInfo, 'offerHardwardParam.cpuRate'),
+          core: _.get(this.terminalMaintainInfo, 'offerHardwardParam.core'),
+          gpuModel: _.get(this.terminalMaintainInfo, 'offerHardwardParam.gpuModel'),
+          ram: _.get(this.terminalMaintainInfo, 'offerHardwardParam.ram'),
+          rom: _.get(this.terminalMaintainInfo, 'offerHardwardParam.rom'),
+          memoryType: _.get(this.terminalMaintainInfo, 'offerHardwardParam.memoryType'),
+          memoryCard: _.get(this.terminalMaintainInfo, 'offerHardwardParam.memoryCard'),
+          extendedCapacity: _.get(this.terminalMaintainInfo, 'offerHardwardParam.extendedCapacity'),
+          rearCamera: _.get(this.terminalMaintainInfo, 'offerHardwardParam.rearCamera'),
+          frontCamera: _.get(this.terminalMaintainInfo, 'offerHardwardParam.frontCamera'),
+          batteryCapacity: _.get(this.terminalMaintainInfo, 'offerHardwardParam.batteryCapacity'),
+          batteryType: _.get(this.terminalMaintainInfo, 'offerHardwardParam.batteryType'),
+          batteryCharge: _.get(this.terminalMaintainInfo, 'offerHardwardParam.batteryCharge'),
+        },
+        offerPic: {
+          offerPicUrl: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl'),
+          offerPicUrl2: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl2'),
+          offerPicUrl3: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl3'),
+          offerPicUrl4: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl4'),
+          offerPicUrl5: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl5'),
+          offerPicUrl6: _.get(this.terminalMaintainInfo, 'offerPic.offerPicUrl6')
+        }
+      }
+
+      if (this.terminalInfo.offerPic) {
+        if (this.terminalInfo.offerPic.offerPicUrl) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl});
+        }
+        if (this.terminalInfo.offerPic.offerPicUrl2) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl2});
+        }
+        if (this.terminalInfo.offerPic.offerPicUrl3) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl3});
+        }
+        if (this.terminalInfo.offerPic.offerPicUrl4) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl4});
+        }
+        if (this.terminalInfo.offerPic.offerPicUrl5) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl5});
+        }
+        if (this.terminalInfo.offerPic.offerPicUrl6) {
+          this.offerPicList.push({'url': this.terminalInfo.offerPic.offerPicUrl6});
+        }
+      }
     },
     data() {
       return {

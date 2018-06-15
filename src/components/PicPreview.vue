@@ -11,7 +11,7 @@
         <ul :class="{'animate-left': animateLeft, 'animate-right': animateRight}">
           <li v-for="(item, index) in imgList" v-on:mouseover="checkedUrl(item, index)"
               :class="{'checked': index === checkedIndex}" v-show="index >= showMinIndex && index <= showMaxIndex">
-            <img :src="item" alt="">
+            <img :src="item.url" alt="">
           </li>
         </ul>
       </div>
@@ -30,6 +30,9 @@
     created() {
       //取图片列表最后一项，放到数组最前面。ul往左偏移一项显示，防止点击左右按钮切换时候出现突然显示问题。自动选择index为1的项
       this.imgList = this.picPreviewList;
+      _.forEach(this.imgList, (item, index) => {
+        item.url = this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' +item.url;
+      })
       if (this.imgList.length) {
         let imgItem = this.imgList.pop();
         this.imgList.unshift(imgItem);
@@ -57,7 +60,7 @@
     },
     methods: {
       checkedUrl(item, index) {
-        this.url = item;
+        this.url = item.url;
         this.checkedIndex = index;
       },
       scrollLeft() {
