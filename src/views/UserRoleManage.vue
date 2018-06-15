@@ -208,13 +208,9 @@
       },
       //添加相关人员
       addRelevantPerson() {
+        localStorage.setItem('postRoleId', JSON.stringify(this.roleData));
         this.$router.push({
-          path: '/orderManage/addRelevantPerson',
-          query: {
-            postRoleId: this.roleData.postRoleId,
-            roleName: this.roleData.name,
-            userType: this.roleData.roleTypeCd
-          }
+          path: '/orderManage/addRelevantPerson'
         });
       },
       pageChanged(curPage) {

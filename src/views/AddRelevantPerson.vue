@@ -62,22 +62,12 @@
   export default {
     name: 'AddRelevantPerson',
     created() {
-      if (this.$route.query.postRoleId) {
-        this.relevantData.postRoleId = this.$route.query.postRoleId;
-      }
-      if (this.$route.query.roleName) {
-        this.relevantData.name = this.$route.query.roleName;
-      }
-      if (this.$route.query.userType) {
-        this.relevantData.userType = this.$route.query.userType;
-      }
+      this.relevantData = JSON.parse(localStorage.getItem('postRoleId'));
       this.queryUsermanSubmit();
     },
     data() {
       return {
         relevantData: {
-          codeOrPhone: '',
-          relaId: '',
         },
         tableTitle: [{
           label: '真实姓名',
@@ -149,6 +139,7 @@
           codeOrPhone: this.relevantData.codeOrPhone,
           commonRegionId: _.get(this.relevantData, 'commonRegionId') || '',
           relaId: _.get(this.relevantData, 'relaId') || '',
+          userType: _.get(this.relevantData, 'userType') || '',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
