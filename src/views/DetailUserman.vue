@@ -20,7 +20,7 @@
               <el-col :span="12">
                 <div class="condition-item">
                   <label class="label-wrds">用户类型：</label>
-                  <p><b v-if="usermanData.userType == 1">供货商</b><b v-else-if="usermanData.userType == 2">零售商</b><b v-else>运营商</b></p>
+                  <p><b v-if="usermanData.userType == $global.supplier">供货商</b><b v-else-if="usermanData.userType == $global.retailer">零售商</b><b v-else>运营商</b></p>
                 </div>
               </el-col>
             </el-row>

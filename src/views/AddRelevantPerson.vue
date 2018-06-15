@@ -20,12 +20,12 @@
             </div>
           </el-col>
           <el-col :span="7">
-            <div class="condition-item" v-if="relevantData.userType == 2 || relevantData.userType == 3">
+            <div class="condition-item" v-if="relevantData.userType == $global.supplier || relevantData.userType == $global.retailer">
               <label class="label-wrds">所属商户：</label>
               <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
             </div>
             <!--管理员-->
-            <div class="condition-item" v-if="relevantData.userType == 1">
+            <div class="condition-item" v-if="relevantData.userType == $global.operator">
               <label class="label-wrds">所属省份：</label>
               <AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>
             </div>
@@ -93,7 +93,7 @@
           width: 160,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">供货商</span><span v-else-if="data.row.userType == 2">零售商</span><span v-else>运营商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -198,9 +198,9 @@
     },
     computed: {
       merchantsTitle: function () {
-        if (this.relevantData.userType == 3) {
+        if (this.relevantData.userType == this.$global.retailer) {
           return '零售商';
-        } else if (this.relevantData.userType == 2) {
+        } else if (this.relevantData.userType == this.$global.supplier) {
           return '供货商';
         }
       }

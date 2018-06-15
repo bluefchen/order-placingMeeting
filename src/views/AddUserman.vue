@@ -96,7 +96,7 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item prop="commonRegionId" v-if="usermanData.userType == 1">
+              <el-form-item prop="commonRegionId" v-if="usermanData.userType == $global.operator">
                 <div class="condition-item">
                   <!-- 当为管理人员时，* 存在，表示为必填项 -->
                   <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
@@ -110,7 +110,7 @@
             </el-col>
           </el-row>
           <!-- 当为管理人员时，此项不存在 -->
-          <el-row :gutter="20" v-show="usermanData.userType != 1">
+          <el-row :gutter="20" v-show="usermanData.userType != $global.operator">
             <el-col :span="8" :offset="2">
               <el-form-item prop="relaId">
                 <div class="condition-item">
@@ -216,7 +216,7 @@
           }
       };
       var checkCommonRegionId = (rule, value, callback) => {
-        if (this.usermanData.userType == 1) {
+        if (this.usermanData.userType == $global.operator) {
           if (!value) {
             return callback(new Error('请选择归属省份'));
           } else {
@@ -227,7 +227,7 @@
         }
       };
       var checkRelaId = (rule, value, callback) => {
-        if (this.usermanData.userType != '1') {
+        if (this.usermanData.userType != $global.operator) {
           if (!value) {
             return callback(new Error('请选择归属商户'));
           } else {
@@ -378,9 +378,9 @@
     },
     watch: {
       "usermanData.userType": function () {
-        if (this.usermanData.userType == 3) {
+        if (this.usermanData.userType == this.$global.retailer) {
           this.merchantsTitle = '零售商';
-        } else if (this.usermanData.userType == 2) {
+        } else if (this.usermanData.userType == this.$global.supplier) {
           this.merchantsTitle = '供货商';
         }
       },
