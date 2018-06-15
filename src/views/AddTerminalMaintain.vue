@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端名称：" prop="offerName"
-                            :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                            :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
                 <Input :value.sync="terminalMaintainInfo.offerName"/>
               </el-form-item>
             </el-col>
