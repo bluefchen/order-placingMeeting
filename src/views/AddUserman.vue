@@ -216,7 +216,7 @@
           }
       };
       var checkCommonRegionId = (rule, value, callback) => {
-        if (this.usermanData.userType == $global.operator) {
+        if (this.usermanData.userType == this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属省份'));
           } else {
@@ -227,7 +227,7 @@
         }
       };
       var checkRelaId = (rule, value, callback) => {
-        if (this.usermanData.userType != $global.operator) {
+        if (this.usermanData.userType != this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属商户'));
           } else {
