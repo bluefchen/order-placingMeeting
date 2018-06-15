@@ -37,9 +37,7 @@
   export default {
     name: 'MenuManage',
     created() {
-      if (this.$route.query.roleInfo) {
-        this.roleData = this.$route.query.roleInfo;
-      };
+      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
       this.querySystemMenuList();
     },
     data() {

@@ -64,30 +64,16 @@
               },
               methods: {
                 modifyRole(item) {
-                  this.$router.push({
-                    path: '/orderManage/modifyRole',
-                    query: {
-                      roleInfo: item
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/modifyRole'});
                 },
                 menuManage(item) {
-                  this.$router.push({
-                    path: '/orderManage/menuManage',
-                    query: {
-                      roleInfo: item
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/menuManage'});
                 },
                 userManage(item) {
-                  this.$router.push({
-                    path: '/orderManage/userRoleManage',
-                    query: {
-                      postRoleId: item.postRoleId,
-                      roleName: item.name,
-                      roleTypeCd: item.roleTypeCd
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/userRoleManage'});
                 }
               },
             })
