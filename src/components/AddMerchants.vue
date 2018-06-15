@@ -1,7 +1,7 @@
 <template>
   <div class="add-merchants">
 
-    <button class="btn-add" type="success" @click="handleSearch(), isShow = true"><span class="iconfont">&#xe6a8;</span> 添加{{title}}
+    <button class="btn-add" type="success" @click="isShow = true"><span class="iconfont">&#xe6a8;</span> 添加{{title}}
     </button>
 
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
@@ -228,6 +228,7 @@
       },
       visibleChange(val) {
         this.isShow = val;
+        this.handleSearch();
       },
       handleSearch(curPage, pageSize) {
         if (this.title === '供货商') {

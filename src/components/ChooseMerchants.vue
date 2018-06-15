@@ -265,6 +265,7 @@
       },
       visibleChange(val) {
         this.isShow = val;
+        this.handleSearch();
       },
       handleSearch(curPage, pageSize) {
         if (this.title === '供应商') {
