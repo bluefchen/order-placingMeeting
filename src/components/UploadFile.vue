@@ -78,7 +78,6 @@
           }
         }).then(rsp => {
           this.$emit('callback', rsp.data || []);
-          console.log('导入URL：', this.url, '导入数据：', rsp.data);
         })
       },
       download() {

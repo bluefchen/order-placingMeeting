@@ -10,7 +10,7 @@
           <el-menu-item index="/orderManage/usermanManage">系统维护</el-menu-item>
         </el-menu>
         <div class="user fn-right">
-          <span class="area">{{user.commonReginName}}</span>
+          <span class="area">{{commonReginName}}</span>
           <Dropdown :user="user"/>
         </div>
       </div>
@@ -39,6 +39,11 @@
       return {
         user: null
       };
+    },
+    computed: {
+      commonReginName() {
+        return _.get(this.user, 'commonReginName');
+      }
     },
     components: {
       OrderMenu,
