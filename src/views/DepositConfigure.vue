@@ -256,6 +256,7 @@
           };
           if(!flag){
             if (opmRetailerDepositList) {
+              this.opmRetailerUpate = [];
               opmRetailerDepositList.map((item) => {
                 let obj = {
                   'retailerId': item.retailerId,
