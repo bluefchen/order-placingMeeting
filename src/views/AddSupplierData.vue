@@ -201,10 +201,11 @@
                   'supplierFax': this.supplierInfo.supplierFax,
                   'remarks': this.supplierInfo.remarks
                 }).then((rsp) => {
-                  this.$alert('修改供货商成功！', '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success'
-                  }).then(() => {
+                  this.$msgBox({
+                    type: 'success',
+                    title: '操作提示',
+                    content: '修改供货商成功'
+                  }).catch(() => {
                     this.$router.push({
                       path: '/orderManage/supplierDataMaintain'
                     });
@@ -221,10 +222,11 @@
                   'supplierFax': this.supplierInfo.supplierFax,
                   'remarks': this.supplierInfo.remarks
                 }).then((rsp) => {
-                  this.$alert('新增供货商成功！', '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success'
-                  }).then(() => {
+                  this.$msgBox({
+                    type: 'success',
+                    title: '操作提示',
+                    content: '新增供货商成功'
+                  }).catch(() => {
                     this.$router.push({
                       path: '/orderManage/supplierDataMaintain'
                     });

@@ -38,8 +38,8 @@
             </div>
           </div>
           <div class="popover-btn">
-            <button class="btn-cancel" @click="visible = false">取消</button>
             <button class="btn-submit" @click="saveCheckedPop">确定</button>
+            <button class="btn-cancel" @click="visible = false">取消</button>
           </div>
         </div>
         <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
@@ -176,7 +176,7 @@
 </script>
 
 <style lang="less">
-  
+
   .el-popover{
     border: 1px solid #d6d6d6;
     background: #fff;
@@ -215,7 +215,7 @@
       background: #fff;
       color: #606266;
     }
-    .el-select { 
+    .el-select {
       .el-input{
         position: relative;
         &:after{
@@ -387,6 +387,6 @@
       }
     }
   }
-  
+
 
 </style>
