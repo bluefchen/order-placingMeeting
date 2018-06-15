@@ -38,7 +38,7 @@
         </div>
         <div class="foot-btn">
           <el-form-item>
-            <el-button size="small" type="primary" @click="roleAddSubmit">保&nbsp;存</el-button>
+            <el-button size="small" type="primary" @click="roleAddSubmit('roleData')">保&nbsp;存</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -56,9 +56,7 @@
   export default {
     name: 'ModifyRole',
     created() {
-      if (this.$route.query.roleInfo) {
-        this.roleData = this.$route.query.roleInfo;
-      }
+      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
     },
     data() {
       return {
@@ -69,41 +67,48 @@
         rules: {
           name: [
             { required: true, message: '角色名称不能为空', trigger: 'blur' },
-            { min: 1, max: 200, message: '长度不能超过200个字符', trigger: 'blur' }
+            { min: 1, max: 200, message: '长度不能超过200个字符', trigger: 'change' }
           ],
           description: [
             { required: true, message: '角色说明不能为空', trigger: 'blur' },
-            { min: 1, max: 250, message: '长度不能超过250个字符', trigger: 'blur' }
+            { min: 1, max: 250, message: '长度不能超过250个字符', trigger: 'change' }
           ]
         },
       }
     },
     methods: {
       //角色编辑
-      roleAddSubmit() {
-        this.$post('/systemUserController/savePostRole', {
-          postRoleId: this.roleData.postRoleId,
-          name: this.roleData.name,
-          description: this.roleData.description
-        }).then((rsp) => {
-          if(rsp.resultCode == '0'){
-            this.$msgBox({
-              type: 'success',
-              title: '操作提示',
-              content: '修改成功！'
-            }).catch(() => {
-              this.$router.push({
-                path: '/orderManage/RoleManage'
-              });
+      roleAddSubmit(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$post('/systemUserController/savePostRole', {
+              postRoleId: this.roleData.postRoleId,
+              name: this.roleData.name,
+              description: this.roleData.description
+            }).then((rsp) => {
+              if(rsp.resultCode == '0'){
+                this.$msgBox({
+                  type: 'success',
+                  title: '操作提示',
+                  content: '修改成功！'
+                }).catch(() => {
+                  this.$router.push({
+                    path: '/orderManage/RoleManage'
+                  });
+                });
+              }else{
+                this.$msgBox({
+                  type: 'error',
+                  title: '操作提示',
+                  content: rsp.resultMsg
+                }).catch(() => {
+                  // console.log('cancel');
+                });
+              }
             });
-          }else{
-            this.$msgBox({
-              type: 'error',
-              title: '操作提示',
-              content: rsp.resultMsg
-            }).catch(() => {
-              // console.log('cancel');
-            });
+          } else {
+            console.log('error submit!!');
+            return false;
           }
         });
       }

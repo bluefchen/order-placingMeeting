@@ -36,15 +36,8 @@
   export default {
     name: 'userRoleManage',
     created() {
-      if(this.$route.query.postRoleId){
-        this.roleData.postRoleId = this.$route.query.postRoleId;
-      }
-      if(this.$route.query.roleName){
-        this.roleData.name = this.$route.query.roleName;
-      }
-      if(this.$route.query.roleTypeCd){
-        this.roleData.roleTypeCd = this.$route.query.roleTypeCd;
-      }
+
+      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
       this.queryPostRoleRelaUserList();
     },
     data() {
