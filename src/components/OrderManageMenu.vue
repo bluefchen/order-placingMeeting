@@ -4,14 +4,14 @@
       <el-menu-item index="/orderManage/orderManageIndex">订购会管理</el-menu-item>
       <el-submenu index="/orderManage/terminalMaintain">
         <template slot="title">基础数据维护</template>
-        <el-menu-item index="/orderManage/terminalMaintain">终端维护</el-menu-item>
-        <el-menu-item index="/orderManage/supplierDataMaintain">供货商资料维护</el-menu-item>
-        <el-menu-item index="/orderManage/setailerDataMaintain">零售商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/terminalMaintain" :disabled="!isBasicHold('终端维护')">终端维护</el-menu-item>
+        <el-menu-item index="/orderManage/supplierDataMaintain" :disabled="!isBasicHold('供货商资料维护')">供货商资料维护</el-menu-item>
+        <el-menu-item index="/orderManage/setailerDataMaintain" :disabled="!isBasicHold('零售商资料维护')">零售商资料维护</el-menu-item>
       </el-submenu>
       <el-submenu index="/orderManage/usermanManage">
         <template slot="title">系统维护</template>
-        <el-menu-item index="/orderManage/usermanManage">用户管理</el-menu-item>
-        <el-menu-item index="/orderManage/roleManage">角色管理</el-menu-item>
+        <el-menu-item index="/orderManage/usermanManage" :disabled="!isSysHold('用户管理')">用户管理</el-menu-item>
+        <el-menu-item index="/orderManage/roleManage" :disabled="!isSysHold('角色管理')">角色管理</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
@@ -21,10 +21,40 @@
   export default {
     name: 'OrderManageMenu',
     props: {},
-    data() {
-      return {}
+    created() {
+      this.systemMenuAllList = JSON.parse(localStorage.getItem('systemMenuAllList'));
+      let basicList = _.find(this.systemMenuAllList, (item) => {
+        return item.operationSpecDisptypeCd === 2;
+      });
+      this.basicMenus = _.filter(_.get(basicList, 'menus'), (item) => {
+        return item.isHold === 'Y';
+      });
+      let systemList = _.find(this.systemMenuAllList, (item) => {
+        return item.operationSpecDisptypeCd === 3;
+      });
+      this.sysMenus = _.filter(_.get(systemList, 'menus'), (item) => {
+        return item.isHold === 'Y';
+      });
     },
-    methods: {},
+    data() {
+      return {
+        systemMenuAllList: null,
+        basicMenus: [],
+        sysMenus: []
+      }
+    },
+    methods: {
+      isBasicHold(val) {
+        return _.some(this.basicMenus, (item) => {
+          return item.systemMenuName === val;
+        });
+      },
+      isSysHold(val) {
+        return _.some(this.sysMenus, (item) => {
+          return item.systemMenuName === val;
+        });
+      }
+    },
   }
 </script>
 

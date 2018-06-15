@@ -15,7 +15,8 @@
           <p class="p-titl">{{item.dispTypeName}}</p>
           <ul class="menu-list fn-clear">
             <li class="fn-left" v-for="it in item.menus" :class="{'selected': it.isHold === 'Y'}"
-                @click="onSelectClick(it)">{{it.systemMenuName}}
+                @click="onSelectClick(it)">
+              {{it.systemMenuName}}
             </li>
           </ul>
         </div>
@@ -57,11 +58,10 @@
         });
       },
       onSelectClick(it) {
-        if (it.isHold === 'Y') {
-          it.isHold = 'N';
-        } else {
-          it.isHold = 'Y';
+        if (_.get(this.roleData, 'postRoleId') === 1 && (it.systemMenuName === '角色管理' || it.systemMenuName === '用户管理')) {
+          return;
         }
+        it.isHold === 'Y' ? it.isHold = 'N' : it.isHold = 'Y';
       },
       menuSave() {
         let newMenu = [];
@@ -79,7 +79,7 @@
           if (rsp.resultCode == '0') {
             //获取用户菜单权限，更新保存本地
             this.$post('/systemUserController/querySystemMenuList', {
-              postRoleId: _.get(rsp, 'postRoleId')
+              postRoleId: _.get(this.roleData, 'postRoleId')
             }).then((rsp) => {
               localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
             });
