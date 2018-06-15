@@ -249,42 +249,56 @@
           });
         } else {
           let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-          if (opmRetailerDepositList) {
-            opmRetailerDepositList.map((item) => {
-              let obj = {
-                'retailerId': item.retailerId,
-                'depositAmount': item.depositAmount
-              };
-              this.opmRetailerUpate.push(obj);
-            });
-          }
-
-          this.$post('/opmDepositController/updateOpmDepositInfo', {
-            opMeetingId: this.opMeetingInfo.opMeetingId,
-            provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
-            depositType: type,
-            opmRetailerDepositList: this.opmRetailerUpate
-          }).then((rsp) => {
-            if (rsp.resultCode == '0') {
-              this.$msgBox({
-                type: 'success',
-                title: '操作提示',
-                content: '修改配置成功'
-              }).catch(() => {
-                this.queryOpmDepositInfo();
-                this.editshow = true;
-              });
-
-            } else {
-              this.$msgBox({
-                type: 'error',
-                title: '操作提示',
-                content: rsp.resultMsg
-              }).catch(() => {
-                // console.log('cancel');
+          if(opmRetailerDepositList){
+            var flag = _.some(opmRetailerDepositList, (item, index) => {
+              return item.depositAmount < 10000
+            })
+          };
+          if(!flag){
+            if (opmRetailerDepositList) {
+              opmRetailerDepositList.map((item) => {
+                let obj = {
+                  'retailerId': item.retailerId,
+                  'depositAmount': item.depositAmount
+                };
+                this.opmRetailerUpate.push(obj);
               });
             }
-          })
+            this.$post('/opmDepositController/updateOpmDepositInfo', {
+              opMeetingId: this.opMeetingInfo.opMeetingId,
+              provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+              depositType: type,
+              opmRetailerDepositList: this.opmRetailerUpate
+            }).then((rsp) => {
+              if (rsp.resultCode == '0') {
+                this.$msgBox({
+                  type: 'success',
+                  title: '操作提示',
+                  content: '修改配置成功'
+                }).catch(() => {
+                  this.queryOpmDepositInfo();
+                  this.editshow = true;
+                });
+
+              } else {
+                this.$msgBox({
+                  type: 'error',
+                  title: '操作提示',
+                  content: rsp.resultMsg
+                }).catch(() => {
+                  // console.log('cancel');
+                });
+              }
+            })
+          }else{
+            this.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: '每个零售商的诚意金金额至少为10000元'
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         }
       },
       queryOpmDepositInfo() {
