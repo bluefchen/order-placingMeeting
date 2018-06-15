@@ -134,10 +134,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {

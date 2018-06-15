@@ -105,10 +105,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/opmDepositController/batchInsertOpmRetailerDeposit', tableDataIsSueccess).then(rsp => {
