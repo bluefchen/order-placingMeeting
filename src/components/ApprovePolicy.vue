@@ -52,7 +52,7 @@
           label: '不通过',
           value: 1002
         }],
-        remark: ''
+        reviewRemark: ''
       }
     },
     methods: {
