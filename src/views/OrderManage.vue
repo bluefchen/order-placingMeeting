@@ -41,13 +41,6 @@
           });
         });
       }
-
-      //TODO 测试
-      this.$post('/systemUserController/querySystemMenuList', {
-        postRoleId: '4'
-      }).then((rsp) => {
-        localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
-      });
     },
     data() {
       return {
