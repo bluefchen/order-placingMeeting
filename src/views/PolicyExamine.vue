@@ -18,9 +18,6 @@
       <div class="box-1200">
         <div class="order-titl fn-clear">
           <div class="tel-model fn-left">优惠政策列表</div>
-          <div class="buttons fn-right">
-            <router-link class="btns" to="/order/importPolicyAdd"><i class="iconfont">&#xe6a8;</i> 政策投入</router-link>
-          </div>
         </div>
         <Table :isIndex="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
@@ -37,7 +34,7 @@
   import ApprovePolicy from '@/components/ApprovePolicy';
   import Pagination from '@/components/Pagination';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'PolicyExamine',
     created() {
@@ -119,7 +116,7 @@
           opMeetingId: this.opMeetingInfo.opMeetingId,
           policyName: this.policyManage.policyName,
           policyType: this.policyManage.policyType,
-          statusCd: '1001',
+          statusCd: '1000',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {

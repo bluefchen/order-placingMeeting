@@ -1,5 +1,5 @@
 <template>
-  <div class="device-wrap fn-clear">
+  <div class="device-wrap fn-clear" @click="detailTerminal">
     <div class="device-pic fn-left">
       <img :src="offerPicUrl">
     </div>
@@ -34,11 +34,24 @@
             contents: []
           }
         }
+      },
+      url: {
+        type: String
+      }
+    },
+    methods: {
+      detailTerminal(){
+        if(!!this.url){
+          localStorage.setItem('offerCode', JSON.stringify(this.data));
+          this.$router.push({
+            path: this.url,
+          });
+        }
       }
     },
     computed: {
       offerPicUrl() {
-        return _.get(this.data, 'offerPic.offerPicUrl') ? 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + _.get(this.data, 'offerPic.offerPicUrl') : './static/img/icon-tel-default.jpg'
+        return _.get(this.data, 'offerPic.offerPicUrl') ? this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + _.get(this.data, 'offerPic.offerPicUrl') : './static/img/icon-tel-default.jpg'
       },
       policyList() {
         return _.get(this.data, 'contents') || [];

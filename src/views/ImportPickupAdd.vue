@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/opmOrderController/analyzeInsertOpmOrderList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmOrder',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmOrder',
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',
@@ -78,7 +78,7 @@
           prop: 'offerQty',
           width: 80
         }, {
-          label: '供应商',
+          label: '供货商',
           prop: 'supplierName',
           width: 80
         }, {
@@ -107,7 +107,7 @@
     },
     methods: {
       batchInsertOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -121,10 +121,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/opmOrderController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {
@@ -133,7 +131,7 @@
             title: '操作提示',
             content: '导入新增数据成功'
           }).catch(() => {
-            // console.log('cancel');
+            this.$refs.importComponent.tableData = [];
           });
         })
       }

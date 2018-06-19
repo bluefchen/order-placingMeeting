@@ -8,7 +8,7 @@
       <div class="step-box">
         <el-steps :active="active" align-center>
           <el-step title="填写基本资料" description=""></el-step>
-          <el-step title="选择供应商" description=""></el-step>
+          <el-step title="选择供货商" description=""></el-step>
           <el-step title="选择零售商" description=""></el-step>
           <el-step title="完成" description=""></el-step>
         </el-steps>
@@ -121,7 +121,7 @@
                 <el-form-item label="订购会logo上传：" class="fn-left" prop="logoUrl">
                   <el-upload
                     class="condition-upload fn-left"
-                    action="http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/upload"
+                    :action="actionUrl"
                     :show-file-list="false"
                     :data="upLoadData"
                     :on-success="handleAvatarSuccess"
@@ -133,11 +133,11 @@
                       <el-progress type="circle" :width="80" :percentage="progress" :status="proStatus"></el-progress>
                     </div>
                     <img v-if="orderPlacingMeeting.logoUrl"
-                         :src="'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + orderPlacingMeeting.logoUrl">
+                         :src="logoPicUrl">
                     <i v-else class="avatar-uploader-icon"></i>
                     <div v-if="orderPlacingMeeting.logoUrl" class="edit"><i class="iconfont">&#xe656;</i> 编辑</div>
                   </el-upload>
-                  <div class="fn-left logo-notice">logo尺寸大小：高宽200*200PX，请上传png、jpeg、bmp、jpg格式的图片</div>
+                  <div class="fn-left logo-notice">logo尺寸大小：高宽278*246PX，请上传png、jpeg、bmp、jpg格式的图片</div>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -324,7 +324,7 @@
         },
         pickerBeginDateAfter: {
           disabledDate: (time) => {
-            let beginDateVal = this.orderPlacingMeeting.startDt ? moment(this.orderPlacingMeeting.startDt).format('YYYY-MM-DD') : moment(new Date()).format('YYYY-MM-DD')
+            let beginDateVal = this.orderPlacingMeeting.startDt ? moment(this.orderPlacingMeeting.startDt).format('YYYY-MM-DD') : moment(new Date()).format('YYYY-MM-DD');
             if (beginDateVal) {
               return moment(time).format('YYYY-MM-DD') < beginDateVal;
             }
@@ -447,10 +447,16 @@
           tableData: []
         },
         progress: 0,//上传进度
-        pass: null,//是否上传成功
+        pass: null//是否上传成功
       }
     },
     computed: {
+      actionUrl() {
+        return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/upload';
+      },
+      logoPicUrl() {
+        return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + this.orderPlacingMeeting.logoUrl
+      },
       proStatus() {
         if (this.pass) {
           return 'success'
@@ -798,11 +804,11 @@
       border: 1px solid #dedede;
       text-align: center;
       cursor: pointer;
-      .edit{
+      .edit {
         position: absolute;
-        content:'';
-        left:0;
-        bottom:10px;
+        content: '';
+        left: 0;
+        bottom: 10px;
         width: calc(100% - 20px);
         height: 24px;
         padding: 0 10px;

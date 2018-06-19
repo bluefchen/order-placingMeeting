@@ -83,7 +83,7 @@
           label: '运营商'
         }, {
           value: 2,
-          label: '供应商'
+          label: '供货商'
         }, {
           value: 3,
           label: '零售商'
@@ -91,9 +91,6 @@
         statusList: [{
           value: 1000,
           label: '有效'
-        }, {
-          value: 1001,
-          label: '失效'
         }, {
           value: 1002,
           label: '冻结'
@@ -131,7 +128,7 @@
           width: 120,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供货商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -200,7 +197,7 @@
                       }).catch(() => {
                         // console.log('cancel');
                       });
-                    }                   
+                    }
                   })
                 },
                 //激活
@@ -224,7 +221,7 @@
                       }).catch(() => {
                         // console.log('cancel');
                       });
-                    }                   
+                    }
                   })
                 },
                 //删除
@@ -239,7 +236,7 @@
                         content: '删除成功'
                       }).catch(() => {
                         this.queryUsermanSubmit(this.currentPage);
-                      });                    
+                      });
                     }else{
                       this.$msgBox({
                         type: 'error',
@@ -282,7 +279,7 @@
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
       },
-      //选择零售商或供应商
+      //选择零售商或供货商
       selectRetailer(val) {
         this.usermanData.relaId = val;
       },
@@ -338,7 +335,7 @@
               content: '激活成功'
             }).catch(() => {
               this.queryUsermanSubmit();
-            });  
+            });
           }else{
             this.$msgBox({
               type: 'error',
@@ -401,7 +398,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }         
+          }
         })
       },
       //批量删除
@@ -455,7 +452,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-          }         
+          }
         })
       },
       queryUsermanSubmit(curPage, pageSize) {
@@ -479,13 +476,13 @@
     },
     watch: {
       "usermanData.userType": function () {
-        if (this.usermanData.userType == 3) {
+        if (this.usermanData.userType == this.$global.retailer) {
           this.merchantsTitle = '零售商';
           this.disabled = false;
-        } else if (this.usermanData.userType == 2) {
-          this.merchantsTitle = '供应商';
+        } else if (this.usermanData.userType == this.$global.supplier) {
+          this.merchantsTitle = '供货商';
           this.disabled = false;
-        } else if (this.usermanData.userType == 1) {
+        } else{
           this.merchantsTitle = '';
           this.disabled = true;
         }

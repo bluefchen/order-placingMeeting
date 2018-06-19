@@ -34,7 +34,7 @@
                 <div class="model-list-table">
                   <div class="order-titl fn-clear">
                     <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
-                    <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                    <p class="warn-wrds fn-right">( 注：每个零售商的诚意金金额至少为10000元 )</p>
                   </div>
                   <Table :tableTitle="tableTitleDone" :tableData="tableData"/>
                 </div>
@@ -68,7 +68,7 @@
                   <div class="model-list-table">
                     <div class="order-titl fn-clear">
                       <TitlePlate class="fn-left" title="配置诚意金的订单列表"/>
-                      <p class="warn-wrds fn-right">( 注：每个订单的诚意金金额至少为10000元 )</p>
+                      <p class="warn-wrds fn-right">( 注：每个零售商的诚意金金额至少为10000元 )</p>
                     </div>
                     <Table :tableTitle="tableTitle" :tableData="tableData"/>
                   </div>
@@ -199,7 +199,7 @@
         this.depositType = index;
       },
       confirm(type, formName) {
-        if(type == 1){
+        if (type == 1) {
           this.$post('/opmDepositController/updateOpmDepositInfo', {
             opMeetingId: this.opMeetingInfo.opMeetingId,
             provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
@@ -212,9 +212,9 @@
             }).catch(() => {
               this.queryOpmDepositInfo();
               this.editshow = true;
-            });          
+            });
           })
-        }else if(type == 2) {
+        } else if (type == 2) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
               this.$post('/opmDepositController/updateOpmDepositInfo', {
@@ -223,7 +223,7 @@
                 depositType: type,
                 depositProportion: this.depositInfoList.depositProportion,
               }).then((rsp) => {
-                if(rsp.resultCode == '0'){
+                if (rsp.resultCode == '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -231,8 +231,8 @@
                   }).catch(() => {
                     this.queryOpmDepositInfo();
                     this.editshow = true;
-                  });                
-                }else{
+                  });
+                } else {
                   this.$msgBox({
                     type: 'error',
                     title: '操作提示',
@@ -240,50 +240,66 @@
                   }).catch(() => {
                     // console.log('cancel');
                   });
-                }         
+                }
               })
             } else {
               console.log('error submit!!');
               return false;
             }
           });
-        }else{
+        } else {
           let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-          if (opmRetailerDepositList) {
-            opmRetailerDepositList.map((item) => {
-              let obj = {
-                'retailerId': item.retailerId,
-                'depositAmount': item.depositAmount
-              };
-              this.opmRetailerUpate.push(obj);
-            });
+          if(opmRetailerDepositList){
+            var flag = _.some(opmRetailerDepositList, (item, index) => {
+              return item.depositAmount < 10000
+            })
           };
-          this.$post('/opmDepositController/updateOpmDepositInfo', {
-            opMeetingId: this.opMeetingInfo.opMeetingId,
-            provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
-            depositType: type,
-            opmRetailerDepositList: this.opmRetailerUpate
-          }).then((rsp) => {
-            if(rsp.resultCode == '0'){
-              this.$msgBox({
-                type: 'success',
-                title: '操作提示',
-                content: '修改配置成功'
-              }).catch(() => {
-                this.queryOpmDepositInfo();
-                this.editshow = true;
+          if(!flag){
+            if (opmRetailerDepositList) {
+              this.opmRetailerUpate = [];
+              opmRetailerDepositList.map((item) => {
+                let obj = {
+                  'retailerId': item.retailerId,
+                  'depositAmount': item.depositAmount
+                };
+                this.opmRetailerUpate.push(obj);
               });
-             
-            }else{
-              this.$msgBox({
-                type: 'error',
-                title: '操作提示',
-                content: rsp.resultMsg
-              }).catch(() => {
-                // console.log('cancel');
-              });
-            }         
-          })
+            }
+            this.$post('/opmDepositController/updateOpmDepositInfo', {
+              opMeetingId: this.opMeetingInfo.opMeetingId,
+              provinceCommonRegionId: this.opMeetingInfo.commonRegionId,
+              depositType: type,
+              opmRetailerDepositList: this.opmRetailerUpate
+            }).then((rsp) => {
+              if (rsp.resultCode == '0') {
+                this.$msgBox({
+                  type: 'success',
+                  title: '操作提示',
+                  content: '修改配置成功'
+                }).catch(() => {
+                  this.queryOpmDepositInfo();
+                  this.editshow = true;
+                });
+
+              } else {
+                this.$msgBox({
+                  type: 'error',
+                  title: '操作提示',
+                  content: rsp.resultMsg
+                }).catch(() => {
+                  // console.log('cancel');
+                });
+              }
+            })
+          }else{
+            this.$msgBox({
+              type: 'error',
+              title: '操作提示',
+              content: '每个零售商的诚意金金额至少为10000元'
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         }
       },
       queryOpmDepositInfo() {
@@ -292,10 +308,8 @@
         }).then((rsp) => {
           if (rsp) {
             this.depositInfoList = rsp;
-          } else {
-            this.depositInfoList = {};
           }
-          this.depositType = this.depositInfoList.depositType;
+          this.depositType = this.depositInfoList.depositType || 1;
           this.tableData = this.depositInfoList.opmRetailerDepositList;
         })
       }
@@ -432,7 +446,7 @@
         color: #f01919;
         font-weight: bold;
       }
-      .el-input--mini{
+      .el-input--mini {
         margin-left: 13px;
       }
     }

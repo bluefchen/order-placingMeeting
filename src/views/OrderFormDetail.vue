@@ -79,7 +79,7 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import DeviceInfo from '@/components/DeviceInfo';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'Orderdetail',
     created() {
@@ -90,7 +90,7 @@
     data() {
       return {
         orderPickGoodsInfo: {}, //传入的数据
-        supplierInfo: {}, //查询供应商信息
+        supplierInfo: {}, //查询供货商信息
         retailerInfo: {}, //查询零售商信息
       }
     },

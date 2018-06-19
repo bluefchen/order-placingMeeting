@@ -48,8 +48,8 @@
         </el-col>
         <el-col :span="8">
           <div class="condition-item">
-            <label class="label-wrds">供应商名称：</label>
-            <ChooseMerchants title="供应商" @selectOptions="selectSupplier" />
+            <label class="label-wrds">供货商名称：</label>
+            <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
           </div>
         </el-col>
       </el-row>
@@ -81,7 +81,7 @@
   import ChooseMerchants from '@/components/ChooseMerchants';
   import TableList from '@/components/TableList';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderCompositeQuery',
     created() {
@@ -236,13 +236,13 @@
           }]
         },
         paymentStatusList: [{ //付款状态列表
-          value: 1000,
+          value: '1000',
           label: '未交定金'
         }, {
-          value: 1001,
+          value: '1001',
           label: '已交定金'
         }, {
-          value: 1002,
+          value: '1002',
           label: '已付款'
         }],
         paymentCtatusCd: '', //付款状态CD
@@ -285,7 +285,7 @@
           retailerId: this.orderQueryData.retailerId,
           fromDate: this.orderQueryData.dateValue[0],
           toDate: this.orderQueryData.dateValue[1],
-          statusCd: this.orderQueryData.statusCd,
+          paymentStatusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -303,7 +303,7 @@
         });
       },
       exportOpmOrder() {
-        location.href = 'http://192.168.74.17:8080/orderPlacingMeeting/opmOrderController/exportOpmOrderList?isCentman=' + this.orderQueryData.isCentman + '&offerNameOrCode=' + this.orderQueryData.offerNameOrCode + '&opmOrderNo=' + this.orderQueryData.opmOrderNo + '&supplierId=' + this.orderQueryData.supplierId + '&retailerId=' + this.orderQueryData.retailerId + '&fromDate=' + this.orderQueryData.dateValue[0] + '&toDate=' + this.orderQueryData.dateValue[1] + '&statusCd=' + this.orderQueryData.statusCd;
+        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderList?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&isCentman=' + this.orderQueryData.isCentman + '&offerNameOrCode=' + this.orderQueryData.offerNameOrCode + '&opmOrderNo=' + this.orderQueryData.opmOrderNo + '&supplierId=' + this.orderQueryData.supplierId + '&retailerId=' + this.orderQueryData.retailerId + '&fromDate=' + (this.orderQueryData.dateValue[0] ? this.orderQueryData.dateValue[0] : '') + '&toDate=' + (this.orderQueryData.dateValue[0] ? this.orderQueryData.dateValue[1] : '') + '&statusCd=' + this.orderQueryData.statusCd;
       },
       pageChanged(curPage) {
         this.queryOpmOrderSubmit(curPage);

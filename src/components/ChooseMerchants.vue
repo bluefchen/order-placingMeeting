@@ -2,12 +2,12 @@
   <div class="choose-merchants">
     <div class="choose-input-box" @click="isShow = true" v-show="!disabled">
       <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
-      <el-input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <div class="choose-input-box disabled" v-show="disabled">
       <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
-      <el-input class="choose-input" v-if="title === '供应商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
@@ -23,11 +23,11 @@
             <div class="form-group">
               <label>{{title}}类型：</label>
               <el-select v-if="isShowSupplierType" class="condition-select" v-model="orderQueryData.supplierType"
-                         placeholder="请选择">
+                         placeholder="请选择" :clearable="true">
                 <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
-              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择">
+              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择" :clearable="true">
                 <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -44,7 +44,7 @@
       </div>
       <div slot="footer">
         <el-button type="success" @click="saveChange">确定</el-button>
-        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
+        <el-button type="success" @click="visibleChange(false)">取消</el-button>
       </div>
     </DialogPopup>
   </div>
@@ -72,7 +72,7 @@
       }
     },
     created() {
-      if (this.title === '供应商') {
+      if (this.title === '供货商') {
         this.tableTitle = this.tableSupplierTitle;
         this.isShowSupplierType = true;
       } else if (this.title === '零售商') {
@@ -167,7 +167,7 @@
 
         searchInput: '',
 
-        //供应商表头
+        //供货商表头
         tableSupplierTitle: [{
           label: '选择',
           prop: '',
@@ -181,13 +181,13 @@
           label: '省份',
           prop: 'commonRegionName',
         }, {
-          label: '供应商编码',
+          label: '供货商编码',
           prop: 'supplierCode',
         }, {
-          label: '供应商名称',
+          label: '供货商名称',
           prop: 'supplierName',
         }, {
-          label: '供应商类型',
+          label: '供货商类型',
           prop: 'supplierTypeName',
         }, {
           label: '联系人',
@@ -256,7 +256,7 @@
       },
       saveChange() {
         this.checkedOption = this.selectionChangeList ? this.selectionChangeList : {};
-        if (this.title === '供应商') {
+        if (this.title === '供货商') {
           this.$emit('selectOptions', this.checkedOption.supplierId);
         } else {
           this.$emit('selectOptions', this.checkedOption.retailerId);
@@ -265,10 +265,11 @@
       },
       visibleChange(val) {
         this.isShow = val;
+        this.handleSearch();
       },
       handleSearch(curPage, pageSize) {
-        if (this.title === '供应商') {
-          //查询供应商
+        if (this.title === '供货商') {
+          //查询供货商
           this.$post('/orderPlacingMeetingController/querySupplierList', {
             commonRegionId: this.orderQueryData.commonRegionId,
             supplierNameOrCode: this.searchInput,
@@ -303,16 +304,20 @@
       }
     },
     watch: {
-      "title": function () {
-        if (this.title === '供应商') {
+      'title': function () {
+        if (this.title === '供货商') {
           this.tableTitle = this.tableSupplierTitle;
-          this.isShowSupplierType = true; 
+          this.isShowSupplierType = true;
         } else if (this.title === '零售商') {
           this.tableTitle = this.tableRetailerTitle;
           this.isShowSupplierType = false;
         }
         this.handleSearch();
       },
+      'disabled': function(){
+        this.checkedOption.retailerName = '';
+        this.checkedOption.supplierName = '';
+      }
     },
     components: {
       DialogPopup,

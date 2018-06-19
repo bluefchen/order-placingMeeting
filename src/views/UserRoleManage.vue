@@ -36,15 +36,7 @@
   export default {
     name: 'userRoleManage',
     created() {
-      if(this.$route.query.postRoleId){
-        this.roleData.postRoleId = this.$route.query.postRoleId;
-      }
-      if(this.$route.query.roleName){
-        this.roleData.name = this.$route.query.roleName;
-      }
-      if(this.$route.query.roleTypeCd){
-        this.roleData.roleTypeCd = this.$route.query.roleTypeCd;
-      }
+      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
       this.queryPostRoleRelaUserList();
     },
     data() {
@@ -76,7 +68,7 @@
           width: 145,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -98,7 +90,7 @@
         }, {
           label: '操作',
           width: 128,
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data: function () {
@@ -107,11 +99,12 @@
                 }
               },
               methods: {
-                deleteRelativeRole(item) {
+                deleteRelativeRole: (item) => {
                   this.$post('/systemUserController/deletePostRoleRelaUser', {
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
+                    this.queryPostRoleRelaUserList();
                     this.$msgBox({
                       type: 'success',
                       title: '操作提示',
@@ -149,7 +142,7 @@
           width: 200,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -167,7 +160,7 @@
         }, {
           label: '操作',
           width: 200,
-          render: function (h, params) {
+          render: (h, params) => {
             return h({
               template: '<div><el-button type="text" @click="deleteRelativeRole(roleInfo)" class="delete-btn">删除</el-button></div>',
               data: function () {
@@ -176,11 +169,12 @@
                 }
               },
               methods: {
-                deleteRelativeRole(item) {
+                deleteRelativeRole: (item) => {
                   this.$post('/systemUserController/deletePostRoleRelaUser', {
                     postRoleId: item.postRoleId,
                     partyId: item.partyId
                   }).then((rsp) => {
+                    this.queryPostRoleRelaUserList();
                     this.$msgBox({
                       type: 'success',
                       title: '操作提示',
@@ -214,17 +208,13 @@
       },
       //添加相关人员
       addRelevantPerson() {
+        localStorage.setItem('postRoleId', JSON.stringify(this.roleData));
         this.$router.push({
-          path: '/orderManage/addRelevantPerson',
-          query: {
-            postRoleId: this.roleData.postRoleId,
-            roleName: this.roleData.name,
-            userType: this.roleData.roleTypeCd
-          }
+          path: '/orderManage/addRelevantPerson'
         });
       },
       pageChanged(curPage) {
-        this.queryOpmDepositList(curPage);
+        this.queryPostRoleRelaUserList(curPage);
       }
     },
     components: {

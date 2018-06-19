@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="8" :offset="2">
               <el-form-item label="终端名称：" prop="offerName"
-                            :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'blur'}]">
+                            :rules="[{ required: true, message: '请输入终端名称', trigger: 'blur' },{ min: 0, max: 200, message: '长度不能超过200个字符', trigger: 'change'}]">
                 <Input :value.sync="terminalMaintainInfo.offerName"/>
               </el-form-item>
             </el-col>
@@ -63,7 +63,7 @@
                 <div class="upload-img-list fn-clear">
                   <ul class="fn-left">
                     <el-upload
-                      action="http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/upload"
+                      :action="actionUrl"
                       :file-list="showOfferPicList"
                       list-type="picture-card"
                       :limit="6"
@@ -76,7 +76,6 @@
                       <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
                   </ul>
-                  <div v-if="nullError" class="upload-list-null fn-left">请至少上传4张终端图片</div>
                 </div>
                 <div class="attention">注：终端尺寸大小：高宽380*380PX，图片是终端详情的终端产品展示图，最多只能上传6张</div>
               </div>
@@ -349,7 +348,7 @@
         this.title = '修改终端';
         this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
         this.qryOfferModelList(this.maintainInfo.brandCd);
-        if (this.maintainInfo.offerPic) {
+        if (!!this.maintainInfo.offerPic) {
           if (this.maintainInfo.offerPic.offerPicUrl) {
             this.offerPicList.push({url: this.maintainInfo.offerPic.offerPicUrl});
           }
@@ -371,7 +370,7 @@
         }
         this.showOfferPicList = [];
         _.forEach(this.offerPicList, (item, index) => {
-          this.showOfferPicList.push({url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
+          this.showOfferPicList.push({url: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + item.url});
         });
         this.terminalMaintainInfo = {
           offerId: _.get(this.maintainInfo, 'offerId'),
@@ -650,8 +649,6 @@
             'label': '不可拆卸式电池',
           }],
 
-
-        nullError: null,
         value: '',
         brandCdItem: '',
         offerModelItem: '',
@@ -733,10 +730,15 @@
         dislogTitle: '导入',
         imgUrl: require('../assets/images/icon-add.png'),
         url: '/orderPlacingMeetingController/analyzeOfferParamList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OfferParam',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OfferParam',
         upLoadItem: {
           fileType: '2'
         }
+      }
+    },
+    computed: {
+      actionUrl() {
+        return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/upload';
       }
     },
     methods: {
@@ -744,7 +746,7 @@
       handleAvatarSuccess(res, file, fileList) {
         this.offerPicList.push(res.data);
         this.showOfferPicList[this.showOfferPicList.length] = {
-          url: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + file.url
+          url: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + file.url
         };
       },
       //图片删除
@@ -802,21 +804,12 @@
       submitForm(formName, title) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if (this.offerPicList.length > 3) {
               if (title === '保存') {
                 this.saveOffer();
               } else {
                 this.previewOffer();
               }
-            } else {
-              window.scroll(0, 0);
-              this.nullError = true;
-            }
           } else {
-            if (!this.offerPicList.length) {
-              this.nullError = true;
-            }
-            ;
             window.scroll(0, 0);
             return false;
           }
@@ -880,9 +873,16 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.$router.push({
-                path: '/orderManage/terminalMaintain'
-              })
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '新增终端成功！'
+              }).then(() => {
+              }).catch(() => {
+                this.$router.push({
+                  path: '/orderManage/terminalMaintain'
+                })
+              });
             } else {
               this.$msgBox({
                 type: 'error',
@@ -894,7 +894,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -927,9 +927,16 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.$router.push({
-                path: '/orderManage/terminalMaintain'
-              })
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '修改终端成功！'
+              }).then(() => {
+              }).catch(() => {
+                this.$router.push({
+                  path: '/orderManage/terminalMaintain'
+                })
+              });
             } else {
               this.$msgBox({
                 type: 'error',
@@ -1016,7 +1023,7 @@
             }
           });
         } else {
-          this.uploadOfferPicList.offerPicId = this.maintainInfo.offerPic.offerPicId;
+          this.uploadOfferPicList.offerPicId = _.get(this.maintainInfo.offerPic, 'offerPicId');
           this.$post('/orderPlacingMeetingController/updateOffer', {
             'offerId': _.get(this.terminalMaintainInfo, 'offerId'),
             'offerCode': _.get(this.terminalMaintainInfo, 'offerCode'),
@@ -1089,13 +1096,6 @@
 
         } else {
           this.flag++
-        }
-      },
-      'offerPicList': function (newVal, oldVal) {
-        if (!newVal.length) {
-          this.nullError = true;
-        } else {
-          this.nullError = false;
         }
       }
     }

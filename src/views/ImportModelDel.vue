@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeDeleteOpmOfferList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=DeleteOpmOffer',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=DeleteOpmOffer',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',
@@ -120,7 +120,7 @@
     },
     methods: {
       batchDeleteOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -134,10 +134,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/orderPlacingMeetingController/batchDeleteOpmOffer', tableDataIsSueccess).then(rsp => {

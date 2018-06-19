@@ -25,18 +25,28 @@
     created() {
       this.user = JSON.parse(localStorage.getItem('user'));
       if (!this.user) {
-        this.$post('http://192.168.74.17:9086/psm/systemUserController/loginInitialize', {
+        //默认只有当第一次用户登录跳转才会执行
+        this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
           userId: this.$route.query.userId,
           token: this.$route.query.token
         }).then((rsp) => {
           this.user = rsp;
           localStorage.setItem('user', JSON.stringify(rsp));
+
+          //获取用户菜单权限，保存本地
+          this.$post('/systemUserController/querySystemMenuList', {
+            postRoleId: _.get(rsp, 'postRoleId'),
+            roleTypeCd: '3'//固定的运营商roleTypeCd
+          }).then((rsp) => {
+            localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+          });
         });
       }
     },
     data() {
       return {
-        user: null
+        user: null,
+        systemMenuAllList: null
       };
     },
     computed: {

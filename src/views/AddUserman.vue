@@ -1,5 +1,11 @@
 <template>
   <div class="add-userman">
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '用户管理', '修改密码']"/>
+      </div>
+    </div>
     <div class="box-1200">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="新增/修改账号"/>
@@ -90,7 +96,7 @@
           </el-row>
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
-              <el-form-item prop="commonRegionId" v-if="usermanData.userType == 1">
+              <el-form-item prop="commonRegionId" v-if="usermanData.userType == $global.operator">
                 <div class="condition-item">
                   <!-- 当为管理人员时，* 存在，表示为必填项 -->
                   <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
@@ -104,12 +110,13 @@
             </el-col>
           </el-row>
           <!-- 当为管理人员时，此项不存在 -->
-          <el-row :gutter="20" v-show="usermanData.userType != 1">
+          <el-row :gutter="20" v-show="usermanData.userType != $global.operator">
             <el-col :span="8" :offset="2">
               <el-form-item prop="relaId">
                 <div class="condition-item">
                   <label class="label-wrds"><span class="red-star">*</span> 归属商户：</label>
-                  <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData" :disabled="modify"/>
+                  <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" :selectionFor="usermanData"
+                                   :disabled="modify"/>
                 </div>
               </el-form-item>
             </el-col>
@@ -130,10 +137,10 @@
             <p class="p-titl"><img src="../assets/images/icon-remind.png">提示</p>
             <p class="p1">新密码需要满足如下<span class="org">2个条件：</span></p>
             <p class="p2">1、密码长度8位以上（含8位）</p>
-            <p class="p2">2、密码包含以下3种组成部分</span></p>
-            <p class="p3">（1）小写英文字母（从a到z）</span></p>
-            <p class="p3">（2）大写英文字母（从A到Z）</span></p>
-            <p class="p3">（3）10个基本数字（从0到9）</span></p>
+            <p class="p2">2、密码包含以下3种组成部分</p>
+            <p class="p3">（1）小写英文字母（从a到z）</p>
+            <p class="p3">（2）大写英文字母（从A到Z）</p>
+            <p class="p3">（3）10个基本数字（从0到9）</p>
             <p class="p4">注意：请勿在新密码中包含特殊字符！请牢记修改后的密码，然后使用新的密码进行登录</p>
           </div>
         </div>
@@ -159,6 +166,7 @@
   import Select from '@/components/Select';
   import ChooseMerchants from '@/components/ChooseMerchants';
   import AreaSelect from '@/components/AreaSelect';
+  import Breadcrumb from '@/components/Breadcrumb';
   import {md5} from 'md5js';
 
   export default {
@@ -179,7 +187,8 @@
             callback(new Error('请输入正确的电话号码'));
           }
           callback();
-        };
+        }
+        ;
       };
       var passwordValid = (rule, value, callback) => {
         if (value === '') {
@@ -188,7 +197,7 @@
           let reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,32}$/;
           if (!(reg.test(value))) {
             callback(new Error('请输入正确的密码'));
-          }else{
+          } else {
             if (this.usermanData.checkPassword !== '') {
               this.$refs.usermanData.validateField('checkPassword');
             }
@@ -198,16 +207,16 @@
         }
       };
       var checkPasswordValid = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.usermanData.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
+          if (value === '') {
+            callback(new Error('请再次输入密码'));
+          } else if (value !== this.usermanData.password) {
+            callback(new Error('两次输入密码不一致!'));
+          } else {
+            callback();
+          }
       };
       var checkCommonRegionId = (rule, value, callback) => {
-        if (this.usermanData.userType == 1) {
+        if (this.usermanData.userType == this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属省份'));
           } else {
@@ -218,7 +227,7 @@
         }
       };
       var checkRelaId = (rule, value, callback) => {
-        if (this.usermanData.userType != '1') {
+        if (this.usermanData.userType != this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属商户'));
           } else {
@@ -241,14 +250,15 @@
           ],
           systemUserCode: [
             {required: true, message: '请输入用户账号', trigger: 'blur'},
-            {min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'blur'}
+            {min: 1, max: 40, message: '长度不能超过40个字符', trigger: 'change'}
           ],
           name: [
             {required: true, message: '请输入用户名称', trigger: 'blur'},
-            {min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'blur'}
+            {min: 1, max: 200, message: '长度在不能超过200个字符', trigger: 'change'}
           ],
           linktelenumber: [
             {validator: checkTel, trigger: 'blur'},
+            {trigger: 'change'}
           ],
           commonRegionId: [
             {validator: checkCommonRegionId, trigger: 'blur'},
@@ -257,10 +267,12 @@
             {validator: checkRelaId, trigger: 'blur'},
           ],
           password: [
-            {validator: passwordValid, trigger: 'blur'}
+            {validator: passwordValid, trigger: 'blur'},
+            {min: 0, trigger: 'change'}
           ],
           checkPassword: [
-            {validator: checkPasswordValid, trigger: 'blur'}
+            {validator: checkPasswordValid, trigger: 'blur'},
+            {min: 0, trigger: 'change'}
           ],
           remark: [
             {min: 0, max: 400, message: '长度在不能超过400个字符', trigger: 'blur'}
@@ -269,19 +281,19 @@
         usermanSelect: {},
         usermanList: [{
           value: '1',
-          label: '运营商'
+          label: '供货商'
         }, {
           value: '2',
-          label: '供应商'
+          label: '零售商'
         }, {
           value: '3',
-          label: '零售商'
+          label: '运营商'
         }],
         merchantsTitle: '',
       }
     },
     methods: {
-      //选择零售商或供应商
+      //选择零售商或供货商
       selectRetailer(val) {
         this.usermanData.relaId = val;
       },
@@ -299,7 +311,7 @@
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if(rsp.resultCode == '0'){
+                if (rsp.resultCode == '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -309,7 +321,7 @@
                       path: '/orderManage/usermanManage'
                     });
                   });
-                }else{
+                } else {
                   this.$msgBox({
                     type: 'error',
                     title: '操作提示',
@@ -321,17 +333,17 @@
               })
             } else {
               this.$post('/systemUserController/updateSystemUser', {
-                partyId: _.get(this.usermanData, 'partyId')||'',
-                commonRegionId: _.get(this.usermanData, 'commonRegionId')||'',
-                userType: _.get(this.usermanData, 'userType')||'',
-                relaId: _.get(this.usermanData, 'relaId')||'',//归属商户
-                systemUserCode:  _.get(this.usermanData, 'systemUserCode')||'',//用户账号
-                password: md5(_.get(this.usermanData, 'password')||'', 32),
-                name: _.get(this.usermanData, 'name')||'',
-                linktelenumber: _.get(this.usermanData, 'linktelenumber')||'',
+                partyId: _.get(this.usermanData, 'partyId') || '',
+                commonRegionId: _.get(this.usermanData, 'commonRegionId') || '',
+                userType: _.get(this.usermanData, 'userType') || '',
+                relaId: _.get(this.usermanData, 'relaId') || '',//归属商户
+                systemUserCode: _.get(this.usermanData, 'systemUserCode') || '',//用户账号
+                password: md5(_.get(this.usermanData, 'password') || '', 32),
+                name: _.get(this.usermanData, 'name') || '',
+                linktelenumber: _.get(this.usermanData, 'linktelenumber') || '',
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if(rsp.resultCode == '0'){
+                if (rsp.resultCode == '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -341,7 +353,7 @@
                       path: '/orderManage/usermanManage'
                     });
                   });
-                }else{
+                } else {
                   this.$msgBox({
                     type: 'error',
                     title: '操作提示',
@@ -366,11 +378,11 @@
     },
     watch: {
       "usermanData.userType": function () {
-        if (this.usermanData.userType == 3) {
+        if (this.usermanData.userType == this.$global.retailer) {
           this.merchantsTitle = '零售商';
-        } else if (this.usermanData.userType == 2) {
-          this.merchantsTitle = '供应商';
-        };
+        } else if (this.usermanData.userType == this.$global.supplier) {
+          this.merchantsTitle = '供货商';
+        }
       },
     },
     components: {
@@ -379,6 +391,7 @@
       Select,
       ChooseMerchants,
       AreaSelect,
+      Breadcrumb,
       md5
     }
   }
@@ -386,6 +399,11 @@
 
 <style lang="less">
   .add-userman {
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
     .text-right {
       text-align: right;
     }
@@ -420,7 +438,7 @@
       border-top: none;
       text-align: center;
     }
-    .pwd-edit{
+    .pwd-edit {
       position: absolute;
       top: 6px;
       right: -100px;
@@ -430,11 +448,11 @@
       font-size: 14px;
       color: #168fe4;
       text-align: left;
-      &:hover,&:active,&:focus{
-        background:none;
+      &:hover, &:active, &:focus {
+        background: none;
       }
     }
-    .password-rule{
+    .password-rule {
       position: absolute;
       top: 16px;
       right: 20px;
@@ -445,34 +463,34 @@
       color: #242424;
       font-size: 12px;
       border-radius: 8px;
-      .p-titl{
+      .p-titl {
         text-align: center;
         font-size: 16px;
         margin-bottom: 8px;
-        img{
+        img {
           margin-right: 8px;
           vertical-align: middle;
         }
       }
-      .p1{
+      .p1 {
         margin-bottom: 8px;
-        span{
+        span {
           color: #ff6d0b;
         }
       }
-      .p2{
+      .p2 {
         margin-bottom: 8px;
         color: #9a9a9a;
-        span{
+        span {
           color: #ff6d0b;
         }
       }
-      .p3{
+      .p3 {
         margin-bottom: 8px;
         color: #9a9a9a;
         text-indent: 14px;
       }
-      .p4{
+      .p4 {
         line-height: 18px;
         color: #ff6d0b;
       }
@@ -492,9 +510,9 @@
       top: 42px;
       left: 114px;
     }
-    .el-form-item{
-      &.textarea{
-        .el-form-item__error{
+    .el-form-item {
+      &.textarea {
+        .el-form-item__error {
           top: 62px;
         }
       }

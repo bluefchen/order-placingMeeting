@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpmOfferAllotList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOfferAllot',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOfferAllot',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',
@@ -128,7 +128,7 @@
     },
     methods: {
       batchInsertOpmOfferAllot() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -142,10 +142,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/orderPlacingMeetingController/batchInsertOpmOfferAllot', tableDataIsSueccess).then(rsp => {

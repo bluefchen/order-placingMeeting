@@ -7,6 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 
+import global from './util/global';
+Vue.prototype.$global = global;
+
 import App from './App';
 import router from './router';
 import _ from 'lodash';
@@ -19,7 +22,6 @@ import './util/axios';
 
 import '@/assets/css/reset.css';
 import '@/assets/css/common.css';
-
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/user') {

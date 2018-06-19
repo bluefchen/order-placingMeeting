@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/orderPlacingMeetingController/analyzeInsertOpmOfferList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOffer',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOffer',
         tableTitle: [{
           label: '终端编码',
           prop: 'offerCode',
@@ -86,7 +86,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<span class="state-icon" :class="data.row.isSpecial === \'Y\' ? \'ok\' : \'error\'"></span>',
+              template: '<div><span class="result-icon" v-if="data.row.isSpecial === \'Y\'"></span><span v-else>--</span></div>',
               data() {
                 return {
                   data: params
@@ -104,7 +104,7 @@
           width: 100,
           render: (h, params) => {
             return h({
-              template: '<div><span class="result-icon" v-if="data.row.isSuccess === \'Y\'"></span><span v-else>--</span></div>',
+              template: '<span class="state-icon" :class="data.row.isSuccess === \'Y\' ? \'ok\' : \'error\'"></span>',
               data() {
                 return {
                   data: params
@@ -120,7 +120,7 @@
     },
     methods: {
       batchInsertOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -134,10 +134,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {

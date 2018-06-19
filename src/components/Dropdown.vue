@@ -4,7 +4,7 @@
       【{{postRoleName}}】{{partyName}}<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item command="">个人信息维护</el-dropdown-item>
+      <el-dropdown-item command="user">个人信息维护</el-dropdown-item>
       <el-dropdown-item command="logout">退出登录</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -40,19 +40,15 @@
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
-          this.$post('http://192.168.74.17:9086/psm/systemUserController/loginOut4Http', {
+          this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/logOut', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
             localStorage.removeItem('user');
-            this.$msgBox({
-              type: 'success',
-              title: '操作提示',
-              content: '退出成功，TODO跳转回登录页面'
-            }).catch(() => {
-              // console.log('cancel');
-            });
+            location.href = this.$global.jumpOut;
           })
+        } else if (command === 'user') {
+          location.href = this.$global.userCenter + _.get(this.user, 'partyId');
         }
       }
     }

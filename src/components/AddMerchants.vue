@@ -1,7 +1,7 @@
 <template>
   <div class="add-merchants">
 
-    <button class="btn-add" type="success" @click="handleSearch(), isShow = true"><span class="iconfont">&#xe6a8;</span> 添加{{title}}
+    <button class="btn-add" type="success" @click="isShow = true"><span class="iconfont">&#xe6a8;</span> 添加{{title}}
     </button>
 
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
@@ -17,12 +17,12 @@
             <div class="form-group">
               <label>{{title}}类型：</label>
               <el-select v-if="isShowSupplierType" class="condition-select" v-model="orderQueryData.supplierType"
-                         placeholder="请选择">
+                         placeholder="请选择" :clearable="true">
                 <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
               <el-select v-if="!isShowSupplierType" class="condition-select" v-model="orderQueryData.retailerType"
-                         placeholder="请选择">
+                         placeholder="请选择" :clearable="true">
                 <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -40,7 +40,7 @@
       </div>
       <div slot="footer">
         <el-button type="success" @click="saveChange">确定</el-button>
-        <el-button type="success" @click="visibleChange(false)">关闭</el-button>
+        <el-button type="success" @click="visibleChange(false)">取消</el-button>
       </div>
     </DialogPopup>
   </div>
@@ -148,18 +148,18 @@
 
         searchInput: '',
 
-        //供应商表头
+        //供货商表头
         tableSupplierTitle: [{
           label: '省份',
           prop: 'commonRegionName',
         }, {
-          label: '供应商编码',
+          label: '供货商编码',
           prop: 'supplierCode',
         }, {
-          label: '供应商名称',
+          label: '供货商名称',
           prop: 'supplierName',
         }, {
-          label: '供应商类型',
+          label: '供货商类型',
           prop: 'supplierTypeName',
         }, {
           label: '联系人',
@@ -228,10 +228,11 @@
       },
       visibleChange(val) {
         this.isShow = val;
+        this.handleSearch();
       },
       handleSearch(curPage, pageSize) {
         if (this.title === '供货商') {
-          //查询供应商
+          //查询供货商
           this.$post('/orderPlacingMeetingController/querySupplierList', {
             commonRegionId: this.orderQueryData.commonRegionId,
             supplierNameOrCode: this.searchInput,

@@ -218,7 +218,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要冻结的供应商'
+            content: '请选择需要冻结的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -235,7 +235,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要冻结的有效供应商'
+            content: '请选择需要冻结的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -250,7 +250,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要激活的供应商'
+            content: '请选择需要激活的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -267,7 +267,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要激活的有效供应商'
+            content: '请选择需要激活的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -282,7 +282,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要删除的供应商'
+            content: '请选择需要删除的供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -299,7 +299,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要删除的有效供应商'
+            content: '请选择需要删除的有效供货商'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -341,6 +341,7 @@
           type: 'info',
           title: '操作提示',
           isShowConfimrBtn: true,
+          cancelBtnText: '取消',
           content: '确定要删除该供货商吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteSupplier', {
@@ -356,13 +357,7 @@
             this.qrySupplierList(this.currentPage);
           })
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
+          // console.log('cancel');
         });
       },
       addSupplier(title, val) {

@@ -1,47 +1,57 @@
 <template>
-  <div class="add-relevant-person box-1200">
-    <div class="top-titl fn-clear">
-      <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{relevantData.name}}</span></label>
+  <div class="add-person">
+    <!-- 我的位置 -->
+    <div class="my-location">
+      <div class="box-1200">
+        <Breadcrumb :list="['系统维护', '角色管理', '添加角色人员']"/>
+      </div>
     </div>
-    <!-- 条件搜索 -->
-    <div class="condition-search">
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <div class="condition-item">
-            <label class="label-wrds">用户账号/手机号：</label>
-            <Input :value.sync="relevantData.codeOrPhone"/>
-          </div>
-        </el-col>
-        <el-col :span="7">
-          <div class="condition-item" v-if="relevantData.userType != 1">
-            <label class="label-wrds">所属商户：</label>
-            <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer" />
-          </div>
-          <!--管理员-->
-          <div class="condition-item" v-if="relevantData.userType == 1">
-            <label class="label-wrds">所属省份：</label>
-            <AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div class="condition-item">
-            <el-button size="small" type="success" @click="usermanSearch">查询</el-button>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="order-titl fn-clear">
-      <TitlePlate class="fn-left" title="选择添加角色人员列表"/>
-    </div>
-    <Table :isSelection="true" @selectionChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
-    <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
-    <div class="foot-btn">
-      <el-button size="small" type="success" @click="addRelevantRoleSubmit">确 定</el-button>
+    <div class="add-relevant-person box-1200">
+      <div class="top-titl fn-clear">
+        <label class="p-titl"><i class="iconfont">&#xe609;</i>当前角色：<span>{{relevantData.name}}</span></label>
+      </div>
+      <!-- 条件搜索 -->
+      <div class="condition-search">
+        <el-row :gutter="20">
+          <el-col :span="7">
+            <div class="condition-item">
+              <label class="label-wrds">用户账号/手机号：</label>
+              <Input :value.sync="relevantData.codeOrPhone"/>
+            </div>
+          </el-col>
+          <el-col :span="7">
+            <div class="condition-item" v-if="relevantData.userType == $global.supplier || relevantData.userType == $global.retailer">
+              <label class="label-wrds">所属商户：</label>
+              <ChooseMerchants :title="merchantsTitle" @selectOptions="selectRetailer"/>
+            </div>
+            <!--管理员-->
+            <div class="condition-item" v-if="relevantData.userType == $global.operator">
+              <label class="label-wrds">所属省份：</label>
+              <AreaSelect class="condition-select" :value.sync="relevantData.commonRegionId"/>
+            </div>
+          </el-col>
+          <el-col :span="3">
+            <div class="condition-item">
+              <el-button size="small" type="success" @click="usermanSearch">查询</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="order-titl fn-clear">
+        <TitlePlate class="fn-left" title="选择添加角色人员列表"/>
+      </div>
+      <Table :isSelection="true" @selectionChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle"
+             :tableData="tableData"/>
+      <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+      <div class="foot-btn">
+        <el-button size="small" type="success" @click="addRelevantRoleSubmit">确 定</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Breadcrumb from '@/components/Breadcrumb';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
   import ChooseMerchants from '@/components/ChooseMerchants';
@@ -52,22 +62,12 @@
   export default {
     name: 'AddRelevantPerson',
     created() {
-      if(this.$route.query.postRoleId){
-        this.relevantData.postRoleId = this.$route.query.postRoleId;
-      };
-      if(this.$route.query.roleName){
-        this.relevantData.name = this.$route.query.roleName;
-      }
-      if(this.$route.query.userType){
-        this.relevantData.userType = this.$route.query.userType;
-      };
+      this.relevantData = JSON.parse(localStorage.getItem('postRoleId'));
       this.queryUsermanSubmit();
     },
     data() {
       return {
         relevantData: {
-          codeOrPhone:'',
-          relaId: '',
         },
         tableTitle: [{
           label: '真实姓名',
@@ -93,7 +93,7 @@
           width: 160,
           render: (h, params) => {
             return h({
-              template: '<div><span v-if="data.row.userType == 1">运营商</span><span v-else-if="data.row.userType == 2">供应商</span><span v-else>零售商</span></div>',
+              template: '<div><span v-if="data.row.userType == $global.supplier">供货商</span><span v-else-if="data.row.userType == $global.retailer">零售商</span><span v-else>运营商</span></div>',
               data() {
                 return {
                   data: params
@@ -126,11 +126,11 @@
         this.queryUsermanSubmit();
       },
       //多选
-      selectionChange(val){
+      selectionChange(val) {
         this.selectionChangeList = val;
       },
-      //选择零售商或供应商
-      selectRetailer(val){
+      //选择零售商或供货商
+      selectRetailer(val) {
         this.relevantData.relaId = val;
       },
       //调用查询接口
@@ -139,16 +139,17 @@
           codeOrPhone: this.relevantData.codeOrPhone,
           commonRegionId: _.get(this.relevantData, 'commonRegionId') || '',
           relaId: _.get(this.relevantData, 'relaId') || '',
+          userType: _.get(this.relevantData, 'roleTypeCd') || '',
           pageSize: pageSize || 10,
           curPage: curPage || 1
-      }).then((rsp) => {
+        }).then((rsp) => {
           this.tableData = rsp.rows;
           this.total = rsp.totalSize;
         })
       },
       //保存
-      addRelevantRoleSubmit(){
-        if(!this.selectionChangeList.length){
+      addRelevantRoleSubmit() {
+        if (!this.selectionChangeList.length) {
           this.$msgBox({
             type: 'info',
             title: '操作提示',
@@ -163,10 +164,10 @@
           partyId.push(item.partyId);
         });
         this.$post('/systemUserController/addPostRoleRelaUser', {
-          postRoleId: this.$route.query.postRoleId,
+          postRoleId: _.get(this.relevantData, 'postRoleId'),
           partyId: partyIds,
         }).then((rsp) => {
-          if(rsp.resultCode == '0'){
+          if (rsp.resultCode == '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -180,7 +181,7 @@
                 }
               });
             });
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',
@@ -192,19 +193,20 @@
         })
       },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+        this.queryUsermanSubmit(curPage);
       }
     },
-    computed:{
-      merchantsTitle:function() {
-        if(this.relevantData.userType == 3){
+    computed: {
+      merchantsTitle: function () {
+        if (this.relevantData.userType == this.$global.retailer) {
           return '零售商';
-        }else if(this.relevantData.userType == 2){
-          return '供应商';
+        } else if (this.relevantData.userType == this.$global.supplier) {
+          return '供货商';
         }
       }
     },
     components: {
+      Breadcrumb,
       Table,
       Pagination,
       ChooseMerchants,
@@ -216,30 +218,37 @@
 </script>
 
 <style lang="less">
-  .add-relevant-person{
+  .add-person {
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+  }
+  .add-relevant-person {
     .top-titl {
       height: 36px;
       margin: 15px 0 8px;
       line-height: 36px;
-      .p-titl{
+      .p-titl {
         font-size: 18px;
         padding: 7px 30px 7px 0;
         color: #9a9a9a;
         border: 1px solid #d1d1d1;
         background: #fafafa;
-        .iconfont{
+        .iconfont {
           font-size: 18px;
           color: #f60e0e;
           margin: 0 8px;
         }
-        span{
+        span {
           color: #000;
         }
       }
     }
-    .condition-item{
+    .condition-item {
       padding-left: 120px;
-      .label-wrds{
+      .label-wrds {
         width: 120px;
       }
     }
@@ -247,16 +256,16 @@
       height: 28px;
       margin: 15px 0 8px;
       line-height: 28px;
-      .title{
+      .title {
         font-size: 18px;
       }
     }
-    .role-title{
+    .role-title {
       margin: 20px 0 10px;
       font-size: 18px;
       font-weight: 800;
     }
-    .role-title i{
+    .role-title i {
       font-size: 18px;
       color: #ea2525;
     }
@@ -268,15 +277,15 @@
       border: 1px solid #dfdfdf;
     }
     /* 条件搜索 */
-    .role-man{
+    .role-man {
       text-align: left;
-      .iconfont{
+      .iconfont {
         margin: 0 15px 0 5px;
         color: #f7626f;
         font-size: 18px;
       }
     }
-    .foot-btn{
+    .foot-btn {
       width: 100%;
       padding: 24px 0;
       border-top: none;

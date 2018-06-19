@@ -96,7 +96,7 @@
                 template: `
                 <div class="photo-wrap fn-clear" @click="detailOrder(data.row)">
                   <div class="photo-pic fn-left">
-                    <img v-if="!!data.row.logoUrl" :src="'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/download?url=' + data.row.logoUrl" alt="">
+                    <img v-if="!!data.row.logoUrl" :src="logoPicUrl" alt="">
                     <img v-else src="./static/img/icon-dhhui-default.jpg" alt="">
                   </div>
                   <div class="photo-info fn-right">
@@ -108,6 +108,11 @@
                 data: function () {
                   return {
                     data: params
+                  }
+                },
+                computed: {
+                  logoPicUrl() {
+                    return this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/download?url=' + this.data.row.logoUrl
                   }
                 },
                 methods: {
@@ -244,6 +249,7 @@
           type: 'info',
           title: '操作提示',
           isShowConfimrBtn: true,
+          cancelBtnText: '取消',
           content: '确定要删除该订货会吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteOrderPlacingMeeting', {
@@ -259,13 +265,7 @@
             this.queryOrderPlacingMeetingList();
           });
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
+          // console.log('cancel');
         });
       }
     },

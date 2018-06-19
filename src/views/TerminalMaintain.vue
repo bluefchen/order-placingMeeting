@@ -102,12 +102,8 @@
           render: (h, params) => {
             return h(DeviceInfo, {
               props: {
-                data: {
-                  offerName: params.row.offerName,
-                  offerCode: params.row.offerCode,
-                  isCentman: params.row.isCentman,
-                  offerPic: params.row.offerHardwardParam ? params.row.offerHardwardParam.offerPic : ''
-                }
+                data: params.row,
+                url: '/orderManage/detailTerminalMaintain',
               }
             });
           }
@@ -435,6 +431,7 @@
           type: 'info',
           title: '操作提示',
           isShowConfimrBtn: true,
+          cancelBtnText: '取消',
           content: '确定要删除该产品吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteOffer', {
@@ -451,7 +448,7 @@
               this.queryOfferList(this.currentPage);
             } else {
               this.$msgBox({
-                type: 'info',
+                type: 'error',
                 title: '操作提示',
                 content: '终端删除失败'
               }).catch(() => {
@@ -460,13 +457,7 @@
             }
           })
         }).catch(() => {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '取消删除'
-          }).catch(() => {
-            // console.log('cancel');
-          });
+          // console.log('cancel');
         });
       }
     },

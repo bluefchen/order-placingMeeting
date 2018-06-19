@@ -6,6 +6,7 @@ import {Loading} from 'element-ui'
 axios.defaults.timeout = 5 * 1000;
 let user = JSON.parse(localStorage.getItem('user'));
 // axios.defaults.baseURL = 'http://192.168.74.17:8080/orderPlacingMeeting/';
+// axios.defaults.baseURL = 'http://192.168.16.67:8080/orderPlacingMeeting/';
 axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -23,19 +24,19 @@ axios.interceptors.request.use(config => {
 }, error => {
   setTimeout(function () {
     loadingInstance.close();
-  }, 500);
+  }, 50);
   return Promise.reject(error)
 });
 
 axios.interceptors.response.use(response => {
   setTimeout(function () {
     loadingInstance.close();
-  }, 500);
+  }, 50);
   return response.data;
 }, error => {
   setTimeout(function () {
     loadingInstance.close();
-  }, 500);
+  }, 50);
   if (error.response.status === 504 || error.response.status === 404) {
     setTimeout(function () {
       Vue.prototype.$msgBox({
@@ -43,7 +44,7 @@ axios.interceptors.response.use(response => {
         title: '操作提示',
         content: '您请求资源URL不存在!'
       });
-    }, 500);
+    }, 50);
   } else {
     setTimeout(function () {
       Vue.prototype.$msgBox({
@@ -51,7 +52,7 @@ axios.interceptors.response.use(response => {
         title: '操作提示',
         content: '服务器出小差了，请稍后再试!'
       });
-    }, 500);
+    }, 50);
   }
   return Promise.reject(error);
 });
@@ -71,7 +72,7 @@ export function fetchPost(url, params) {
               }).catch(() => {
                 // console.log('cancel');
               });
-            }, 500);
+            }, 50);
           }
           resolve(res.data)
         },

@@ -5,12 +5,6 @@
       <div class="info"></div>
     </div>
     <!-- 中间背景图片 -->
-    <!-- 我的位置 -->
-    <div class="my-location">
-      <div class="box-1200">
-        <Breadcrumb :list="['系统维护', '角色管理']"/>
-      </div>
-    </div>
     <div class="box-1200 tabs-list">
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="角色管理列表"/>
@@ -64,30 +58,16 @@
               },
               methods: {
                 modifyRole(item) {
-                  this.$router.push({
-                    path: '/orderManage/modifyRole',
-                    query: {
-                      roleInfo: item
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/modifyRole'});
                 },
                 menuManage(item) {
-                  this.$router.push({
-                    path: '/orderManage/menuManage',
-                    query: {
-                      roleInfo: item
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/menuManage'});
                 },
                 userManage(item) {
-                  this.$router.push({
-                    path: '/orderManage/userRoleManage',
-                    query: {
-                      postRoleId: item.postRoleId,
-                      roleName: item.name,
-                      roleTypeCd: item.roleTypeCd
-                    }
-                  });
+                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  this.$router.push({path: '/orderManage/userRoleManage'});
                 }
               },
             })

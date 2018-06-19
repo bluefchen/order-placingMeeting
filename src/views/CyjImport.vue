@@ -42,7 +42,7 @@
     data() {
       return {
         url: '/opmDepositController/analyzeInsertOpmRetailerDepositList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmRetailerDeposit',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmRetailerDeposit',
         tableTitle: [{
           label: '零售商编码',
           prop: 'retailerCode',
@@ -91,7 +91,7 @@
     },
     methods: {
       batchInsertOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -105,10 +105,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/opmDepositController/batchInsertOpmRetailerDeposit', tableDataIsSueccess).then(rsp => {

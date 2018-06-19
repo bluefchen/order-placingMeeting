@@ -35,7 +35,7 @@
     data() {
       return {
         url: '/opmDepositController/analyzeInsertOpmDepositList',
-        downloadUrl: 'http://192.168.74.17:8080/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmDeposit',
+        downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=OpmDeposit',
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',
@@ -123,7 +123,7 @@
     },
     methods: {
       batchInsertOpmOffer() {
-        let tableData = this.$refs.importComponent.tableData;
+        let tableData = this.$refs.importComponent.tableData || [];
         if (!tableData.length) {
           this.$msgBox({
             type: 'info',
@@ -137,10 +137,8 @@
         let tableDataIsSueccess = [];
         _.each(tableData, (item) => {
           if (item.isSuccess === 'Y') {
-            tableDataIsSueccess.push({
-              opMeetingId: this.opMeetingInfo.opMeetingId,
-              ...item
-            })
+            item.opMeetingId = this.opMeetingInfo.opMeetingId;
+            tableDataIsSueccess.push(item);
           }
         });
         this.$post('/opmDepositController/batchInsertOpmDeposit', tableDataIsSueccess).then(rsp => {

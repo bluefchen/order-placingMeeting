@@ -43,7 +43,7 @@
         <div class="info-table fn-clear">
           <p class="detail-table fn-left"><span>订单编号：</span>{{orderPickGoodsInfo.opmOrderId}}</p>
           <p class="detail-table fn-left"><span>订单时间：</span>{{orderPickGoodsInfo.orderDt}}</p>
-          <p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickUpGoodsDt}}</p>
+          <p class="detail-table fn-left"><span>提货时间：</span>{{orderPickGoodsInfo.pickupDt}}</p>
         </div>
         <table width="100%" cellspacing="0" cellpadding="0" class="table">
           <thead>
@@ -110,14 +110,14 @@
     data() {
       return {
         orderPickGoodsInfo: {}, //传入的数据
-        supplierInfo: {}, //查询供应商信息
+        supplierInfo: {}, //查询供货商信息
         retailerInfo: {}, //查询零售商信息
         pickupGoodsAmount: null //提货数量
       }
     },
     methods: {
       confirmDelivery() {
-        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+        this.$post('/opmOrderController/updateOpmOrderPickupRecord', {
           'opmOrderId': this.orderPickGoodsInfo.opmOrderId,
           'pickupGoodsAmount': this.pickupGoodsAmount
         }).then((rsp) => {
