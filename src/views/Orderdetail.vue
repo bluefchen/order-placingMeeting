@@ -128,7 +128,7 @@
             // console.log('cancel');
           });
 					this.$router.push({
-						path: `/order/OrderPickupData`
+						path: `/order/orderPickupData`
 					});
 				});
 			},
@@ -141,7 +141,7 @@
           // console.log('cancel');
         });
 				this.$router.push({
-					path: `/order/OrderPickupData`
+					path: `/order/orderPickupData`
 				});
 			}
 		},

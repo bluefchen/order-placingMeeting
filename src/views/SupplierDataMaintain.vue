@@ -363,7 +363,7 @@
       addSupplier(title, val) {
         if (title === '新增') {
           this.$router.push({
-            path: '/orderManage/AddSupplierData',
+            path: '/orderManage/addSupplierData',
             query: {
               operation: 'add'
             }
@@ -371,7 +371,7 @@
         } else {
           localStorage.setItem('supplierId', JSON.stringify(val));
           this.$router.push({
-            path: '/orderManage/AddSupplierData',
+            path: '/orderManage/addSupplierData',
             query: {
               operation: 'modify'
             }

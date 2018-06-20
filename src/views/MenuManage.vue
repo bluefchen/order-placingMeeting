@@ -90,7 +90,7 @@
               content: '菜单配置成功！'
             }).catch(() => {
               this.$router.push({
-                path: '/orderManage/RoleManage',
+                path: '/orderManage/roleManage',
               });
             });
           } else {

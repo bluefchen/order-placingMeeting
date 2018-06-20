@@ -142,7 +142,7 @@
           }
         });
         this.$post('/opmDepositController/batchInsertOpmDeposit', tableDataIsSueccess).then(rsp => {
-          this.$router.push({path: '/order/CyjDepositAddRecord'});
+          this.$router.push({path: '/order/depositAddRecord'});
         })
       }
     },

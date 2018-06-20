@@ -88,7 +88,7 @@
         tableTitle: [{
           label: '订单号',
           prop: 'opmOrderNo',
-          width: 95,
+          width: 140,
           render: function (h, params) {
             return h({
               template: '<span class="text-link" @click="orderDetail(opmOrderList)">{{opmOrderNo}}</span>',
@@ -120,8 +120,7 @@
           width: 80
         }, {
           label: '终端名称',
-          prop: 'offerName',
-          width: 130
+          prop: 'offerName'
         }, {
           label: '产品类型',
           prop: 'isCentman',

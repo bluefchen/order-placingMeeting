@@ -296,7 +296,7 @@
       orderdetail(item) {
         localStorage.setItem(item.opmOrderId, JSON.stringify(item));
         this.$router.push({
-          path: '/order/Orderdetail',
+          path: '/order/orderdetail',
           query: {
             opmOrderId: item.opmOrderId
           }
