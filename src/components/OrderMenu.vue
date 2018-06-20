@@ -60,7 +60,7 @@
         </el-menu-item>
         <el-menu-item index="/order/terminalQuery" :disabled="!isHold('终端查询')">终端查询</el-menu-item>
         <el-menu-item index="/order/summaryStatisticalAnalysis" :disabled="!isHold('全国汇总统计分析')">全国汇总统计分析</el-menu-item>
-        <el-menu-item index="/order/summaryAnalysis" :disabled="!isHold('汇总统计')">汇总统计</el-menu-item>
+        <el-menu-item index="/order/summaryAnalysis" :disabled="!isHold('机型汇总统计')">机型汇总统计</el-menu-item>
         <el-menu-item index="/order/metaAnalysis" :disabled="!isHold('全国汇总分析')">全国汇总分析</el-menu-item>
         <el-menu-item index="/order/orderPickingReport" :disabled="!isHold('订单提货上报')">订单提货上报</el-menu-item>
         <el-menu-item index="/order/orderPickingDetail" style="display: none;">提货清单明细</el-menu-item>

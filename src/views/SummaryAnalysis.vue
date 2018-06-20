@@ -6,7 +6,7 @@
     <!-- 我的位置 -->
     <div class="my-location">
       <div class="box-1200">
-        <Breadcrumb :list="['首页', '统计查询', '汇总统计']"/>
+        <Breadcrumb :list="['首页', '统计查询', '机型汇总统计']"/>
       </div>
     </div>
 
