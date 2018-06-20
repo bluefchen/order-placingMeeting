@@ -82,6 +82,7 @@
               postRoleId: _.get(this.roleData, 'postRoleId')
             }).then((rsp) => {
               localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+              location.reload();
             });
 
             this.$msgBox({
