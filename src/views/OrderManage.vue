@@ -32,14 +32,6 @@
         }).then((rsp) => {
           this.user = rsp;
           localStorage.setItem('user', JSON.stringify(rsp));
-
-          //获取用户菜单权限，保存本地
-          this.$post('/systemUserController/querySystemMenuList', {
-            postRoleId: _.get(rsp, 'postRoleId'),
-            roleTypeCd: '3'//固定的运营商roleTypeCd
-          }).then((rsp) => {
-            localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
-          });
         });
       }
     },
@@ -48,6 +40,19 @@
         user: null,
         systemMenuAllList: null
       };
+    },
+    watch: {
+      'user.postRoleId': function (newValue) {
+        if (newValue) {
+          //获取用户菜单权限，保存本地
+          this.$post('/systemUserController/querySystemMenuList', {
+            postRoleId: newValue,
+            roleTypeCd: '3'//固定的运营商roleTypeCd
+          }).then((rsp) => {
+            localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+          });
+        }
+      }
     },
     computed: {
       commonReginName() {
