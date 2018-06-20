@@ -25,7 +25,8 @@
     data() {
       return {
         linkList: {
-          '角色管理': '/orderManage/roleManage'
+          '角色管理': '/orderManage/roleManage',
+          '用户管理': '/orderManage/usermanManage'
         }
       }
     },
