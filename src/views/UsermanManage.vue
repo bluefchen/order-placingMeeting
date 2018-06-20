@@ -475,7 +475,7 @@
       }
     },
     watch: {
-      "usermanData.userType": function () {
+      'usermanData.userType': function () {
         if (this.usermanData.userType == this.$global.retailer) {
           this.merchantsTitle = '零售商';
           this.disabled = false;

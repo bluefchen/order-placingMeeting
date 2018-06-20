@@ -178,7 +178,7 @@
       }
     },
     data() {
-      var checkTel = (rule, value, callback) => {
+      let checkTel = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('不能为空'));
         } else {
@@ -188,9 +188,8 @@
           }
           callback();
         }
-        ;
       };
-      var passwordValid = (rule, value, callback) => {
+      let passwordValid = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
@@ -206,16 +205,16 @@
           callback();
         }
       };
-      var checkPasswordValid = (rule, value, callback) => {
-          if (value === '') {
-            callback(new Error('请再次输入密码'));
-          } else if (value !== this.usermanData.password) {
-            callback(new Error('两次输入密码不一致!'));
-          } else {
-            callback();
-          }
+      let checkPasswordValid = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.usermanData.password) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
       };
-      var checkCommonRegionId = (rule, value, callback) => {
+      let checkCommonRegionId = (rule, value, callback) => {
         if (this.usermanData.userType == this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属省份'));
@@ -226,7 +225,7 @@
           callback();
         }
       };
-      var checkRelaId = (rule, value, callback) => {
+      let checkRelaId = (rule, value, callback) => {
         if (this.usermanData.userType != this.$global.operator) {
           if (!value) {
             return callback(new Error('请选择归属商户'));
@@ -289,7 +288,7 @@
           value: '3',
           label: '运营商'
         }],
-        merchantsTitle: '',
+        merchantsTitle: '供货商',
       }
     },
     methods: {
@@ -377,12 +376,15 @@
       }
     },
     watch: {
-      "usermanData.userType": function () {
-        if (this.usermanData.userType == this.$global.retailer) {
-          this.merchantsTitle = '零售商';
-        } else if (this.usermanData.userType == this.$global.supplier) {
-          this.merchantsTitle = '供货商';
-        }
+      'usermanData': {
+        handler: function (newValue) {
+          if (newValue.userType == this.$global.retailer) {
+            this.merchantsTitle = '零售商';
+          } else if (newValue.userType == this.$global.supplier) {
+            this.merchantsTitle = '供货商';
+          }
+        },
+        deep: true
       },
     },
     components: {
