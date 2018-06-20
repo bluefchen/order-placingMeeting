@@ -1,7 +1,8 @@
 <template>
   <div class="vue_select-components">
     <div class="el-popover-box">
-      <el-popover :placement="placement" :disabled="disabled" :width="width" height="200" trigger="click" v-model="visible">
+      <el-popover :placement="placement" :disabled="disabled" :width="width" height="200" trigger="click"
+                  v-model="visible">
         <div class="popover-box" v-show="model === 'letter' || model === 'single'">
           <div class="popover-padding">
             <div class="fn-clear popover-head-list" v-show="model === 'letter'">
@@ -9,13 +10,17 @@
               <div class="first-letter-list fn-left">
                 <ul>
                   <li :class="{'checked': checkedIndex === null}" @click="showAllLetterFilter">所有品牌</li>
-                  <li :class="{'checked': checkedIndex === index}" @click="firstLetterFilter(item, index)" v-for="(item, index) in firstLetterList" :key="index">{{item}}</li>
+                  <li :class="{'checked': checkedIndex === index}" @click="firstLetterFilter(item, index)"
+                      v-for="(item, index) in firstLetterList" :key="index">{{item}}
+                  </li>
                 </ul>
               </div>
             </div>
             <div class="popover-item-list fn-clear" :class="{'ml40': model === 'letter'}">
               <ul>
-                <li v-show="showAllLetter || item.firstLetter === firstLetter" @click="checkedPopover(item, index)" v-for="(item, index) in list">{{item.label}}</li>
+                <li v-show="showAllLetter || item.firstLetter === firstLetter" @click="checkedPopover(item, index)"
+                    v-for="(item, index) in list">{{item.label}}
+                </li>
               </ul>
             </div>
           </div>
@@ -25,7 +30,9 @@
             <div class="popover-header-title fn-left">已选条件：</div>
             <div class="popover-header-checkedlist fn-left">
               <ul>
-                <li v-for="(item, index) in checkedPopoverTextList">{{item.label}}<span @click="delPopText(item, index)" class="iconfont">&#xe633;</span></li>
+                <li v-for="(item, index) in checkedPopoverTextList">{{item.label}}<span @click="delPopText(item, index)"
+                                                                                        class="iconfont">&#xe633;</span>
+                </li>
               </ul>
             </div>
             <div class="fn-right popover-header-notice">（可多选）</div>
@@ -33,7 +40,9 @@
           <div class="popover-padding">
             <div class="popover-item-list fn-clear">
               <ul>
-                <li :class="{'checked': item.checked}" @click="checkedPopoverText(item, index)" v-for="(item, index) in list" :key="index">{{item.label}}</li>
+                <li :class="{'checked': item.checked}" @click="checkedPopoverText(item, index)"
+                    v-for="(item, index) in list" :key="index">{{item.label}}
+                </li>
               </ul>
             </div>
           </div>
@@ -42,7 +51,8 @@
             <button class="btn-cancel" @click="visible = false">取消</button>
           </div>
         </div>
-        <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
+        <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'"
+                :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
         <Select :disabled="true" v-if="model === 'multi'" :value.sync="copyValue" slot="reference"/>
       </el-popover>
       <div :class="{'hide': disabled}" class="visible-hide" v-if="visible"></div>
@@ -53,6 +63,7 @@
 <script>
   import Input from '@/components/Input';
   import Select from '@/components/Select';
+
   export default {
     name: 'SelectComponents',
     props: {
@@ -81,11 +92,11 @@
       }
     },
     created() {
-      if(this.model === 'multi'){
+      if (this.model === 'multi') {
         this.valueList = this.value ? this.value.split("，") : [];
         _.forEach(this.valueList, (val, valIndex) => {
           _.forEach(this.list, (item, index) => {
-            if(item.label === val){
+            if (item.label === val) {
               item.checked = true;
               this.checkedPopoverTextList.push(item);
             }
@@ -96,7 +107,7 @@
     },
     data() {
       return {
-        firstLetterList: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+        firstLetterList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
         visible: false,
         checkedIndex: null,
         copyValue: this.value,
@@ -106,43 +117,43 @@
       }
     },
     methods: {
-      checkedPopover(item, index){
+      checkedPopover(item, index) {
         this.visible = false;
         this.$emit('update:value', item.value);
       },
-      checkedPopoverText(item, index){
-        if(!item.checked){
+      checkedPopoverText(item, index) {
+        if (!item.checked) {
           item.checked = true;
           this.checkedPopoverTextList.push(item);
         }
       },
-      delPopText(val, index){
+      delPopText(val, index) {
         this.checkedPopoverTextList.splice(index, 1);
         _.forEach(this.list, (item, index) => {
-          if(val.label === item.label){
+          if (val.label === item.label) {
             item.checked = false;
           }
         })
       },
-      saveCheckedPop(){
+      saveCheckedPop() {
         this.copyValue = '';
         this.visible = false;
         _.forEach(this.checkedPopoverTextList, (item, index) => {
-          if(index === this.checkedPopoverTextList.length - 1){
+          if (index === this.checkedPopoverTextList.length - 1) {
             this.copyValue += item.label;
-          }else{
+          } else {
             this.copyValue += item.label + '，';
           }
         });
         this.$emit('update:value', this.copyValue);
       },
-      firstLetterFilter(item, index){
+      firstLetterFilter(item, index) {
         this.firstLetter = item;
         this.checkedIndex = index;
         this.showAllLetter = false;
       },
-      showAllLetterFilter(){
-        this.checkedIndex = null,
+      showAllLetterFilter() {
+        this.checkedIndex = null;
         this.showAllLetter = true;
         this.firstLetter = null;
       }
@@ -152,14 +163,14 @@
       Select
     },
     watch: {
-      'value': function(val) {
+      'value': function (val) {
         this.copyValue = val;
-        if(this.model === 'multi'){
+        if (this.model === 'multi') {
           this.checkedPopoverTextList = [];
           this.valueList = this.value ? this.value.split("，") : [];
           _.forEach(this.valueList, (val, valIndex) => {
             _.forEach(this.list, (item, index) => {
-              if(item.label === val){
+              if (item.label === val) {
                 item.checked = true;
                 this.checkedPopoverTextList.push(item);
               }
@@ -168,7 +179,7 @@
           })
         }
       },
-      'disabled': function(val){
+      'disabled': function (val) {
         this.visible = false;
       }
     },
@@ -177,7 +188,7 @@
 
 <style lang="less">
 
-  .el-popover{
+  .el-popover {
     border: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 0;
@@ -185,15 +196,15 @@
     padding: 0;
   }
 
-  .vue_select-components{
-    .hide{
+  .vue_select-components {
+    .hide {
       display: none;
     }
-    .el-popover-box{
+    .el-popover-box {
       height: 30px;
       line-height: 30px;
       cursor: pointer;
-      .visible-hide{
+      .visible-hide {
         background: #000;
         opacity: 0;
         width: 100%;
@@ -204,21 +215,21 @@
         top: 0;
       }
     }
-    .disabled-select .el-input.is-disabled .el-input__inner{
+    .disabled-select .el-input.is-disabled .el-input__inner {
       background: #f9f9f9;
     }
-    .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon, .el-input.is-disabled .el-input__inner{
+    .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon, .el-input.is-disabled .el-input__inner {
       width: 100%;
       cursor: pointer;
     }
-    .el-input.is-disabled .el-input__inner{
+    .el-input.is-disabled .el-input__inner {
       background: #fff;
       color: #606266;
     }
     .el-select {
-      .el-input{
+      .el-input {
         position: relative;
-        &:after{
+        &:after {
           font-family: 'iconfont';
           content: '\e608';
           position: absolute;
@@ -228,14 +239,14 @@
           color: #ccc;
         }
       }
-      .el-input__suffix{
+      .el-input__suffix {
         width: 100%;
         text-align: right;
-        .el-input__icon{
+        .el-input__icon {
           text-align: right;
           position: relative;
         }
-        .el-input__icon:before{
+        .el-input__icon:before {
           content: '';
           position: absolute;
           right: 0;
@@ -245,16 +256,16 @@
     }
   }
 
-  .popover-box{
+  .popover-box {
     position: relative;
     width: 100%;
     font-size: 12px;
     z-index: 999;
-    .popover-btn{
+    .popover-btn {
       width: 100%;
       text-align: center;
       padding: 10px 0;
-      button{
+      button {
         width: 70px;
         height: 24px;
         text-align: center;
@@ -263,41 +274,41 @@
         border-radius: 5px;
         margin: 0 10px;
       }
-      .btn-cancel{
+      .btn-cancel {
         background: #ffe4e4;
         color: #f01919;
       }
-      .btn-submit{
+      .btn-submit {
         background: #f01919;
         color: #fff;
       }
     }
-    .popover-padding{
+    .popover-padding {
       padding: 10px;
     }
-    .popover-header{
+    .popover-header {
       background: #fafafa;
       min-height: 35px;
       height: auto;
       line-height: 35px;
       border-bottom: 1px dashed #e5e5e5;
-      .popover-header-title{
+      .popover-header-title {
         width: 70px;
         margin-left: 10px;
         color: #777677;
         text-align: right;
       }
-      .popover-header-notice{
+      .popover-header-notice {
         width: 90px;
         margin-right: 10px;
         text-align: right;
         color: #1bb7ff;
       }
-      .popover-header-checkedlist{
+      .popover-header-checkedlist {
         width: calc(100% - 180px);
         margin-top: 7px;
-        ul{
-          li{
+        ul {
+          li {
             position: relative;
             float: left;
             display: inline-block;
@@ -308,7 +319,7 @@
             background: #fff;
             border: 1px solid #c7c7c7;
             line-height: 20px;
-            span{
+            span {
               position: absolute;
               display: block;
               right: 3px;
@@ -325,19 +336,19 @@
         }
       }
     }
-    .popover-head-list{
-      .all{
+    .popover-head-list {
+      .all {
         width: 40px;
         height: 24px;
         line-height: 24px;
         border: 1px solid #fff;
       }
-      .first-letter-list{
+      .first-letter-list {
         width: calc(100% - 42px);
         line-height: 24px;
-        ul{
+        ul {
           width: 100%;
-          li{
+          li {
             display: inline-block;
             float: left;
             width: auto;
@@ -345,10 +356,10 @@
             margin-right: 4px;
             border: 1px solid #fff;
             cursor: pointer;
-            &:hover{
+            &:hover {
               border: 1px solid #f01919;
             }
-            &.checked{
+            &.checked {
               background: #f01919;
               color: #fff;
               border: 1px solid #f01919;
@@ -357,12 +368,12 @@
         }
       }
     }
-    .popover-item-list{
+    .popover-item-list {
       margin-top: 5px;
       height: 200px;
       overflow: auto;
-      ul{
-        li{
+      ul {
+        li {
           float: left;
           display: inline-block;
           padding: 3px 5px;
@@ -370,19 +381,20 @@
           margin-bottom: 10px;
           border: 1px solid #fff;
           cursor: pointer;
-          &:hover{
+          &:hover {
             background: #f01919;
             color: #fff;
             border: 1px solid #f01919;
-          };
-          &.checked{
+          }
+        ;
+          &.checked {
             background: #f01919;
             color: #fff;
             border: 1px solid #f01919;
           }
         }
       }
-      &.ml40{
+      &.ml40 {
         margin-left: 40px;
       }
     }

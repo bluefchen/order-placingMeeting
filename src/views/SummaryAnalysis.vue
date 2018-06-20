@@ -28,7 +28,8 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">终端品牌：</label>
-            <Select :clearable="true" :value.sync="brandCd" :options="brandOptions"/>
+            <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                              :value.sync="modelQueryData.brandCd" :list="brandOptions" :width="650"/>
           </div>
         </el-col>
       </el-row>
@@ -36,7 +37,8 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">终端型号：</label>
-            <Select :clearable="true" :value.sync="offerModelId" :options="modelOptions"/>
+            <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'"
+                              :value.sync="modelQueryData.offerModelId" :list="modelOptions" :width="650"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -67,6 +69,7 @@
   import TitlePlate from '@/components/TitlePlate';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
+  import SelectComponents from '@/components/SelectComponents';
   import AreaSelect from '@/components/AreaSelect';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
@@ -80,7 +83,8 @@
         _.forEach(rsp, (item) => {
           this.brandOptions.push({
             value: item.brandCd,
-            label: item.brandName
+            label: item.brandName,
+            firstLetter: item.firstLetter
           })
         })
       });
@@ -98,9 +102,11 @@
           value: 'N',
           label: '社采'
         }],
-        brandCd: '',
+        modelQueryData: {
+          brandCd: '',
+          offerModelId: ''
+        },
         brandOptions: [],
-        offerModelId: '',
         modelOptions: [],
         offerName: '',
         tableTitle: [{
@@ -155,7 +161,8 @@
           _.forEach(rsp, (item) => {
             this.modelOptions.push({
               value: item.offerModelId,
-              label: item.offerModelName
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
             })
           });
         });
@@ -167,8 +174,8 @@
           commonRegionId: this.commonRegionId,
           isCentman: this.isCentman,
           offerName: this.offerName,
-          brandCd: this.brandCd,
-          offerModelId: this.offerModelId,
+          brandCd: this.modelQueryData.brandCd,
+          offerModelId: this.modelQueryData.offerModelId,
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
@@ -181,10 +188,14 @@
       }
     },
     watch: {
-      'brandCd': function (newVal) {
-        this.offerModelId = '';
-        this.modelOptions = [];
-        this.qryOfferModelList(newVal);
+      'modelQueryData.brandCd': function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.modelOptions = [];
+          if (newVal) {
+            this.qryOfferModelList(newVal);
+          }
+          this.modelQueryData.offerModelId = '';
+        }
       }
     },
     components: {
@@ -193,6 +204,7 @@
       Input,
       AreaSelect,
       Select,
+      SelectComponents,
       Table,
       Pagination,
       MiddleImgInfoSmall

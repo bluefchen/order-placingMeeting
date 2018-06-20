@@ -23,13 +23,15 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select :value.sync="modelQueryData.brandCd" :clearable="true" :options="brandOptions"/>
+                  <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                    :value.sync="modelQueryData.brandCd" :list="brandOptions" :width="650"/>
                 </div>
               </el-col>
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <Select :value.sync="modelQueryData.offerModelId" :clearable="true" :options="modelOptions"/>
+                  <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'"
+                                    :value.sync="modelQueryData.offerModelId" :list="modelOptions" :width="650"/>
                 </div>
               </el-col>
               <el-col :span="6">
@@ -43,7 +45,8 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国机型销量统计"/>
               <div class="buttons fn-right">
-                <button class="btns" @click="exportOpmOrderPickupReportByModel"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByModel"><i class="iconfont">&#xe654;</i> 导出
+                </button>
               </div>
             </div>
             <div class="result-table">
@@ -64,7 +67,8 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端品牌：</label>
-                  <Select :value.sync="brandQueryData.brandCd" :clearable="true" :options="brandOptions"/>
+                  <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                    :value.sync="brandQueryData.brandCd" :list="brandOptions" :width="650"/>
                 </div>
               </el-col>
               <el-col :span="6">
@@ -78,13 +82,15 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国终端品牌销量统计"/>
               <div class="buttons fn-right">
-                <button class="btns" @click="exportOpmOrderPickupReportByBrand"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByBrand"><i class="iconfont">&#xe654;</i> 导出
+                </button>
               </div>
             </div>
             <div class="result-table">
               <Table :tableTitle="brandTableTitle" :tableData="brandTableData"/>
             </div>
-            <Pagination :total="brandTotal" :pageSize="pageSize" :currentPage="brandCurrentPage" @pageChanged="brandPageChanged"/>
+            <Pagination :total="brandTotal" :pageSize="pageSize" :currentPage="brandCurrentPage"
+                        @pageChanged="brandPageChanged"/>
           </div>
         </el-tab-pane>
         <el-tab-pane label="按商户" name="third">
@@ -113,13 +119,15 @@
             <div class="order-titl fn-clear">
               <TitlePlate class="fn-left" title="全国商户订购量统计"/>
               <div class="buttons fn-right">
-                <button class="btns" @click="exportOpmOrderPickupReportByBusi"><i class="iconfont">&#xe654;</i> 导出</button>
+                <button class="btns" @click="exportOpmOrderPickupReportByBusi"><i class="iconfont">&#xe654;</i> 导出
+                </button>
               </div>
             </div>
             <div class="result-table">
               <Table :tableTitle="BusinessTableTitle" :tableData="BusinessTableData"/>
             </div>
-            <Pagination :total="busiTotal" :pageSize="pageSize" :currentPage="busiCurrentPage" @pageChanged="busiPageChanged"/>
+            <Pagination :total="busiTotal" :pageSize="pageSize" :currentPage="busiCurrentPage"
+                        @pageChanged="busiPageChanged"/>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -132,6 +140,7 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
+  import SelectComponents from '@/components/SelectComponents';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
@@ -144,7 +153,8 @@
         _.forEach(rsp, (item) => {
           this.brandOptions.push({
             value: item.brandCd,
-            label: item.brandName
+            label: item.brandName,
+            firstLetter: item.firstLetter
           })
         })
       });
@@ -226,13 +236,13 @@
         merchantsTypeList: [{
           value: '1001',
           label: '自营厅'
-        },{
+        }, {
           value: '1002',
           label: '大连锁'
-        },{
+        }, {
           value: '1003',
           label: '代理商'
-        },{
+        }, {
           value: '1004',
           label: '其他'
         }],
@@ -260,20 +270,21 @@
     },
     methods: {
       //查询型号
-      qryOfferModelList(val){
+      qryOfferModelList(val) {
         this.$post('/orderPlacingMeetingController/queryOfferModelList', {
           'brandCd': val
         }).then((rsp) => {
           _.forEach(rsp, (item) => {
             this.modelOptions.push({
               value: item.offerModelId,
-              label: item.offerModelName
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
             })
           });
         });
       },
       //按机型查询
-      qryOpmOrderPickupReportByModel(curPage, pageSize){
+      qryOpmOrderPickupReportByModel(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
           'opMeetingId': '',
@@ -288,7 +299,7 @@
         });
       },
       //按机型导出
-      exportOpmOrderPickupReportByModel(){
+      exportOpmOrderPickupReportByModel() {
         location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
       },
       pageChanged(curPage) {
@@ -296,7 +307,7 @@
       },
 
       //按品牌查询
-      queryOpmOrderPickupReportByBrand(curPage, pageSize){
+      queryOpmOrderPickupReportByBrand(curPage, pageSize) {
         this.brandCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBrand', {
           'opMeetingId': '',
@@ -310,7 +321,7 @@
         });
       },
       //按品牌导出
-      exportOpmOrderPickupReportByBrand(){
+      exportOpmOrderPickupReportByBrand() {
         location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
       },
       brandPageChanged(curPage) {
@@ -318,7 +329,7 @@
       },
 
       //按商户查询
-      qryOpmOrderPickupReportByBusi(curPage, pageSize){
+      qryOpmOrderPickupReportByBusi(curPage, pageSize) {
         this.busiCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBusi', {
           'opMeetingId': '',
@@ -332,7 +343,7 @@
         });
       },
       //按商户导出
-      exportOpmOrderPickupReportByBusi(){
+      exportOpmOrderPickupReportByBusi() {
         location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
       },
       busiPageChanged(curPage) {
@@ -340,12 +351,12 @@
       }
     },
     watch: {
-      'modelQueryData.brandCd': function(newVal, oldVal){
-        if(newVal !== oldVal){
+      'modelQueryData.brandCd': function (newVal, oldVal) {
+        if (newVal !== oldVal) {
           this.modelOptions = [];
-          if(newVal){
+          if (newVal) {
             this.qryOfferModelList(newVal);
-          };
+          }
           this.modelQueryData.offerModelId = '';
         }
       }
@@ -354,6 +365,7 @@
       Breadcrumb,
       Input,
       Select,
+      SelectComponents,
       TitlePlate,
       Table,
       Pagination,
@@ -394,14 +406,14 @@
       background-color: #e20606;
     }
 
-    .text-right{
+    .text-right {
       text-align: right;
     }
 
-    .el-tabs__nav-wrap{
+    .el-tabs__nav-wrap {
       height: 48px;
     }
-    .el-tabs__item{
+    .el-tabs__item {
       width: 100px;
       text-align: center;
       font-size: 18px;
@@ -414,9 +426,9 @@
         color: #fa0000;
         cursor: pointer;
       }
-      &:nth-child(3){
+      &:nth-child(3) {
         position: relative;
-        &:after{
+        &:after {
           position: absolute;
           content: '';
           left: 0;
@@ -429,7 +441,7 @@
         }
       }
     }
-    .el-tabs__active-bar{
+    .el-tabs__active-bar {
       background-color: #fa0000;
     }
 
