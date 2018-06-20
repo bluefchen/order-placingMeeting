@@ -30,17 +30,16 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
-            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+            <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
           </div>
         </el-col>
-      <el-col :span="8">
-        <div class="condition-item">
-          <label class="label-wrds">订购起止日期：</label>
-          <DatePicker :value.sync="orderDeliveryData.dateValue" :clearable="true"/>
-        </div>
-      </el-col>
+        <el-col :span="8">
+          <div class="condition-item">
+            <label class="label-wrds">订购起止日期：</label>
+            <DatePicker :value.sync="orderDeliveryData.dateValue" :clearable="true"/>
+          </div>
+        </el-col>
       </el-row>
-
     </div>
 
     <div class="box-1200 tabs-list">
@@ -51,7 +50,7 @@
         </div>
       </div>
 
-      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPickupRecordList" />
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="orderPickupRecordList"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -70,7 +69,7 @@
   import Input from '@/components/Input';
   import TableList from '@/components/TableList';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderPickupData',
     created() {
@@ -94,7 +93,7 @@
                 }
               })
             }
-          },{
+          }, {
             label: '零售商',
             prop: 'retailerName',
             colSpan: 8,
@@ -108,7 +107,7 @@
                 }
               })
             }
-          },{
+          }, {
             label: '供货商',
             prop: 'supplierName',
             colSpan: 8,
@@ -192,8 +191,8 @@
         this.orderDeliveryData.offerNameOrCode = obj.value;
         this.qryOpmOrderPickupRecordList()
       },
-      selectRetailer(val){
-          this.orderDeliveryData.retailerId = val;
+      selectRetailer(val) {
+        this.orderDeliveryData.retailerId = val;
       },
       showMoreCondition() {
         this.isShowMoreCondition = !this.isShowMoreCondition;
@@ -216,9 +215,7 @@
         })
       },
       editDeliveryData(item) {
-
         localStorage.setItem(item.opmOrderId, JSON.stringify(item));
-
         this.$router.push({
           path: '/order/orderPickupGoodsConfirm',
           query: {
@@ -247,7 +244,7 @@
 </script>
 
 <style scoped lang="less">
-  .order_pickup-data {  
+  .order_pickup-data {
     /* 条件搜索 */
     .search {
       margin: 10px auto;
@@ -305,6 +302,7 @@
     }
 
   }
+
   .el-range-editor.is-active, .el-range-editor.is-active:hover {
     border-color: #ff7a7a;
   }

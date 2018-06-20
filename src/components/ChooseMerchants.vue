@@ -1,13 +1,17 @@
 <template>
   <div class="choose-merchants">
     <div class="choose-input-box" @click="isShow = true" v-show="!disabled">
-      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
-      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text"
+                readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text"
+                readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <div class="choose-input-box disabled" v-show="disabled">
-      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text" readonly></el-input>
-      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text" readonly></el-input>
+      <el-input class="choose-input" v-if="title === '零售商'" v-model="checkedOption.retailerName" type="text"
+                readonly></el-input>
+      <el-input class="choose-input" v-if="title === '供货商'" v-model="checkedOption.supplierName" type="text"
+                readonly></el-input>
       <div class="choose-input-icon"><span class="iconfont">&#xe65a;</span></div>
     </div>
     <DialogPopup class="dialog-choose-merchants" :visible="isShow" :title="dialogTitle" @visibleChange="visibleChange">
@@ -27,7 +31,8 @@
                 <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
-              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择" :clearable="true">
+              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择"
+                         :clearable="true">
                 <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label"
                            :value="item.value"></el-option>
               </el-select>
@@ -39,7 +44,8 @@
             </el-input>
           </el-col>
         </el-row>
-        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange" :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
+        <Table :stripe="false" size="mini" :border="true" :isSelection="false" @currentChange="selectionChange"
+               :highlightCurrentRow="true" :tableTitle="tableTitle" :tableData="tableData"/>
         <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
       </div>
       <div slot="footer">
@@ -241,13 +247,10 @@
         tableTitle: [],
         tableData: [],
         selectionChangeList: [],
-
         isShow: false,
-
         total: 0, //列表总数
         pageSize: 10, //每页展示条数
         currentPage: 1 //当前页
-
       }
     },
     methods: {
@@ -265,7 +268,9 @@
       },
       visibleChange(val) {
         this.isShow = val;
-        this.handleSearch();
+        if (val) {
+          this.handleSearch();
+        }
       },
       handleSearch(curPage, pageSize) {
         if (this.title === '供货商') {
@@ -314,7 +319,7 @@
         }
         this.handleSearch();
       },
-      'disabled': function(){
+      'disabled': function () {
         this.checkedOption.retailerName = '';
         this.checkedOption.supplierName = '';
       }
@@ -329,10 +334,9 @@
 </script>
 
 <style lang="less">
-
   .choose-merchants {
     -webkit-box-flex: 1;
-    -ms-flex: 1 0 0px;
+    -ms-flex: 1 0 0;
     flex: 1 0 0;
     .choose-input-box {
       position: relative;
@@ -363,30 +367,30 @@
         font-size: 14px;
         vertical-align: top;
         cursor: pointer;
-        .el-input__inner{
+        .el-input__inner {
           height: 26px;
           line-height: 26px;
-          border:0;
+          border: 0;
           vertical-align: top;
           cursor: pointer;
         }
-        .el-input__suffix{
-          top:2px;
+        .el-input__suffix {
+          top: 2px;
         }
       }
-      &.disabled{
+      &.disabled {
         background-color: #f5f7fa;
-        .choose-input{
+        .choose-input {
           background-color: #f5f7fa;
           border-color: #e4e7ed;
           color: #c0c4cc;
           cursor: not-allowed;
         }
-        .el-input__inner{
+        .el-input__inner {
           background-color: #f5f7fa;
           color: #c0c4cc;
         }
-        .choose-input-icon{
+        .choose-input-icon {
           background-color: #f5f7fa;
           border-color: #e4e7ed;
           color: #c0c4cc;
