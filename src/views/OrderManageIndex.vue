@@ -49,7 +49,6 @@
     name: 'OrderManageIndex',
     created() {
       this.user = JSON.parse(sessionStorage.getItem('user'));
-      this.queryOrderPlacingMeetingList();
     },
     data() {
       return {
@@ -271,11 +270,12 @@
         });
       }
     },
-    components: {
-      TitlePlate,
-      Table,
-      Pagination,
-      TableList
+    watch: {
+      'user.postRoleId': function (newValue) {
+        if (newValue) {
+          this.queryOrderPlacingMeetingList();
+        }
+      }
     },
     filters: {
       statusCdFilter: function (value) {
@@ -291,6 +291,12 @@
             break;
         }
       }
+    },
+    components: {
+      TitlePlate,
+      Table,
+      Pagination,
+      TableList
     }
   }
 </script>
