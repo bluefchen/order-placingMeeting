@@ -19,6 +19,8 @@
     <!-- 头部切换 -->
     <div class="header fn-clear">
       <img src="@/assets/images/some-logo.png" class="fn-left">
+      <p class="dot fn-left"></p>
+      <p class="name fn-left">{{opMeeting.opmName}}</p>
       <OrderMenu/>
     </div>
     <!-- 头部切换 -->
@@ -34,10 +36,12 @@
     name: 'Order',
     created() {
       this.user = JSON.parse(localStorage.getItem('user'));
+      this.opMeeting = JSON.parse(localStorage.getItem('opMeeting'));
     },
     data() {
       return {
-        user: null
+        user: null,
+        opMeeting: null
       };
     },
     computed: {
@@ -98,6 +102,21 @@
     margin: 0 auto;
     img {
       margin-top: 18px;
+    }
+    .dot {
+      width: 5px;
+      height: 5px;
+      margin: 34px 8px 0;
+      background: rgb(51, 51, 51);
+      border-radius: 100%;
+    }
+    .name {
+      height: 48px;
+      margin-top: 12px;
+      line-height: 48px;
+      color: rgb(0, 0, 0);
+      font-size: 24px;
+      font-weight: bold;
     }
   }
 </style>

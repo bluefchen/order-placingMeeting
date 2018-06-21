@@ -74,13 +74,12 @@
 
     .top-header {
       height: 82px;
-    }
-
-    .top-header img {
-      display: block;
-      width: 102px;
-      height: 53px;
-      margin-top: 18px;
+      img {
+        display: block;
+        width: 102px;
+        height: 53px;
+        margin-top: 18px;
+      }
     }
 
     .mange-menu {
