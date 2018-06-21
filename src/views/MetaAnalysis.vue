@@ -149,6 +149,7 @@
   export default {
     name: 'MetaAnalysis',
     created() {
+      this.orderPlacingMeeting = JSON.parse(localStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         _.forEach(rsp, (item) => {
           this.brandOptions.push({
@@ -164,6 +165,7 @@
     },
     data() {
       return {
+        orderPlacingMeeting: null,
         activeName: 'first', //默认按机型显示
         tableTitle: [{
           label: '排名',
@@ -287,7 +289,7 @@
       qryOpmOrderPickupReportByModel(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
-          'opMeetingId': '',
+          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
           'offerName': this.modelQueryData.offerName,
           'brandCd': this.modelQueryData.brandCd,
           'offerModelId': this.modelQueryData.offerModelId,
@@ -310,7 +312,7 @@
       queryOpmOrderPickupReportByBrand(curPage, pageSize) {
         this.brandCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBrand', {
-          'opMeetingId': '',
+          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
           'offerName': this.brandQueryData.offerName,
           'brandCd': this.brandQueryData.brandCd,
           'pageSize': pageSize || 10,
@@ -332,7 +334,7 @@
       qryOpmOrderPickupReportByBusi(curPage, pageSize) {
         this.busiCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBusi', {
-          'opMeetingId': '',
+          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
           'busiName': this.busiQueryData.busiName,
           'busiType': this.busiQueryData.busiType,
           'pageSize': pageSize || 10,
