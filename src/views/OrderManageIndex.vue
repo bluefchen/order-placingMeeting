@@ -48,7 +48,7 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.user = JSON.parse(localStorage.getItem('user'));
+      this.user = JSON.parse(sessionStorage.getItem('user'));
       this.queryOrderPlacingMeetingList();
     },
     data() {
@@ -119,7 +119,7 @@
                 },
                 methods: {
                   detailOrder(item) {
-                    localStorage.setItem('opMeeting', JSON.stringify(item));
+                    sessionStorage.setItem('opMeeting', JSON.stringify(item));
                     this.$router.push({path: '/order/orderIndex'});
                   }
                 }
@@ -179,7 +179,7 @@
                     this.compileOrder(title, item)
                   },
                   detailOrder(item) {
-                    localStorage.setItem('opMeeting', JSON.stringify(item));
+                    sessionStorage.setItem('opMeeting', JSON.stringify(item));
                     this.$router.push({path: '/order/orderIndex'});
                   }
                 }
@@ -225,7 +225,7 @@
         this.queryOrderPlacingMeetingList(curPage);
       },
       detailOrder(item) {
-        localStorage.setItem('opMeeting', JSON.stringify(item));
+        sessionStorage.setItem('opMeeting', JSON.stringify(item));
         this.$router.push({path: '/order/orderIndex'});
       },
       compileOrder(title, item) {
@@ -237,7 +237,7 @@
             }
           });
         } else {
-          localStorage.setItem('opMeeting', JSON.stringify(item));
+          sessionStorage.setItem('opMeeting', JSON.stringify(item));
           this.$router.push({
             path: '/orderManage/orderConfig',
             query: {

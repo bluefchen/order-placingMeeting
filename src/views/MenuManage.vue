@@ -38,7 +38,7 @@
   export default {
     name: 'MenuManage',
     created() {
-      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
+      this.roleData = JSON.parse(sessionStorage.getItem('postRoleId'));
       this.querySystemMenuList();
     },
     data() {
@@ -81,7 +81,7 @@
             this.$post('/systemUserController/querySystemMenuList', {
               postRoleId: _.get(this.roleData, 'postRoleId')
             }).then((rsp) => {
-              localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+              sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
             });
 
             this.$msgBox({

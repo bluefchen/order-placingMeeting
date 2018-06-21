@@ -62,7 +62,7 @@
   export default {
     name: 'AddRelevantPerson',
     created() {
-      this.relevantData = JSON.parse(localStorage.getItem('postRoleId'));
+      this.relevantData = JSON.parse(sessionStorage.getItem('postRoleId'));
       this.queryUsermanSubmit();
     },
     data() {

@@ -80,7 +80,7 @@
         this.title = '新增零售商';
       }else{
         this.title = '修改零售商';
-        this.retailerInfo = JSON.parse(localStorage.getItem('retailerId'));
+        this.retailerInfo = JSON.parse(sessionStorage.getItem('retailerId'));
       };
     },
     data() {

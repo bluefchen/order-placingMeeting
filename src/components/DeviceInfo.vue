@@ -42,7 +42,7 @@
     methods: {
       detailTerminal() {
         if (!!this.url) {
-          localStorage.setItem('offerCode', JSON.stringify(this.data));
+          sessionStorage.setItem('offerCode', JSON.stringify(this.data));
           this.$router.push({
             path: this.url,
           });

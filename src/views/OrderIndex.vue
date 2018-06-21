@@ -39,7 +39,7 @@
     name: 'OrderIndex',
     created() {
       window.scroll(0, 0);
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.queryOpmSupplierList();
       this.queryOpmRetailerList();
 
@@ -48,7 +48,7 @@
         opMeetingId: this.opMeetingInfo.opMeetingId,
       }).then((rsp) => {
         if (rsp) {
-          localStorage.setItem('opmDeposit', JSON.stringify(rsp));
+          sessionStorage.setItem('opmDeposit', JSON.stringify(rsp));
         }
       })
     },

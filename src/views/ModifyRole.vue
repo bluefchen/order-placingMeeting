@@ -56,7 +56,7 @@
   export default {
     name: 'ModifyRole',
     created() {
-      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
+      this.roleData = JSON.parse(sessionStorage.getItem('postRoleId'));
     },
     data() {
       return {

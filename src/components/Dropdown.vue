@@ -44,7 +44,7 @@
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
-            localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
             location.href = this.$global.jumpOut;
           })
         } else if (command === 'user') {

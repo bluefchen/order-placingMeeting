@@ -369,7 +369,7 @@
             }
           });
         } else {
-          localStorage.setItem('supplierId', JSON.stringify(val));
+          sessionStorage.setItem('supplierId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/addSupplierData',
             query: {
@@ -380,7 +380,7 @@
 
       },
       detailSupplier(val) {
-        localStorage.setItem('supplierId', JSON.stringify(val));
+        sessionStorage.setItem('supplierId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSupplierData'
         });

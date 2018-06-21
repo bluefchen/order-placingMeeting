@@ -67,7 +67,7 @@
   export default {
     name: 'OrderPickingDetail',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.qryOpmOrderPickupInfo();
     },
     data() {

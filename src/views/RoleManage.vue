@@ -58,15 +58,15 @@
               },
               methods: {
                 modifyRole(item) {
-                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  sessionStorage.setItem('postRoleId', JSON.stringify(item));
                   this.$router.push({path: '/orderManage/modifyRole'});
                 },
                 menuManage(item) {
-                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  sessionStorage.setItem('postRoleId', JSON.stringify(item));
                   this.$router.push({path: '/orderManage/menuManage'});
                 },
                 userManage(item) {
-                  localStorage.setItem('postRoleId', JSON.stringify(item));
+                  sessionStorage.setItem('postRoleId', JSON.stringify(item));
                   this.$router.push({path: '/orderManage/userRoleManage'});
                 }
               },

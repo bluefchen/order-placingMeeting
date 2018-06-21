@@ -91,7 +91,7 @@
 	export default {
 		name: 'Orderdetail',
 		created() {
-			this.orderPickGoodsInfo = JSON.parse(localStorage.getItem(this.$route.query.opmOrderId));
+			this.orderPickGoodsInfo = JSON.parse(sessionStorage.getItem(this.$route.query.opmOrderId));
 
 			this.$post('/orderPlacingMeetingController/querySupplierById', {
 				supplierId: this.orderPickGoodsInfo.supplierId

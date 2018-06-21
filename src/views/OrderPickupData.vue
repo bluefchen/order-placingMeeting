@@ -73,7 +73,7 @@
   export default {
     name: 'OrderPickupData',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.qryOpmOrderPickupRecordList();
     },
     data() {
@@ -215,7 +215,7 @@
         })
       },
       editDeliveryData(item) {
-        localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
         this.$router.push({
           path: '/order/orderPickupGoodsConfirm',
           query: {

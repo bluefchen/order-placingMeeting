@@ -22,7 +22,7 @@
     name: 'OrderManageMenu',
     props: {},
     created() {
-      this.systemMenuAllList = JSON.parse(localStorage.getItem('systemMenuAllList'));
+      this.systemMenuAllList = JSON.parse(sessionStorage.getItem('systemMenuAllList'));
       let basicList = _.find(this.systemMenuAllList, (item) => {
         return item.operationSpecDisptypeCd === 2;
       });

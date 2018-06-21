@@ -84,11 +84,11 @@
   import TitlePlate from '@/components/TitlePlate';
   import Pagination from '@/components/Pagination';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderModel',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         this.brandList = rsp;
       });

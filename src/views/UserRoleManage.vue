@@ -36,7 +36,7 @@
   export default {
     name: 'userRoleManage',
     created() {
-      this.roleData = JSON.parse(localStorage.getItem('postRoleId'));
+      this.roleData = JSON.parse(sessionStorage.getItem('postRoleId'));
       this.queryPostRoleRelaUserList();
     },
     data() {
@@ -208,7 +208,7 @@
       },
       //添加相关人员
       addRelevantPerson() {
-        localStorage.setItem('postRoleId', JSON.stringify(this.roleData));
+        sessionStorage.setItem('postRoleId', JSON.stringify(this.roleData));
         this.$router.push({
           path: '/orderManage/addRelevantPerson'
         });

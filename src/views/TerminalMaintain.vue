@@ -329,7 +329,7 @@
         this.queryOfferList(curPage);
       },
       editTerminalMaintain(val) {
-        localStorage.setItem('offerId', JSON.stringify(val));
+        sessionStorage.setItem('offerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/addTerminalMaintain',
           query: {

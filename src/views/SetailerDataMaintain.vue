@@ -359,7 +359,7 @@
             }
           });
         } else {
-          localStorage.setItem('retailerId', JSON.stringify(val));
+          sessionStorage.setItem('retailerId', JSON.stringify(val));
           this.$router.push({
             path: '/orderManage/AddSetailerData',
             query: {
@@ -370,7 +370,7 @@
 
       },
       detailRetailer(val) {
-        localStorage.setItem('retailerId', JSON.stringify(val));
+        sessionStorage.setItem('retailerId', JSON.stringify(val));
         this.$router.push({
           path: '/orderManage/detailsSetailerData'
         });

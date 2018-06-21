@@ -52,7 +52,7 @@
   export default {
     name: 'summaryStatisticalAnalysis',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.queryOpmOrderPickupReport();
     },
     data() {

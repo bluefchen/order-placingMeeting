@@ -85,7 +85,7 @@
   export default {
     name: 'OrderCompositeQuery',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.queryOpmOrderSubmit();
     },
     data() {
@@ -294,7 +294,7 @@
         })
       },
       orderdetail(item) {
-        localStorage.setItem(item.opmOrderId, JSON.stringify(item));
+        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
         this.$router.push({
           path: '/order/orderdetail',
           query: {

@@ -40,7 +40,7 @@
   export default {
     name: 'PolicyManage',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.queryOpmPolicyList();
     },
     data() {

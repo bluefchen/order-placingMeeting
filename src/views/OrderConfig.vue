@@ -307,7 +307,7 @@
         this.title = '新增订购会';
       } else {
         this.title = '编辑订购会';
-        this.orderPlacingMeeting = JSON.parse(localStorage.getItem('opMeeting'));
+        this.orderPlacingMeeting = JSON.parse(sessionStorage.getItem('opMeeting'));
         this.qryOpmSupplierList();
         this.qryOpmRetailerList();
       }

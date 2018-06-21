@@ -30,7 +30,7 @@
   export default {
     name: 'ImportModelDel',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
     },
     data() {
       return {

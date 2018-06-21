@@ -149,7 +149,7 @@
   export default {
     name: 'MetaAnalysis',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         _.forEach(rsp, (item) => {
           this.brandOptions.push({

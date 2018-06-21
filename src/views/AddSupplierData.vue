@@ -108,7 +108,7 @@
         this.title = '新增供货商';
       }else{
         this.title = '修改供货商';
-        this.supplierInfo = JSON.parse(localStorage.getItem('supplierId'));
+        this.supplierInfo = JSON.parse(sessionStorage.getItem('supplierId'));
       };
 
     },

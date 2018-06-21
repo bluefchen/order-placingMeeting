@@ -172,7 +172,7 @@
   export default {
     name: 'DetailTerminalMaintain',
     created() {
-      this.terminalMaintainInfo = JSON.parse(localStorage.getItem('offerCode'));
+      this.terminalMaintainInfo = JSON.parse(sessionStorage.getItem('offerCode'));
 
       this.terminalInfo = {
         offerId: _.get(this.terminalMaintainInfo, 'offerId'),

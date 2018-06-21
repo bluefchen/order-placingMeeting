@@ -47,11 +47,11 @@
   import Input from '@/components/Input';
   import AreaSelect from '@/components/AreaSelect';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
-  
+
   export default {
     name: 'OrderPickingReport',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
       this.queryOpmOrderPickupAnal();
     },
     data() {

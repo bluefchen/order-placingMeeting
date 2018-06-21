@@ -35,8 +35,8 @@
   export default {
     name: 'Order',
     created() {
-      this.user = JSON.parse(localStorage.getItem('user'));
-      this.opMeeting = JSON.parse(localStorage.getItem('opMeeting'));
+      this.user = JSON.parse(sessionStorage.getItem('user'));
+      this.opMeeting = JSON.parse(sessionStorage.getItem('opMeeting'));
     },
     data() {
       return {

@@ -4,7 +4,7 @@ import {Loading} from 'element-ui'
 // import './mockdb'
 
 axios.defaults.timeout = 5 * 1000;
-let user = JSON.parse(localStorage.getItem('user'));
+let user = JSON.parse(sessionStorage.getItem('user'));
 // axios.defaults.baseURL = 'http://192.168.74.17:8080/orderPlacingMeeting/';
 axios.defaults.baseURL = '/orderPlacingMeeting/';
 axios.defaults.headers = {

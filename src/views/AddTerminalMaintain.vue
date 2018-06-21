@@ -346,7 +346,7 @@
         this.flag = 1;
       } else {
         this.title = '修改终端';
-        this.maintainInfo = JSON.parse(localStorage.getItem('offerId'));
+        this.maintainInfo = JSON.parse(sessionStorage.getItem('offerId'));
         this.qryOfferModelList(this.maintainInfo.brandCd);
         if (!!this.maintainInfo.offerPic) {
           if (this.maintainInfo.offerPic.offerPicUrl) {
@@ -1008,7 +1008,7 @@
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
-              localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
+              sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',
               });
@@ -1057,7 +1057,7 @@
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
-              localStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
+              sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',
               });

@@ -23,7 +23,7 @@
   export default {
     name: 'OrderManage',
     created() {
-      this.user = JSON.parse(localStorage.getItem('user'));
+      this.user = JSON.parse(sessionStorage.getItem('user'));
       if (!this.user) {
         //默认只有当第一次用户登录跳转才会执行
         this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
@@ -31,14 +31,14 @@
           token: this.$route.query.token
         }).then((rsp) => {
           this.user = rsp;
-          localStorage.setItem('user', JSON.stringify(rsp));
+          sessionStorage.setItem('user', JSON.stringify(rsp));
           if (!_.get(this.user, 'postRoleId')) {
             this.$msgBox({
               type: 'info',
               title: '操作提示',
               content: '该用户还没有分配权限角色，请联系管理员'
             }).catch(() => {
-              localStorage.removeItem('user');
+              sessionStorage.removeItem('user');
               location.href = this.$global.jumpOut;
             });
           }
@@ -50,7 +50,7 @@
             title: '操作提示',
             content: '该用户还没有分配权限角色，请联系管理员'
           }).catch(() => {
-            localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
             location.href = this.$global.jumpOut;
           });
         }
@@ -70,7 +70,7 @@
             postRoleId: newValue,
             roleTypeCd: '3'//固定的运营商roleTypeCd
           }).then((rsp) => {
-            localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
+            sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
           });
         }
       }

@@ -73,8 +73,8 @@
   export default {
     name: 'OrderMenu',
     created() {
-      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
-      this.systemMenuAllList = JSON.parse(localStorage.getItem('systemMenuAllList'));
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
+      this.systemMenuAllList = JSON.parse(sessionStorage.getItem('systemMenuAllList'));
       let systemMenu = _.find(this.systemMenuAllList, (item) => {
         return item.operationSpecDisptypeCd === 1;
       });

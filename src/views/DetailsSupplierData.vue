@@ -81,7 +81,7 @@
   export default {
     name: 'DetailsSupplierData',
     created() {
-      this.supplierInfo = JSON.parse(localStorage.getItem('supplierId'));
+      this.supplierInfo = JSON.parse(sessionStorage.getItem('supplierId'));
     },
     data() {
       return {
