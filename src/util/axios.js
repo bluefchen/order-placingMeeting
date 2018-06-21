@@ -65,9 +65,10 @@ export function fetchPost(url, params) {
           if (!res.success) {
             setTimeout(function () {
               Vue.prototype.$msgBox({
-                type: 'error',
+                type: 'abnormal',
                 title: '操作提示',
-                content: res.msg
+                content: res.msg,
+                errStack: res.error
               }).catch(() => {
                 // console.log('cancel');
               });
