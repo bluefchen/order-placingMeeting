@@ -66,6 +66,10 @@
             prop: 'commonRegionName',
             width: 140
           }, {
+            label: '供货商编码',
+            prop: 'supplierCode',
+            width: 140
+          }, {
             label: '供货商名称',
             prop: 'supplierName'
           }, {
@@ -75,11 +79,11 @@
           }, {
             label: '联系人',
             prop: 'linkMan',
-            width: 140
+            width: 120
           }, {
             label: '联系电话',
             prop: 'linkNbr',
-            width: 140
+            width: 120
           }, {
             label: '公司电话',
             prop: 'supplierPhone',
@@ -100,6 +104,10 @@
             prop: 'commonRegionName',
             width: 140
           }, {
+            label: '零售商编码',
+            prop: 'retailerCode',
+            width: 140
+          }, {
             label: '零售商名称',
             prop: 'retailerName'
           }, {
@@ -109,11 +117,11 @@
           }, {
             label: '联系人',
             prop: 'linkMan',
-            width: 140
+            width: 120
           }, {
             label: '联系电话',
             prop: 'linkNbr',
-            width: 140
+            width: 120
           }, {
             label: '公司电话',
             prop: 'retailerPhone',
