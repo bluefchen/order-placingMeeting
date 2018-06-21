@@ -39,6 +39,7 @@
               content: '该用户还没有分配权限角色，请联系管理员'
             }).catch(() => {
               sessionStorage.removeItem('user');
+              sessionStorage.removeItem('systemMenuAllList');
               location.href = this.$global.jumpOut;
             });
           }
@@ -51,6 +52,7 @@
             content: '该用户还没有分配权限角色，请联系管理员'
           }).catch(() => {
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('systemMenuAllList');
             location.href = this.$global.jumpOut;
           });
         }
@@ -71,7 +73,6 @@
             roleTypeCd: '3'//固定的运营商roleTypeCd
           }).then((rsp) => {
             sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
-            this.$router.push({path: '/orderManage/orderManageIndex'});
           });
         }
       }

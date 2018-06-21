@@ -45,6 +45,7 @@
             token: _.get(this.user, 'token')
           }).then(() => {
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('systemMenuAllList');
             location.href = this.$global.jumpOut;
           })
         } else if (command === 'user') {

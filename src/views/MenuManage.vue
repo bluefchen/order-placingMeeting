@@ -82,7 +82,6 @@
               postRoleId: _.get(this.roleData, 'postRoleId')
             }).then((rsp) => {
               sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
-              this.$router.push({path: '/orderManage/orderManageIndex'});
             });
 
             this.$msgBox({
