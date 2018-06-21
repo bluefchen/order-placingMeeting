@@ -21,15 +21,15 @@
         </div>
         <div class="dll">
           <el-row :gutter="20">
-            <el-col 
-              v-for="(column, colIndex) in tableTitle" 
-              :key="colIndex" 
-              :span="column.colSpan" 
+            <el-col
+              v-for="(column, colIndex) in tableTitle"
+              :key="colIndex"
+              :span="column.colSpan"
               :offset="column.colOffset">
                 <span v-if="!column.render">
                   {{item[column.prop] || '--'}}
                 </span>
-                <table-row v-else :index="index" :row="item" :render="column.render"></table-row>
+              <table-row v-else :index="index" :row="item" :render="column.render"></table-row>
             </el-col>
           </el-row>
         </div>
@@ -68,8 +68,7 @@
     data() {
       return {}
     },
-    computed: {
-    },
+    computed: {},
     components: {
       TableRow
     }
@@ -77,8 +76,8 @@
 </script>
 
 <style lang="less">
-  .v_table-list{
-    .table-list-box{
+  .v_table-list {
+    .table-list-box {
       height: 28px;
       line-height: 28px;
       background-color: #efefef;
@@ -103,7 +102,7 @@
       border-bottom: 1px solid #e0e0e0;
       .date-color {
         color: #4c4848;
-        b{
+        b {
           color: #000;
         }
       }
@@ -199,6 +198,7 @@
       border: 1px solid #d9d9d9;
       border-radius: 3px;
       height: 22px;
+      line-height: 16px;
     }
     .edit-btn:hover {
       color: #f82134;
@@ -207,8 +207,8 @@
       text-decoration: none;
       cursor: pointer;
     }
-    .discount{
-      b{
+    .discount {
+      b {
         font-size: 16px;
       }
     }
@@ -227,14 +227,14 @@
     .red {
       color: #f82134;
     }
-  
-    .text-left{
+
+    .text-left {
       text-align: left;
     }
-    .text-center{
+    .text-center {
       text-align: center;
     }
-    .text-right{
+    .text-right {
       text-align: right;
     }
   }
