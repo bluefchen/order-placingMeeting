@@ -161,7 +161,7 @@
         }
         let partyIds = [];
         _.map(this.selectionChangeList, function (item) {
-          partyId.push(item.partyId);
+          partyIds.push(item.partyId);
         });
         this.$post('/systemUserController/addPostRoleRelaUser', {
           postRoleId: _.get(this.relevantData, 'postRoleId'),
