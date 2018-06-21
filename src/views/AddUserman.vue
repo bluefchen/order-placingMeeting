@@ -100,7 +100,7 @@
                 <div class="condition-item">
                   <!-- 当为管理人员时，* 存在，表示为必填项 -->
                   <label class="label-wrds"><span class="red-star">*</span> 归属省份：</label>
-                  <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
+                  <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" :withoutPostRole="false"/>
                 </div>
               </el-form-item>
               <div class="condition-item" v-else>

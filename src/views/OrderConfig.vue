@@ -38,7 +38,7 @@
               <el-col :span="6" :offset="2">
                 <el-form-item label="订货会地址：" prop="commonRegionId"
                               :rules="[{ required: true, message: '订购会地址不能为空', trigger: 'change'}]">
-                  <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId"/>
+                  <AreaSelect :value.sync="orderPlacingMeeting.commonRegionId" :withoutPostRole="false"/>
                 </el-form-item>
               </el-col>
               <el-col :span="10">

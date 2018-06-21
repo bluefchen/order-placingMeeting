@@ -10,7 +10,7 @@
           <el-col :span="7">
             <div class="form-group fn-clear">
               <label>所属省市：</label>
-              <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId" :withoutPostRole="true"/>
+              <AreaSelect class="condition-select" :value.sync="orderQueryData.commonRegionId"/>
             </div>
           </el-col>
           <el-col :span="7">
