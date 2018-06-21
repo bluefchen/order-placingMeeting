@@ -138,7 +138,7 @@
           tableTitle: [{
             label: '终端名称',
             prop: 'opmName',
-            colSpan: 8,
+            colSpan: 6,
             render: (h, params) => {
               return h(DeviceInfo, {
                 props: {
@@ -149,11 +149,11 @@
           }, {
             label: '订购数量',
             prop: 'offerQty',
-            colSpan: 2
+            colSpan: 3
           }, {
             label: '总金额',
             prop: 'amount',
-            colSpan: 2,
+            colSpan: 4,
             render: (h, params) => {
               return h({
                 template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty).toFixed(2)}}</b></span>`,
@@ -167,7 +167,7 @@
           }, {
             label: '优惠金额',
             prop: 'offerQty',
-            colSpan: 2,
+            colSpan: 4,
             render: (h, params) => {
               return h({
                 template: `
@@ -201,7 +201,7 @@
           }, {
             label: '订单付款状态',
             prop: 'paymentStatusCdName',
-            colSpan: 3,
+            colSpan: 2,
             render: (h, params) => {
               return h({
                 template: `
@@ -217,7 +217,7 @@
           }, {
             label: '操作',
             prop: 'operation',
-            colSpan: 4,
+            colSpan: 2,
             render: (h, params) => {
               return h({
                 template: `<button class="updown-btn red" @click="orderdetail(data.row)">订单详情</button>`,
