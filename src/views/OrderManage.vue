@@ -34,6 +34,15 @@
           localStorage.setItem('user', JSON.stringify(rsp));
         });
       }
+      if (!_.get(this.user, 'postRoleId')) {
+        this.$msgBox({
+          type: 'info',
+          title: '操作提示',
+          content: '该用户还没有分配权限角色，请联系管理员'
+        }).catch(() => {
+          location.href = this.$global.userCenter + _.get(this.user, 'partyId');
+        });
+      }
     },
     data() {
       return {

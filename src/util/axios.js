@@ -42,6 +42,8 @@ axios.interceptors.response.use(response => {
         type: 'error',
         title: '操作提示',
         content: '您请求资源URL不存在!'
+      }).catch(() => {
+        // console.log('cancel');
       });
     }, 50);
   } else {
@@ -50,6 +52,8 @@ axios.interceptors.response.use(response => {
         type: 'error',
         title: '操作提示',
         content: '服务器出小差了，请稍后再试!'
+      }).catch(() => {
+        // console.log('cancel');
       });
     }, 50);
   }
