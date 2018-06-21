@@ -149,7 +149,7 @@
   export default {
     name: 'MetaAnalysis',
     created() {
-      this.orderPlacingMeeting = JSON.parse(localStorage.getItem('opMeeting'));
+      this.opMeetingInfo = JSON.parse(localStorage.getItem('opMeeting'));
       this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
         _.forEach(rsp, (item) => {
           this.brandOptions.push({
@@ -165,7 +165,7 @@
     },
     data() {
       return {
-        orderPlacingMeeting: null,
+        opMeetingInfo: null,
         activeName: 'first', //默认按机型显示
         tableTitle: [{
           label: '排名',
@@ -289,7 +289,7 @@
       qryOpmOrderPickupReportByModel(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByModel', {
-          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
           'offerName': this.modelQueryData.offerName,
           'brandCd': this.modelQueryData.brandCd,
           'offerModelId': this.modelQueryData.offerModelId,
@@ -302,7 +302,7 @@
       },
       //按机型导出
       exportOpmOrderPickupReportByModel() {
-        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
+        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByModel?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd + '&offerModelId=' + this.modelQueryData.offerModelId;
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupReportByModel(curPage);
@@ -312,7 +312,7 @@
       queryOpmOrderPickupReportByBrand(curPage, pageSize) {
         this.brandCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBrand', {
-          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
           'offerName': this.brandQueryData.offerName,
           'brandCd': this.brandQueryData.brandCd,
           'pageSize': pageSize || 10,
@@ -324,7 +324,7 @@
       },
       //按品牌导出
       exportOpmOrderPickupReportByBrand() {
-        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + '' + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
+        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBrand?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&offerName=' + this.modelQueryData.offerName + '&brandCd=' + this.modelQueryData.brandCd;
       },
       brandPageChanged(curPage) {
         this.queryOpmOrderPickupReportByBrand(curPage);
@@ -334,7 +334,7 @@
       qryOpmOrderPickupReportByBusi(curPage, pageSize) {
         this.busiCurrentPage = curPage || 1;
         this.$post('/opmOrderController/queryOpmOrderPickupReportByBusi', {
-          'opMeetingId': this.orderPlacingMeeting.opMeetingId,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
           'busiName': this.busiQueryData.busiName,
           'busiType': this.busiQueryData.busiType,
           'pageSize': pageSize || 10,
@@ -346,7 +346,7 @@
       },
       //按商户导出
       exportOpmOrderPickupReportByBusi() {
-        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + '' + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
+        location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderPickupReportByBusi?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&busiType=' + this.busiQueryData.busiType + '&busiName=' + this.busiQueryData.busiName;
       },
       busiPageChanged(curPage) {
         this.qryOpmOrderPickupReportByBusi(curPage);
