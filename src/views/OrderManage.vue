@@ -38,6 +38,7 @@
               title: '操作提示',
               content: '该用户还没有分配权限角色，请联系管理员'
             }).catch(() => {
+              localStorage.removeItem('user');
               location.href = this.$global.jumpOut;
             });
           }
@@ -49,6 +50,7 @@
             title: '操作提示',
             content: '该用户还没有分配权限角色，请联系管理员'
           }).catch(() => {
+            localStorage.removeItem('user');
             location.href = this.$global.jumpOut;
           });
         }
