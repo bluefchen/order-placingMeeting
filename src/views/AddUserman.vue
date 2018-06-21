@@ -105,7 +105,7 @@
               </el-form-item>
               <div class="condition-item" v-else>
                 <label class="label-wrds">归属省份：</label>
-                <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify"/>
+                <AreaSelect :value.sync="usermanData.commonRegionId" :disabled="modify" :withoutPostRole="false"/>
               </div>
             </el-col>
           </el-row>

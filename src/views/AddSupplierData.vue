@@ -11,7 +11,7 @@
               <el-form-item prop="commonRegionId">
                 <div class="condition-item">
                   <label class="label-wrds text-right"><span class="red-star">*</span> 所属省份：</label>
-                  <AreaSelect :value.sync="supplierInfo.commonRegionId"/>
+                  <AreaSelect :value.sync="supplierInfo.commonRegionId" :withoutPostRole="false"/>
                 </div>
               </el-form-item>
             </el-col>

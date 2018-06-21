@@ -9,7 +9,7 @@
           <el-row :gutter="20">
             <el-col :span="8" :offset="2">
               <el-form-item label="所属省份：" prop="commonRegionId">
-                <AreaSelect :value.sync="retailerInfo.commonRegionId"/>
+                <AreaSelect :value.sync="retailerInfo.commonRegionId" :withoutPostRole="false"/>
               </el-form-item>
             </el-col>
           </el-row>
