@@ -4,7 +4,7 @@
     <div class="toper">
       <div class="box-1200 top-header fn-clear">
         <img class="fn-left" src="@/assets/images/big-logo.png">
-        <OrderManageMenu class="fn-left mange-menu"/>
+        <OrderManageMenu class="fn-left mange-menu" :menuList="menuList"/>
         <div class="user fn-right">
           <span class="area">{{commonReginName}}</span>
           <Dropdown :user="user"/>
@@ -59,7 +59,7 @@
     data() {
       return {
         user: null,
-        systemMenuAllList: null
+        menuList: null
       };
     },
     watch: {
@@ -70,6 +70,7 @@
             postRoleId: newValue,
             roleTypeCd: '3'//固定的运营商roleTypeCd
           }).then((rsp) => {
+            this.menuList = rsp;
             sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
           });
         }
