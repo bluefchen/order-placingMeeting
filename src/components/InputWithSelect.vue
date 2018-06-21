@@ -44,7 +44,8 @@
         type: Boolean //是否隐藏下拉框
       },
       clearable: {
-        type: Boolean
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -70,7 +71,7 @@
   }
 
   .el-select .el-input {
-    min-width: 90px;
+    min-width: 100px;
   }
 
   .el-input-group__append, .el-input-group__prepend {
