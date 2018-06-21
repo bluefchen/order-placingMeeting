@@ -48,6 +48,7 @@
   export default {
     name: 'OrderManageIndex',
     created() {
+      this.user = JSON.parse(sessionStorage.getItem('user'));
       if (!this.user) {
         //默认只有当第一次用户登录跳转才会执行
         this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
@@ -58,7 +59,6 @@
           this.queryOrderPlacingMeetingList();
         });
       } else {
-        this.user = JSON.parse(sessionStorage.getItem('user'));
         this.queryOrderPlacingMeetingList();
       }
     },
