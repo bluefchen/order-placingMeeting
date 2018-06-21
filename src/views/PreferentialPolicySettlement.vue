@@ -19,19 +19,19 @@
     <!-- 条件搜索 -->
     <div class="box-1200 condition-search" v-show="isShowMoreCondition">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">订单号：</label>
             <Input :value.sync="orderQueryData.opmOrderNo"/>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
             <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="10">
           <div class="condition-item">
             <label class="label-wrds">订购起止日期：</label>
             <DatePicker :value.sync="orderQueryData.dateValue" :clearable="true"/>
@@ -39,13 +39,13 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
             <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">供货商名称：</label>
             <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
