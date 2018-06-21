@@ -48,7 +48,19 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.user = JSON.parse(sessionStorage.getItem('user'));
+      if (!this.user) {
+        //默认只有当第一次用户登录跳转才会执行
+        this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
+          userId: this.$route.query.userId,
+          token: this.$route.query.token
+        }).then((rsp) => {
+          this.user = rsp;
+          this.queryOrderPlacingMeetingList();
+        });
+      } else {
+        this.user = JSON.parse(sessionStorage.getItem('user'));
+        this.queryOrderPlacingMeetingList();
+      }
     },
     data() {
       return {
@@ -268,13 +280,6 @@
         }).catch(() => {
           // console.log('cancel');
         });
-      }
-    },
-    watch: {
-      'user.postRoleId': function (newValue) {
-        if (newValue) {
-          this.queryOrderPlacingMeetingList();
-        }
       }
     },
     filters: {
