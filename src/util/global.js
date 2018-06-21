@@ -7,6 +7,7 @@ const userCenter = 'http://192.168.59.70:9512/terminal-channel-web/index.html#/u
 const supplier = '1'; //供货商
 const retailer = '2'; //零售商
 const operator = '3'; //运营商
+const postRoleId = '3'; //省级管理员
 
 export default {
   fileUrl,
@@ -14,5 +15,6 @@ export default {
   userCenter,
   supplier,
   retailer,
-  operator
+  operator,
+  postRoleId
 }

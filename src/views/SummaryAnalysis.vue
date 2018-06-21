@@ -169,7 +169,7 @@
       },
       queryOpmOrderOfferPickupReport(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderPickupReport', {
+        this.$post('/opmOrderController/queryOpmOrderOfferPickupReport', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           commonRegionId: this.commonRegionId,
           isCentman: this.isCentman,

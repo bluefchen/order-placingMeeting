@@ -24,8 +24,9 @@
   export default {
     name: 'AreaSelect',
     created() {
+      this.user = JSON.parse(localStorage.getItem('user'));
       this.$post('/commonCfgController/getCommonRegionTreeList', {
-        commonRegionId: ''
+        commonRegionId: this.withoutPostRole ? '' : (_.get(this.user, 'postRoleId') === this.$global.postRoleId ? _.get(this.user, 'commonReginId') : '')
       }).then((rsp) => {
         this.commonRegionList = rsp;
         _.forEach(this.commonRegionList, (item) => {
@@ -74,10 +75,15 @@
       multipleLimit: {
         type: Number,
         default: 0
+      },
+      withoutPostRole: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
+        user: null,
         copyValue: this.value,
         options: [],
       }

@@ -48,10 +48,12 @@
   export default {
     name: 'OrderManageIndex',
     created() {
+      this.user = JSON.parse(localStorage.getItem('user'));
       this.queryOrderPlacingMeetingList();
     },
     data() {
       return {
+        user: null,
         tab: {
           tableHeader: [{
             label: '订购会编码',
@@ -185,7 +187,6 @@
             }
           }]
         },
-
         orderTypeList: [{
           value: '1000',
           label: '未开始'
@@ -210,6 +211,7 @@
       queryOrderPlacingMeetingList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOrderPlacingMeetingList', {
+          commonRegionId: _.get(this.user, 'postRoleId') === this.$global.postRoleId ? _.get(this.user, 'commonReginId') : '',
           opmName: this.orderQueryData.opmName,
           statusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,
