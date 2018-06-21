@@ -193,12 +193,12 @@
     }
 
     .edit-btn {
+      height: 22px;
+      line-height: 16px;
       padding: 2px 5px;
       background: #ffffff;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
-      height: 22px;
-      line-height: 16px;
     }
     .edit-btn:hover {
       color: #f82134;
@@ -214,6 +214,8 @@
     }
 
     .updown-btn {
+      height: 22px;
+      line-height: 16px;
       padding: 2px 5px;
       border: 0;
       text-decoration: underline;
