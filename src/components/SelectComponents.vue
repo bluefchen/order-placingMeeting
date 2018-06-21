@@ -1,7 +1,8 @@
 <template>
   <div class="vue_select-components">
     <div class="el-popover-box">
-      <el-popover :placement="placement" :disabled="disabled" :width="width" height="200" trigger="click"
+      <el-popover popper-class="popover-wrap" :placement="placement" :disabled="disabled" :width="width" height="200"
+                  trigger="click"
                   v-model="visible">
         <div class="popover-box" v-show="model === 'letter' || model === 'single'">
           <div class="popover-padding">
@@ -188,11 +189,10 @@
 
 <style lang="less">
 
-  .el-popover {
+  .popover-wrap {
     border: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 0;
-    z-index: 9999;
     padding: 0;
   }
 
