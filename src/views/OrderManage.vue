@@ -50,7 +50,6 @@
             roleTypeCd: '3'//固定的运营商roleTypeCd
           }).then((rsp) => {
             localStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
-            location.reload();
           });
         }
       }
