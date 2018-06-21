@@ -1,10 +1,10 @@
 <template>
-  <div class="device-wrap fn-clear" @click="detailTerminal">
+  <div class="device-wrap fn-clear">
     <div class="device-pic fn-left">
       <img :src="offerPicUrl">
     </div>
     <div class="device-info fn-left">
-      <p class="name" title="data.offerName">{{data.offerName}}</p>
+      <p class="name" title="data.offerName" @click="detailTerminal">{{data.offerName}}</p>
       <p class="code">编码：{{data.offerCode}}</p>
       <p class="property">
         <span v-if="data.isCentman === 'N'" class="sc">社采</span>
@@ -24,7 +24,7 @@
     props: {
       data: {
         type: Object,
-        default: function() {
+        default: function () {
           return {
             offerName: '',
             offerCode: '',
@@ -40,8 +40,8 @@
       }
     },
     methods: {
-      detailTerminal(){
-        if(!!this.url){
+      detailTerminal() {
+        if (!!this.url) {
           localStorage.setItem('offerCode', JSON.stringify(this.data));
           this.$router.push({
             path: this.url,

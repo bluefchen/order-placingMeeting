@@ -101,7 +101,7 @@
                       <el-date-picker
                         v-model="terminalMaintainInfo.offerBaseParam.listDt"
                         type="date"
-                        size="small"
+                        size="mini"
                         placeholder="选择日期"
                         format="yyyy-MM-dd"
                         value-format="yyyy-MM-dd"

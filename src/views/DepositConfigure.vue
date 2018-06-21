@@ -249,12 +249,13 @@
           });
         } else {
           let opmRetailerDepositList = this.depositInfoList.opmRetailerDepositList;
-          if(opmRetailerDepositList){
+          if (opmRetailerDepositList) {
             var flag = _.some(opmRetailerDepositList, (item, index) => {
               return item.depositAmount < 10000
             })
-          };
-          if(!flag){
+          }
+          ;
+          if (!flag) {
             if (opmRetailerDepositList) {
               this.opmRetailerUpate = [];
               opmRetailerDepositList.map((item) => {
@@ -291,7 +292,7 @@
                 });
               }
             })
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',

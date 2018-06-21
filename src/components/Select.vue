@@ -42,7 +42,7 @@
       },
       size: {
         type: String,
-        default: 'small'
+        default: 'mini'
       },
       multiple: {
         type: Boolean,
@@ -82,11 +82,13 @@
   .el-select {
     width: 100%;
   }
-  .el-input--small .el-input__inner{
+
+  .el-input--small .el-input__inner {
     height: 28px;
     line-height: 28px;
     border-radius: 0;
   }
+
   .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus {
     border-color: #ff7a7a;
   }

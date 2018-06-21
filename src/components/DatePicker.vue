@@ -59,7 +59,7 @@
       },
       size: {
         type: String,
-        default: 'small'
+        default: 'mini'
       },
       format: {
         type: String,
