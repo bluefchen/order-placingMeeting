@@ -44,8 +44,7 @@
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('systemMenuAllList');
+            sessionStorage.clear();
             location.href = this.$global.jumpOut;
           })
         } else if (command === 'user') {
