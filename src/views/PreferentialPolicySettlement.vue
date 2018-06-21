@@ -276,7 +276,7 @@
       },
       queryOpmOrderSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderList', {
+        this.$post('/opmPolicyController/queryOpmPoilcyDepositList', {
           opMeetingId: this.opMeetingInfo.opMeetingId,
           isCentman: this.orderQueryData.isCentman,
           offerNameOrCode: this.orderQueryData.offerNameOrCode,
