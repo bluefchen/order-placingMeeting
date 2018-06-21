@@ -48,7 +48,7 @@
           policyName: ''
         },
         searchList:[{
-          label: '惠普政策',
+          label: '普惠政策',
           value: 1
         },{
           label: '团订政策',
