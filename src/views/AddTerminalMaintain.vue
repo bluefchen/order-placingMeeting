@@ -872,7 +872,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode == '0') {
               this.$msgBox({
                 type: 'success',
                 title: '操作提示',
@@ -926,7 +926,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode == '0') {
               this.$msgBox({
                 type: 'success',
                 title: '操作提示',
@@ -1006,7 +1006,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode == '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
@@ -1055,7 +1055,7 @@
             },
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
-            if (rsp.resultCode === '0') {
+            if (rsp.resultCode == '0') {
               this.terminalMaintainInfo.offerPicList = this.offerPicList
               sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
