@@ -50,7 +50,6 @@
     },
     watch: {
       'menuList': function (newValue) {
-        console.log('menuList', newValue);
         let basicList = _.find(newValue, (item) => {
           return item.operationSpecDisptypeCd === 2;
         });
