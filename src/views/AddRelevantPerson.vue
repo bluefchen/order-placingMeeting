@@ -167,7 +167,7 @@
           postRoleId: _.get(this.relevantData, 'postRoleId'),
           partyId: partyIds,
         }).then((rsp) => {
-          if (rsp.resultCode == '0') {
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',

@@ -76,7 +76,7 @@
           postRoleId: this.roleData.postRoleId,
           systemMenuId: newMenu,
         }).then((rsp) => {
-          if (rsp.resultCode == '0') {
+          if (rsp.resultCode === '0') {
             //获取用户菜单权限，更新保存本地
             this.$post('/systemUserController/querySystemMenuList', {
               postRoleId: _.get(this.roleData, 'postRoleId')

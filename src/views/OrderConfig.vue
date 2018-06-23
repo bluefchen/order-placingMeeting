@@ -620,7 +620,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rsp.resultCode === 0) {
+            if (rsp.resultCode === '0') {
               this.next();
             } else {
               this.$msgBox({
@@ -649,7 +649,7 @@
             'supplierArr': supplierIdList,
             'retailerArr': retailerIdList
           }).then((rsp) => {
-            if (rsp.resultCode === 0) {
+            if (rsp.resultCode === '0') {
               this.next();
             } else {
               this.$msgBox({

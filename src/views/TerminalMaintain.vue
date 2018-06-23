@@ -382,7 +382,7 @@
         this.$post('/orderPlacingMeetingController/updateOfferGround', {
           offerIds: val
         }).then((rsp) => {
-          if (rsp.resultCode == '0') {
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -406,7 +406,7 @@
         this.$post('/orderPlacingMeetingController/updateOfferUnground', {
           offerIds: val
         }).then((rsp) => {
-          if (rsp.resultCode == '0') {
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -437,7 +437,7 @@
           this.$post('/orderPlacingMeetingController/deleteOffer', {
             offerId: val
           }).then((rsp) => {
-            if (rsp.resultCode == '0') {
+            if (rsp.resultCode === '0') {
               this.$msgBox({
                 type: 'success',
                 title: '操作提示',

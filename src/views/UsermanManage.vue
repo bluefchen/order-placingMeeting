@@ -181,7 +181,7 @@
                   this.$post('/systemUserController/freezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    if(rsp.resultCode == '0'){
+                    if (rsp.resultCode === '0') {
                       this.$msgBox({
                         type: 'success',
                         title: '操作提示',
@@ -189,7 +189,7 @@
                       }).catch(() => {
                         this.queryUsermanSubmit(this.currentPage);
                       });
-                    }else{
+                    } else {
                       this.$msgBox({
                         type: 'error',
                         title: '操作提示',
@@ -205,7 +205,7 @@
                   this.$post('/systemUserController/unfreezeSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    if(rsp.resultCode == '0'){
+                    if (rsp.resultCode === '0') {
                       this.$msgBox({
                         type: 'success',
                         title: '操作提示',
@@ -213,7 +213,7 @@
                       }).catch(() => {
                         this.queryUsermanSubmit(this.currentPage);
                       });
-                    }else{
+                    } else {
                       this.$msgBox({
                         type: 'error',
                         title: '操作提示',
@@ -229,7 +229,7 @@
                   this.$post('/systemUserController/deleteSystemUser', {
                     partyIds: [item.partyId],
                   }).then((rsp) => {
-                    if(rsp.resultCode == '0'){
+                    if (rsp.resultCode === '0') {
                       this.$msgBox({
                         type: 'success',
                         title: '操作提示',
@@ -237,7 +237,7 @@
                       }).catch(() => {
                         this.queryUsermanSubmit(this.currentPage);
                       });
-                    }else{
+                    } else {
                       this.$msgBox({
                         type: 'error',
                         title: '操作提示',
@@ -328,7 +328,7 @@
         this.$post('/systemUserController/unfreezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          if(rsp.resultCode == '0'){
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -336,7 +336,7 @@
             }).catch(() => {
               this.queryUsermanSubmit();
             });
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',
@@ -382,7 +382,7 @@
         this.$post('/systemUserController/freezeSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          if(rsp.resultCode == '0'){
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -390,7 +390,7 @@
             }).catch(() => {
               this.queryUsermanSubmit();
             });
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',
@@ -436,7 +436,7 @@
         this.$post('/systemUserController/deleteSystemUser', {
           partyIds: partyIds,
         }).then((rsp) => {
-          if(rsp.resultCode == '0'){
+          if (rsp.resultCode === '0') {
             this.$msgBox({
               type: 'success',
               title: '操作提示',
@@ -444,7 +444,7 @@
             }).catch(() => {
               this.queryUsermanSubmit();
             });
-          }else{
+          } else {
             this.$msgBox({
               type: 'error',
               title: '操作提示',
@@ -482,7 +482,7 @@
         } else if (this.usermanData.userType == this.$global.supplier) {
           this.merchantsTitle = '供货商';
           this.disabled = false;
-        } else{
+        } else {
           this.merchantsTitle = '';
           this.disabled = true;
         }

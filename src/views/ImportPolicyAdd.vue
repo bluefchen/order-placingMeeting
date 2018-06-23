@@ -18,7 +18,10 @@
         <div class="import-result-box" v-show="isShowSuccess">
           <div class="success">
             <p class="title">上传政策成功，等待集团审批！</p>
-            <p class="sub-title">您可到<router-link class="btns" to="/order/policyManage">政策投入</router-link>查看您制定的政策</p>
+            <p class="sub-title">您可到
+              <router-link class="btns" to="/order/policyManage">政策投入</router-link>
+              查看您制定的政策
+            </p>
             <el-button size="small" type="success" @click="jumpLink">政策投入</el-button>
           </div>
         </div>

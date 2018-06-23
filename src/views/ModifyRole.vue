@@ -13,28 +13,28 @@
       <!-- 角色编辑 -->
       <el-form :model="roleData" :rules="rules" ref="roleData" label-width="100px" class="demo-ruleForm">
         <div class="role-setup-info">
-            <div class="terminal-info-box">
-              <el-row :gutter="20">
-                <el-col :span="8" :offset="2">
-                  <el-form-item prop="name">
-                    <div class="condition-item">
-                      <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
-                      <Input :value.sync="roleData.name"/>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="18" :offset="2">
-                  <el-form-item prop="description" class="textarea">
-                    <div class="condition-item">
-                      <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
-                      <Input type="textarea" :value.sync="roleData.description"/>
-                    </div>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
+          <div class="terminal-info-box">
+            <el-row :gutter="20">
+              <el-col :span="8" :offset="2">
+                <el-form-item prop="name">
+                  <div class="condition-item">
+                    <label class="label-wrds"><span class="red-star">*</span> 角色名称：</label>
+                    <Input :value.sync="roleData.name"/>
+                  </div>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="18" :offset="2">
+                <el-form-item prop="description" class="textarea">
+                  <div class="condition-item">
+                    <label class="label-wrds"><span class="red-star">*</span> 角色说明：</label>
+                    <Input type="textarea" :value.sync="roleData.description"/>
+                  </div>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </div>
         </div>
         <div class="foot-btn">
           <el-form-item>
@@ -66,12 +66,12 @@
         },
         rules: {
           name: [
-            { required: true, message: '角色名称不能为空', trigger: 'blur' },
-            { min: 1, max: 200, message: '长度不能超过200个字符', trigger: 'change' }
+            {required: true, message: '角色名称不能为空', trigger: 'blur'},
+            {min: 1, max: 200, message: '长度不能超过200个字符', trigger: 'change'}
           ],
           description: [
-            { required: true, message: '角色说明不能为空', trigger: 'blur' },
-            { min: 1, max: 250, message: '长度不能超过250个字符', trigger: 'change' }
+            {required: true, message: '角色说明不能为空', trigger: 'blur'},
+            {min: 1, max: 250, message: '长度不能超过250个字符', trigger: 'change'}
           ]
         },
       }
@@ -86,7 +86,7 @@
               name: this.roleData.name,
               description: this.roleData.description
             }).then((rsp) => {
-              if(rsp.resultCode == '0'){
+              if (rsp.resultCode === '0') {
                 this.$msgBox({
                   type: 'success',
                   title: '操作提示',
@@ -96,7 +96,7 @@
                     path: '/orderManage/roleManage'
                   });
                 });
-              }else{
+              } else {
                 this.$msgBox({
                   type: 'error',
                   title: '操作提示',
@@ -166,11 +166,11 @@
     }
 
     /*表单验证*/
-    .el-form-item{
+    .el-form-item {
       margin-bottom: 0;
       margin-left: -100px;
     }
-    .el-form-item__content{
+    .el-form-item__content {
       line-height: 24px;
     }
     .el-form-item__error {
@@ -179,9 +179,9 @@
       top: 42px;
       left: 114px;
     }
-    .el-form-item{
-      &.textarea{
-        .el-form-item__error{
+    .el-form-item {
+      &.textarea {
+        .el-form-item__error {
           top: 62px;
         }
       }

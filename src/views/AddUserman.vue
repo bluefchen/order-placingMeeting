@@ -310,7 +310,7 @@
                 linktelenumber: this.usermanData.linktelenumber,
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if (rsp.resultCode == '0') {
+                if (rsp.resultCode === '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -342,7 +342,7 @@
                 linktelenumber: _.get(this.usermanData, 'linktelenumber') || '',
                 remark: this.usermanData.remark,
               }).then((rsp) => {
-                if (rsp.resultCode == '0') {
+                if (rsp.resultCode === '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',

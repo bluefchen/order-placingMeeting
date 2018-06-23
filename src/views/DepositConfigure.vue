@@ -223,7 +223,7 @@
                 depositType: type,
                 depositProportion: this.depositInfoList.depositProportion,
               }).then((rsp) => {
-                if (rsp.resultCode == '0') {
+                if (rsp.resultCode === '0') {
                   this.$msgBox({
                     type: 'success',
                     title: '操作提示',
@@ -272,7 +272,7 @@
               depositType: type,
               opmRetailerDepositList: this.opmRetailerUpate
             }).then((rsp) => {
-              if (rsp.resultCode == '0') {
+              if (rsp.resultCode === '0') {
                 this.$msgBox({
                   type: 'success',
                   title: '操作提示',
