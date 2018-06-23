@@ -187,7 +187,7 @@
                         title: '操作提示',
                         content: '冻结成功'
                       }).catch(() => {
-                        this.queryUsermanSubmit(this.currentPage);
+                        this.queryUsermanSubmit();
                       });
                     } else {
                       this.$msgBox({
@@ -211,7 +211,7 @@
                         title: '操作提示',
                         content: '激活成功'
                       }).catch(() => {
-                        this.queryUsermanSubmit(this.currentPage);
+                        this.queryUsermanSubmit();
                       });
                     } else {
                       this.$msgBox({
@@ -235,7 +235,7 @@
                         title: '操作提示',
                         content: '删除成功'
                       }).catch(() => {
-                        this.queryUsermanSubmit(this.currentPage);
+                        this.queryUsermanSubmit();
                       });
                     } else {
                       this.$msgBox({

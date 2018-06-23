@@ -319,7 +319,7 @@
           }).catch(() => {
             // console.log('cancel');
           });
-          this.qrySupplierList(this.currentPage);
+          this.qrySupplierList();
         })
       },
       unfreezeSupplier(val) {
@@ -333,7 +333,7 @@
           }).catch(() => {
             // console.log('cancel');
           });
-          this.qrySupplierList(this.currentPage);
+          this.qrySupplierList();
         })
       },
       deleteSupplier(val, index) {
@@ -354,7 +354,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-            this.qrySupplierList(this.currentPage);
+            this.qrySupplierList();
           })
         }).catch(() => {
           // console.log('cancel');

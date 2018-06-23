@@ -319,7 +319,7 @@
           }).catch(() => {
             // console.log('cancel');
           });
-          this.qryRetailerList(this.currentPage);
+          this.qryRetailerList();
         })
       },
       unfreezeRetailer(val) {
@@ -333,7 +333,7 @@
           }).catch(() => {
             // console.log('cancel');
           });
-          this.qryRetailerList(this.currentPage);
+          this.qryRetailerList();
         })
       },
       deleteRetailer(val) {
@@ -347,7 +347,7 @@
           }).catch(() => {
             // console.log('cancel');
           });
-          this.qryRetailerList(this.currentPage);
+          this.qryRetailerList();
         })
       },
       addRetailer(title, val) {

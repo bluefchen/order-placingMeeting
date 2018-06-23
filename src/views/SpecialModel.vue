@@ -368,7 +368,7 @@
               }).catch(() => {
                 // console.log('cancel');
               });
-              this.queryOpmOfferAllotList(this.currentPage);
+              this.queryOpmOfferAllotList();
             } else {
               this.$msgBox({
                 type: 'error',

@@ -390,7 +390,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-            this.queryOfferList(this.currentPage);
+            this.queryOfferList();
           } else {
             this.$msgBox({
               type: 'error',
@@ -414,7 +414,7 @@
             }).catch(() => {
               // console.log('cancel');
             });
-            this.queryOfferList(this.currentPage);
+            this.queryOfferList();
           } else {
             this.$msgBox({
               type: 'error',
@@ -445,7 +445,7 @@
               }).catch(() => {
                 // console.log('cancel');
               });
-              this.queryOfferList(this.currentPage);
+              this.queryOfferList();
             } else {
               this.$msgBox({
                 type: 'error',
