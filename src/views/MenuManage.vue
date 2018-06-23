@@ -83,7 +83,6 @@
             }).then((rsp) => {
               sessionStorage.setItem('systemMenuAllList', JSON.stringify(rsp));
             });
-
             this.$msgBox({
               type: 'success',
               title: '操作提示',

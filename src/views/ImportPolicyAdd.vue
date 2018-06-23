@@ -48,19 +48,19 @@
       }
     },
     methods: {
-      uploadData(data) {
-        if (data.resultCode === '0') {
+      uploadData(rsp) {
+        if (rsp.resultCode === '0') {
           this.isShowSuccess = true;
         } else {
           this.$msgBox({
             type: 'error',
             title: '操作提示',
-            content: data.resultMsg
+            content: rsp.resultMsg
           }).catch(() => {
             // console.log('cancel');
           });
         }
-        console.log('导入文件返回的数据：', data);
+        console.log('导入文件返回的数据：', rsp);
       },
       jumpLink() {
         this.$router.push({path: '/order/policyManage'});

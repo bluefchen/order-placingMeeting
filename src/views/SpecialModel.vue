@@ -373,7 +373,7 @@
               this.$msgBox({
                 type: 'error',
                 title: '操作提示',
-                content: '机型删除失败'
+                content: rsp.resultMsg
               }).catch(() => {
                 // console.log('cancel');
               });

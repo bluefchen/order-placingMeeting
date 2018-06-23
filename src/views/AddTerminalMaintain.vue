@@ -877,7 +877,6 @@
                 type: 'success',
                 title: '操作提示',
                 content: '新增终端成功！'
-              }).then(() => {
               }).catch(() => {
                 this.$router.push({
                   path: '/orderManage/terminalMaintain'
@@ -887,7 +886,7 @@
               this.$msgBox({
                 type: 'error',
                 title: '操作提示',
-                content: '新增商品失败'
+                content: rsp.resultMsg
               }).catch(() => {
                 // console.log('cancel');
               });
@@ -931,7 +930,6 @@
                 type: 'success',
                 title: '操作提示',
                 content: '修改终端成功！'
-              }).then(() => {
               }).catch(() => {
                 this.$router.push({
                   path: '/orderManage/terminalMaintain'
@@ -941,7 +939,7 @@
               this.$msgBox({
                 type: 'error',
                 title: '操作提示',
-                content: '修改商品失败'
+                content: rsp.resultMsg
               }).catch(() => {
                 // console.log('cancel');
               });
@@ -1007,7 +1005,7 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.terminalMaintainInfo.offerPicList = this.offerPicList
+              this.terminalMaintainInfo.offerPicList = this.offerPicList;
               sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',
@@ -1056,7 +1054,7 @@
             'offerPic': this.uploadOfferPicList
           }).then((rsp) => {
             if (rsp.resultCode === '0') {
-              this.terminalMaintainInfo.offerPicList = this.offerPicList
+              this.terminalMaintainInfo.offerPicList = this.offerPicList;
               sessionStorage.setItem('offerCode', JSON.stringify(this.terminalMaintainInfo));
               this.$router.push({
                 path: '/orderManage/detailTerminalMaintain',

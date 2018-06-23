@@ -281,7 +281,6 @@
                   this.queryOpmDepositInfo();
                   this.editshow = true;
                 });
-
               } else {
                 this.$msgBox({
                   type: 'error',
