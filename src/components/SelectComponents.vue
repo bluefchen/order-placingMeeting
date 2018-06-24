@@ -188,7 +188,6 @@
 </script>
 
 <style lang="less">
-
   .popover-wrap {
     border: 1px solid #d6d6d6;
     background: #fff;

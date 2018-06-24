@@ -36,7 +36,6 @@
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -48,23 +47,10 @@
   export default {
     name: 'OrderManageIndex',
     created() {
-      this.user = JSON.parse(sessionStorage.getItem('user'));
-      if (!this.user) {
-        //默认只有当第一次用户登录跳转才会执行
-        this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
-          userId: this.$route.query.userId,
-          token: this.$route.query.token
-        }).then((rsp) => {
-          this.user = rsp;
-          this.queryOrderPlacingMeetingList();
-        });
-      } else {
-        this.queryOrderPlacingMeetingList();
-      }
+      this.queryOrderPlacingMeetingList();
     },
     data() {
       return {
-        user: null,
         tab: {
           tableHeader: [{
             label: '订购会编码',
@@ -222,7 +208,6 @@
       queryOrderPlacingMeetingList(curPage, pageSize) {
         this.currentPage = curPage || 1;
         this.$post('/orderPlacingMeetingController/queryOrderPlacingMeetingList', {
-          commonRegionId: _.get(this.user, 'postRoleId') === this.$global.postRoleId ? _.get(this.user, 'commonReginId') : '',
           opmName: this.orderQueryData.opmName,
           statusCd: this.orderQueryData.statusCd,
           pageSize: pageSize || 10,

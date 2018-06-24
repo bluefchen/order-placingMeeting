@@ -83,9 +83,7 @@
     width: 100%;
   }
 
-  .el-input--small .el-input__inner {
-    height: 28px;
-    line-height: 28px;
+  .el-input__inner {
     border-radius: 0;
   }
 

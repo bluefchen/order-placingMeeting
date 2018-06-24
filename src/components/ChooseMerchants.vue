@@ -473,5 +473,11 @@
     .el-table--small td, .el-table--small th {
       padding: 0;
     }
+    .el-input-group__append {
+      border-color: #f82134;
+      border-radius: 0;
+      background-color: #f82134;
+      color: #fff;
+    }
   }
 </style>
