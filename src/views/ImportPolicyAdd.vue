@@ -12,19 +12,11 @@
 
       <!-- 文件导入 -->
       <div class="box-1200">
-        <div class="file-import">
-          <UploadFile :url="url" :downloadUrl="downloadUrl" @callback="uploadData"/>
-        </div>
-        <div class="import-result-box" v-show="isShowSuccess">
-          <div class="success">
-            <p class="title">上传政策成功，等待集团审批！</p>
-            <p class="sub-title">您可到
-              <router-link class="btns" to="/order/policyManage">政策投入</router-link>
-              查看您制定的政策
-            </p>
-            <el-button size="small" type="success" @click="jumpLink">政策投入</el-button>
-          </div>
-        </div>
+        <Import :url="url" :downloadUrl="downloadUrl" :tableTitle="tableTitle" ref="importComponent"/>
+      </div>
+
+      <div class="bottom-btns">
+        <el-button type="success" @click="batchInsertOpmOffer">确定</el-button>
       </div>
     </div>
   </div>
@@ -32,43 +24,89 @@
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
-  import UploadFile from '@/components/UploadFile';
+  import Import from '@/components/Import';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
 
   export default {
     name: 'ImportModelAdd',
     created() {
+      this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
     },
     data() {
       return {
-        url: '/opmPolicyController/batchInsertOpmPolicy',
+        opMeetingInfo: null,
+        url: '/opmPolicyController/analyzeInsertOpmPolicy',
         downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmPolicy',
-        isShowSuccess: false,
-        uploadDone: false
+        tableTitle: [{
+          label: '政策编码',
+          prop: 'policyNo',
+          width: 200
+        }, {
+          label: '政策名称',
+          prop: 'policyName',
+          width: 200
+        }, {
+          label: '政策机型',
+          prop: 'policyTypeName',
+          width: 120
+        }, {
+          label: '政策制定日期',
+          prop: 'createDt',
+          width: 180
+        }, {
+          label: '制定人',
+          prop: 'partyName',
+          width: 120
+        }, {
+          label: '校验结果',
+          prop: 'isSuccess',
+          width: 100,
+          render: (h, params) => {
+            return h({
+              template: '<span class="state-icon" :class="data.row.isSuccess === \'Y\' ? \'ok\' : \'error\'"></span>',
+              data() {
+                return {
+                  data: params
+                }
+              }
+            });
+          }
+        }, {
+          label: '校验信息',
+          prop: 'resultMsg'
+        }]
       }
     },
     methods: {
-      uploadData(rsp) {
-        if (rsp.resultCode === '0') {
-          this.isShowSuccess = true;
-        } else {
+      batchInsertOpmOffer() {
+        let tableData = this.$refs.importComponent.tableData || [];
+        if (!tableData.length) {
           this.$msgBox({
-            type: 'error',
+            type: 'info',
             title: '操作提示',
-            content: rsp.resultMsg
+            content: '导入数据不能为空'
           }).catch(() => {
             // console.log('cancel');
           });
+          return;
         }
-        console.log('导入文件返回的数据：', rsp);
-      },
-      jumpLink() {
-        this.$router.push({path: '/order/policyManage'});
+        let tableDataIsSueccess = [];
+        _.each(tableData, (item) => {
+          if (item.isSuccess === 'Y') {
+            tableDataIsSueccess.push(item);
+          }
+        });
+        this.$post('/opmPolicyController/batchInsertOpmPolicy', {
+          opMeetingId: this.opMeetingInfo.opMeetingId,
+          policys: tableDataIsSueccess
+        }).then(rsp => {
+          this.$router.push({path: '/order/policyManage'});
+        })
       }
     },
     components: {
       Breadcrumb,
-      UploadFile,
+      Import,
       MiddleImgInfoSmall
     }
   }
@@ -81,41 +119,8 @@
     background-color: #f6f6f6;
   }
 
-  .file-import {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fcfcfc;
-    border: 1px solid #e8e8e8;
-  }
-
-  .import-result-box {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px 0 20px;
-    background: #f5fff8;
-    border: 1px solid #e4f0e7;
-
-    .success {
-      width: 330px;
-      margin: 0 auto;
-      padding: 10px 0 0 110px;
-      background: url(../assets/images/icon-success.png) no-repeat 0 0;
-      .title {
-        line-height: 35px;
-        color: #000;
-        font-size: 16px;
-      }
-      .sub-title {
-        margin-bottom: 15px;
-        color: #1e1e1e;
-        font-size: 12px;
-        a, a:hover, a:active {
-          margin: 0 2px;
-          color: #f82134;
-          font-size: 12px;
-          text-decoration: underline;
-        }
-      }
-    }
+  .bottom-btns {
+    margin: 20px 0;
+    text-align: center;
   }
 </style>

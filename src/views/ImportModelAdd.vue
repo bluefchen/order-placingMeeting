@@ -34,6 +34,7 @@
     },
     data() {
       return {
+        opMeetingInfo: null,
         url: '/orderPlacingMeetingController/analyzeInsertOpmOfferList',
         downloadUrl: this.$global.fileUrl + '/orderPlacingMeeting/commonCfgController/downloadModel?modelType=InsertOpmOffer',
         tableTitle: [{
