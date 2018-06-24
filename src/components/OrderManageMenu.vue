@@ -24,7 +24,7 @@
     name: 'OrderManageMenu',
     props: {
       menuList: {
-        type: Object
+        type: Array
       }
     },
     created() {

@@ -26,6 +26,7 @@
   import Breadcrumb from '@/components/Breadcrumb';
   import Import from '@/components/Import';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
+  import ButtonWithDialog from '@/components/ButtonWithDialog';
 
   export default {
     name: 'ImportModelAdd',
@@ -44,10 +45,17 @@
         }, {
           label: '政策名称',
           prop: 'policyName',
-          width: 200
+          render: (h, params) => {
+            return h(ButtonWithDialog, {
+              props: {
+                title: params.row.policyName,
+                data: params.row
+              }
+            });
+          }
         }, {
           label: '政策机型',
-          prop: 'policyTypeName',
+          prop: 'offers',
           width: 120
         }, {
           label: '政策制定日期',
@@ -117,7 +125,8 @@
     components: {
       Breadcrumb,
       Import,
-      MiddleImgInfoSmall
+      MiddleImgInfoSmall,
+      ButtonWithDialog
     }
   }
 </script>
