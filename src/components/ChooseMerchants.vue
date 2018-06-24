@@ -26,19 +26,12 @@
           <el-col :span="7">
             <div class="form-group">
               <label>{{title}}类型：</label>
-              <el-select v-if="isShowSupplierType" class="condition-select" v-model="orderQueryData.supplierType"
-                         placeholder="请选择" :clearable="true">
-                <el-option v-for="item in supplierTypeList" :key="item.value" :label="item.label"
-                           :value="item.value"></el-option>
-              </el-select>
-              <el-select v-else class="condition-select" v-model="orderQueryData.retailerType" placeholder="请选择"
-                         :clearable="true">
-                <el-option v-for="item in retailerTypeList" :key="item.value" :label="item.label"
-                           :value="item.value"></el-option>
-              </el-select>
+              <Select v-if="isShowSupplierType" class="condition-select" :value.sync="orderQueryData.supplierType" :options="supplierTypeList" :clearable="true"/>
+              <Select v-else class="condition-select" :value.sync="orderQueryData.retailerType" :options="retailerTypeList" :clearable="true"/>
             </div>
           </el-col>
           <el-col :span="10">
+
             <el-input placeholder="输入商户名称或编码搜索" v-model="searchInput" size="small">
               <el-button slot="append" @click="handleSearch()">查询</el-button>
             </el-input>
@@ -58,6 +51,8 @@
 
 <script>
   import DialogPopup from '@/components/DialogPopup';
+  import Input from '@/components/Input';
+  import Select from '@/components/Select';
   import AreaSelect from '@/components/AreaSelect';
   import Table from '@/components/Table';
   import Pagination from '@/components/Pagination';
@@ -326,6 +321,8 @@
     },
     components: {
       DialogPopup,
+      Input,
+      Select,
       AreaSelect,
       Table,
       Pagination
@@ -407,7 +404,7 @@
       margin-bottom: 10px;
     }
     .form-group {
-      border: 1px solid #d0d0d0;
+      border: 1px solid #dcdfe6;
       width: 100%;
       position: relative;
       label {
@@ -415,11 +412,11 @@
         left: 0;
         top: 0;
         width: 90px;
-        height: 27px;
-        line-height: 27px;
+        height: 28px;
+        line-height: 28px;
         text-align: center;
         background: #f8f8f8;
-        border-right: 1px solid #d0d0d0;
+        border-right: 1px solid #dcdfe6;
       }
       .condition-select {
         width: calc(100% - 91px);
@@ -445,8 +442,8 @@
     }
     .el-input-group--append .el-input__inner {
       border-radius: 0;
-      height: 29px;
-      line-height: 29px;
+      height: 30px;
+      line-height: 30px;
     }
     .v_pagination .el-pagination {
       margin-top: 10px;
