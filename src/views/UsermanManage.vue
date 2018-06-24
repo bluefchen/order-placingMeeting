@@ -92,7 +92,7 @@
           value: 1000,
           label: '有效'
         }, {
-          value: 1002,
+          value: 1001,
           label: '冻结'
         }, {
           value: 9999,
@@ -101,7 +101,7 @@
         usermanData: {
           codeOrPhone: '',
           userType: '',
-          statusCd: '',//1000 - 有效，1001 - 失效，1002 - 冻结，9999：密码错误锁定
+          statusCd: '',//1000 - 有效，1001 - 冻结，1002 - 失效，9999：密码错误锁定
           retailerId: '',
         },
         tableTitle: [{
@@ -157,7 +157,7 @@
           render: (h, params) => {
             return h({
               template: `<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1000'">冻结</el-button>
-              <el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1002' || usermanInfo.statusCd == '9999'">激活</el-button>
+              <el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1001' || usermanInfo.statusCd == '9999'">激活</el-button>
               <el-button type="text" @click="modifyUserman(usermanInfo)" :disabled="usermanInfo.statusCd != '1000'" class="delete-btn">修改</el-button>
               <el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>
               <el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>`,
@@ -362,7 +362,7 @@
           return;
         } else {
           _.map(this.selectionChangeList, function (item) {
-            if (item.statusCd == 1002) {
+            if (item.statusCd == 1001) {
               flag = true;
               return;
             }
