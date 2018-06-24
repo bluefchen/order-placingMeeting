@@ -140,7 +140,17 @@
           }
         });
         this.$post('/orderPlacingMeetingController/batchInsertOpmOffer', tableDataIsSueccess).then(rsp => {
-          this.$router.push({path: '/order/orderModel'});
+          if (rsp.resultCode === '0') {
+            this.$router.push({path: '/order/orderModel'});
+          } else {
+            this.$msgBox({
+              type: 'info',
+              title: '操作提示',
+              content: rsp.resultMsg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         })
       }
     },

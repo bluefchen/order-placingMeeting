@@ -142,7 +142,17 @@
           }
         });
         this.$post('/opmDepositController/batchInsertOpmDeposit', tableDataIsSueccess).then(rsp => {
-          this.$router.push({path: '/order/depositAddRecord'});
+          if (rsp.resultCode === '0') {
+            this.$router.push({path: '/order/depositAddRecord'});
+          } else {
+            this.$msgBox({
+              type: 'info',
+              title: '操作提示',
+              content: rsp.resultMsg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         })
       }
     },

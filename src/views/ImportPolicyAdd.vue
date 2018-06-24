@@ -100,7 +100,17 @@
           opMeetingId: this.opMeetingInfo.opMeetingId,
           policys: tableDataIsSueccess
         }).then(rsp => {
-          this.$router.push({path: '/order/policyManage'});
+          if (rsp.resultCode === '0') {
+            this.$router.push({path: '/order/policyManage'});
+          } else {
+            this.$msgBox({
+              type: 'info',
+              title: '操作提示',
+              content: rsp.resultMsg
+            }).catch(() => {
+              // console.log('cancel');
+            });
+          }
         })
       }
     },
