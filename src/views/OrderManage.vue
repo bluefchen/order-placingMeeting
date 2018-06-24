@@ -26,7 +26,7 @@
       this.user = JSON.parse(sessionStorage.getItem('user'));
       if (!this.user) {
         //默认只有当第一次用户登录跳转才会执行
-        this.$post(this.$global.fileUrl + '/orderPlacingMeeting/auth/loginInitialize', {
+        this.$post('/orderPlacingMeeting/auth/loginInitialize', {
           userId: this.$route.query.userId,
           token: this.$route.query.token
         }).then((rsp) => {
