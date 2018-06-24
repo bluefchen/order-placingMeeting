@@ -54,9 +54,9 @@
             });
           }
         }, {
-          label: '政策机型',
-          prop: 'offerNames',
-          width: 120
+          label: '政策类型',
+          prop: 'policyTypeName',
+          width: 100,
         }, {
           label: '政策制定日期',
           prop: 'createDt',

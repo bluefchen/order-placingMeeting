@@ -70,26 +70,22 @@
         }, {
           label: '政策类型',
           prop: 'policyTypeName',
-          width: 100,
-        }, {
-          label: '政策机型',
-          prop: 'offerNames',
-          width: 240,
+          width: 140,
         }, {
           label: '政策制定日期',
           prop: 'createDt',
-          width: 180,
+          width: 220,
         }, {
           label: '制定人',
           prop: 'partyName',
-          width: 120,
+          width: 160,
         }, {
           label: '政策状态',
           prop: 'statusCdName',
-          width: 120
+          width: 160
         }, {
           label: '操作',
-          width: 120,
+          width: 160,
           render: (h, params) => {
             return h({
               template: '<el-button type="text" @click="deleteItem(policyId)" class="delete-btn">删除</el-button>',
