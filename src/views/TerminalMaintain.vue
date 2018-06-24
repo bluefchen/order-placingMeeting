@@ -345,42 +345,70 @@
         this.selectTerminalList = val;
       },
       batchUpdateOffer() {
-        let selectUpdateList = [];
-        _.forEach(this.selectTerminalList, (item, index) => {
-          if (item.statusCd === '1002') {
-            selectUpdateList.push(item.offerId);
-          }
-        });
-        if (selectUpdateList.length) {
-          this.updateOffer(selectUpdateList);
-        } else {
+        let selectUnUpdateList = [],
+          flag = false;
+        if (!this.selectTerminalList.length) {
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请至少选择一项进行操作'
+            content: '请选择需要上架的终端'
           }).catch(() => {
             // console.log('cancel');
           });
+          return;
+        } else {
+          _.map(this.selectTerminalList, function (item) {
+            if (item.statusCd == 1001) {
+              flag = true;
+              return;
+            }
+            selectUnUpdateList.push(item.offerId);
+          })
         }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '已选终端列表中包含已上架终端'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+          return;
+        }
+        this.updateOffer(selectUnUpdateList);
       },
       batchUnUpdateOffer() {
-        let selectUnUpdateList = [];
-        _.forEach(this.selectTerminalList, (item, index) => {
-          if (item.statusCd === '1001') {
-            selectUnUpdateList.push(item.offerId);
-          }
-        });
-        if (selectUnUpdateList.length) {
-          this.unUpdateOffer(selectUnUpdateList);
-        } else {
+        let selectUnUpdateList = [],
+          flag = false;
+        if (!this.selectTerminalList.length) {
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请至少选择一项进行操作'
+            content: '请选择需要下架的终端'
           }).catch(() => {
             // console.log('cancel');
           });
+          return;
+        } else {
+          _.map(this.selectTerminalList, function (item) {
+            if (item.statusCd == 1002) {
+              flag = true;
+              return;
+            }
+            selectUnUpdateList.push(item.offerId);
+          })
         }
+        if (flag) {
+          this.$msgBox({
+            type: 'info',
+            title: '操作提示',
+            content: '已选终端列表中包含已下架终端'
+          }).catch(() => {
+            // console.log('cancel');
+          });
+          return;
+        }
+        this.unUpdateOffer(selectUnUpdateList);
       },
       updateOffer(val) {
         this.$post('/orderPlacingMeetingController/updateOfferGround', {
