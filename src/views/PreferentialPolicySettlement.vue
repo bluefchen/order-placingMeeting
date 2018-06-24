@@ -10,489 +10,487 @@
       </div>
     </div>
 
-    <!-- 搜索 -->
-    <div class="box-1200 search fn-clear">
-      <InputWithSelect class="fn-left" @search="search" :clearable="clearable"/>
-      <div class="fn-left category-more" @click="showMoreCondition">更多条件 <i v-show="isShowMoreCondition" class="iconfont">&#xe607;</i><i v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
-    </div>
-
-    <!-- 条件搜索 -->
-    <div class="box-1200 condition-search" v-show="isShowMoreCondition">
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <div class="condition-item">
-            <label class="label-wrds">订单号：</label>
-            <Input :value.sync="orderQueryData.opmOrderNo"/>
+    <div class="box-1200">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="省份+机型" name="first">
+          <div class="condition-search fn-clear">
+            <el-row :gutter="20">
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">省份：</label>
+                  <AreaSelect :clearable="true" :value.sync="commonRegionId"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端品牌：</label>
+                  <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                    :value.sync="provinceQuery.brandCd" :list="brandOptions" :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端型号：</label>
+                  <SelectComponents :disabled="!modelOptionsForProvince.length" :model="'letter'"
+                                    :placement="'bottom-end'"
+                                    :value.sync="provinceQuery.offerModelId" :list="modelOptionsForProvince"
+                                    :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <el-button size="small" type="success" @click="queryOpmPoilcyDepositListByProvince()">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
-        </el-col>
-        <el-col :span="7">
-          <div class="condition-item">
-            <label class="label-wrds">零售商名称：</label>
-            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+          <div class="tabs-list">
+            <div class="order-titl fn-clear">
+              <TitlePlate class="fn-left" title="优惠政策返利信息"/>
+            </div>
+            <div class="result-table">
+              <Table :tableTitle="tableTitle" :tableData="tableData"/>
+            </div>
+            <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
           </div>
-        </el-col>
-        <el-col :span="10">
-          <div class="condition-item">
-            <label class="label-wrds">订购起止日期：</label>
-            <DatePicker :value.sync="orderQueryData.dateValue" :clearable="true"/>
+        </el-tab-pane>
+        <el-tab-pane label="供货商+机型" name="second">
+          <div class="condition-search fn-clear">
+            <el-row :gutter="20">
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">供货商名称：</label>
+                  <ChooseMerchants title="供货商" @selectOptions="selectSupplier"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端品牌：</label>
+                  <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                    :value.sync="supplierQuery.brandCd" :list="brandOptions" :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端型号：</label>
+                  <SelectComponents :disabled="!modelOptionsForSupplier.length" :model="'letter'"
+                                    :placement="'bottom-end'"
+                                    :value.sync="supplierQuery.offerModelId" :list="modelOptionsForSupplier"
+                                    :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <el-button size="small" type="success" @click="queryOpmPoilcyDepositListBySupplier()">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <div class="condition-item">
-            <label class="label-wrds">付款状态：</label>
-            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
+          <div class="tabs-list">
+            <div class="order-titl fn-clear">
+              <TitlePlate class="fn-left" title="优惠政策返利信息"/>
+            </div>
+            <div class="result-table">
+              <Table :tableTitle="brandTableTitle" :tableData="brandTableData"/>
+            </div>
+            <Pagination :total="brandTotal" :pageSize="pageSize" :currentPage="brandCurrentPage"
+                        @pageChanged="brandPageChanged"/>
           </div>
-        </el-col>
-        <el-col :span="7">
-          <div class="condition-item">
-            <label class="label-wrds">供货商名称：</label>
-            <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
+        </el-tab-pane>
+        <el-tab-pane label="零售商+机型" name="third">
+          <div class="condition-search fn-clear">
+            <el-row :gutter="20">
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">零售商名称：</label>
+                  <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端品牌：</label>
+                  <SelectComponents :model="'letter'" :placement="'bottom-start'"
+                                    :value.sync="retailerQuery.brandCd" :list="brandOptions" :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <label class="label-wrds">终端型号：</label>
+                  <SelectComponents :disabled="!modelOptionsForRetailer.length" :model="'letter'"
+                                    :placement="'bottom-end'"
+                                    :value.sync="retailerQuery.offerModelId" :list="modelOptionsForRetailer"
+                                    :width="650"/>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="condition-item">
+                  <el-button size="small" type="success" @click="queryOpmPoilcyDepositListByRetailer()">查询</el-button>
+                </div>
+              </el-col>
+            </el-row>
           </div>
-        </el-col>
-      </el-row>
-    </div>
-
-    <div class="box-1200 tabs-list">
-      <div class="order-titl fn-clear">
-        <TitlePlate title="订单列表"/>
-      </div>
-
-      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="qryOpmOrderList" />
-      <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
+          <div class="tabs-list">
+            <div class="order-titl fn-clear">
+              <TitlePlate class="fn-left" title="优惠政策返利信息"/>
+            </div>
+            <div class="result-table">
+              <Table :tableTitle="businessTableTitle" :tableData="businessTableData"/>
+            </div>
+            <Pagination :total="busiTotal" :pageSize="pageSize" :currentPage="busiCurrentPage"
+                        @pageChanged="busiPageChanged"/>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
-
 </template>
 
 <script>
   import Breadcrumb from '@/components/Breadcrumb';
   import Input from '@/components/Input';
   import Select from '@/components/Select';
-  import DatePicker from '@/components/DatePicker';
-  import InputWithSelect from '@/components/InputWithSelect';
+  import SelectComponents from '@/components/SelectComponents';
   import TitlePlate from '@/components/TitlePlate';
   import Table from '@/components/Table';
-  import DeviceInfo from '@/components/DeviceInfo';
   import Pagination from '@/components/Pagination';
-  import ChooseMerchants from '@/components/ChooseMerchants';
-  import TableList from '@/components/TableList';
   import MiddleImgInfoSmall from '@/components/MiddleImgInfoSmall';
+  import AreaSelect from '@/components/AreaSelect';
+  import ChooseMerchants from '@/components/ChooseMerchants';
 
   export default {
     name: 'PreferentialPolicySettlement',
     created() {
       this.opMeetingInfo = JSON.parse(sessionStorage.getItem('opMeeting'));
-      this.queryOpmOrderSubmit();
+      this.$post('/orderPlacingMeetingController/queryOfferBrandList').then((rsp) => {
+        _.forEach(rsp, (item) => {
+          this.brandOptions.push({
+            value: item.brandCd,
+            label: item.brandName,
+            firstLetter: item.firstLetter
+          })
+        })
+      });
+      this.queryOpmPoilcyDepositListByProvince();
+      this.queryOpmPoilcyDepositListBySupplier();
+      this.queryOpmPoilcyDepositListByRetailer();
     },
     data() {
       return {
-        tab: {
-          tableHeader: [{
-            label: '订单号',
-            prop: 'opmOrderNo',
-            colSpan: 8,
-            render: (h, params) => {
-              return h({
-                template: '<p class="date-color"><b>订单号：{{data.row.opmOrderNo}}</b>【{{data.row.orderDt}}】</p>',
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          },{
-            label: '零售商',
-            prop: 'retailerName',
-            colSpan: 8,
-            render: (h, params) => {
-              return h({
-                template: `<p class="text-center">零售商：{{data.row.retailerName}}</p>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          },{
-            label: '供货商',
-            prop: 'supplierName',
-            colSpan: 8,
-            render: (h, params) => {
-              return h({
-                template: `<p class="text-right">供货商：{{data.row.supplierName}}</p>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          }],
-
-          tableTitle: [{
-            label: '终端名称',
-            prop: 'offerName',
-            colSpan: 6,
-            render: (h, params) => {
-              return h(DeviceInfo, {
-                props: {
-                  data: params.row,
-                }
-              });
-            }
-          }, {
-            label: '终端价格',
-            prop: 'salePrice',
-            colSpan: 3,
-            render: (h, params) => {
-              return h({
-                template: `<span><b>¥ {{(data.row.salePrice)}}</b></span>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          }, {
-            label: '订购数量',
-            prop: 'offerQty',
-            colSpan: 4,
-            render: (h, params) => {
-              return h({
-                template: `<span><b>{{(data.row.offerQty)}}</b></span>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          }, {
-            label: '总金额',
-            prop: 'amount',
-            colSpan: 4,
-            render: (h, params) => {
-              return h({
-                template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty).toFixed(2)}}</b></span>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          }, {
-            label: '优惠金额',
-            prop: 'discountAmount',
-            colSpan: 3,
-            render: (h, params) => {
-              return h({
-                template: `
-                <div class="discount red">
-                  <p><b>- ¥ {{data.row.discountAmount}}</b></p>
-                </div>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          },{
-            label: '应付金额',
-            prop: 'amountPay',
-            colSpan: 2,
-            render: (h, params) => {
-              return h({
-                template: `<span><b>¥ {{(data.row.salePrice * data.row.offerQty - data.row.discountAmount).toFixed(2)}}</b></span>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                }
-              })
-            }
-          }, {
-            label: '操作',
-            prop: 'operation',
-            colSpan: 2,
-            render: (h, params) => {
-              return h({
-                template: `<button class="updown-btn red" @click="orderdetail(data.row)">订单详情</button>`,
-                data: function () {
-                  return {
-                    data: params,
-                  }
-                },
-                methods: {
-                  orderdetail: (item) => {
-                    this.orderdetail(item)
-                  }
-                }
-              })
-            }
-          }]
-        },
-        paymentStatusList: [{ //付款状态列表
-          value: '1000',
-          label: '未交定金'
+        opMeetingInfo: null,
+        activeName: 'first',
+        tableTitle: [{
+          label: '省份',
+          prop: 'provinceName',
+          width: 160
         }, {
-          value: '1001',
-          label: '已交定金'
+          label: '终端品牌',
+          prop: 'brandName'
         }, {
-          value: '1002',
-          label: '已付款'
+          label: '终端型号',
+          prop: 'offerModelName'
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 160
+        }, {
+          label: 'B阶段优惠总金额',
+          prop: 'bDiscountAmount',
+          width: 160
+        }, {
+          label: '订购总数量',
+          prop: 'offerQty',
+          width: 160
+        }, {
+          label: '优惠总金额',
+          prop: 'discountAmount',
+          width: 160
         }],
-
-        qryOpmOrderList: [], //查询返回的数据
-        orderQueryData: {
-          isCentman: '',
-          offerNameOrCode: '',
-          opmOrderNo: '',
-          retailerId: '',
-          dateValue: [],
-          supplierId: '',
-          statusCd: ''
+        tableData: [],
+        brandTableTitle: [{
+          label: '供货商',
+          prop: 'supplierName',
+          width: 160
+        }, {
+          label: '终端品牌',
+          prop: 'brandName'
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName'
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 160
+        }, {
+          label: 'B阶段优惠总金额',
+          prop: 'bDiscountAmount',
+          width: 160
+        }, {
+          label: '订购总数量',
+          prop: 'offerQty',
+          width: 160
+        }, {
+          label: '优惠总金额',
+          prop: 'discountAmount',
+          width: 160
+        }],
+        brandTableData: [],
+        businessTableTitle: [{
+          label: '零售商',
+          prop: 'retailerName',
+          width: 160
+        }, {
+          label: '终端品牌',
+          prop: 'brandName'
+        }, {
+          label: '终端型号',
+          prop: 'offerModelName'
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 160
+        }, {
+          label: 'B阶段优惠总金额',
+          prop: 'bDiscountAmount',
+          width: 160
+        }, {
+          label: '订购总数量',
+          prop: 'offerQty',
+          width: 160
+        }, {
+          label: '优惠总金额',
+          prop: 'discountAmount',
+          width: 160
+        }],
+        businessTableData: [],
+        brandOptions: [],
+        modelOptionsForProvince: [],
+        modelOptionsForSupplier: [],
+        modelOptionsForRetailer: [],
+        provinceQuery: {
+          brandCd: '',
+          offerModelId: ''
         },
-        isShowMoreCondition: false, //是否显示更多条件
-        total: 0, //列表总数
+        supplierQuery: {
+          brandCd: '',
+          offerModelId: ''
+        },
+        retailerQuery: {
+          brandCd: '',
+          offerModelId: ''
+        },
+        commonRegionId: '',
+        retailerId: '',
+        supplierId: '',
         pageSize: 10, //每页展示条数
-        currentPage: 1 //当前页
+        total: 0, //列表总数
+        currentPage: 1, //当前页
+        brandTotal: 0,
+        brandCurrentPage: 1,
+        busiTotal: 0,
+        busiCurrentPage: 1
       }
     },
     methods: {
-      search(obj) {
-        this.orderQueryData.isCentman = obj.type;
-        this.orderQueryData.offerNameOrCode = obj.value;
-        this.queryOpmOrderSubmit();
+      selectSupplier(val) {
+        this.supplierId = val;
       },
-      showMoreCondition() {
-        this.isShowMoreCondition = !this.isShowMoreCondition;
+      selectRetailer(val) {
+        this.retailerId = val;
       },
-      queryOpmOrderSubmit(curPage, pageSize) {
+      //按省份+机型查询
+      queryOpmPoilcyDepositListByProvince(curPage, pageSize) {
         this.currentPage = curPage || 1;
-        this.$post('/opmOrderController/queryOpmOrderList', {
-          opMeetingId: this.opMeetingInfo.opMeetingId,
-          isCentman: this.orderQueryData.isCentman,
-          offerNameOrCode: this.orderQueryData.offerNameOrCode,
-          opmOrderNo: this.orderQueryData.opmOrderNo,
-          supplierId: this.orderQueryData.supplierId,
-          retailerId: this.orderQueryData.retailerId,
-          fromDate: this.orderQueryData.dateValue[0],
-          toDate: this.orderQueryData.dateValue[1],
-          paymentStatusCd: this.orderQueryData.statusCd,
-          pageSize: pageSize || 10,
-          curPage: curPage || 1
+        this.$post('/opmPolicyController/queryOpmPoilcyDepositList', {
+          'queryType': 1,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
+          'provinceCommonRegionId': this.commonRegionId, //省份ID
+          'supplierId': '', //供货商ID
+          'retailerId': '', //零售商ID
+          'offerBrandCd': this.provinceQuery.brandCd, //终端品牌
+          'offerModelId': this.provinceQuery.offerModelId, //终端型号
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
         }).then((rsp) => {
-          this.qryOpmOrderList = rsp.rows;
           this.total = rsp.totalSize;
-        })
-      },
-      orderdetail(item) {
-        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
-        this.$router.push({
-          path: '/order/orderdetail',
-          query: {
-            opmOrderId: item.opmOrderId
-          }
+          this.tableData = rsp.rows;
         });
       },
       pageChanged(curPage) {
-        this.queryOpmOrderSubmit(curPage);
+        this.queryOpmPoilcyDepositListByProvince(curPage);
       },
-      selectRetailer(val){
-        this.orderQueryData.retailerId = val;
+      //按购货商+机型查询
+      queryOpmPoilcyDepositListBySupplier(curPage, pageSize) {
+        this.brandCurrentPage = curPage || 1;
+        this.$post('/opmPolicyController/queryOpmPoilcyDepositList', {
+          'queryType': 2,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
+          'provinceCommonRegionId': '', //省份ID
+          'supplierId': this.supplierId, //供货商ID
+          'retailerId': '', //零售商ID
+          'offerBrandCd': this.supplierQuery.brandCd, //终端品牌
+          'offerModelId': this.supplierQuery.offerModelId, //终端型号
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
+        }).then((rsp) => {
+          this.brandTotal = rsp.totalSize;
+          this.brandTableData = rsp.rows;
+        });
       },
-      selectSupplier(val){
-        this.orderQueryData.supplierId = val;
+      brandPageChanged(curPage) {
+        this.queryOpmPoilcyDepositListBySupplier(curPage);
+      },
+      //按零售商+机型查询
+      queryOpmPoilcyDepositListByRetailer(curPage, pageSize) {
+        this.busiCurrentPage = curPage || 1;
+        this.$post('/opmPolicyController/queryOpmPoilcyDepositList', {
+          'queryType': 3,
+          'opMeetingId': this.opMeetingInfo.opMeetingId,
+          'provinceCommonRegionId': '', //省份ID
+          'supplierId': '', //供货商ID
+          'retailerId': this.retailerId, //零售商ID
+          'offerBrandCd': this.retailerQuery.brandCd, //终端品牌
+          'offerModelId': this.retailerQuery.offerModelId, //终端型号
+          'pageSize': pageSize || 10,
+          'curPage': curPage || 1
+        }).then((rsp) => {
+          this.busiTotal = rsp.totalSize;
+          this.businessTableData = rsp.rows;
+        });
+      },
+      busiPageChanged(curPage) {
+        this.queryOpmPoilcyDepositListByRetailer(curPage);
       }
+    },
+    watch: {
+      'provinceQuery.brandCd': function (newVal) {
+        this.modelOptionsForProvince = [];
+        this.provinceQuery.offerModelId = '';
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': newVal
+        }).then((rsp) => {
+          _.forEach(rsp, (item) => {
+            this.modelOptionsForProvince.push({
+              value: item.offerModelId,
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
+            })
+          });
+        });
+      },
+      'supplierQuery.brandCd': function (newVal) {
+        this.modelOptionsForSupplier = [];
+        this.supplierQuery.offerModelId = '';
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': newVal
+        }).then((rsp) => {
+          _.forEach(rsp, (item) => {
+            this.modelOptionsForSupplier.push({
+              value: item.offerModelId,
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
+            })
+          });
+        });
+      },
+      'retailerQuery.brandCd': function (newVal) {
+        this.modelOptionsForRetailer = [];
+        this.retailerQuery.offerModelId = '';
+        this.$post('/orderPlacingMeetingController/queryOfferModelList', {
+          'brandCd': newVal
+        }).then((rsp) => {
+          _.forEach(rsp, (item) => {
+            this.modelOptionsForRetailer.push({
+              value: item.offerModelId,
+              label: item.offerModelName,
+              firstLetter: item.firstLetter
+            })
+          });
+        });
+      },
     },
     components: {
       Breadcrumb,
       Input,
       Select,
-      DatePicker,
-      InputWithSelect,
+      SelectComponents,
       TitlePlate,
       Table,
-      DeviceInfo,
       Pagination,
-      ChooseMerchants,
-      TableList,
-      MiddleImgInfoSmall
+      MiddleImgInfoSmall,
+      AreaSelect,
+      ChooseMerchants
     }
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .prefer-policy-settle {
-      /* 条件搜索 */
-      .search {
-        margin: 10px auto;
+    .my-location {
+      height: 30px;
+      line-height: 30px;
+      background-color: #f6f6f6;
+    }
+
+    .tabs-list {
+      margin: 0 auto 20px;
+    }
+    .order-titl {
+      height: 28px;
+      margin: 15px 0 8px;
+      line-height: 28px;
+    }
+
+    .buttons .btns {
+      padding: 0 16px;
+      margin-left: 2px;
+      border: 0;
+      background-color: #fa0000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 28px;
+      cursor: pointer;
+    }
+    .buttons .btns:hover {
+      background-color: #e20606;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .el-tabs__nav-wrap {
+      height: 48px;
+    }
+    .el-tabs__item {
+      text-align: center;
+      font-size: 18px;
+      height: 48px;
+      line-height: 48px;
+      &.is-active {
+        color: #fa0000;
       }
-      .category-more {
-        height: 22px;
-        margin: 5px 0 0 20px;
-        padding: 0 5px;
-        line-height: 22px;
-        background-color: #fff;
-        border: 0;
-        color: #333;
-        text-decoration: none;
+      &:hover {
+        color: #fa0000;
         cursor: pointer;
       }
-      .category-more:active,
-      .category-more:focus,
-      .category-more:hover {
-        color: #f82134;
-      }
-      .category-more .iconfont {
-        font-size: 12px;
-      }
-      /* 条件搜索 */
-
-      .el-range-editor.el-input__inner {
-        height: 32px;
-      }
-      .el-date-editor .el-range__icon, .el-date-editor .el-range-separator, .el-date-editor .el-range__close-icon {
-        line-height: 26px;
-      }
-      .el-input__inner {
-        border-radius: 0;
-      }
-
-      .my-location {
-        height: 30px;
-        line-height: 30px;
-        background-color: #f6f6f6;
-      }
-
-      .tabs-list {
-        margin: 0 auto 20px;
-      }
-      .order-titl {
-        height: 28px;
-        margin: 15px 0 8px;
-        line-height: 28px;
-      }
-
-      .buttons .btns {
-        padding: 0 16px;
-        margin-left: 2px;
-        border: 0;
-        background-color: #fa0000;
-        color: #fff;
-        font-size: 12px;
-        border-radius: 3px;
-        line-height: 28px;
-        cursor: pointer;
-      }
-      .buttons .btns:hover {
-        background-color: #e20606;
-      }
-
-      .table thead tr {
-        height: 40px;
-        background-color: #efefef;
-        border: 1px solid #dcdcdc;
-        color: #131212;
-      }
-      .table tbody tr {
-        height: 90px;
-        border-bottom: 1px solid #dcdcdc;
-      }
-      .table thead tr th {
-        text-align: center;
-      }
-
-      .li-list {
-        margin-top: 16px;
-        border: 1px solid #e0e0e0;
-      }
-      .p-line {
-        height: 35px;
-        line-height: 35px;
-        background: #f8f8f8;
-        border-bottom: 1px solid #e0e0e0;
-        .date-color {
-          color: #807e7e;
-        }
-      ;
-        span {
-          width: calc(33% - 20px);
-          padding: 0 10px;
-          b {
-            margin-right: 15px;
-          }
-        ;
+      &:nth-child(3) {
+        position: relative;
+        &:after {
+          position: absolute;
+          content: '';
+          left: 0;
+          top: 50%;
+          height: 17px;
+          margin-top: -8px;
+          width: 100%;
+          border-left: 1px solid #e6e6e6;
+          border-right: 1px solid #e6e6e6;
         }
       }
-      .tabs dl {
-        height: 90px;
-
-      }
-      .tabs .dll {
-        line-height: 90px;
-        text-align: center;
-      }
-      .wid30 {
-        width: 30%;
-      }
-      .wid15 {
-        width: 15%;
-      }
-      .wid8 {
-        width: 8%;
-      }
-      .updown-btn {
-        padding: 2px 5px;
-        border: 0;
-        text-decoration: underline;
-      }
-      .updown-btn:hover {
-        border: 1px solid #f82134;
-        border-radius: 3px;
-        text-decoration: none;
-        cursor: pointer;
-      }
-      .updown-btn.green:hover {
-        border: 1px solid #46b02e;
-      }
-      .red {
-        color: #f82134;
-      }
-      .text-center {
-        text-align: center;
-      }
-      .text-right {
-        text-align: right;
-      }
-      .pd5 {
-        padding: 5px;
-      }
-      .p-line span {
-        color: #aaa;
-      }
-      .p-line span b {
-        color: #333;
-      }
-
-  }
-
-  .el-range-editor.is-active, .el-range-editor.is-active:hover {
-    border-color: #ff7a7a;
-  }
-
-  .el-date-table td.end-date span, .el-date-table td.start-date span {
-    background-color: #ff7a7a;
-  }
-
-  .el-date-table td.today span, .el-date-table td.available:hover {
-    color: #ff7a7a;
+    }
+    .el-tabs__active-bar {
+      background-color: #fa0000;
+    }
   }
 </style>

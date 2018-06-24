@@ -447,7 +447,6 @@
       height: 48px;
     }
     .el-tabs__item {
-      width: 100px;
       text-align: center;
       font-size: 18px;
       height: 48px;
