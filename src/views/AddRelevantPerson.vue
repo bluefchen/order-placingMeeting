@@ -140,6 +140,7 @@
           commonRegionId: _.get(this.relevantData, 'commonRegionId') || '',
           relaId: _.get(this.relevantData, 'relaId') || '',
           userType: _.get(this.relevantData, 'roleTypeCd') || '',
+          statusCd: '1000',
           pageSize: pageSize || 10,
           curPage: curPage || 1
         }).then((rsp) => {
