@@ -109,13 +109,16 @@
           }
         }, {
           label: '终端品牌',
-          prop: 'brandName'
+          prop: 'brandName',
+          width: 140
         }, {
           label: '终端型号',
-          prop: 'offerModelName'
+          prop: 'offerModelName',
+          width: 140
         }, {
           label: '终端价格',
           prop: 'salePrice',
+          width: 180,
           render: function (h, params) {
             return h({
               template: '<p>¥ {{salePrice}}</p>',
@@ -129,6 +132,7 @@
         }, {
           label: '终端状态',
           prop: 'statusCd',
+          width: 80,
           render: function (h, params) {
             return h({
               template: `<div>{{param.row.statusCd ==='1001' ? '上架' : '下架'}}</div>`,
