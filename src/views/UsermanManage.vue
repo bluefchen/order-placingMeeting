@@ -107,7 +107,7 @@
         tableTitle: [{
           label: '真实姓名',
           prop: 'name',
-          width: 126,
+          width: 200,
           render: (h, params) => {
             return h({
               template: '<div class="role-man"><i class="iconfont">&#xe604;</i><span>{{roleName}}</span></div>',
