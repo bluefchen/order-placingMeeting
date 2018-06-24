@@ -30,7 +30,7 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <SelectComponents :disabled="!modelOptions.length" :model="'letter'" :placement="'bottom-end'"
+                  <SelectComponents :model="'letter'" :placement="'bottom-end'"
                                     :value.sync="modelQueryData.offerModelId" :list="modelOptions" :width="650"/>
                 </div>
               </el-col>

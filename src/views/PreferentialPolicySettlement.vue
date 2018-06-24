@@ -31,7 +31,7 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <SelectComponents :disabled="!modelOptionsForProvince.length" :model="'letter'"
+                  <SelectComponents :model="'letter'"
                                     :placement="'bottom-end'"
                                     :value.sync="provinceQuery.offerModelId" :list="modelOptionsForProvince"
                                     :width="650"/>
@@ -73,7 +73,7 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <SelectComponents :disabled="!modelOptionsForSupplier.length" :model="'letter'"
+                  <SelectComponents :model="'letter'"
                                     :placement="'bottom-end'"
                                     :value.sync="supplierQuery.offerModelId" :list="modelOptionsForSupplier"
                                     :width="650"/>
@@ -116,7 +116,7 @@
               <el-col :span="6">
                 <div class="condition-item">
                   <label class="label-wrds">终端型号：</label>
-                  <SelectComponents :disabled="!modelOptionsForRetailer.length" :model="'letter'"
+                  <SelectComponents :model="'letter'"
                                     :placement="'bottom-end'"
                                     :value.sync="retailerQuery.offerModelId" :list="modelOptionsForRetailer"
                                     :width="650"/>

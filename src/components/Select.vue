@@ -7,6 +7,7 @@
     :multiple="multiple"
     :collapse-tags="collapseTags"
     :multiple-limit="multipleLimit"
+    :popper-class="popperClass"
     @change="onChange"
     v-model="copyValue">
     <el-option
@@ -55,6 +56,9 @@
       multipleLimit: {
         type: Number,
         default: 0
+      },
+      popperClass: {
+        type: String
       }
     },
     data() {

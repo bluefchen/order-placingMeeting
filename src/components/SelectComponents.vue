@@ -1,7 +1,7 @@
 <template>
   <div class="vue_select-components">
     <div class="el-popover-box">
-      <el-popover popper-class="popover-wrap" :placement="placement" :disabled="disabled" :width="width" height="200"
+      <el-popover popper-class="popover-wrap" :placement="placement" :width="width" height="200"
                   trigger="click"
                   v-model="visible">
         <div class="popover-box" v-show="model === 'letter' || model === 'single'">
@@ -52,11 +52,11 @@
             <button class="btn-cancel" @click="visible = false">取消</button>
           </div>
         </div>
-        <Select :class="{'disabled-select': disabled}" :disabled="true" v-if="model === 'letter' || model === 'single'"
-                :value.sync="copyValue" :clearable="true" slot="reference" :options="list"/>
-        <Select :disabled="true" v-if="model === 'multi'" :value.sync="copyValue" slot="reference"/>
+        <Select v-if="model === 'letter' || model === 'single'"
+                :value.sync="copyValue" :clearable="true" :options="list" popperClass="hide" slot="reference"/>
+        <Select v-if="model === 'multi'"
+                :value.sync="copyValue" :clearable="true" :options="list" popperClass="hide" slot="reference"/>
       </el-popover>
-      <div :class="{'hide': disabled}" class="visible-hide" v-if="visible"></div>
     </div>
   </div>
 </template>
@@ -86,10 +86,6 @@
       list: {
         type: Array,
         require: true
-      },
-      disabled: {
-        type: Boolean,
-        require: true
       }
     },
     created() {
@@ -102,7 +98,6 @@
               this.checkedPopoverTextList.push(item);
             }
           })
-
         })
       }
     },
@@ -159,10 +154,6 @@
         this.firstLetter = null;
       }
     },
-    components: {
-      Input,
-      Select
-    },
     watch: {
       'value': function (val) {
         this.copyValue = val;
@@ -176,83 +167,30 @@
                 this.checkedPopoverTextList.push(item);
               }
             })
-
           })
         }
       },
-      'disabled': function (val) {
-        this.visible = false;
+      'copyValue': function (val) {
+        this.$emit('update:value', val);
       }
     },
+    components: {
+      Input,
+      Select
+    }
   }
 </script>
 
 <style lang="less">
+  .hide {
+    display: none;
+  }
+
   .popover-wrap {
     border: 1px solid #d6d6d6;
     background: #fff;
     border-radius: 0;
     padding: 0;
-  }
-
-  .vue_select-components {
-    .hide {
-      display: none;
-    }
-    .el-popover-box {
-      height: 30px;
-      line-height: 30px;
-      cursor: pointer;
-      .visible-hide {
-        background: #000;
-        opacity: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        position: fixed;
-        left: 0;
-        top: 0;
-      }
-    }
-    .disabled-select .el-input.is-disabled .el-input__inner {
-      background: #f9f9f9;
-    }
-    .el-select .el-input.is-disabled .el-input__inner, .el-input.is-disabled .el-input__icon, .el-input.is-disabled .el-input__inner {
-      width: 100%;
-      cursor: pointer;
-    }
-    .el-input.is-disabled .el-input__inner {
-      background: #fff;
-      color: #606266;
-    }
-    .el-select {
-      .el-input {
-        position: relative;
-        &:after {
-          font-family: 'iconfont';
-          content: '\e608';
-          position: absolute;
-          right: 10px;
-          top: 2px;
-          font-weight: normal;
-          color: #ccc;
-        }
-      }
-      .el-input__suffix {
-        width: 100%;
-        text-align: right;
-        .el-input__icon {
-          text-align: right;
-          position: relative;
-        }
-        .el-input__icon:before {
-          content: '';
-          position: absolute;
-          right: 0;
-          top: 0;
-        }
-      }
-    }
   }
 
   .popover-box {
@@ -385,7 +323,6 @@
             color: #fff;
             border: 1px solid #f01919;
           }
-        ;
           &.checked {
             background: #f01919;
             color: #fff;
@@ -398,6 +335,4 @@
       }
     }
   }
-
-
 </style>
