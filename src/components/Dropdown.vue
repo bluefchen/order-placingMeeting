@@ -40,7 +40,7 @@
     methods: {
       handleCommand: function (command) {
         if (command === 'logout') {
-          this.$post('/orderPlacingMeeting/auth/logOut', {
+          this.$post('/auth/logOut', {
             userId: _.get(this.user, 'partyId'),
             token: _.get(this.user, 'token')
           }).then(() => {
