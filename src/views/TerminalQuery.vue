@@ -66,7 +66,7 @@
       <div class="order-titl fn-clear">
         <TitlePlate class="fn-left" title="终端列表"/>
       </div>
-      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="tab.tableData" />
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="tab.tableData"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -333,13 +333,8 @@
         this.queryOpMeetingOfferList(curPage);
       },
       editDeliveryData(item) {
-        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
-        this.$router.push({
-          path: '/orderManage/detailTerminalMaintain',
-          query: {
-            opmOrderId: item.opmOrderId
-          }
-        });
+        sessionStorage.setItem('offerCode', JSON.stringify(item));
+        this.$router.push({path: '/orderManage/detailTerminalMaintain'});
       }
     },
     components: {

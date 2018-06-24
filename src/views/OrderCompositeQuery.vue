@@ -12,8 +12,9 @@
     <!-- 搜索 -->
     <div class="box-1200 search fn-clear">
       <InputWithSelect class="fn-left" @search="search" :clearable="true"/>
-      <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i v-show="isShowMoreCondition"
-                                                                            class="iconfont">&#xe607;</i><i
+      <div class="fn-left category-more" @click="isShowMoreCondition = !isShowMoreCondition">更多条件 <i
+        v-show="isShowMoreCondition"
+        class="iconfont">&#xe607;</i><i
         v-show="!isShowMoreCondition" class="iconfont">&#xe608;</i></div>
     </div>
 
@@ -29,7 +30,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">零售商名称：</label>
-            <ChooseMerchants title="零售商" @selectOptions="selectRetailer" />
+            <ChooseMerchants title="零售商" @selectOptions="selectRetailer"/>
           </div>
         </el-col>
         <el-col :span="10">
@@ -49,7 +50,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">供货商名称：</label>
-            <ChooseMerchants title="供货商" @selectOptions="selectSupplier" />
+            <ChooseMerchants title="供货商" @selectOptions="selectSupplier"/>
           </div>
         </el-col>
       </el-row>
@@ -62,7 +63,7 @@
           <button class="btns" @click="exportOpmOrder"><i class="iconfont">&#xe654;</i> 导出</button>
         </div>
       </div>
-      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="qryOpmOrderList" />
+      <TableList :tableTitle="tab.tableTitle" :tableHeader="tab.tableHeader" :tableData="qryOpmOrderList"/>
       <Pagination :total="total" :pageSize="pageSize" :currentPage="currentPage" @pageChanged="pageChanged"/>
     </div>
   </div>
@@ -105,7 +106,7 @@
                 }
               })
             }
-          },{
+          }, {
             label: '零售商',
             prop: 'retailerName',
             colSpan: 8,
@@ -119,7 +120,7 @@
                 }
               })
             }
-          },{
+          }, {
             label: '供货商',
             prop: 'supplierName',
             colSpan: 8,
@@ -268,11 +269,11 @@
         this.orderQueryData.offerNameOrCode = obj.value;
         this.queryOpmOrderSubmit();
       },
-      selectRetailer(val){
-          this.orderQueryData.retailerId = val;
+      selectRetailer(val) {
+        this.orderQueryData.retailerId = val;
       },
-      selectSupplier(val){
-          this.orderQueryData.supplierId = val;
+      selectSupplier(val) {
+        this.orderQueryData.supplierId = val;
       },
       queryOpmOrderSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
@@ -294,13 +295,8 @@
         })
       },
       orderdetail(item) {
-        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
-        this.$router.push({
-          path: '/order/orderdetail',
-          query: {
-            opmOrderId: item.opmOrderId
-          }
-        });
+        sessionStorage.setItem('orderDetail', JSON.stringify(item));
+        this.$router.push({path: '/order/orderdetail'});
       },
       exportOpmOrder() {
         location.href = this.$global.fileUrl + '/orderPlacingMeeting/opmOrderController/exportOpmOrderList?opMeetingId=' + this.opMeetingInfo.opMeetingId + '&isCentman=' + this.orderQueryData.isCentman + '&offerNameOrCode=' + this.orderQueryData.offerNameOrCode + '&opmOrderNo=' + this.orderQueryData.opmOrderNo + '&supplierId=' + this.orderQueryData.supplierId + '&retailerId=' + this.orderQueryData.retailerId + '&fromDate=' + (this.orderQueryData.dateValue[0] ? this.orderQueryData.dateValue[0] : '') + '&toDate=' + (this.orderQueryData.dateValue[0] ? this.orderQueryData.dateValue[1] : '') + '&statusCd=' + this.orderQueryData.statusCd;

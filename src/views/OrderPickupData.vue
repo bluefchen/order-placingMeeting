@@ -215,13 +215,8 @@
         })
       },
       editDeliveryData(item) {
-        sessionStorage.setItem(item.opmOrderId, JSON.stringify(item));
-        this.$router.push({
-          path: '/order/orderPickupGoodsConfirm',
-          query: {
-            opmOrderId: item.opmOrderId
-          }
-        });
+        sessionStorage.setItem('opmOrder', JSON.stringify(item));
+        this.$router.push({path: '/order/orderPickupGoodsConfirm'});
       },
       pageChanged(curPage) {
         this.qryOpmOrderPickupRecordList(curPage);
