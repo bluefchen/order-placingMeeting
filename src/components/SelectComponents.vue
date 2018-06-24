@@ -52,10 +52,8 @@
             <button class="btn-cancel" @click="visible = false">取消</button>
           </div>
         </div>
-        <Select v-if="model === 'letter' || model === 'single'"
-                :value.sync="copyValue" :clearable="true" :options="list" popperClass="hide" slot="reference"/>
-        <Select v-if="model === 'multi'"
-                :value.sync="copyValue" :clearable="true" :options="list" popperClass="hide" slot="reference"/>
+        <Select v-if="model === 'letter' || model === 'single'" :value.sync="copyValue" :options="list" popperClass="hide" slot="reference"/>
+        <Select v-if="model === 'multi'" :value.sync="copyValue" :clearable="false" :options="list" popperClass="hide" slot="reference"/>
       </el-popover>
     </div>
   </div>

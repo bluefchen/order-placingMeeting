@@ -21,7 +21,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户类型：</label>
-            <Select :value.sync="usermanData.userType" :options="usermanList" :clearable="true"/>
+            <Select :value.sync="usermanData.userType" :options="usermanList"/>
           </div>
         </el-col>
         <el-col :span="8">
@@ -41,7 +41,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">用户状态：</label>
-            <Select :value.sync="usermanData.statusCd" :options="statusList" :clearable="true"/>
+            <Select :value.sync="usermanData.statusCd" :options="statusList"/>
           </div>
         </el-col>
       </el-row>

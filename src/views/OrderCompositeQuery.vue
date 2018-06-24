@@ -43,7 +43,7 @@
         <el-col :span="7">
           <div class="condition-item">
             <label class="label-wrds">付款状态：</label>
-            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList" :clearable="true"/>
+            <Select :value.sync="orderQueryData.statusCd" :options="paymentStatusList"/>
           </div>
         </el-col>
         <el-col :span="7">

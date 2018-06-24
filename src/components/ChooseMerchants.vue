@@ -26,8 +26,8 @@
           <el-col :span="7">
             <div class="form-group">
               <label>{{title}}类型：</label>
-              <Select v-if="isShowSupplierType" class="condition-select" :value.sync="orderQueryData.supplierType" :options="supplierTypeList" :clearable="true"/>
-              <Select v-else class="condition-select" :value.sync="orderQueryData.retailerType" :options="retailerTypeList" :clearable="true"/>
+              <Select v-if="isShowSupplierType" class="condition-select" :value.sync="orderQueryData.supplierType" :options="supplierTypeList"/>
+              <Select v-else class="condition-select" :value.sync="orderQueryData.retailerType" :options="retailerTypeList"/>
             </div>
           </el-col>
           <el-col :span="10">

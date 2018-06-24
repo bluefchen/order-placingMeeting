@@ -22,7 +22,7 @@
         <el-col :span="8">
           <div class="condition-item">
             <label class="label-wrds">产品类型：</label>
-            <Select :clearable="true" :value.sync="isCentman" :options="isCentmanList"/>
+            <Select :value.sync="isCentman" :options="isCentmanList"/>
           </div>
         </el-col>
         <el-col :span="8">
