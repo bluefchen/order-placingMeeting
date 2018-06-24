@@ -464,7 +464,7 @@
           title: '操作提示',
           isShowConfimrBtn: true,
           cancelBtnText: '取消',
-          content: '确定要删除该产品吗？'
+          content: '确定要删除该终端吗？'
         }).then(() => {
           this.$post('/orderPlacingMeetingController/deleteOffer', {
             offerId: val
