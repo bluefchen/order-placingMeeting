@@ -369,7 +369,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '已选终端列表中包含已上架终端'
+            content: '你选择的终端不能进行批量上架，请检查你选择的终端状态是否正确。'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -402,7 +402,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '已选终端列表中包含已下架终端'
+            content: '你选择的终端不能进行批量下架，请检查你选择的终端状态是否正确。'
           }).catch(() => {
             // console.log('cancel');
           });

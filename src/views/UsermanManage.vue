@@ -319,7 +319,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '已选用户列表中包含已激活用户'
+            content: '你选择的用户不能进行批量激活，请检查你选择的用户状态是否正确。'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -373,7 +373,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '已选用户列表中包含已冻结用户'
+            content: '你选择的用户不能进行批量冻结，请检查你选择的用户状态是否正确。'
           }).catch(() => {
             // console.log('cancel');
           });
