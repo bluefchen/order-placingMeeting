@@ -159,7 +159,7 @@
               template: `<div><el-button type="text" @click="freezeUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1000'">冻结</el-button>
               <el-button type="text" @click="activateUserman(usermanInfo)" class="delete-btn" v-if="usermanInfo.statusCd == '1002' || usermanInfo.statusCd == '9999'">激活</el-button>
               <el-button type="text" @click="modifyUserman(usermanInfo)" :disabled="usermanInfo.statusCd != '1000'" class="delete-btn">修改</el-button>
-              <el-button type="text" @click="deleteUserman(usermanInfo)" :disabled="usermanInfo.statusCd != '1000'" class="delete-btn">删除</el-button>
+              <el-button type="text" @click="deleteUserman(usermanInfo)" class="delete-btn">删除</el-button>
               <el-button type="text" @click="usermanDetail(usermanInfo)" class="delete-btn">详情</el-button></div>`,
               data() {
                 return {
@@ -319,7 +319,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要激活的有效用户'
+            content: '已选用户列表中包含已激活用户'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -362,7 +362,7 @@
           return;
         } else {
           _.map(this.selectionChangeList, function (item) {
-            if (item.statusCd != 1000) {
+            if (item.statusCd == 1002) {
               flag = true;
               return;
             }
@@ -373,7 +373,7 @@
           this.$msgBox({
             type: 'info',
             title: '操作提示',
-            content: '请选择需要冻结的有效用户'
+            content: '已选用户列表中包含已冻结用户'
           }).catch(() => {
             // console.log('cancel');
           });
@@ -403,8 +403,7 @@
       },
       //批量删除
       batchDeleteUserman() {
-        let partyIds = [],
-          flag = false;
+        let partyIds = [];
         if (!this.selectionChangeList.length) {
           this.$msgBox({
             type: 'info',
@@ -416,44 +415,30 @@
           return;
         } else {
           _.map(this.selectionChangeList, function (item) {
-            if (item.statusCd != 1000) {
-              flag = true;
-              return;
-            }
             partyIds.push(item.partyId);
+          });
+          this.$post('/systemUserController/deleteSystemUser', {
+            partyIds: partyIds,
+          }).then((rsp) => {
+            if (rsp.resultCode === '0') {
+              this.$msgBox({
+                type: 'success',
+                title: '操作提示',
+                content: '删除成功'
+              }).catch(() => {
+                this.queryUsermanSubmit();
+              });
+            } else {
+              this.$msgBox({
+                type: 'error',
+                title: '操作提示',
+                content: rsp.resultMsg
+              }).catch(() => {
+                // console.log('cancel');
+              });
+            }
           })
         }
-        if (flag) {
-          this.$msgBox({
-            type: 'info',
-            title: '操作提示',
-            content: '请选择需要删除的有效用户'
-          }).catch(() => {
-            // console.log('cancel');
-          });
-          return;
-        }
-        this.$post('/systemUserController/deleteSystemUser', {
-          partyIds: partyIds,
-        }).then((rsp) => {
-          if (rsp.resultCode === '0') {
-            this.$msgBox({
-              type: 'success',
-              title: '操作提示',
-              content: '删除成功'
-            }).catch(() => {
-              this.queryUsermanSubmit();
-            });
-          } else {
-            this.$msgBox({
-              type: 'error',
-              title: '操作提示',
-              content: rsp.resultMsg
-            }).catch(() => {
-              // console.log('cancel');
-            });
-          }
-        })
       },
       queryUsermanSubmit(curPage, pageSize) {
         this.currentPage = curPage || 1;
