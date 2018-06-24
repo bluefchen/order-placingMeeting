@@ -22,6 +22,24 @@
           </div>
           <div class="cnt-wrds fn-right">
             <div v-html="opMeetingInfo.discription"></div>
+            <div class="infomation">
+              <el-row>
+                <el-col :span="4" style="text-align: right;"><strong>订货会时间：</strong></el-col>
+                <el-col :span="8">{{opMeetingInfo.startDt}} 至 {{opMeetingInfo.endDt}}</el-col>
+                <el-col :span="4" style="text-align: right;"><strong>订货会地址：</strong></el-col>
+                <el-col :span="8">{{opMeetingInfo.commonRegionName}}{{opMeetingInfo.opmAddr}}</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="4" style="text-align: right;"><strong>提货上报时间：</strong></el-col>
+                <el-col :span="8">{{opMeetingInfo.pickupRecordEnddt}}</el-col>
+                <el-col :span="4" style="text-align: right;"><strong>定金补录截止时间：</strong></el-col>
+                <el-col :span="8">{{opMeetingInfo.depositRecordEnddt}}</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="4" style="text-align: right;"><strong>订货会定金配置：</strong></el-col>
+                <el-col :span="8">{{opMeetingInfo.depositTypeName || '--'}}</el-col>
+              </el-row>
+            </div>
           </div>
         </div>
       </div>
@@ -244,22 +262,31 @@
       width: 1200px;
       margin: 16px auto;
     }
-    .cnt-info .cnt-img{
+    .cnt-info .cnt-img {
       width: 278px;
       height: 246px;
       border: 1px solid #ccc;
       text-align: center;
       overflow: hidden;
-      img{
+      img {
         width: 278px;
         height: 246px;
       }
     }
-    .cnt-info .cnt-wrds{
+    .cnt-info .cnt-wrds {
+      position: relative;
       width: 900px;
-      height: 246px;
-      line-height: 28px;
+      height: 180px;
+      padding-bottom: 66px;
       overflow-y: auto;
+      .infomation {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 66px;
+        line-height: 22px;
+      }
     }
     .red {
       color: #ff0404;
