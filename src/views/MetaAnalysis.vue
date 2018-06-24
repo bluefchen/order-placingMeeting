@@ -170,7 +170,7 @@
         tableTitle: [{
           label: '排名',
           prop: 'rank',
-          width: 160,
+          width: 120
         }, {
           label: '终端型号',
           prop: 'offerModelName'
@@ -178,38 +178,59 @@
           label: '终端品牌',
           prop: 'brandName'
         }, {
+          label: 'A阶段定购总数量',
+          prop: 'aOfferQty',
+          width: 160
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 160
+        }, {
           label: '订购量',
-          prop: 'offerQty'
+          prop: 'offerQty',
+          width: 160
         }, {
           label: '提货量',
-          prop: 'pickupGoodsAmount'
+          prop: 'pickupGoodsAmount',
+          width: 160
         }],
         tableData: [],
         brandTableTitle: [{
           label: '排名',
           prop: 'rank',
-          width: 160,
+          width: 120,
         }, {
           label: '终端品牌',
           prop: 'brandName'
         }, {
+          label: 'A阶段定购总数量',
+          prop: 'aOfferQty',
+          width: 200
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 200
+        }, {
           label: '订购量',
-          prop: 'offerQty'
+          prop: 'offerQty',
+          width: 200
         }, {
           label: '提货量',
-          prop: 'pickupGoodsAmount'
+          prop: 'pickupGoodsAmount',
+          width: 200
         }],
         brandTableData: [],
         BusinessTableTitle: [{
           label: '排名',
           prop: 'rank',
-          width: 160,
+          width: 120
         }, {
           label: '商户名称',
           prop: 'busiName'
         }, {
           label: '商户类型',
           prop: 'busiType',
+          width: 120,
           render: (h, params) => {
             return h({
               template: `<div>
@@ -226,11 +247,21 @@
             });
           }
         }, {
+          label: 'A阶段定购总数量',
+          prop: 'aOfferQty',
+          width: 180
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 180
+        }, {
           label: '订购量',
-          prop: 'offerQty'
+          prop: 'offerQty',
+          width: 180
         }, {
           label: '提货量',
-          prop: 'pickupGoodsAmount'
+          prop: 'pickupGoodsAmount',
+          width: 180
         }],
         BusinessTableData: [],
         brandOptions: [],

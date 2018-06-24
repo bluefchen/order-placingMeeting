@@ -63,11 +63,21 @@
           label: '省份',
           prop: 'commonRegionName'
         }, {
+          label: 'A阶段定购总数量',
+          prop: 'aOfferQty',
+          width: 250
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 250
+        }, {
           label: '定购数量',
-          prop: 'offerQty'
+          prop: 'offerQty',
+          width: 250
         }, {
           label: '订单提货数量',
-          prop: 'pickupGoodsAmount'
+          prop: 'pickupGoodsAmount',
+          width: 250
         }],
         tableData: [], //查询返回的数据
         total: 0, //列表总数

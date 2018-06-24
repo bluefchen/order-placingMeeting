@@ -112,7 +112,7 @@
         tableTitle: [{
           label: '省份',
           prop: 'commonRegionName',
-          width: 160
+          width: 120
         }, {
           label: '终端名称',
           prop: 'offerName',
@@ -120,7 +120,7 @@
         }, {
           label: '终端品牌',
           prop: 'brandName',
-          width: 160
+          width: 120
         }, {
           label: '终端型号',
           prop: 'offerModelName'
@@ -139,13 +139,21 @@
             });
           }
         }, {
+          label: 'A阶段定购总数量',
+          prop: 'aOfferQty',
+          width: 130
+        }, {
+          label: 'B阶段定购总数量',
+          prop: 'bOfferQty',
+          width: 130
+        }, {
           label: '定购总数量',
           prop: 'offerQty',
-          width: 160
+          width: 130
         }, {
           label: '提货总数量',
           prop: 'pickupGoodsAmount',
-          width: 160
+          width: 130
         }],
         tableData: [], //查询返回的数据
         total: 0, //列表总数
